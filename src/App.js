@@ -1,28 +1,58 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+import Header from './components/common/Header';
+import Footer from './components/common/Footer';
+import Routes from './components/routes/Routes';
+
+import './css/main.css';
+
+import authService from './services/auth/authService';
+
+
+class App extends React.Component {
+	constructor (props) {
+		super(props);
+	}
+
+	componentDidMount () {
+		this.loginAnonymousUser();
+	}
+
+	componentWillUnmount () {
+		authService
+			.logout()
+			.then(authService.clearSession());
+	}
+
+	loginAnonymousUser = () => {
+		let anonymousUser = {
+			username: 'anonymous',
+			password: '123456'
+		};
+
+		authService
+			.login(anonymousUser)
+			.then(res => {
+				authService.saveSession(res);
+			})
+			.catch(err => console.log(err));
+	};
+
+	render () {
+		return (
+
+            <div>
+              <Header/>
+
+              <main>
+                <Routes />
+              </main>
+
+              <Footer/>
+            </div>
+
+		);
+	}
 }
 
 export default App;
