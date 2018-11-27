@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import projectsService from '../../../services/projects/projectsService';
+import projectsService from '../../../../services/projects/projectsService';
+
+import Messages from '../../../common/Messages';
 
 class ProjectList extends React.Component {
 	constructor (props) {
@@ -24,7 +26,7 @@ class ProjectList extends React.Component {
 				this.setState({projects: res})
 			})
 			.catch(err => {
-				console.log(err);
+				this.messages.showMessage(err.responseJSON.description);
 			});
 	};
 
@@ -35,7 +37,7 @@ class ProjectList extends React.Component {
 				console.log(res);
 			})
 			.catch(err => {
-				console.log(err);
+				this.messages.showMessage(err.responseJSON.description);
 			});
 	};
 
@@ -43,12 +45,13 @@ class ProjectList extends React.Component {
 		let idOne = 2;
 
 		return (
-			<div id="projects">
+			<div id="projects" className="container">
+
+				<Messages onRef={ref => (this.messages = ref)}/>
+
 				<h1>These are my projects.</h1>
 				<Link to={'projects/' + idOne}>1</Link>
 				<Link to={'projects/' + 2}>2</Link>
-
-				<button onClick={this.addProject}>add project</button>
 			</div>
 		);
 	}

@@ -29,15 +29,38 @@ class Login extends React.Component {
 			return;
 		}
 
-		authService
-			.logout() // To logout anonymous user
-			.then(() => {
-				authService.login(this.state)
-					.then(res => {
-						authService.saveSession(res);
-						this.clearForm();
-						this.props.history.push('/');
-					});
+		if (password.trim() === '') {
+			this.messages.showMessage('invalid password');
+			return;
+		}
+
+		if (sessionStorage.getItem('authtoken')) {
+			authService
+				.logout() // To logout anonymous user
+				.then(() => {
+					authService.clearSession();
+					this.makeLoginRequest();
+				});
+
+			return
+		}
+
+		this.makeLoginRequest();
+
+	};
+
+	makeLoginRequest = () => {
+		authService.login(this.state)
+			.then(res => {
+				authService.saveSession(res);
+				this.clearForm();
+				this.messages.showMessage('logged in as: ' + res.username);
+				setTimeout(() => {
+					this.props.history.push('/');
+				}, 2000)
+			})
+			.catch(err => {
+				this.messages.showMessage(err.responseJSON.description);
 			});
 	};
 
@@ -77,7 +100,7 @@ class Login extends React.Component {
 						       onChange={this.handleChange}/>
 					</div>
 
-					<button type="submit"> Login</button>
+					<button className="btn btn-primary" type="submit"> Login</button>
 				</form>
 			</div>
 		);

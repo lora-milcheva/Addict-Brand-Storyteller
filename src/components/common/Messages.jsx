@@ -11,26 +11,26 @@ class Messages extends React.Component {
 		};
 	}
 
-
-	componentDidMount() {
-		this.props.onRef(this)
+	componentDidMount () {
+		this.props.onRef(this);
 	}
-	componentWillUnmount() {
-		this.props.onRef(undefined)
+
+	componentWillUnmount () {
+		this.props.onRef(undefined);
 	}
 
 	showMessage = (message) => {
 		this.setState({
 			visible: true,
 			message: message
-		})
+		});
 	};
 
 	hideMessage = () => {
 		this.setState({
 			visible: false,
 			message: ''
-		})
+		});
 	};
 
 	render () {
@@ -38,11 +38,13 @@ class Messages extends React.Component {
 		let isVisible = this.state.visible;
 
 		return (
-			<div id="messages" className={isVisible ? 'visible' : ''}>
+			<div id="messages"
+			     className={isVisible ? 'visible' : ''}
+			     onClick={this.hideMessage}>
 				<div className="message">
-					<p>{this.state.message}</p>
+					<p className="message-text">{this.state.message}</p>
 
-					<button onClick={this.hideMessage}>Close</button>
+					<button className="btn btn-primary" onClick={this.hideMessage}>Close</button>
 				</div>
 
 			</div>

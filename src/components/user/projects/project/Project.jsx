@@ -10,7 +10,7 @@ class Project extends React.Component {
 	render () {
 
 		return (
-			<div className="project">
+			<div id="project" className="container">
 				<p> This is a single project</p>
 			</div>
 		);

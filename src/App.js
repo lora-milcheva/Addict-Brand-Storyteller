@@ -1,10 +1,9 @@
 import React from 'react';
+import './css/main.css';
 
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import Routes from './components/routes/Routes';
-
-import './css/main.css';
 
 import authService from './services/auth/authService';
 
@@ -15,6 +14,7 @@ class App extends React.Component {
 	}
 
 	componentDidMount () {
+		authService.clearSession();
 		this.loginAnonymousUser();
 	}
 
@@ -35,7 +35,9 @@ class App extends React.Component {
 			.then(res => {
 				authService.saveSession(res);
 			})
-			.catch(err => console.log(err));
+			.catch(err => {
+				this.messages.showMessage(err.responseJSON.description);
+			});
 	};
 
 	render () {

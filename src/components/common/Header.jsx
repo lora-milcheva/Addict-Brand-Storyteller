@@ -11,10 +11,15 @@ class Header extends React.Component {
 	render () {
 
 		return (
-			<nav className="navbar navbar-default navbar-fixed-top" id="main-menu">
+			<nav id="main-nav">
 
-				Main Nav
-				<Link to="/home">Home</Link>
+				<NavLink to="/home" className="nav-link" activeClassName='active'>Home</NavLink>
+
+				<NavLink to="/projects" className="nav-link" activeClassName='active'>Projects</NavLink>
+
+				<NavLink to="/admin/project-create" className="nav-link" activeClassName='active'>Create Project</NavLink>
+
+				<NavLink to="/login" className="nav-link" activeClassName='active'>Login</NavLink>
 
 			</nav>
 		);

@@ -24,7 +24,7 @@ export default {
 	saveSession: (data) => {
 		sessionStorage.setItem('authtoken', data._kmd.authtoken);
 		sessionStorage.setItem('username', data.username);
-		if( data._kmd.roles !== undefined) {
+		if( data._kmd.roles.length > 0) {
 			sessionStorage.setItem('role', data._kmd.roles[0].roleId);
 		}
 	},
