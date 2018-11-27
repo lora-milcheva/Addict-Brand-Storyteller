@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 // Components
 import FormInput from '../../common/formComponents/FormInput';
 import AddImageForm from '../../common/formComponents/AddImageFrom';
@@ -21,7 +20,8 @@ class createProject extends React.Component {
 			year: '',
 			client: '',
 			images: [],
-			avatar: ''
+			avatar: '',
+			videos: [],
 		};
 	}
 
@@ -30,7 +30,7 @@ class createProject extends React.Component {
 	};
 
 	addProject = () => {
-		console.log( 222)
+
 		projectsService
 			.createProject(this.state)
 			.then(res => {
@@ -42,11 +42,31 @@ class createProject extends React.Component {
 	};
 
 	addImage = (url) => {
-
 		this.setState({images: [...this.state.images, url]}, () => console.log(this.state));
 	};
 
+	removeImage = (e) => {
+		e.preventDefault();
+		this.setState({images: this.state.images.filter(el => el !== e.target.name)});
+	}
+
+	addAvatar = (url) => {
+		this.setState({avatar: url}, () => console.log(this.state));
+	};
+
 	render () {
+
+		let images = this.state.images.map((image, index) => {
+			return (
+				<figure className="project-image" key={index}>
+					<img src={image} className="image" alt=""/>
+					<button className="btn xs btn-primary del-btn" name={image} onClick={this.removeImage}>clear</button>
+				</figure>);
+		});
+
+		let videos = this.state.videos.map((video, index) => {
+			return <iframe src={video} title="" className="video" key={index}/>;
+		});
 		return (
 			<div id="project-create" className="container">
 
@@ -96,10 +116,32 @@ class createProject extends React.Component {
 					           disabled={false}
 					           onChange={this.handleChange}/>
 
-					<AddImageForm label="Добави снимка"
-					              addImage={this.addImage}/>
 
-					<button className="btn btn-primary" type="submit"> Create </button>
+					<AddImageForm
+						buttonText="Добави аватар"
+						placeholder="Добави аватар"
+						addImage={this.addAvatar}/>
+
+					<AddImageForm
+						buttonText="Добави снимка"
+						placeholder="Добави снимка"
+						addImage={this.addImage}/>
+
+					<div className="project-pictures">
+						<h3 className="section-title">Project pictures</h3>
+						<div className="pictures-container">
+							{images}
+						</div>
+					</div>
+
+					<div className="project-videos">
+						<h3 className="section-title">Project videos</h3>
+						<div className="videos-container">
+							{videos}
+						</div>
+					</div>
+
+					<button className="btn btn-primary" type="submit"> Create</button>
 				</form>
 			</div>
 		);

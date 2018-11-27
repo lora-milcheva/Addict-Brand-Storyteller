@@ -186,6 +186,10 @@ body {
   margin: auto;
 }
 
+img{
+  width: 100%;
+}
+
 a {
   text-decoration: none;
 }
@@ -229,11 +233,13 @@ button {
   &.xs {
     padding: 3px 7px;
     border-radius: 2px;
+    font-size: .75em;
   }
 
   &.sm {
     padding: 5px 10px;
     border-radius: 3px;
+    font-size: .85em;
   }
 
   &.md {
@@ -350,5 +356,40 @@ button {
     &.active {
       background-color: $primary;
     }
+  }
+}
+
+
+//ADMIN
+#project-create{
+
+  .project-pictures {
+    @include flex;
+
+    .section-title {
+      flex-basis: 25%;
+      margin-right: 20px;
+    }
+
+    .pictures-container {
+      flex-basis: 75%;
+      @include flex;
+      @include flex-wrap(wrap);
+
+      .project-image {
+        position: relative;
+        flex-basis: 20%;
+        overflow: hidden;
+        margin: 0 1% 1% 0;
+
+        .del-btn {
+          position: absolute;
+          top: 8px;
+          right: 5px;
+        }
+      }
+    }
+
+
   }
 }

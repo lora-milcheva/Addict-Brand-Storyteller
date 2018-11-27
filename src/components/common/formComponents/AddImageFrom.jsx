@@ -27,12 +27,14 @@ class AddImageForm extends React.Component {
 	render () {
 		return (
 			<div className="form-group">
+				<label>{this.props.label}</label>
 				<input className="form-control-group"
 				       type="text"
+				       placeholder={this.props.placeholder}
 				       onChange={this.handleChange}
 				       value={this.state.image}>
 				</input>
-				<button className="btn md btn-primary add-on-btn" onClick={this.addImage}>Добави</button>
+				<button className="btn md btn-primary add-on-btn" onClick={this.addImage}>{this.props.buttonText}</button>
 			</div>
 		);
 	}
