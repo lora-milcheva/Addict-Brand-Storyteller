@@ -119,6 +119,14 @@ $header-height: 65px;
   flex-wrap: $value;
 }
 
+@mixin flex-grow($int: 1) {
+  -webkit-box-flex: $int;
+  -moz-box-flex: $int;
+  -webkit-flex-grow: $int;
+  -ms-flex: $int;
+  flex-grow: $int;
+}
+
 @mixin flex-flow($values: (row nowrap)) {
   // No Webkit/FF Box fallback.
   -webkit-flex-flow: $values;
@@ -177,6 +185,10 @@ body {
   font-size: 14px;
 }
 
+h1, h2, h3, h4, h5, h6, p {
+  margin: 1.2em 0 .9em 0;
+}
+
 .container-fluid {
   width: 100%;
 }
@@ -186,7 +198,7 @@ body {
   margin: auto;
 }
 
-img{
+img {
   width: 100%;
 }
 
@@ -254,30 +266,40 @@ button {
 }
 
 .form-group {
-  flex-basis: 45%;
-  flex-grow: 1;
+
+  $input-height: 50px;
+
+  width: 100%;
+  @include flex;
+  @include flex-wrap(wrap);
+  @include align-items(flex-end);
+  margin-right: 1%;
+
   padding: 10px 0;
-  text-align: left;
 
   label {
-    width: 150px;
-    color: $medium-grey;
-
-    &[for="message"] {
-      display: none;
-    }
+    @include flex-basis(100%);
+    margin-bottom: 15px;
+    color: $dark-grey;
   }
 
   .form-control {
-    width: 100%;
-    margin-top: 15px;
-    padding: 10px;
-    border: 0;
+    @include flex-basis(60%);
+    @include flex-grow(1);
+
+    height: $input-height;
+    padding: 10px 15px;
     outline: 0;
-    border-bottom: 1px solid $medium-grey;
+    border-radius: 5px;
+    border: 1px solid $medium-grey;
 
     @include main-transition;
     font-size: 1.2em;
+
+    &.add-on {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
 
     &::placeholder {
       font-family: Montserrat, sans-serif;
@@ -287,22 +309,16 @@ button {
 
     &:focus {
       border-color: $primary;
-      padding-left: 25px;
+      //padding-left: 25px;
     }
   }
 
-  .form-control-group {
-    width: 60%;
-    margin-top: 15px;
-    padding: 10px;
-
-    outline: 0;
-    border: 1px solid $medium-grey;
-  }
-
   .add-on-btn {
-    height: 100%;
-    //padding: inherit;
+    @include flex-basis(38%);
+    height: $input-height;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    font-size: 1em;
   }
 
   textarea {
@@ -359,37 +375,100 @@ button {
   }
 }
 
-
 //ADMIN
-#project-create{
+#project-create {
 
-  .project-pictures {
+  @include flex;
+  @include flex-wrap(wrap);
+
+  .page-title {
+    @include flex-basis(100%);
+  }
+
+  #project-form {
+
+    @include flex-basis(60%);
+
     @include flex;
+    @include flex-wrap(wrap);
 
-    .section-title {
-      flex-basis: 25%;
-      margin-right: 20px;
+
+    .add-avatar-field {
+      //@include flex-basis(50%)
     }
 
-    .pictures-container {
-      flex-basis: 75%;
+    .name-field {
+      @include flex-basis(100%)
+    }
+
+    .year-field {
+      @include flex-basis(20%)
+    }
+
+    .client-field {
+      @include flex-basis(60%);
+      @include flex-grow(1);
+    }
+
+    .description-field {
+      @include flex-basis(100%)
+    }
+
+    .add-image-field {
+      //@include flex-basis(50%)
+    }
+  }
+
+  #project-data {
+
+    @include flex-basis(38%);
+    margin-left: 2%;
+
+    .project-pictures,
+    .project-videos {
+      @include flex-basis(100%);
       @include flex;
       @include flex-wrap(wrap);
 
-      .project-image {
-        position: relative;
-        flex-basis: 20%;
-        overflow: hidden;
-        margin: 0 1% 1% 0;
-
-        .del-btn {
-          position: absolute;
-          top: 8px;
-          right: 5px;
-        }
+      .section-title {
+        @include flex-basis(100%);
       }
     }
 
+    .project-avatar,
+    .project-pictures,
+    .project-videos {
+      background-color: $light-grey;
+      padding: 10px 20px;
+      margin-bottom: 20px;
 
+      .container {
+        @include flex-basis(100%);
+        width: 100%;
+        @include flex;
+        @include flex-wrap(wrap);
+
+        .image {
+          position: relative;
+          @include flex-basis(32%);
+
+          @include flex;
+          @include align-items(center);
+
+          height: 150px;
+          overflow: hidden;
+          margin: 0 1% 1% 0;
+          border: 1px solid $medium-grey;
+
+          .del-btn {
+            position: absolute;
+            top: 8px;
+            right: 5px;
+          }
+        }
+      }
+    }
   }
+
+
 }
