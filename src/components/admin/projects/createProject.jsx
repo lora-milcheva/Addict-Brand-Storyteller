@@ -16,10 +16,10 @@ class createProject extends React.Component {
 		super(props);
 
 		this.state = {
-			name: '',
-			description: '',
+			name: {BG: '', EN: ''},
+			description: {BG: '', EN: ''},
 			year: '',
-			client: '',
+			client: {BG: '', EN: ''},
 			images: [],
 			avatar: '',
 			videos: [],
@@ -27,7 +27,20 @@ class createProject extends React.Component {
 	}
 
 	handleChange = (e) => {
-		this.setState({[e.target.name]: e.target.value});
+		this.setState({[e.target.name]: e.target.value}, () => console.log(this.state));
+	};
+
+	handleMultiLangChange = (e) => {
+
+		let lang = e.target.id.split('-')[1];
+		let key = e.target.name;
+		let value = e.target.value;
+
+		let stateProp = Object.assign({}, this.state[key]);
+
+		stateProp[lang] = value;
+
+		this.setState({[key]: stateProp}, () => console.log(this.state))
 	};
 
 	addProject = () => {
@@ -66,6 +79,8 @@ class createProject extends React.Component {
 
 	render () {
 
+		let avatar = this.state.avatar !== '' ? <img src={this.state.avatar} alt="project avatar" className="image"/> : null;
+
 		let images = this.state.images.map((image, index) => {
 			return (
 				<figure className="image" key={index}>
@@ -77,8 +92,8 @@ class createProject extends React.Component {
 
 		let videos = this.state.videos.map((video, index) => {
 			return (
-				<div className="image">
-					<iframe src={video} title=""  key={index}/>
+				<div className="image" key={index}>
+					<iframe src={video} title={video} />
 					<button className="btn xs btn-primary del-btn" name={video} onClick={this.removeVideo}>clear
 					</button>
 				</div>
@@ -97,14 +112,25 @@ class createProject extends React.Component {
 
 					<FormInput type='text'
 					           name='name'
-					           value={this.state.name}
-					           id='name'
+					           value={this.state.name.EN}
+					           id='name-EN'
 					           placeholder=''
 					           label='Project name'
 					           className='name-field'
 					           required={true}
 					           disabled={false}
-					           onChange={this.handleChange}/>
+					           onChange={this.handleMultiLangChange}/>
+
+					<FormInput type='text'
+					           name='name'
+					           value={this.state.name.BG}
+					           id='name-BG'
+					           placeholder=''
+					           label='Име'
+					           className='name-field'
+					           required={true}
+					           disabled={false}
+					           onChange={this.handleMultiLangChange}/>
 
 					<FormInput type='text'
 					           name='client'
@@ -113,7 +139,7 @@ class createProject extends React.Component {
 					           placeholder=''
 					           label='Client'
 					           className='client-field'
-					           required={true}
+					           required={false}
 					           disabled={false}
 					           onChange={this.handleChange}/>
 
@@ -124,7 +150,7 @@ class createProject extends React.Component {
 					           placeholder=''
 					           label='Year'
 					           className='year-field'
-					           required={true}
+					           required={false}
 					           disabled={false}
 					           onChange={this.handleChange}/>
 
@@ -134,7 +160,7 @@ class createProject extends React.Component {
 					          placeholder=''
 					          label='Description'
 					          className='description-field'
-					          required={true}
+					          required={false}
 					          onChange={this.handleChange}/>
 
 					<AddImageForm
@@ -161,7 +187,7 @@ class createProject extends React.Component {
 
 
 					<div className="form-group">
-						<button className="btn btn-primary" type="submit"> Create</button>
+						<button className="btn btn-primary" type="submit">Create</button>
 					</div>
 				</form>
 
@@ -169,7 +195,7 @@ class createProject extends React.Component {
 					<div className="project-avatar">
 						<h3 className="section-title">Project avatar</h3>
 						<div className="container">
-							<img src={this.state.avatar} className="image"/>
+							{avatar}
 						</div>
 					</div>
 					<div className="project-pictures">
