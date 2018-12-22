@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-class AddImageForm extends React.Component {
+class AddOnInput extends React.Component {
 	constructor (props) {
 		super(props);
 
@@ -29,7 +29,7 @@ class AddImageForm extends React.Component {
 		const {placeholder, label, className, buttonText} = this.props;
 
 		return (
-			<div className= {"form-group " + className}>
+			<div className= {"form-group add-on"}>
 				<label>{label}</label>
 				<input className="form-control add-on"
 				       type="text"
@@ -43,4 +43,4 @@ class AddImageForm extends React.Component {
 	}
 }
 
-export default AddImageForm;
+export default AddOnInput;

@@ -4,18 +4,19 @@ import PropTypes from 'prop-types';
 class TextArea extends React.Component {
 	render () {
 
-		const { name, id, placeholder, label, className, required, onChange} = this.props;
+		const {name, id, value, placeholder, label, className, required, onChange} = this.props;
 
 		return (
-			<div className={"form-group "+ className}>
+			<div className={'form-group ' + className}>
 				<label htmlFor={id}>{label}</label>
 				<textarea className="form-control"
-				       name={name}
-				       id={id}
-				       placeholder={placeholder}
-				       required={required}
+				          name={name}
+				          id={id}
+				          value={value}
+				          placeholder={placeholder}
+				          required={required}
 
-				       onChange={onChange}/>
+				          onChange={onChange}/>
 			</div>
 		);
 	}

@@ -4,6 +4,8 @@
 $primary: #13bd77;
 $primary-hover: #13a05d;
 
+$attention: #ff3852;
+
 $default: #000;
 $default-hover: #6e6e6e;
 
@@ -186,7 +188,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6, p {
-  margin: 1.2em 0 .9em 0;
+  margin: .5em 0 .5em 0;
 }
 
 .container-fluid {
@@ -242,6 +244,10 @@ button {
     }
   }
 
+  &.active {
+    background-color: $attention;
+  }
+
   &.xs {
     padding: 3px 7px;
     border-radius: 2px;
@@ -266,29 +272,28 @@ button {
 }
 
 .form-group {
+  $input-height: 40px;
 
-  $input-height: 50px;
+  @include flex-basis(100%);
 
-  width: 100%;
   @include flex;
-  @include flex-wrap(wrap);
-  @include align-items(flex-end);
-  margin-right: 1%;
 
   padding: 10px 0;
 
   label {
-    @include flex-basis(100%);
-    margin-bottom: 15px;
+    @include flex-basis(30%);
+    //margin-bottom: 15px;
     color: $dark-grey;
   }
 
   .form-control {
-    @include flex-basis(60%);
+    @include flex-basis(70%);
     @include flex-grow(1);
 
+    font-family: Montserrat, sans-serif;
+
     height: $input-height;
-    padding: 10px 15px;
+    padding: 4px 15px;
     outline: 0;
     border-radius: 5px;
     border: 1px solid $medium-grey;
@@ -299,6 +304,8 @@ button {
     &.add-on {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
+      font-size: 1em;
+      min-width: 30px;
     }
 
     &::placeholder {
@@ -314,7 +321,6 @@ button {
   }
 
   .add-on-btn {
-    @include flex-basis(38%);
     height: $input-height;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
@@ -326,10 +332,17 @@ button {
 
     &.form-control {
       line-height: 1.5em;
-      padding: 25px;
+      padding: 10px;
       border: 1px solid $medium-grey;
       height: auto;
+      @include flex-basis(60%);
+      @include flex-grow(1);
     }
+  }
+
+  option {
+    color: $dark-grey;
+    font-family: Montserrat, sans-serif;
   }
 }
 
@@ -385,43 +398,32 @@ button {
     @include flex-basis(100%);
   }
 
-  #project-form {
+  .languages {
+    flex-basis: 100%;
+    margin-bottom: 15px;
+  }
 
-    @include flex-basis(60%);
+  #create-project-form {
+    @include flex;
+    @include flex-wrap(wrap);
+  }
+
+  #project-info {
+    @include flex-basis(38%);
+    @include flex-grow(1);
 
     @include flex;
     @include flex-wrap(wrap);
 
-
-    .add-avatar-field {
-      //@include flex-basis(50%)
+    .inputs-holder {
+      @include flex-basis(100%);
     }
 
-    .name-field {
-      @include flex-basis(100%)
-    }
-
-    .year-field {
-      @include flex-basis(20%)
-    }
-
-    .client-field {
-      @include flex-basis(60%);
-      @include flex-grow(1);
-    }
-
-    .description-field {
-      @include flex-basis(100%)
-    }
-
-    .add-image-field {
-      //@include flex-basis(50%)
-    }
   }
 
   #project-data {
-
-    @include flex-basis(38%);
+    @include flex-basis(60%);
+    @include flex-grow(1);
     margin-left: 2%;
 
     .project-pictures,
@@ -435,9 +437,7 @@ button {
       }
     }
 
-    .project-avatar,
-    .project-pictures,
-    .project-videos {
+    .project-data {
       background-color: $light-grey;
       padding: 10px 20px;
       margin-bottom: 20px;
@@ -470,5 +470,10 @@ button {
     }
   }
 
-
+  .drop-field {
+    height: 200px;
+    margin: 10px 0;
+    border: 1px solid $medium-grey;
+  }
 }
+

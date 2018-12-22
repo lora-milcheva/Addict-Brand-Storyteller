@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import authService from '../../services/auth/authService';
 
@@ -56,7 +56,7 @@ class Login extends React.Component {
 				this.clearForm();
 				this.messages.showMessage('logged in as: ' + res.username);
 				setTimeout(() => {
-					this.props.history.push('/');
+					this.props.history.go(-1);
 				}, 2000)
 			})
 			.catch(err => {

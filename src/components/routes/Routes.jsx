@@ -29,7 +29,7 @@ let Routes = () => {
 			<Route exact path='/projects' component={ProjectsList}/>
 			<Route exact path='/projects/:id' component={Project}/>
 
-			<Route exact path='/admin/project-create' component={createProject}/>
+			<PrivateRoute exact path='/admin/project-create' component={createProject}/>
 
 			<Route path='*' component={NotFound}/>
 		</Switch>

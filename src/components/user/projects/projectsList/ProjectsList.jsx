@@ -30,16 +30,6 @@ class ProjectList extends React.Component {
 			});
 	};
 
-	addProject = () => {
-		projectsService
-			.createProject({})
-			.then(res => {
-				console.log(res);
-			})
-			.catch(err => {
-				this.messages.showMessage(err.responseJSON.description);
-			});
-	};
 
 	render () {
 		let idOne = 2;

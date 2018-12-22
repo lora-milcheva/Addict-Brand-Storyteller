@@ -2,14 +2,21 @@ import requester from '../requester';
 
 const module = 'appdata';
 const basicAuth = 'basicAuth';
-const sessionAuth = 'sessionAuth';
+const adminAuth = 'adminAuth';
 let endPoint = 'projects';
 
 export default {
 
+	createProject: (state) => {
+
+		let project = createProjectInfo(state);
+		return requester
+			.post(adminAuth, module, endPoint, project);
+	},
+
 	loadAllProjects: () => {
 		return requester
-			.get(sessionAuth, module, endPoint);
+			.get(adminAuth, module, endPoint);
 	},
 
 	loadProjectData: (id) => {
@@ -18,11 +25,21 @@ export default {
 
 		return requester
 			.get(basicAuth, module, endPoint);
-	},
-
-	createProject: (project) => {
-		return requester
-			.post(sessionAuth, module, endPoint, project);
 	}
 };
+
+function createProjectInfo (state) {
+
+	return {
+		name: state.name,
+		description: state.description,
+		year: state.year,
+		client: state.client,
+		category: state.category,
+		images: state.images,
+		avatar: state.avatar,
+		videos: state.videos,
+	};
+
+}
 

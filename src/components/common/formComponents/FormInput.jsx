@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 class FormInput extends React.Component {
 	render () {
 
-		const {type, name, id, placeholder, label, className, required, disabled, step, min, max, onChange} = this.props;
+		const {type, name, value, id, placeholder, label, className, required, disabled, step, min, max, onChange} = this.props;
 
 		return (
 			<div className={"form-group "+ className}>
 				<label htmlFor={id}>{label}</label>
 				<input className="form-control"
 				       type={type}
+				       value={value}
 				       name={name}
 				       id={id}
 				       placeholder={placeholder}
