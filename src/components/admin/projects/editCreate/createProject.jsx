@@ -3,22 +3,23 @@ import React from 'react';
 import DropToUpload from 'react-drop-to-upload';
 
 // Partials
-import FormInput from '../../common/formComponents/FormInput';
-import FormSelectField from '../../common/formComponents/FormSelectField';
-import AddOnInput from '../../common/formComponents/AddOnInput';
+import FormInput from '../../../common/formComponents/FormInput';
+import FormSelectField from '../../../common/formComponents/FormSelectField';
+import Textarea from '../../../common/formComponents/TextArea';
+import AddOnInput from '../../../common/formComponents/AddOnInput';
 import NewLanguageInputs from './partials/NewLanguageInputs';
 
 // Services
-import projectsService from '../../../services/projects/projectsService';
+import projectsService from '../../../../services/projects/projectsService';
 
 // Notifications
-import Messages from '../../common/Messages';
+import Messages from '../../../common/Messages';
 
 // Utils
-import Utils from '../../../utils/utils';
+import Utils from '../../../../utils/utils';
 
 // Constants
-import { LANGUAGES, CREATE_PROJECT_INPUTS, BUTTONS, CATEGORIES } from '../../../constants/constants';
+import { LANGUAGES, CREATE_PROJECT_INPUTS, BUTTONS, CATEGORIES } from '../../../../constants/constants';
 
 class createProject extends React.Component {
 	constructor (props) {
@@ -28,14 +29,26 @@ class createProject extends React.Component {
 			name: {},
 			description: {},
 			year: '',
-			client: {},
+			client: '',
 			category: '',
 			images: [],
 			avatar: '',
 			videos: [],
-
-			activeLanguage: LANGUAGES.BG,
 		};
+	}
+
+	projectId = this.props.match.params.id;
+
+	componentDidMount () {
+
+		if (this.projectId) {
+			projectsService
+				.loadProjectData(this.projectId)
+				.then(res => {
+					console.log(res)
+				})
+				.catch (err => console.log(err))
+		}
 	}
 
 	handleChange = (e) => {
@@ -51,7 +64,7 @@ class createProject extends React.Component {
 
 		stateProp[lang] = value; // add new value
 
-		this.setState({[key]: stateProp}, () => console.log(this.state));
+		this.setState({[key]: stateProp});
 	};
 
 	addImage = (url) => {
@@ -76,29 +89,37 @@ class createProject extends React.Component {
 		this.setState({avatar: url}, () => console.log(this.state));
 	};
 
-	showTabContent = (e) => {
-		let lang = e.target.name;
-		this.setState({activeLanguage: lang});
-	};
-
-
 	createProject = (e) => {
 		e.preventDefault();
+
+		if (this.projectId) {
+			projectsService
+				.createProject(Utils.createStateCopy(this.state))
+				.then(res => {
+					console.log(res);
+					this.messages.showMessage('Успешна редакция.');
+					setTimeout(() => this.props.history.go(-1), 2000)
+				})
+				.catch(err => {
+					this.messages.showMessage(err.responseJSON.description);
+				});
+		}
 
 		projectsService
 			.createProject(Utils.createStateCopy(this.state))
 			.then(res => {
 				console.log(res);
+				this.messages.showMessage('Проектът беше създаден.');
 				this.setState({
-					name: {},
-					description: {},
+					name: {BG: '', EN: ''},
+					description: {BG: '', EN: ''},
 					year: '',
-					client: {},
+					client: '',
 					category: '',
 					images: [],
 					avatar: '',
 					videos: [],
-				})
+				});
 			})
 			.catch(err => {
 				this.messages.showMessage(err.responseJSON.description);
@@ -106,8 +127,6 @@ class createProject extends React.Component {
 	};
 
 	render () {
-
-		let language = this.state.activeLanguage;
 
 		let avatar = this.state.avatar !== '' ?
 			<img src={this.state.avatar} alt="project avatar" className="image"/> : null;
@@ -137,24 +156,7 @@ class createProject extends React.Component {
 
 				<Messages onRef={ref => (this.messages = ref)}/>
 
-				<h1 className="page-title">Add new project</h1>
-
-
-				{/*//TABS*/}
-				<div className="languages">
-
-					<button
-						className={language === LANGUAGES.BG ? 'btn btn-primary xs active' : 'btn btn-primary xs'}
-						name={LANGUAGES.BG}
-						onClick={this.showTabContent}>{LANGUAGES.BG}
-					</button>
-
-					<button
-						className={language === LANGUAGES.EN ? 'btn btn-primary xs active' : 'btn btn-primary xs'}
-						name={LANGUAGES.EN}
-						onClick={this.showTabContent}>{LANGUAGES.EN}
-					</button>
-				</div>
+				<h1 className="page-title">Създаване на проект</h1>
 
 
 				{/*//FORM*/}
@@ -162,22 +164,58 @@ class createProject extends React.Component {
 
 					<main id="project-info">
 
-						{/*//LANGUAGES*/}
-						{language === LANGUAGES.BG &&
-						<NewLanguageInputs language={LANGUAGES.BG}
-						                   nameValue={this.state.name[language]}
-						                   descriptionValue={this.state.description[language]}
-						                   clientValue={this.state.client[LANGUAGES.BG]}
-						                   onChange={this.handleMultiLangChange}/>
-						}
 
-						{language === LANGUAGES.EN &&
-						<NewLanguageInputs language={LANGUAGES.EN}
-						                   nameValue={this.state.name[LANGUAGES.EN]}
-						                   descriptionValue={this.state.description[LANGUAGES.EN]}
-						                   clientValue={this.state.client[LANGUAGES.EN]}
-						                   onChange={this.handleMultiLangChange}/>
-						}
+						<FormInput type='text'
+						           name='name'
+						           value={this.state.name.BG}
+						           id='name-BG'
+						           placeholder=''
+						           label={CREATE_PROJECT_INPUTS.BG.name}
+						           className='name-field'
+						           required={true}
+						           disabled={false}
+						           onChange={this.handleMultiLangChange}/>
+
+						<FormInput type='text'
+						           name='name'
+						           value={this.state.name.EN}
+						           id='name-EN'
+						           placeholder=''
+						           label={CREATE_PROJECT_INPUTS.EN.name}
+						           className='name-field'
+						           required={true}
+						           disabled={false}
+						           onChange={this.handleMultiLangChange}/>
+
+
+						<Textarea name='description'
+						          value={this.state.description.BG}
+						          id='description-BG'
+						          placeholder=''
+						          label={CREATE_PROJECT_INPUTS.BG.description}
+						          className='description-field'
+						          required={false}
+						          onChange={this.handleMultiLangChange}/>
+
+						<Textarea name='description'
+						          value={this.state.description.EN}
+						          id='description-EN'
+						          placeholder=''
+						          label={CREATE_PROJECT_INPUTS.EN.description}
+						          className='description-field'
+						          required={false}
+						          onChange={this.handleMultiLangChange}/>
+
+						<FormInput type='text'
+						           name='client'
+						           value={this.state.client}
+						           id='client'
+						           placeholder=''
+						           label={CREATE_PROJECT_INPUTS.BG.client}
+						           className='client-field'
+						           required={false}
+						           disabled={false}
+						           onChange={this.handleChange}/>
 
 
 						{/*//YEAR*/}
@@ -186,7 +224,7 @@ class createProject extends React.Component {
 						           value={this.state.year}
 						           id='year'
 						           placeholder=''
-						           label={CREATE_PROJECT_INPUTS[language].year}
+						           label={CREATE_PROJECT_INPUTS.BG.year}
 						           className='year-field'
 						           required={false}
 						           disabled={false}
@@ -196,8 +234,8 @@ class createProject extends React.Component {
 						<FormSelectField className='category-field'
 						                 name='category'
 						                 value={this.state.category}
-						                 label={CREATE_PROJECT_INPUTS[language].category}
-						                 options={CATEGORIES[language]}
+						                 label={CREATE_PROJECT_INPUTS.BG.category}
+						                 options={CATEGORIES.BG}
 						                 onChange={this.handleChange}
 						/>
 					</main>
@@ -212,7 +250,7 @@ class createProject extends React.Component {
 							</div>
 
 							<AddOnInput
-								label={CREATE_PROJECT_INPUTS[language].avatar}
+								label={CREATE_PROJECT_INPUTS.BG.avatar}
 								buttonText='+'
 								placeholder='Добави аватар'
 								className='add-avatar-field'
@@ -226,7 +264,7 @@ class createProject extends React.Component {
 							</div>
 
 							<AddOnInput
-								label={CREATE_PROJECT_INPUTS[language].images}
+								label={CREATE_PROJECT_INPUTS.BG.images}
 								buttonText='+'
 								placeholder='Добави снимка'
 								className='add-image-field'
@@ -240,7 +278,7 @@ class createProject extends React.Component {
 							</div>
 
 							<AddOnInput
-								label={CREATE_PROJECT_INPUTS[language].videos}
+								label={CREATE_PROJECT_INPUTS.BG.videos}
 								buttonText='+'
 								placeholder='Добави видео'
 								className='add-image-field'
@@ -252,7 +290,7 @@ class createProject extends React.Component {
 
 					{/*//SUBMIT*/}
 					<div className="form-group">
-						<button className="btn btn-primary" type="submit">{BUTTONS[language].create}</button>
+						<button className="btn btn-primary" type="submit">{BUTTONS.BG.create}</button>
 					</div>
 				</form>
 			</div>

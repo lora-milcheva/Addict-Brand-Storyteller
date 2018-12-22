@@ -26,7 +26,7 @@ class FormSelectField extends React.Component {
 					disabled={disabled}
 					required={required}
 					onChange={onChange}>
-
+					<option value=''/>
 					{optionElements}
 
 				</select>

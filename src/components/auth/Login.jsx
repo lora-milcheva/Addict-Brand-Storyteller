@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 
 import authService from '../../services/auth/authService';
 
@@ -55,9 +54,14 @@ class Login extends React.Component {
 				authService.saveSession(res);
 				this.clearForm();
 				this.messages.showMessage('logged in as: ' + res.username);
+
+				let path = '/';
+				if (authService.checkUser()) {path = '/admin/projects-list'}
+
 				setTimeout(() => {
-					this.props.history.go(-1);
+					this.props.history.push(path);
 				}, 2000)
+
 			})
 			.catch(err => {
 				this.messages.showMessage(err.responseJSON.description);

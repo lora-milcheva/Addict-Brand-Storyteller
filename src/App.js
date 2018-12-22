@@ -5,6 +5,8 @@ import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import Routes from './components/routes/Routes';
 
+import Messages from './components/common/Messages';
+
 import authService from './services/auth/authService';
 
 
@@ -25,14 +27,11 @@ class App extends React.Component {
 	}
 
 	loginAnonymousUser = () => {
-		let anonymousUser = {
-			username: 'anonymous',
-			password: '123456'
-		};
 
 		authService
-			.login(anonymousUser)
+			.loginAnonymousUser()
 			.then(res => {
+				this.messages.showMessage('logged in as: ' + res.username);
 				authService.saveSession(res);
 			})
 			.catch(err => {
@@ -44,6 +43,7 @@ class App extends React.Component {
 		return (
 
             <div>
+	            <Messages onRef={ref => (this.messages = ref)}/>
               <Header/>
 
               <main>

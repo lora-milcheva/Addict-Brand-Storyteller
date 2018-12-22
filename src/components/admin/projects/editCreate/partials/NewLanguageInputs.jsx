@@ -1,9 +1,9 @@
 import React from 'react';
 
-import FormInput from '../../../common/formComponents/FormInput';
-import Textarea from '../../../common/formComponents/TextArea';
+import FormInput from '../../../../common/formComponents/FormInput';
+import Textarea from '../../../../common/formComponents/TextArea';
 
-import { CREATE_PROJECT_INPUTS } from '../../../../constants/constants';
+import { CREATE_PROJECT_INPUTS } from '../../../../../constants/constants';
 
 class NewLanguageInputs extends React.Component {
 

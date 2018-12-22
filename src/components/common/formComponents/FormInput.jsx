@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class FormInput extends React.Component {
+	constructor (props) {
+		super(props);
+	}
+
 	render () {
 
 		const {type, name, value, id, placeholder, label, className, required, disabled, step, min, max, onChange} = this.props;

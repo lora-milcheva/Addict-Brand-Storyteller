@@ -11,7 +11,8 @@ import ProjectsList from '../user/projects/projectsList/ProjectsList';
 import Project from '../user/projects/project/Project';
 
 // Admin Components
-import createProject from '../admin/projects/createProject'
+import createProject from '../admin/projects/editCreate/createProject';
+import adminProjectsList from '../admin/projects/list/projectsList';
 
 // ERRORS and CONFIRMATIONS
 import NotFound from '../errors/NotFound';
@@ -30,6 +31,8 @@ let Routes = () => {
 			<Route exact path='/projects/:id' component={Project}/>
 
 			<PrivateRoute exact path='/admin/project-create' component={createProject}/>
+			<PrivateRoute exact path='/admin/project-edit/:id' component={createProject}/>
+			<PrivateRoute exact path='/admin/projects-list' component={adminProjectsList}/>
 
 			<Route path='*' component={NotFound}/>
 		</Switch>
