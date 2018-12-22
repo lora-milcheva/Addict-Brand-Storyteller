@@ -29,10 +29,12 @@ const CREATE_PROJECT_INPUTS = {
 
 const BUTTONS = {
 	BG: {
-		create: 'Създай'
+		create: 'Създай',
+		cancel: 'Отказ'
 	},
 	EN: {
-		create: 'Create'
+		create: 'Create',
+		cancel: 'Cancel'
 	}
 };
 

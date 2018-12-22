@@ -2,7 +2,7 @@ import requester from '../requester';
 
 const module = 'appdata';
 const basicAuth = 'basicAuth';
-const adminAuth = 'adminAuth';
+const sessionAuth = 'adminAuth';
 let endPoint = 'projects';
 
 export default {
@@ -10,13 +10,14 @@ export default {
 	createProject: (state) => {
 
 		let project = createProjectInfo(state);
+
 		return requester
-			.post(adminAuth, module, endPoint, project);
+			.post(sessionAuth, module, endPoint, project);
 	},
 
 	loadAllProjects: () => {
 		return requester
-			.get(adminAuth, module, endPoint);
+			.get(sessionAuth, module, endPoint);
 	},
 
 	loadProjectData: (id) => {
@@ -24,7 +25,7 @@ export default {
 		endPoint += '/' + id;
 
 		return requester
-			.get(basicAuth, module, endPoint);
+			.get(sessionAuth, module, endPoint);
 	}
 };
 

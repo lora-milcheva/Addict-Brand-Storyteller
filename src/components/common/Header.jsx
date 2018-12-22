@@ -23,10 +23,10 @@ class Header extends React.Component {
 	render () {
 
 		let admin = sessionStorage.getItem('role');
-		console.log(admin);
+
 
 		if (admin && admin !== undefined) {
-			console.log(222)
+
 			return (
 				<nav id="main-nav">
 
@@ -36,7 +36,7 @@ class Header extends React.Component {
 					<NavLink to='/admin/projects-list' className="nav-link" activeClassName='active'>All
 						Projects</NavLink>
 
-					<NavLink to='/home' onClick={this.logout}>Logout</NavLink>
+					<NavLink to='/home' className="nav-link" activeClassName='active' onClick={this.logout}>Logout</NavLink>
 
 				</nav>
 			);

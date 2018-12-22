@@ -42,10 +42,21 @@ class createProject extends React.Component {
 	componentDidMount () {
 
 		if (this.projectId) {
+
 			projectsService
 				.loadProjectData(this.projectId)
 				.then(res => {
-					console.log(res)
+
+					this.setState({
+						name: res.name,
+						description: res.description,
+						year: res.year,
+						client: res.client,
+						category: res.category,
+						images: res.images,
+						avatar: res.avatar,
+						videos: res.videos,
+					})
 				})
 				.catch (err => console.log(err))
 		}
@@ -126,6 +137,11 @@ class createProject extends React.Component {
 			});
 	};
 
+	cancel = () => {
+		console.log(222)
+		this.props.history.go(-1);
+	};
+
 	render () {
 
 		let avatar = this.state.avatar !== '' ?
@@ -151,12 +167,14 @@ class createProject extends React.Component {
 			);
 		});
 
+		let title = this.projectId ? 'Редакция на проект' : 'Създаване на проект';
+
 		return (
 			<div id="project-create" className="container">
 
 				<Messages onRef={ref => (this.messages = ref)}/>
 
-				<h1 className="page-title">Създаване на проект</h1>
+				<h1 className="page-title">{title}</h1>
 
 
 				{/*//FORM*/}
@@ -252,7 +270,7 @@ class createProject extends React.Component {
 							<AddOnInput
 								label={CREATE_PROJECT_INPUTS.BG.avatar}
 								buttonText='+'
-								placeholder='Добави аватар'
+								placeholder='Аватар'
 								className='add-avatar-field'
 								addImage={this.addAvatar}/>
 						</div>
@@ -290,6 +308,7 @@ class createProject extends React.Component {
 
 					{/*//SUBMIT*/}
 					<div className="form-group">
+						<button className="btn btn-default" onClick={this.cancel}>{BUTTONS.BG.cancel}</button>
 						<button className="btn btn-primary" type="submit">{BUTTONS.BG.create}</button>
 					</div>
 				</form>

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Link} from 'react-router-dom';
 
 // Services
 import projectsService from '../../../../services/projects/projectsService';
@@ -7,11 +7,7 @@ import projectsService from '../../../../services/projects/projectsService';
 // Notifications
 import Messages from '../../../common/Messages';
 
-// Utils
-import Utils from '../../../../utils/utils';
 
-// Constants
-import { LANGUAGES, CREATE_PROJECT_INPUTS, BUTTONS, CATEGORIES } from '../../../../constants/constants';
 
 class projectsList extends React.Component {
 	constructor (props) {
@@ -24,19 +20,37 @@ class projectsList extends React.Component {
 
 	componentDidMount () {
 
+		console.log('from projects list')
+
 		projectsService
 			.loadAllProjects()
 			.then(res => {
 				console.log(res);
-				this.setState({projects: res})
+				this.setState({projects: res});
 			})
 			.catch(err => console.log(err));
 
 	}
 
-
-
 	render () {
+
+		let projects;
+
+		if (this.state.projects.length > 0) {
+			projects = this.state.projects.map(e => {
+					console.log(e);
+					return(
+						<article key={e._id} className="project-card">
+							<figure className="img-container">
+								<img src={e.avatar}/>
+							</figure>
+							<p className="project-name">{e.name.BG}</p>
+							<Link to={'project-edit/' + e._id}>edit</Link>
+						</article>
+					)
+				}
+			);
+		}
 
 
 
@@ -47,7 +61,7 @@ class projectsList extends React.Component {
 
 				<h1 className="page-title">Проекти</h1>
 
-
+				{projects}
 			</div>
 		);
 	}
