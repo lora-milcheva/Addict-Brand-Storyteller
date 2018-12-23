@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // Services
 import projectsService from '../../../../services/projects/projectsService';
@@ -7,26 +7,29 @@ import projectsService from '../../../../services/projects/projectsService';
 // Notifications
 import Messages from '../../../common/Messages';
 
-
+// Constants
+import { BUTTONS } from '../../../../constants/constants';
 
 class projectsList extends React.Component {
 	constructor (props) {
 		super(props);
 
 		this.state = {
-			projects: []
+			projects: [],
+
+			loading: true
 		};
 	}
 
 	componentDidMount () {
 
-		console.log('from projects list')
-
 		projectsService
 			.loadAllProjects()
 			.then(res => {
-				console.log(res);
-				this.setState({projects: res});
+				this.setState({
+					projects: res,
+					loading: false
+				});
 			})
 			.catch(err => console.log(err));
 
@@ -38,30 +41,43 @@ class projectsList extends React.Component {
 
 		if (this.state.projects.length > 0) {
 			projects = this.state.projects.map(e => {
-					console.log(e);
-					return(
+					return (
 						<article key={e._id} className="project-card">
 							<figure className="img-container">
-								<img src={e.avatar}/>
+								<img className="img-fit" src={e.avatar}/>
 							</figure>
 							<p className="project-name">{e.name.BG}</p>
-							<Link to={'project-edit/' + e._id}>edit</Link>
+
+							<Link to={'project-edit/' + e._id} className="hover">
+								<div className="edit-btn">
+
+									<i className="fa fa-pencil" aria-hidden="true"/>{BUTTONS.BG.edit}
+								</div>
+							</Link>
+
 						</article>
-					)
+					);
 				}
 			);
 		}
 
-
+		if (this.state.loading) {
+			return (<div className="lds-dual-ring"/> );
+		}
 
 		return (
-			<div id="projects-list" className="container">
+			<div id="admin-projects-list" className="container">
 
 				<Messages onRef={ref => (this.messages = ref)}/>
 
-				<h1 className="page-title">Проекти</h1>
+				<div className="page-header">
+					<h1 className="page-title">Проекти</h1>
+				</div>
 
-				{projects}
+				<div className="projects-container">
+					{projects}
+				</div>
+
 			</div>
 		);
 	}

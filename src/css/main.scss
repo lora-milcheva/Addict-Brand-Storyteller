@@ -4,10 +4,22 @@
 $primary: #13bd77;
 $primary-hover: #13a05d;
 
-$attention: #ff3852;
+$primary-darken: #0D7D4F;
 
-$default: #000;
-$default-hover: #6e6e6e;
+$attention: #C54745;
+$attention-hover: #983836;
+
+$default: #2C5157;
+$default-hover: #477e85;
+
+$info: #00CEF0;
+$info-hover: #00b2d0;
+
+$medium-grey-bg: #7A7D71;
+$mud-green-bg: #72A383;
+$light-green-bg: #23CABA;
+$dark-violet-bg: #493A59;
+$brick-bg: #B2665D;
 
 $black: #000;
 $blackish-grey: #333;
@@ -204,6 +216,10 @@ img {
   width: 100%;
 }
 
+i {
+  margin-right: .5em;
+}
+
 a {
   text-decoration: none;
 }
@@ -215,9 +231,10 @@ button {
 
 .btn {
   margin-right: 5px;
-  padding: 10px 20px;
-  font-size: 1.3em;
+  padding: 8px 20px;
+  font-size: 1em;
   font-family: Montserrat, sans-serif;
+  border-radius: 2px;
   @include main-transition;
 
   &:hover {
@@ -235,12 +252,22 @@ button {
   }
 
   &.btn-default {
-    color: #ffffff;
+    color: $white;
     background-color: $default;
 
     &:hover,
     &:active {
       background-color: $default-hover;
+    }
+  }
+
+  &.btn-danger {
+    color: $white;
+    background-color: $attention;
+
+    &:hover,
+    &:active {
+      background-color: $attention-hover;
     }
   }
 
@@ -250,24 +277,20 @@ button {
 
   &.xs {
     padding: 3px 7px;
-    border-radius: 2px;
     font-size: .75em;
   }
 
   &.sm {
     padding: 5px 10px;
-    border-radius: 3px;
     font-size: .85em;
   }
 
   &.md {
-    padding: 10px 20px;
-    border-radius: 4px;
+    padding: 8px 20px; //default
   }
 
   &.lg {
-    padding: 13px 25px;
-    border-radius: 5px;
+    padding: 11px 25px;
   }
 }
 
@@ -283,7 +306,7 @@ button {
   label {
     @include flex-basis(30%);
     //margin-bottom: 15px;
-    color: $dark-grey;
+    color: $medium-to-dark-grey;
   }
 
   .form-control {
@@ -332,7 +355,6 @@ button {
 
     &.form-control {
       line-height: 1.5em;
-      padding: 10px;
       border: 1px solid $medium-grey;
       height: auto;
       @include flex-basis(60%);
@@ -346,14 +368,35 @@ button {
   }
 }
 
-#messages {
-  position: absolute;
+.img-fit {
+  object-fit: cover;
+  width: 100%;
+  min-height: 220px;
+
+  max-height: 350px;
+}
+
+.page-header {
+  @include flex-basis(100%);
+  @include flex;
+  @include justify-content(space-between);
+  @include flex-wrap(wrap);
+  @include align-items(center);
+
+  margin-bottom: 20px;
+}
+
+//COMMON
+#messages,
+#confirm-dialog {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, .2);
   display: none;
+  z-index: 1000;
 
   &.visible {
     display: block;
@@ -394,10 +437,6 @@ button {
   @include flex;
   @include flex-wrap(wrap);
 
-  .page-title {
-    @include flex-basis(100%);
-  }
-
   .languages {
     flex-basis: 100%;
     margin-bottom: 15px;
@@ -409,7 +448,7 @@ button {
   }
 
   #project-info {
-    @include flex-basis(38%);
+    @include flex-basis(48%);
     @include flex-grow(1);
 
     @include flex;
@@ -422,7 +461,7 @@ button {
   }
 
   #project-data {
-    @include flex-basis(60%);
+    @include flex-basis(50%);
     @include flex-grow(1);
     margin-left: 2%;
 
@@ -474,6 +513,59 @@ button {
     height: 200px;
     margin: 10px 0;
     border: 1px solid $medium-grey;
+  }
+}
+
+#admin-projects-list {
+  .projects-container {
+    @include flex;
+    @include flex-wrap(wrap);
+
+    .project-card {
+      position: relative;
+
+      @include flex-basis(20%);
+      @include flex-grow(1);
+      margin-right: 1%;
+
+      @include main-transition;
+
+      .hover {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        @include flex;
+        @include align-items(center);
+        @include justify-content(center);
+
+        width: 100%;
+        height: 100%;
+        background-color: $primary;
+
+        @include main-transition;
+
+        .edit-btn {
+          transform: translateY(-100px);
+          color: $white;
+          //font-size: 2em;
+          @include main-transition;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+
+        .hover {
+          opacity: 1;
+
+          .edit-btn {
+            transform: translateY(0);
+          }
+        }
+      }
+    }
   }
 }
 

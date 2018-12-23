@@ -1,25 +1,23 @@
 import React from 'react';
 
-import DropToUpload from 'react-drop-to-upload';
-
 // Partials
 import FormInput from '../../../common/formComponents/FormInput';
 import FormSelectField from '../../../common/formComponents/FormSelectField';
 import Textarea from '../../../common/formComponents/TextArea';
 import AddOnInput from '../../../common/formComponents/AddOnInput';
-import NewLanguageInputs from './partials/NewLanguageInputs';
 
 // Services
 import projectsService from '../../../../services/projects/projectsService';
 
 // Notifications
 import Messages from '../../../common/Messages';
+import ConfirmDialog from '../../../common/ConfirmDialog';
 
 // Utils
 import Utils from '../../../../utils/utils';
 
 // Constants
-import { LANGUAGES, CREATE_PROJECT_INPUTS, BUTTONS, CATEGORIES } from '../../../../constants/constants';
+import { CREATE_PROJECT_INPUTS, BUTTONS, CATEGORIES } from '../../../../constants/constants';
 
 class createProject extends React.Component {
 	constructor (props) {
@@ -34,6 +32,8 @@ class createProject extends React.Component {
 			images: [],
 			avatar: '',
 			videos: [],
+
+			loading: true
 		};
 	}
 
@@ -56,9 +56,13 @@ class createProject extends React.Component {
 						images: res.images,
 						avatar: res.avatar,
 						videos: res.videos,
-					})
+
+						loading: false
+					});
 				})
-				.catch (err => console.log(err))
+				.catch(err => console.log(err));
+		} else {
+			this.setState({loading: false});
 		}
 	}
 
@@ -79,7 +83,7 @@ class createProject extends React.Component {
 	};
 
 	addImage = (url) => {
-		this.setState({images: [...this.state.images, url]}, () => console.log(this.state));
+		this.setState({images: [...this.state.images, url]});
 	};
 
 	removeImage = (e) => {
@@ -88,7 +92,7 @@ class createProject extends React.Component {
 	};
 
 	addVideo = (url) => {
-		this.setState({videos: [...this.state.videos, url]}, () => console.log(this.state));
+		this.setState({videos: [...this.state.videos, url]});
 	};
 
 	removeVideo = (e) => {
@@ -97,60 +101,74 @@ class createProject extends React.Component {
 	};
 
 	addAvatar = (url) => {
-		this.setState({avatar: url}, () => console.log(this.state));
+		this.setState({avatar: url});
+	};
+
+	clearData = () => {
+		this.setState({
+			name: {BG: '', EN: ''},
+			description: {BG: '', EN: ''},
+			year: '',
+			client: '',
+			category: '',
+			images: [],
+			avatar: '',
+			videos: [],
+		});
 	};
 
 	createProject = (e) => {
+
 		e.preventDefault();
 
 		if (this.projectId) {
+
 			projectsService
-				.createProject(Utils.createStateCopy(this.state))
+				.editProject(this.projectId, Utils.createStateCopy(this.state))
 				.then(res => {
-					console.log(res);
-					this.messages.showMessage('Успешна редакция.');
-					setTimeout(() => this.props.history.go(-1), 2000)
+					this.messages.confirm('Успешна редакция.');
+					setTimeout(() => this.props.history.go(-1), 2000);
 				})
 				.catch(err => {
-					this.messages.showMessage(err.responseJSON.description);
+					this.messages.confirm(err.responseJSON.description);
 				});
+			return;
 		}
 
 		projectsService
 			.createProject(Utils.createStateCopy(this.state))
 			.then(res => {
-				console.log(res);
-				this.messages.showMessage('Проектът беше създаден.');
-				this.setState({
-					name: {BG: '', EN: ''},
-					description: {BG: '', EN: ''},
-					year: '',
-					client: '',
-					category: '',
-					images: [],
-					avatar: '',
-					videos: [],
-				});
+				this.messages.confirm('Проектът беше създаден.');
+				this.clearData();
+				setTimeout(() => this.props.history.go(-1), 2000);
 			})
 			.catch(err => {
-				this.messages.showMessage(err.responseJSON.description);
+				this.messages.confirm(err.responseJSON.description);
 			});
 	};
 
-	cancel = () => {
-		console.log(222)
+	confirm = () => {
+		this.confirmDialog.showMessage('test', this.deleteProject);
+	};
+
+	deleteProject = () => {
+		console.log('from delete');
+	};
+
+	cancel = (e) => {
+		e.preventDefault();
 		this.props.history.go(-1);
 	};
 
 	render () {
 
 		let avatar = this.state.avatar !== '' ?
-			<img src={this.state.avatar} alt="project avatar" className="image"/> : null;
+			<img src={this.state.avatar} alt="project avatar" className="img-fit"/> : null;
 
 		let images = this.state.images.map((image, index) => {
 			return (
 				<figure className="image" key={index}>
-					<img src={image} alt=""/>
+					<img src={image} className="img-fit" alt=""/>
 					<button className="btn xs btn-primary del-btn" name={image} onClick={this.removeImage}>clear
 					</button>
 				</figure>);
@@ -169,12 +187,25 @@ class createProject extends React.Component {
 
 		let title = this.projectId ? 'Редакция на проект' : 'Създаване на проект';
 
+		let buttonText = this.projectId ? BUTTONS.BG.edit : BUTTONS.BG.create;
+
+		if (this.state.loading) {
+			return (<div className="lds-dual-ring"/>);
+		}
+
 		return (
 			<div id="project-create" className="container">
 
 				<Messages onRef={ref => (this.messages = ref)}/>
+				<ConfirmDialog onRef={ref => (this.confirmDialog = ref)}/>
 
-				<h1 className="page-title">{title}</h1>
+				<div className="page-header">
+					<h1 className="page-title">{title}</h1>
+
+					{this.projectId &&
+					<button className="btn btn-danger xs" onClick={this.confirm}>{BUTTONS.BG.delete}</button>
+					}
+				</div>
 
 
 				{/*//FORM*/}
@@ -182,7 +213,7 @@ class createProject extends React.Component {
 
 					<main id="project-info">
 
-
+						{/*//NAME BG*/}
 						<FormInput type='text'
 						           name='name'
 						           value={this.state.name.BG}
@@ -194,6 +225,7 @@ class createProject extends React.Component {
 						           disabled={false}
 						           onChange={this.handleMultiLangChange}/>
 
+						{/*//NAME EN*/}
 						<FormInput type='text'
 						           name='name'
 						           value={this.state.name.EN}
@@ -205,7 +237,7 @@ class createProject extends React.Component {
 						           disabled={false}
 						           onChange={this.handleMultiLangChange}/>
 
-
+						{/*//DESCRIPTION BG*/}
 						<Textarea name='description'
 						          value={this.state.description.BG}
 						          id='description-BG'
@@ -215,6 +247,7 @@ class createProject extends React.Component {
 						          required={false}
 						          onChange={this.handleMultiLangChange}/>
 
+						{/*//DESCRIPTION EN*/}
 						<Textarea name='description'
 						          value={this.state.description.EN}
 						          id='description-EN'
@@ -224,6 +257,7 @@ class createProject extends React.Component {
 						          required={false}
 						          onChange={this.handleMultiLangChange}/>
 
+						{/*//CLIENT*/}
 						<FormInput type='text'
 						           name='client'
 						           value={this.state.client}
@@ -234,7 +268,6 @@ class createProject extends React.Component {
 						           required={false}
 						           disabled={false}
 						           onChange={this.handleChange}/>
-
 
 						{/*//YEAR*/}
 						<FormInput type='text'
@@ -309,7 +342,7 @@ class createProject extends React.Component {
 					{/*//SUBMIT*/}
 					<div className="form-group">
 						<button className="btn btn-default" onClick={this.cancel}>{BUTTONS.BG.cancel}</button>
-						<button className="btn btn-primary" type="submit">{BUTTONS.BG.create}</button>
+						<button className="btn btn-primary" type="submit">{buttonText}</button>
 					</div>
 				</form>
 			</div>

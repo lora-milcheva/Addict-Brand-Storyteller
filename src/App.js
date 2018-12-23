@@ -1,5 +1,6 @@
 import React from 'react';
 import './css/main.css';
+import './css/animations.css';
 
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
@@ -31,11 +32,11 @@ class App extends React.Component {
 		authService
 			.loginAnonymousUser()
 			.then(res => {
-				this.messages.showMessage('logged in as: ' + res.username);
+				this.messages.confirm('logged in as: ' + res.username);
 				authService.saveSession(res);
 			})
 			.catch(err => {
-				this.messages.showMessage(err.responseJSON.description);
+				this.messages.confirm(err.responseJSON.description);
 			});
 	};
 

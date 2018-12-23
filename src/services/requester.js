@@ -30,6 +30,19 @@ export default {
 				data: JSON.stringify(data)
 			});
 	},
+
+	put: (auth, module, endPoint, data) => {
+
+		let url = baseUrl + '/' + module + '/' + appKey + '/' + endPoint;
+
+		return $.ajax(
+			{
+				url: url,
+				type: 'PUT',
+				headers: createHeader(auth),
+				data: JSON.stringify(data)
+			});
+	},
 };
 
 
