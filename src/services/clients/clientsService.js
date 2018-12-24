@@ -45,8 +45,7 @@ export default {
 function createCategoryInfo (state) {
 
 	return {
-		name: state.name,
-		projectIds: state.projectIds
+		name: state.name
 	};
 
 }

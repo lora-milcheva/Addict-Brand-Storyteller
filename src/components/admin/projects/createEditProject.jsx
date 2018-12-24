@@ -50,7 +50,6 @@ class createProject extends React.Component {
 
 		this.loadData();
 
-
 		if (this.projectId) {
 
 			projectsService
@@ -66,7 +65,7 @@ class createProject extends React.Component {
 						name: res.name,
 						description: res.description,
 						year: res.year,
-						clientId: res.client,
+						clientId: res.clientId,
 						categoryIds: res.categoryIds,
 						images: res.images,
 						avatar: res.avatar,
@@ -94,7 +93,7 @@ class createProject extends React.Component {
 						this.setState({
 							allCategories: res,
 							dataLoaded: true
-						})
+						});
 					})
 					.catch(err => console.log(err));
 			})
@@ -143,9 +142,9 @@ class createProject extends React.Component {
 		let category = e.target.id;
 
 		if (this.state.categoryIds.includes(category)) {
-			this.setState({categoryIds: this.state.categoryIds.filter(c => c !== category)})
+			this.setState({categoryIds: this.state.categoryIds.filter(c => c !== category)});
 		} else {
-			this.setState({categoryIds: [...this.state.categoryIds, category]})
+			this.setState({categoryIds: [...this.state.categoryIds, category]});
 		}
 	};
 
@@ -171,8 +170,11 @@ class createProject extends React.Component {
 			projectsService
 				.editProject(this.projectId, Utils.createStateCopy(this.state))
 				.then(res => {
-					this.messages.showMessage('Успешна редакция.');
+
+					this.messages.showMessage('Успешна редкация');
 					setTimeout(() => this.props.history.go(-1), 2000);
+					this.clearData();
+
 				})
 				.catch(err => {
 					this.messages.showMessage(err.responseJSON.description);
@@ -183,9 +185,11 @@ class createProject extends React.Component {
 		projectsService
 			.createProject(Utils.createStateCopy(this.state))
 			.then(res => {
+
 				this.messages.showMessage('Проектът беше създаден.');
-				this.clearData();
 				setTimeout(() => this.props.history.go(-1), 2000);
+				this.clearData();
+
 			})
 			.catch(err => {
 				this.messages.showMessage(err.responseJSON.description);
@@ -234,16 +238,15 @@ class createProject extends React.Component {
 
 		let buttonText = this.projectId ? BUTTONS.BG.edit : BUTTONS.BG.create;
 
-
 		if (!this.state.projectLoaded || !this.state.dataLoaded) {
 			return (<div className="lds-dual-ring"/>);
 		}
 
 		let categories = this.state.allCategories.map(e => {
-			let style =  this.state.categoryIds.includes(e._id) ? 'category-label selected' : 'category-label';
+			let style = this.state.categoryIds.includes(e._id) ? 'category-label selected' : 'category-label';
 			return (
-				<span key={e._id} className={style} id={e._id}  onClick={this.addRemoveCategory}>{e.name.BG}</span>
-			)
+				<span key={e._id} className={style} id={e._id} onClick={this.addRemoveCategory}>{e.name.BG}</span>
+			);
 		});
 
 		return (
@@ -312,14 +315,15 @@ class createProject extends React.Component {
 
 						{/*//CLIENT*/}
 						<FormSelectField
-						           name='clientId'
-						           value={this.state.clientId}
-						           label={CREATE_PROJECT_INPUTS.BG.client}
-						           className='client-field'
-						           required={false}
-						           disabled={false}
-						           options={this.state.allClients}
-						           onChange={this.handleChange}/>
+							name='clientId'
+							value={this.state.clientId}
+							label={CREATE_PROJECT_INPUTS.BG.client}
+							className='client-field'
+							required={false}
+							disabled={false}
+							selected={this.state.clientId}
+							options={this.state.allClients}
+							onChange={this.handleChange}/>
 
 						{/*//YEAR*/}
 						<FormInput type='text'

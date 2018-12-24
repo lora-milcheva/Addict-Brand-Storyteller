@@ -22,7 +22,6 @@ class createEditCategory extends React.Component {
 
 		this.state = {
 			name: {},
-			projectIds: [],
 
 			loading: true
 		};
@@ -40,7 +39,6 @@ class createEditCategory extends React.Component {
 
 					this.setState({
 						name: res.name,
-						projectIds:res.projectIds,
 
 						loading: false
 					});
@@ -115,13 +113,6 @@ class createEditCategory extends React.Component {
 
 	render () {
 
-		let projects;
-
-		if (this.state.projectIds.length > 0) {
-			projects = this.state.projectIds.map(e => {
-				return(<p>e</p>)
-			})
-		}
 
 		let title = this.clientId ? 'Редакция на категория' : 'Създаване на категория';
 
@@ -176,7 +167,6 @@ class createEditCategory extends React.Component {
 						           disabled={false}
 						           onChange={this.handleMultiLangChange}/>
 
-					{projects}
 
 					{/*//SUBMIT*/}
 					<div className="form-group">

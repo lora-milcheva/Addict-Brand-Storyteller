@@ -9,11 +9,17 @@ class FormSelectField extends React.Component {
 
 
 	render () {
-		const {label, name, className, value, required, disabled, onChange, options} = this.props;
+		const {label, name, className, value, required, disabled, onChange, options, selected} = this.props;
 
 
 		let optionElements = options.map(el => {
-			return (<option key={el._id} value={el._id}>{el.name.BG}</option>)
+			let isSelected;
+
+			if (el._id === selected) {
+				isSelected = 'selected'
+			}
+			console.log(el._id, selected)
+			return (<option key={el._id} value={el._id} selected={isSelected}>{el.name.BG}</option>)
 		});
 
 
