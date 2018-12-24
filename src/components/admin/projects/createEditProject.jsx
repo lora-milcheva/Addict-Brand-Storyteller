@@ -1,23 +1,25 @@
 import React from 'react';
 
 // Partials
-import FormInput from '../../../common/formComponents/FormInput';
-import FormSelectField from '../../../common/formComponents/FormSelectField';
-import Textarea from '../../../common/formComponents/TextArea';
-import AddOnInput from '../../../common/formComponents/AddOnInput';
+import FormInput from '../../common/formComponents/FormInput';
+import FormSelectField from '../../common/formComponents/FormSelectField';
+import Textarea from '../../common/formComponents/TextArea';
+import AddOnInput from '../../common/formComponents/AddOnInput';
 
 // Services
-import projectsService from '../../../../services/projects/projectsService';
+import projectsService from '../../../services/projects/projectsService';
+import clientsService from '../../../services/clients/clientsService';
+import categoriesService from '../../../services/categories/categoriesService';
 
 // Notifications
-import Messages from '../../../common/Messages';
-import ConfirmDialog from '../../../common/ConfirmDialog';
+import Messages from '../../common/Messages';
+import ConfirmDialog from '../../common/ConfirmDialog';
 
 // Utils
-import Utils from '../../../../utils/utils';
+import Utils from '../../../utils/utils';
 
 // Constants
-import { CREATE_PROJECT_INPUTS, BUTTONS, CATEGORIES } from '../../../../constants/constants';
+import { CREATE_PROJECT_INPUTS, BUTTONS, CATEGORIES } from '../../../constants/constants';
 
 class createProject extends React.Component {
 	constructor (props) {
@@ -27,13 +29,18 @@ class createProject extends React.Component {
 			name: {},
 			description: {},
 			year: '',
-			client: '',
-			category: '',
+			clientId: '',
+			categoryIds: [],
 			images: [],
 			avatar: '',
 			videos: [],
 
-			loading: true
+			projectLoaded: false,
+
+			dataLoaded: false,
+			allClients: [],
+			allCategories: []
+
 		};
 	}
 
@@ -41,30 +48,58 @@ class createProject extends React.Component {
 
 	componentDidMount () {
 
+		this.loadData();
+
+
 		if (this.projectId) {
 
 			projectsService
 				.loadProjectData(this.projectId)
 				.then(res => {
 
+					let projectClientId = res.clientId;
+
+					clientsService
+						.loadClientData(projectClientId);
+
 					this.setState({
 						name: res.name,
 						description: res.description,
 						year: res.year,
-						client: res.client,
-						category: res.category,
+						clientId: res.client,
+						categoryIds: res.categoryIds,
 						images: res.images,
 						avatar: res.avatar,
 						videos: res.videos,
 
-						loading: false
+						projectLoaded: true
 					});
 				})
 				.catch(err => console.log(err));
 		} else {
-			this.setState({loading: false});
+			this.setState({projectLoaded: true});
 		}
 	}
+
+	loadData = () => {
+		clientsService
+			.loadAllClients()
+			.then(res => {
+
+				this.setState({allClients: res});
+
+				categoriesService
+					.loadAllCategories()
+					.then(res => {
+						this.setState({
+							allCategories: res,
+							dataLoaded: true
+						})
+					})
+					.catch(err => console.log(err));
+			})
+			.catch(err => console.log(err));
+	};
 
 	handleChange = (e) => {
 		this.setState({[e.target.name]: e.target.value});
@@ -104,20 +139,30 @@ class createProject extends React.Component {
 		this.setState({avatar: url});
 	};
 
+	addRemoveCategory = (e) => {
+		let category = e.target.id;
+
+		if (this.state.categoryIds.includes(category)) {
+			this.setState({categoryIds: this.state.categoryIds.filter(c => c !== category)})
+		} else {
+			this.setState({categoryIds: [...this.state.categoryIds, category]})
+		}
+	};
+
 	clearData = () => {
 		this.setState({
-			name: {BG: '', EN: ''},
-			description: {BG: '', EN: ''},
+			name: {},
+			description: {},
 			year: '',
-			client: '',
-			category: '',
+			clientId: '',
+			categoryIds: [],
 			images: [],
 			avatar: '',
-			videos: [],
+			videos: []
 		});
 	};
 
-	createProject = (e) => {
+	saveProject = (e) => {
 
 		e.preventDefault();
 
@@ -126,11 +171,11 @@ class createProject extends React.Component {
 			projectsService
 				.editProject(this.projectId, Utils.createStateCopy(this.state))
 				.then(res => {
-					this.messages.confirm('Успешна редакция.');
+					this.messages.showMessage('Успешна редакция.');
 					setTimeout(() => this.props.history.go(-1), 2000);
 				})
 				.catch(err => {
-					this.messages.confirm(err.responseJSON.description);
+					this.messages.showMessage(err.responseJSON.description);
 				});
 			return;
 		}
@@ -138,12 +183,12 @@ class createProject extends React.Component {
 		projectsService
 			.createProject(Utils.createStateCopy(this.state))
 			.then(res => {
-				this.messages.confirm('Проектът беше създаден.');
+				this.messages.showMessage('Проектът беше създаден.');
 				this.clearData();
 				setTimeout(() => this.props.history.go(-1), 2000);
 			})
 			.catch(err => {
-				this.messages.confirm(err.responseJSON.description);
+				this.messages.showMessage(err.responseJSON.description);
 			});
 	};
 
@@ -189,9 +234,17 @@ class createProject extends React.Component {
 
 		let buttonText = this.projectId ? BUTTONS.BG.edit : BUTTONS.BG.create;
 
-		if (this.state.loading) {
+
+		if (!this.state.projectLoaded || !this.state.dataLoaded) {
 			return (<div className="lds-dual-ring"/>);
 		}
+
+		let categories = this.state.allCategories.map(e => {
+			let style =  this.state.categoryIds.includes(e._id) ? 'category-label selected' : 'category-label';
+			return (
+				<span key={e._id} className={style} id={e._id}  onClick={this.addRemoveCategory}>{e.name.BG}</span>
+			)
+		});
 
 		return (
 			<div id="project-create" className="container">
@@ -209,7 +262,7 @@ class createProject extends React.Component {
 
 
 				{/*//FORM*/}
-				<form method="post" onSubmit={this.createProject} id="create-project-form">
+				<form method="post" onSubmit={this.saveProject} id="create-project-form">
 
 					<main id="project-info">
 
@@ -258,15 +311,14 @@ class createProject extends React.Component {
 						          onChange={this.handleMultiLangChange}/>
 
 						{/*//CLIENT*/}
-						<FormInput type='text'
-						           name='client'
-						           value={this.state.client}
-						           id='client'
-						           placeholder=''
+						<FormSelectField
+						           name='clientId'
+						           value={this.state.clientId}
 						           label={CREATE_PROJECT_INPUTS.BG.client}
 						           className='client-field'
 						           required={false}
 						           disabled={false}
+						           options={this.state.allClients}
 						           onChange={this.handleChange}/>
 
 						{/*//YEAR*/}
@@ -281,14 +333,7 @@ class createProject extends React.Component {
 						           disabled={false}
 						           onChange={this.handleChange}/>
 
-						{/*//CATEGORY*/}
-						<FormSelectField className='category-field'
-						                 name='category'
-						                 value={this.state.category}
-						                 label={CREATE_PROJECT_INPUTS.BG.category}
-						                 options={CATEGORIES.BG}
-						                 onChange={this.handleChange}
-						/>
+						{categories}
 					</main>
 
 

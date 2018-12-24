@@ -12,8 +12,8 @@ class FormSelectField extends React.Component {
 		const {label, name, className, value, required, disabled, onChange, options} = this.props;
 
 
-		let optionElements = Object.keys(options).map(el => {
-			return (<option key={el} value={el}>{options[el]}</option>)
+		let optionElements = options.map(el => {
+			return (<option key={el._id} value={el._id}>{el.name.BG}</option>)
 		});
 
 
@@ -42,7 +42,7 @@ FormSelectField.propTypes = {
 	className: PropTypes.string,
 	value: PropTypes.string,
 	label: PropTypes.string,
-	options: PropTypes.object,
+	options: PropTypes.array,
 	required: PropTypes.bool,
 	disabled: PropTypes.bool,
 	onChange: PropTypes.func

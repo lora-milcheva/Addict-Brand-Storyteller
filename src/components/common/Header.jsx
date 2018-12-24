@@ -30,11 +30,9 @@ class Header extends React.Component {
 			return (
 				<nav id="main-nav">
 
-					<NavLink to="/admin/project-create" className="nav-link" activeClassName='active'>Create
-						Project</NavLink>
-
-					<NavLink to='/admin/projects-list' className="nav-link" activeClassName='active'>All
-						Projects</NavLink>
+					<NavLink to='/admin/projects-list' className="nav-link" activeClassName='active'>All Projects</NavLink>
+					<NavLink to='/admin/category-list' className="nav-link" activeClassName='active'>All Categories</NavLink>
+					<NavLink to='/admin/clients-list' className="nav-link" activeClassName='active'>All Clients</NavLink>
 
 					<NavLink to='/home' className="nav-link" activeClassName='active' onClick={this.logout}>Logout</NavLink>
 

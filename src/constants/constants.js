@@ -27,6 +27,24 @@ const CREATE_PROJECT_INPUTS = {
 	}
 };
 
+const CATEGORY_INPUTS = {
+	BG: {
+		name: 'Име на категорията',
+	},
+	EN: {
+		name: 'Category name',
+	}
+};
+
+const CLIENT_INPUTS = {
+	BG: {
+		name: 'Име на клиента',
+	},
+	EN: {
+		name: 'Client name',
+	}
+};
+
 const BUTTONS = {
 	BG: {
 		create: 'Създай',
@@ -61,6 +79,8 @@ const CATEGORIES = {
 export {
 	LANGUAGES,
 	CREATE_PROJECT_INPUTS,
+	CATEGORY_INPUTS,
+	CLIENT_INPUTS,
 	BUTTONS,
 	CATEGORIES
 }

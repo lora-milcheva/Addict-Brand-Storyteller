@@ -2,13 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // Services
-import projectsService from '../../../../services/projects/projectsService';
+import projectsService from '../../../services/projects/projectsService';
 
 // Notifications
-import Messages from '../../../common/Messages';
+import Messages from '../../common/Messages';
 
 // Constants
-import { BUTTONS } from '../../../../constants/constants';
+import { BUTTONS } from '../../../constants/constants';
 
 class projectsList extends React.Component {
 	constructor (props) {
@@ -61,7 +61,7 @@ class projectsList extends React.Component {
 			);
 		}
 
-		if (this.state.loading) {
+		if (this.state.projectLoading) {
 			return (<div className="lds-dual-ring"/> );
 		}
 
@@ -72,6 +72,12 @@ class projectsList extends React.Component {
 
 				<div className="page-header">
 					<h1 className="page-title">Проекти</h1>
+				</div>
+
+				<div className="buttons-container">
+					<Link to="/admin/project-create" className="btn btn-primary sm">New Project</Link>
+					<Link to="/admin/client-create" className="btn btn-primary sm">New Client</Link>
+					<Link to="/admin/category-create" className="btn btn-primary sm">New Category</Link>
 				</div>
 
 				<div className="projects-container">

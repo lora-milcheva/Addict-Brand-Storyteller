@@ -3,26 +3,26 @@ import requester from '../requester';
 const module = 'appdata';
 const basicAuth = 'basicAuth';
 const sessionAuth = 'adminAuth';
-let endPoint = 'projects';
+let endPoint = 'clients';
 
 export default {
 
-	createProject: (state) => {
+	createClient: (state) => {
 
-		let project = createProjectInfo(state);
+		let project = createCategoryInfo(state);
 
 		return requester
 			.post(sessionAuth, module, endPoint, project);
 	},
 
 
-	loadAllProjects: () => {
+	loadAllClients: () => {
 		return requester
 			.get(sessionAuth, module, endPoint);
 	},
 
 
-	loadProjectData: (id) => {
+	loadClientData: (id) => {
 
 		let endPointId = endPoint + '/' + id;
 
@@ -31,28 +31,22 @@ export default {
 	},
 
 
-	editProject: (id, state) => {
+	editClient: (id, state) => {
 
 		let endPointId = endPoint + '/' + id;
 
-		let project = createProjectInfo(state);
+		let project = createCategoryInfo(state);
 
 		return requester
 			.put(sessionAuth, module, endPointId, project);
 	}
 };
 
-function createProjectInfo (state) {
+function createCategoryInfo (state) {
 
 	return {
 		name: state.name,
-		description: state.description,
-		year: state.year,
-		clientId: state.clientId,
-		categoryIds: state.categoryIds,
-		images: state.images,
-		avatar: state.avatar,
-		videos: state.videos,
+		projectIds: state.projectIds
 	};
 
 }

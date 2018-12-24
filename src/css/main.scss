@@ -386,6 +386,27 @@ button {
   margin-bottom: 20px;
 }
 
+.buttons-container {
+  margin: 5px 0 20px;
+}
+
+.category-label {
+  padding: 5px 10px;
+  border: 1px solid $medium-grey;
+  border-radius: 2px;
+  margin-right: 3px;
+  @include main-transition;
+
+  &.selected {
+    background-color: $primary;
+    color: $white;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 //COMMON
 #messages,
 #confirm-dialog {
@@ -450,6 +471,7 @@ button {
   #project-info {
     @include flex-basis(48%);
     @include flex-grow(1);
+    @include align-items(flex-start);
 
     @include flex;
     @include flex-wrap(wrap);
@@ -457,7 +479,6 @@ button {
     .inputs-holder {
       @include flex-basis(100%);
     }
-
   }
 
   #project-data {
