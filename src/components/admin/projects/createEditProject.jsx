@@ -19,7 +19,7 @@ import ConfirmDialog from '../../common/ConfirmDialog';
 import Utils from '../../../utils/utils';
 
 // Constants
-import { CREATE_PROJECT_INPUTS, BUTTONS, CATEGORIES } from '../../../constants/constants';
+import { CREATE_PROJECT_INPUTS, BUTTONS } from '../../../constants/constants';
 
 class createProject extends React.Component {
 	constructor (props) {
@@ -32,15 +32,15 @@ class createProject extends React.Component {
 			clientId: '',
 			categoryIds: [],
 			images: [],
-			avatar: '',
+			thumbnail: '',
 			videos: [],
 
 			projectLoaded: false,
 
 			dataLoaded: false,
+
 			allClients: [],
 			allCategories: []
-
 		};
 	}
 
@@ -68,7 +68,7 @@ class createProject extends React.Component {
 						clientId: res.clientId,
 						categoryIds: res.categoryIds,
 						images: res.images,
-						avatar: res.avatar,
+						thumbnail: res.thumbnail,
 						videos: res.videos,
 
 						projectLoaded: true
@@ -116,49 +116,16 @@ class createProject extends React.Component {
 		this.setState({[key]: stateProp});
 	};
 
-	addImage = (url) => {
-		this.setState({images: [...this.state.images, url]});
-	};
+	handleArrChange = (e) => {
 
-	removeImage = (e) => {
 		e.preventDefault();
-		this.setState({images: this.state.images.filter(el => el !== e.target.name)});
-	};
 
-	addVideo = (url) => {
-		this.setState({videos: [...this.state.videos, url]});
-	};
+		if (this.state[e.target.name].includes(e.target.value)) {
+			this.setState({[e.target.name]: this.state[e.target.name].filter(el => el !== e.target.value)}, () => console.log(this.state));
 
-	removeVideo = (e) => {
-		e.preventDefault();
-		this.setState({videos: this.state.videos.filter(el => el !== e.target.name)});
-	};
-
-	addAvatar = (url) => {
-		this.setState({avatar: url});
-	};
-
-	addRemoveCategory = (e) => {
-		let category = e.target.id;
-
-		if (this.state.categoryIds.includes(category)) {
-			this.setState({categoryIds: this.state.categoryIds.filter(c => c !== category)});
 		} else {
-			this.setState({categoryIds: [...this.state.categoryIds, category]});
+			this.setState({[e.target.name]: [...this.state[e.target.name], e.target.value]}, () => console.log(this.state));
 		}
-	};
-
-	clearData = () => {
-		this.setState({
-			name: {},
-			description: {},
-			year: '',
-			clientId: '',
-			categoryIds: [],
-			images: [],
-			avatar: '',
-			videos: []
-		});
 	};
 
 	saveProject = (e) => {
@@ -173,12 +140,12 @@ class createProject extends React.Component {
 
 					this.messages.showMessage('Успешна редкация');
 					setTimeout(() => this.props.history.go(-1), 2000);
-					this.clearData();
 
 				})
 				.catch(err => {
 					this.messages.showMessage(err.responseJSON.description);
 				});
+
 			return;
 		}
 
@@ -188,7 +155,6 @@ class createProject extends React.Component {
 
 				this.messages.showMessage('Проектът беше създаден.');
 				setTimeout(() => this.props.history.go(-1), 2000);
-				this.clearData();
 
 			})
 			.catch(err => {
@@ -196,7 +162,8 @@ class createProject extends React.Component {
 			});
 	};
 
-	confirm = () => {
+	confirmDelete = () => {
+		// First give the massage, then the callback to be executed
 		this.confirmDialog.showMessage('test', this.deleteProject);
 	};
 
@@ -211,14 +178,26 @@ class createProject extends React.Component {
 
 	render () {
 
-		let avatar = this.state.avatar !== '' ?
-			<img src={this.state.avatar} alt="project avatar" className="img-fit"/> : null;
+		let title = this.projectId ? 'Редакция на проект' : 'Създаване на проект';
+
+		let buttonText = this.projectId ? BUTTONS.BG.edit : BUTTONS.BG.create;
+
+		// Show loader until data is loaded
+		if (!this.state.projectLoaded || !this.state.dataLoaded) {
+			return (<div className="lds-dual-ring"/>);
+		}
+
+		let thumbnail = this.state.thumbnail !== '' ?
+			(<figure className="image" >
+				<img src={this.state.thumbnail} alt="project thumbnail" className="img-fit"/>
+			</figure>) : null;
 
 		let images = this.state.images.map((image, index) => {
 			return (
 				<figure className="image" key={index}>
 					<img src={image} className="img-fit" alt=""/>
-					<button className="btn xs btn-primary del-btn" name={image} onClick={this.removeImage}>clear
+					<button className="btn xs btn-primary del-btn" name='images' value={image}
+					        onClick={this.handleArrChange}>clear
 					</button>
 				</figure>);
 		});
@@ -227,25 +206,19 @@ class createProject extends React.Component {
 			return (
 				<div className="image" key={index}>
 					<iframe src={video} title={video}/>
-					<button className="btn xs btn-primary del-btn" name={video} onClick={this.removeVideo}>clear
+					<button className="btn xs btn-primary del-btn" name='videos' value={video}
+					        onClick={this.handleArrChange}>clear
 					</button>
 				</div>
 
 			);
 		});
 
-		let title = this.projectId ? 'Редакция на проект' : 'Създаване на проект';
-
-		let buttonText = this.projectId ? BUTTONS.BG.edit : BUTTONS.BG.create;
-
-		if (!this.state.projectLoaded || !this.state.dataLoaded) {
-			return (<div className="lds-dual-ring"/>);
-		}
-
 		let categories = this.state.allCategories.map(e => {
-			let style = this.state.categoryIds.includes(e._id) ? 'category-label selected' : 'category-label';
+			let style = this.state.categoryIds.includes(e._id) ? 'btn category-label selected' : 'btn category-label';
 			return (
-				<span key={e._id} className={style} id={e._id} onClick={this.addRemoveCategory}>{e.name.BG}</span>
+				<button key={e._id} className={style} name="categoryIds" value={e._id}
+				        onClick={this.handleArrChange}>{e.name.BG}</button>
 			);
 		});
 
@@ -259,7 +232,7 @@ class createProject extends React.Component {
 					<h1 className="page-title">{title}</h1>
 
 					{this.projectId &&
-					<button className="btn btn-danger xs" onClick={this.confirm}>{BUTTONS.BG.delete}</button>
+					<button className="btn btn-danger xs" onClick={this.confirmDelete}>{BUTTONS.BG.delete}</button>
 					}
 				</div>
 
@@ -293,6 +266,10 @@ class createProject extends React.Component {
 						           disabled={false}
 						           onChange={this.handleMultiLangChange}/>
 
+						<div className="form-group">
+							{categories}
+						</div>
+
 						{/*//DESCRIPTION BG*/}
 						<Textarea name='description'
 						          value={this.state.description.BG}
@@ -314,16 +291,15 @@ class createProject extends React.Component {
 						          onChange={this.handleMultiLangChange}/>
 
 						{/*//CLIENT*/}
-						<FormSelectField
-							name='clientId'
-							value={this.state.clientId}
-							label={CREATE_PROJECT_INPUTS.BG.client}
-							className='client-field'
-							required={false}
-							disabled={false}
-							selected={this.state.clientId}
-							options={this.state.allClients}
-							onChange={this.handleChange}/>
+						<FormSelectField name='clientId'
+						                 value={this.state.clientId}
+						                 label={CREATE_PROJECT_INPUTS.BG.client}
+						                 className='client-field'
+						                 required={false}
+						                 disabled={false}
+						                 selected={this.state.clientId}
+						                 options={this.state.allClients}
+						                 onChange={this.handleChange}/>
 
 						{/*//YEAR*/}
 						<FormInput type='text'
@@ -337,52 +313,59 @@ class createProject extends React.Component {
 						           disabled={false}
 						           onChange={this.handleChange}/>
 
-						{categories}
+
 					</main>
 
 
 					{/*//PROJECT IMAGES & VIDEOS*/}
 					<aside id="project-data">
 
+
 						<div className="project-data">
+
+							<h3 className="section-title">Thumbnail</h3>
 							<div className="container">
-								{avatar}
+								{thumbnail}
 							</div>
 
 							<AddOnInput
-								label={CREATE_PROJECT_INPUTS.BG.avatar}
+								name="thumbnail"
+								// label={CREATE_PROJECT_INPUTS.BG.thumbnail}
+								labelClassName="no-label"
 								buttonText='+'
-								placeholder='Аватар'
-								className='add-avatar-field'
-								addImage={this.addAvatar}/>
+								placeholder='Thumbnail'
+								onChange={this.handleChange}/>
 						</div>
 
 
 						<div className="project-data">
+							<h3 className="section-title">Изображения</h3>
 							<div className="container">
 								{images}
 							</div>
 
 							<AddOnInput
-								label={CREATE_PROJECT_INPUTS.BG.images}
+								name="images"
+								// label={CREATE_PROJECT_INPUTS.BG.images}
+								labelClassName="no-label"
 								buttonText='+'
 								placeholder='Добави снимка'
-								className='add-image-field'
-								addImage={this.addImage}/>
+								onChange={this.handleArrChange}/>
 						</div>
 
 						<div className="project-data">
-
+							<h3 className="section-title">Видео</h3>
 							<div className="container">
 								{videos}
 							</div>
 
 							<AddOnInput
-								label={CREATE_PROJECT_INPUTS.BG.videos}
+								name="videos"
+								// label={CREATE_PROJECT_INPUTS.BG.videos}
+								labelClassName="no-label"
 								buttonText='+'
 								placeholder='Добави видео'
-								className='add-image-field'
-								addImage={this.addVideo}/>
+								onChange={this.handleArrChange}/>
 						</div>
 
 					</aside>

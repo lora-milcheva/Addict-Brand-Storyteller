@@ -51,7 +51,7 @@ function createProjectInfo (state) {
 		clientId: state.clientId,
 		categoryIds: state.categoryIds,
 		images: state.images,
-		avatar: state.avatar,
+		thumbnail: state.thumbnail,
 		videos: state.videos,
 	};
 

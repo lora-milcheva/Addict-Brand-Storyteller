@@ -11,7 +11,7 @@ const CREATE_PROJECT_INPUTS = {
 		client: 'Клиент',
 		year: 'Година',
 		category: 'Категория',
-		avatar: 'Аватар',
+		thumbnail: 'Thumbnail',
 		images: 'Изображения',
 		videos: 'Видеа'
 	},
@@ -21,7 +21,7 @@ const CREATE_PROJECT_INPUTS = {
 		client: 'Client',
 		year: 'Year',
 		category: 'Category',
-		avatar: 'Avatar',
+		thumbnail: 'Thumbnail',
 		images: 'Images',
 		videos: 'Videos'
 	}

@@ -44,7 +44,7 @@ class projectsList extends React.Component {
 					return (
 						<article key={e._id} className="project-card">
 							<figure className="img-container">
-								<img className="img-fit" src={e.avatar}/>
+								<img className="img-fit" src={e.thumbnail}/>
 							</figure>
 							<p className="project-name">{e.name.BG}</p>
 

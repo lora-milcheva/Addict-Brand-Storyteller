@@ -26,7 +26,7 @@ class ProjectList extends React.Component {
 				this.setState({projects: res})
 			})
 			.catch(err => {
-				this.messages.confirm(err.responseJSON.description);
+				this.messages.confirmDelete(err.responseJSON.description);
 			});
 	};
 

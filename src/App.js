@@ -32,11 +32,11 @@ class App extends React.Component {
 		authService
 			.loginAnonymousUser()
 			.then(res => {
-				this.messages.confirm('logged in as: ' + res.username);
+				this.messages.confirmDelete('logged in as: ' + res.username);
 				authService.saveSession(res);
 			})
 			.catch(err => {
-				this.messages.confirm(err.responseJSON.description);
+				this.messages.confirmDelete(err.responseJSON.description);
 			});
 	};
 
