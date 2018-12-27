@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// Partials
+import ProjectCard from '../../common/ProjectCard';
+
 // Services
 import projectsService from '../../../services/projects/projectsService';
 
 // Notifications
 import Messages from '../../common/Messages';
 
-// Constants
-import { BUTTONS } from '../../../constants/constants';
 
 class projectsList extends React.Component {
 	constructor (props) {
@@ -43,20 +44,7 @@ class projectsList extends React.Component {
 
 		let projects = this.state.projects.map(e => {
 				return (
-					<article key={e._id} className="project-card">
-						<figure className="img-container">
-							<img className="img-fit" src={e.thumbnail}/>
-						</figure>
-						<p className="project-name">{e.name.BG}</p>
-
-						<Link to={'project-edit/' + e._id} className="hover">
-							<div className="edit-btn">
-
-								<i className="fa fa-pencil" aria-hidden="true"/>{BUTTONS.BG.edit}
-							</div>
-						</Link>
-
-					</article>
+					<ProjectCard key={e._id} project={e}/>
 				);
 			}
 		);

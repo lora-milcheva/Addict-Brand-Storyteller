@@ -272,6 +272,25 @@ button {
     }
   }
 
+  &.btn-light {
+
+      padding: 5px 10px;
+      border: 1px solid $medium-grey;
+      border-radius: 2px;
+      margin-right: 3px;
+      font-size: .8em;
+      @include main-transition;
+
+      &.selected {
+        background-color: $primary;
+        color: $white;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+  }
+
   &.category-label {
     padding: 5px 10px;
     border: 1px solid $medium-grey;
@@ -533,6 +552,30 @@ button {
         }
       }
     }
+  }
+}
+
+#project {
+  @include flex;
+
+  .project-gallery {
+    @include flex-basis(70%);
+    @include flex;
+    @include flex-wrap(wrap);
+
+    .image {
+      @include flex-basis(49%);
+      margin: 0 1% .5% 0;
+
+      .img-fit {
+        height: auto;
+      }
+    }
+  }
+
+  .project-info {
+    @include flex-basis(30%);
+    padding-left: 2em;
   }
 }
 
