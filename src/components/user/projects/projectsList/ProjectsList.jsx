@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// Services
 import projectsService from '../../../../services/projects/projectsService';
 import clientsService from '../../../../services/clients/clientsService';
 import categoriesService from '../../../../services/categories/categoriesService';
 
+// Notifications
 import Messages from '../../../common/Messages';
 
 class ProjectList extends React.Component {
@@ -17,7 +19,7 @@ class ProjectList extends React.Component {
 			clients: [],
 			categories: [],
 
-			selectedCategoryIds: [],
+			selectedCategory: '',
 			filteredProjects: [],
 
 			loading: true
@@ -25,10 +27,10 @@ class ProjectList extends React.Component {
 	}
 
 	componentDidMount () {
-		this.loadProjects();
+		this.loadAll();
 	}
 
-	loadProjects = () => {
+	loadAll = () => {
 		projectsService
 			.loadAllProjects()
 			.then(res => {
@@ -64,50 +66,32 @@ class ProjectList extends React.Component {
 			});
 	};
 
-	handleArrChange = (e) => {
+	handleChange = (e) => {
 
 		e.preventDefault();
 
 		if (e.target.name === 'all') {
 			this.setState({
-				selectedCategoryIds: [],
-				filteredProjects: this.state.allProjects});
-
-			return
-		}
-
-		if (this.state[e.target.name].includes(e.target.value)) {
-			this.setState({[e.target.name]: this.state[e.target.name].filter(el => el !== e.target.value)}, () => {
-				this.filterProjects()
+				selectedCategory: '',
+				filteredProjects: this.state.allProjects
 			});
-		} else {
-			this.setState({[e.target.name]: [...this.state[e.target.name], e.target.value]}, () => this.filterProjects());
+
+			return;
 		}
+
+		this.setState({[e.target.name]: e.target.value}, () => this.filterProjects());
 
 	};
-
 
 	filterProjects = () => {
 		let filteredProjects = [];
 
-		if (this.state.selectedCategoryIds.length === 0){
-			this.setState({
-				selectedCategoryIds: [],
-				filteredProjects: this.state.allProjects});
+		for (let project of this.state.allProjects) {
 
-			return
-		}
+			if (filteredProjects.some(el => el._id === project._id)) continue;
 
-		for (let category of this.state.selectedCategoryIds) {
-
-			for (let project of this.state.allProjects) {
-
-				if (filteredProjects.some(el => el._id === project._id)) continue;
-
-				if (project.categoryIds.includes(category)) {
-
-					filteredProjects.push(project);
-				}
+			if (project.categoryIds.includes(this.state.selectedCategory)) {
+				filteredProjects.push(project);
 			}
 		}
 
@@ -121,23 +105,22 @@ class ProjectList extends React.Component {
 		}
 
 		let categories = this.state.categories.map(e => {
-			let style = this.state.selectedCategoryIds.includes(e._id) ? 'btn category-label selected' : 'btn category-label';
+			let style = this.state.selectedCategory.includes(e._id) ? 'btn category-label selected' : 'btn category-label';
 			return (
 				<button key={e._id}
 				        className={style}
-				        name="selectedCategoryIds"
+				        name="selectedCategory"
 				        value={e._id}
-				        onClick={this.handleArrChange}>{e.name.BG}</button>
+				        onClick={this.handleChange}>{e.name.BG}</button>
 			);
 		});
 
 		categories.unshift(<button key='all'
-		                        className={this.state.selectedCategoryIds.length === 0
-			                        ? 'btn category-label selected'
-			                        : 'btn category-label'}
-		                        name="all"
-		                        onClick={this.handleArrChange}>all</button>);
-
+		                           className={this.state.selectedCategory.length === 0
+			                           ? 'btn category-label selected'
+			                           : 'btn category-label'}
+		                           name="all"
+		                           onClick={this.handleChange}>all</button>);
 
 		let projects = this.state.filteredProjects.map((e, i) => {
 			return (
@@ -155,7 +138,6 @@ class ProjectList extends React.Component {
 				</article>
 			);
 		});
-
 
 		return (
 			<div id="projects-list" className="container">

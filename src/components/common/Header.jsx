@@ -15,16 +15,16 @@ class Header extends React.Component {
 			.logout()
 			.then(res => {
 				authService.clearSession();
-				this.props.history.push('/home')
+				window.location.reload();
 			})
 			.catch(err => console.log(err));
 	};
 
 	render () {
 
-		let admin = sessionStorage.getItem('role');
+		let admin = sessionStorage.getItem('role') !== null;
 
-		if (admin && admin !== undefined) {
+		if (admin) {
 
 			return (
 				<nav id="main-nav">

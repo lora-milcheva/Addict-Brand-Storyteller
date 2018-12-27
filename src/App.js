@@ -10,49 +10,38 @@ import Messages from './components/common/Messages';
 
 import authService from './services/auth/authService';
 
-
 class App extends React.Component {
 	constructor (props) {
 		super(props);
 	}
 
 	componentDidMount () {
-		authService.clearSession();
-		this.loginAnonymousUser();
+		if (sessionStorage.length === 0){
+			authService
+				.loginAnonymousUser()
+				.then(res => {
+					this.messages.showMessage('logged in as: ' + res.username);
+					authService.saveSession(res);
+				})
+				.catch(err => {
+					this.messages.showMessage(err.responseJSON.description);
+				});
+		}
 	}
-
-	componentWillUnmount () {
-		authService
-			.logout()
-			.then(authService.clearSession());
-	}
-
-	loginAnonymousUser = () => {
-
-		authService
-			.loginAnonymousUser()
-			.then(res => {
-				this.messages.showMessage('logged in as: ' + res.username);
-				authService.saveSession(res);
-			})
-			.catch(err => {
-				this.messages.showMessage(err.responseJSON.description);
-			});
-	};
 
 	render () {
 		return (
 
-            <div>
-	            <Messages onRef={ref => (this.messages = ref)}/>
-              <Header/>
+			<div>
+				<Messages onRef={ref => (this.messages = ref)}/>
+				<Header/>
 
-              <main>
-                <Routes />
-              </main>
+				<main>
+					<Routes />
+				</main>
 
-              <Footer/>
-            </div>
+				<Footer/>
+			</div>
 
 		);
 	}

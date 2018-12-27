@@ -8,16 +8,6 @@ class Home extends React.Component {
 		super(props);
 	}
 
-	componentDidMount () {
-		authService
-			.loginAnonymousUser()
-			.then(res => {
-				authService.saveSession(res);
-				console.log('logged in as: ' + res.username)
-			})
-			.catch(err => console.log(err));
-	}
-
 
 	render () {
 

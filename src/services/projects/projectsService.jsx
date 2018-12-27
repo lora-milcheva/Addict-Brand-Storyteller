@@ -2,7 +2,7 @@ import requester from '../requester';
 
 const module = 'appdata';
 const basicAuth = 'basicAuth';
-const sessionAuth = 'adminAuth';
+const sessionAuth = 'sessionAuth';
 let endPoint = 'projects';
 
 export default {
