@@ -22,9 +22,10 @@ export default {
 	},
 
 	loginAnonymousUser: () => {
+
 		let anonymousUser = {
-			username: 'lorishte',
-			password: '1233'
+			username: 'anonymous',
+			password: '123456'
 		};
 
 		let endpoint = 'login';

@@ -9,10 +9,13 @@ class Home extends React.Component {
 	}
 
 	componentDidMount () {
-		authService.loginAnonymousUser()
+		authService
+			.loginAnonymousUser()
 			.then(res => {
 				authService.saveSession(res);
+				console.log('logged in as: ' + res.username)
 			})
+			.catch(err => console.log(err));
 	}
 
 
@@ -21,9 +24,6 @@ class Home extends React.Component {
 		return (
 			<div id="home" className="container">
 				<h1> HOME. Here I am.</h1>
-				<Link to="/projects">Projects</Link>
-				<p/>
-				<Link to="/login">Login</Link>
 			</div>
 		);
 	}

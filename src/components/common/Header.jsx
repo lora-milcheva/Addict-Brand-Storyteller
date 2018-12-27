@@ -11,11 +11,11 @@ class Header extends React.Component {
 	}
 
 	logout = () => {
-		authService.clearSession();
 		authService
 			.logout()
 			.then(res => {
-				authService.loginAnonymousUser()
+				authService.clearSession();
+				this.props.history.push('/home')
 			})
 			.catch(err => console.log(err));
 	};
@@ -23,7 +23,6 @@ class Header extends React.Component {
 	render () {
 
 		let admin = sessionStorage.getItem('role');
-
 
 		if (admin && admin !== undefined) {
 

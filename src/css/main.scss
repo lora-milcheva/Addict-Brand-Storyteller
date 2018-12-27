@@ -395,8 +395,7 @@ button {
 .img-fit {
   object-fit: cover;
   width: 100%;
-  height: 300px;
-
+  height: 250px;
 }
 
 .page-header {
@@ -475,6 +474,68 @@ button {
   }
 }
 
+// USER
+
+#projects-list {
+
+  .img-fit {
+    object-fit: cover;
+    width: 280px;
+    height: 250px;
+  }
+
+  .projects-container {
+    @include flex;
+    @include flex-wrap(wrap);
+
+    .project-card {
+      position: relative;
+
+      @include flex-basis(20%);
+      margin-right: 1%;
+      margin-bottom: 1%;
+
+      @include main-transition;
+
+      .hover {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        @include flex;
+        @include align-items(center);
+        @include justify-content(center);
+
+        width: 100%;
+        height: 100%;
+        background-color: $primary;
+
+        @include main-transition;
+
+        .edit-btn {
+          transform: translateY(-100px);
+          color: $white;
+          //font-size: 2em;
+          @include main-transition;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+
+        .hover {
+          opacity: 1;
+
+          .edit-btn {
+            transform: translateY(0);
+          }
+        }
+      }
+    }
+  }
+}
+
 //ADMIN
 #project-create {
 
@@ -493,10 +554,10 @@ button {
   }
 
   #project-info {
-    @include flex-basis(48%);
+    @include flex-basis(45%);
     @include flex-grow(1);
     @include align-items(flex-start);
-    margin-right: 2%;
+    margin-right: 5%;
 
     @include flex;
     @include flex-wrap(wrap);
@@ -514,9 +575,6 @@ button {
       @include flex-basis(100%);
       margin: 15px 0;
       font-weight: 400;
-      //background-color: $default;
-      //padding: 5px;
-      //color: $white;
     }
 
     .project-pictures,

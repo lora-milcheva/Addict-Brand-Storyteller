@@ -37,33 +37,29 @@ class projectsList extends React.Component {
 
 	render () {
 
-		let projects;
-
-		if (this.state.projects.length > 0) {
-			projects = this.state.projects.map(e => {
-					return (
-						<article key={e._id} className="project-card">
-							<figure className="img-container">
-								<img className="img-fit" src={e.thumbnail}/>
-							</figure>
-							<p className="project-name">{e.name.BG}</p>
-
-							<Link to={'project-edit/' + e._id} className="hover">
-								<div className="edit-btn">
-
-									<i className="fa fa-pencil" aria-hidden="true"/>{BUTTONS.BG.edit}
-								</div>
-							</Link>
-
-						</article>
-					);
-				}
-			);
-		}
-
-		if (this.state.projectLoading) {
+		if (this.state.loading) {
 			return (<div className="lds-dual-ring"/> );
 		}
+
+		let projects = this.state.projects.map(e => {
+				return (
+					<article key={e._id} className="project-card">
+						<figure className="img-container">
+							<img className="img-fit" src={e.thumbnail}/>
+						</figure>
+						<p className="project-name">{e.name.BG}</p>
+
+						<Link to={'project-edit/' + e._id} className="hover">
+							<div className="edit-btn">
+
+								<i className="fa fa-pencil" aria-hidden="true"/>{BUTTONS.BG.edit}
+							</div>
+						</Link>
+
+					</article>
+				);
+			}
+		);
 
 		return (
 			<div id="admin-projects-list" className="container">
