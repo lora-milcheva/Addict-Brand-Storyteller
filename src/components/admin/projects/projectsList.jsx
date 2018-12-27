@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // Partials
-import ProjectCard from '../../common/ProjectCard';
+import ProjectCard from './partials/ProjectCard';
 
 // Services
 import projectsService from '../../../services/projects/projectsService';

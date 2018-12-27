@@ -39,7 +39,7 @@ let Routes = () => {
 
 			<PrivateRoute exact path='/admin/projects-list' component={adminProjectsList}/>
 			<PrivateRoute exact path='/admin/project-create' component={createProject}/>
-			<PrivateRoute exact path='/admin/projects/:id' component={createProject}/>
+			<PrivateRoute exact path='/admin/project-edit/:id' component={createProject}/>
 
 			<PrivateRoute exact path='/admin/category-list' component={categoriesList}/>
 			<PrivateRoute exact path='/admin/category-create' component={createEditCategory}/>

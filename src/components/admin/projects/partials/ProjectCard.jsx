@@ -19,9 +19,9 @@ class ProjectCard extends React.Component {
 				</figure>
 				<p className="project-name">{project.name.BG}</p>
 
-				<Link to={'projects/' + project._id} className="hover">
+				<Link to={'project-edit/' + project._id} className="hover">
 					<div className="edit-btn">
-						<i className="fa fa-eye" aria-hidden="true"/>Повече
+						<i className="fa fa-edit" aria-hidden="true"/>Редакция
 					</div>
 				</Link>
 			</article>

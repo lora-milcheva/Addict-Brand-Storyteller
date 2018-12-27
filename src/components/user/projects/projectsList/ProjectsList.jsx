@@ -1,12 +1,13 @@
 import React from 'react';
 
 // Partials
-import ProjectCard from '../../../common/ProjectCard';
+import ProjectCard from './partials/ProjectCard';
 
 // Services
 import projectsService from '../../../../services/projects/projectsService';
 import clientsService from '../../../../services/clients/clientsService';
 import categoriesService from '../../../../services/categories/categoriesService';
+import authService from '../../../../services/auth/authService';
 
 // Notifications
 import Messages from '../../../common/Messages';
@@ -29,10 +30,25 @@ class ProjectList extends React.Component {
 	}
 
 	componentDidMount () {
+
+		// Log anonymous user if storage is empty
+		if (sessionStorage.getItem('authtoken') === null) {
+			authService
+				.loginAnonymousUser()
+				.then(res => {
+					authService.saveSession(res);
+					this.loadAll();
+				})
+				.catch(err => this.messages.showMessage(err.responseJSON.description))
+
+			return
+		}
+
 		this.loadAll();
 	}
 
 	loadAll = () => {
+		console.log('from load');
 		projectsService
 			.loadAllProjects()
 			.then(res => {
@@ -42,11 +58,17 @@ class ProjectList extends React.Component {
 					filteredProjects: res
 				});
 
+				this.saveFilteredProjects(this.state.allProjects);
+
 				clientsService
 					.loadAllClients()
 					.then(res => {
 
 						this.setState({clients: res});
+
+						this.state.allProjects.forEach(p => {
+							p.client = this.state.clients.filter(c => c._id === p.clientId)[0].name.BG
+						});
 
 						categoriesService
 							.loadAllCategories()
@@ -105,7 +127,11 @@ class ProjectList extends React.Component {
 	};
 
 	saveFilteredProjects = (filteredProjects) => {
-		sessionStorage.setItem('filteredProjects', JSON.stringify(filteredProjects));
+
+		let projectIds = [];
+
+		filteredProjects.forEach(e => projectIds.push(e._id));
+		sessionStorage.setItem('filteredProjects', JSON.stringify(projectIds));
 	};
 
 	render () {
