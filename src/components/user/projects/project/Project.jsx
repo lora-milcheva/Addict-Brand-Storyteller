@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// Partials
+import GalleryPreview from './partials/GalleryPreview';
+
 // Services
 import projectsService from '../../../../services/projects/projectsService';
 import clientsService from '../../../../services/clients/clientsService';
@@ -17,6 +20,8 @@ class Project extends React.Component {
 			project: [],
 			projectId: '',
 			client: '',
+
+			selectedImage: '',
 
 			currentProjectIndex: 0,
 			prevProjectId: undefined,
@@ -38,9 +43,9 @@ class Project extends React.Component {
 					authService.saveSession(res);
 					this.setIndexes();
 				})
-				.catch(err => this.messages.showMessage(err.responseJSON.description))
+				.catch(err => this.messages.showMessage(err.responseJSON.description));
 
-			return
+			return;
 		}
 
 		this.setIndexes();
@@ -94,6 +99,14 @@ class Project extends React.Component {
 			});
 	};
 
+	showPreview = (e) => {
+		this.setState({selectedImage: e.target.src});
+	};
+
+	hidePreview = () => {
+		this.setState({selectedImage: ''});
+	}
+
 	render () {
 
 		if (this.state.loading) {
@@ -107,7 +120,7 @@ class Project extends React.Component {
 		let gallery = project.images.map(e => {
 			return (
 				<figure className="image" key={e}>
-					<img src={e} className="img-fit"/>
+					<img src={e} className="img-fit" alt={e} onClick={this.showPreview}/>
 				</figure>
 			);
 		});
@@ -117,6 +130,8 @@ class Project extends React.Component {
 			<div id="project" className="container">
 
 				<Messages onRef={ref => (this.messages = ref)}/>
+
+				<GalleryPreview image={this.state.selectedImage} allImages={project.images} onClose={this.hidePreview}/>
 
 				<main className="project-gallery">
 					{gallery}
@@ -129,10 +144,10 @@ class Project extends React.Component {
 					<p>{project.year}</p>
 
 					<Link to={this.state.prevProjectId !== undefined ? this.state.prevProjectId : '/projects'}
-					      className={this.state.prevProjectId !== undefined ? "btn btn-light" : "btn btn-light disabled"}>prev</Link>
+					      className={this.state.prevProjectId !== undefined ? 'btn btn-light' : 'btn btn-light disabled'}>prev</Link>
 
 					<Link to={this.state.nextProjectId !== undefined ? this.state.nextProjectId : '/projects'}
-					      className={this.state.nextProjectId !== undefined ? "btn btn-light" : "btn btn-light disabled"}>next</Link>
+					      className={this.state.nextProjectId !== undefined ? 'btn btn-light' : 'btn btn-light disabled'}>next</Link>
 
 					<Link to={'/projects'} className='btn btn-primary sm'>Back to all projects</Link>
 				</aside>

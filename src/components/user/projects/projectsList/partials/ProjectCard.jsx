@@ -15,7 +15,7 @@ class ProjectCard extends React.Component {
 		return (
 			<article className="project-card">
 				<div className="img-container">
-					<img className="img-fit" src={project.thumbnail}/>
+					<img className="img-fit" src={project.thumbnail} alt={project.name.BG}/>
 				</div>
 
 

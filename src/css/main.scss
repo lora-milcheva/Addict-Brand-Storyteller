@@ -298,26 +298,26 @@ button {
       cursor: none;
     }
 
-    &.category-label {
-      padding: 5px 10px;
-      border: 1px solid $medium-grey;
-      border-radius: 2px;
-      margin-right: 3px;
-      font-size: .8em;
-      @include main-transition;
-
-      &.selected {
-        background-color: $primary;
-        color: $white;
-      }
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
     &.active {
       background-color: $attention;
+    }
+  }
+
+  &.category-label {
+    padding: 5px 10px;
+    border: 1px solid $medium-grey;
+    border-radius: 2px;
+    margin-right: 3px;
+    font-size: .8em;
+    @include main-transition;
+
+    &.selected {
+      background-color: $primary;
+      color: $white;
+    }
+
+    &:hover {
+      cursor: pointer;
     }
   }
 
@@ -493,7 +493,7 @@ button {
   height: auto;
 
   .nav-link {
-    padding: 15px;
+    padding: 5px 15px;
 
     &.active {
       background-color: $primary;
@@ -504,12 +504,6 @@ button {
 // USER
 #projects-list {
 
-  .img-fit {
-    object-fit: cover;
-    width: 100%;
-    height: 250px;
-  }
-
   .projects-container {
     @include flex;
     @include flex-wrap(wrap);
@@ -518,12 +512,22 @@ button {
       position: relative;
 
       $width: calc((100% - (5 * 5px)) / 5);
+      $card-size: 200px;
 
-      @include flex-basis($width);
+      //@include flex-basis($width);
+
+      width: $card-size;
+      height: $card-size;
       margin-right: 5px;
       margin-bottom: 5px;
 
       @include main-transition;
+
+      .img-fit {
+        object-fit: cover;
+        width: 100%;
+        height: $card-size;
+      }
 
       .hover {
         opacity: 0;
@@ -559,6 +563,7 @@ button {
 
 #project {
   @include flex;
+  position: relative;
 
   .project-gallery {
     @include flex-basis(70%);
@@ -568,6 +573,12 @@ button {
     .image {
       @include flex-basis(49%);
       margin: 0 1% .5% 0;
+      @include main-transition;
+
+      &:hover {
+        cursor: pointer;
+        opacity: .7;
+      }
 
       .img-fit {
         height: auto;
@@ -579,7 +590,102 @@ button {
     @include flex-basis(30%);
     padding-left: 2em;
   }
+
+  .image-preview {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .8);
+
+    @include flex;
+    @include align-items(center);
+    @include justify-content(center);
+    opacity: 0;
+    visibility: hidden;
+
+    @include main-transition;
+
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+      z-index: 1;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 25px;
+      color: $medium-to-dark-grey;
+      background-color: $dark-grey;
+      z-index: 1000;
+
+      @include main-transition;
+
+      &:hover {
+        cursor: pointer;
+        color: $white;
+        background-color: $primary;
+      }
+    }
+
+    .gallery-navigation {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+
+      @include flex;
+      @include justify-content(space-between);
+      @include align-items(center);
+
+      .gallery-navigation-button {
+        @include flex-basis(50%);
+        height: 100%;
+        padding: 0 50px;
+
+        @include flex;
+        @include align-items(center);
+
+        @include main-transition;
+
+        &:hover {
+          cursor: pointer;
+          color: $primary;
+        }
+
+        &:nth-of-type(2) {
+          @include justify-content(flex-end);
+        }
+      }
+    }
+
+    .image {
+      margin: auto;
+      width: 80%;
+      height: 80vh;
+      text-align: center;
+
+      @include flex;
+      @include justify-content(center);
+      @include align-items(center);
+
+      @include main-transition;
+
+      .img-fit {
+        width: auto;
+        max-width: 80%;
+        height: auto;
+        max-height: 80vh;
+
+      }
+    }
+
+  }
 }
+
 
 //ADMIN
 #project-create {

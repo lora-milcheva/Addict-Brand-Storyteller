@@ -75,7 +75,7 @@ class Login extends React.Component {
 	render () {
 
 		return (
-			<div id="login">
+			<div id="login" className="container">
 				<Messages onRef={ref => (this.messages = ref)}/>
 
 				<h1>Login</h1>
