@@ -39,6 +39,9 @@ class createProject extends React.Component {
 
 			dataLoaded: false,
 
+			startX: 0,
+			startY: 0,
+
 			allClients: [],
 			allCategories: []
 		};
@@ -176,6 +179,44 @@ class createProject extends React.Component {
 		this.props.history.go(-1);
 	};
 
+	onDragOver = (e) => {
+		e.preventDefault();
+	};
+
+	onDragStart = (e, element) => {
+
+
+		this.setState({
+			startX: e.clientX,
+			startY: e.clientY
+		})
+
+		e.dataTransfer.setData('element', element);
+		e.dataTransfer.setData('index', this.state.images.indexOf(element));
+	};
+
+
+	onDrop = (e) => {
+
+		let el = e.dataTransfer.getData('element');
+		let index = Number(e.dataTransfer.getData('index'));
+
+		if (e.clientX > this.state.startX) {
+			let step = 150;
+
+			let test = (e.clientX - this.state.startX) / step;
+
+			index = index + Math.ceil(test);
+		}
+
+
+
+		let filtered = this.state.images.filter(e => e !== el);
+		filtered.splice(index, 0, el);
+
+		this.setState({images: filtered});
+	};
+
 	render () {
 
 		let title = this.projectId ? 'Редакция на проект' : 'Създаване на проект';
@@ -187,16 +228,20 @@ class createProject extends React.Component {
 			return (<div className="lds-dual-ring"/>);
 		}
 
-		let thumbnail = this.state.thumbnail !== '' ?
-			(<figure className="image" >
-				<img src={this.state.thumbnail} alt="project thumbnail" className="img-fit"/>
-			</figure>) : null;
+		let thumbnail = this.state.thumbnail !== '' ? (<figure className="image">
+			<img src={this.state.thumbnail} alt="project thumbnail" className="img-fit"/>
+		</figure>) : null;
 
-		let images = this.state.images.map((image, index) => {
+		let images = this.state.images.map((imageUrl, index) => {
 			return (
-				<figure className="image" key={index}>
-					<img src={image} className="img-fit" alt=""/>
-					<button className="btn xs btn-primary del-btn" name='images' value={image}
+				<figure key={index}
+				        className="image"
+				        draggable
+				        onDragStart={(e) => this.onDragStart(e, imageUrl)}>
+
+					<img src={imageUrl} className="img-fit" alt=""/>
+
+					<button className="btn xs btn-primary del-btn" name='images' value={imageUrl}
 					        onClick={this.handleArrChange}>clear
 					</button>
 				</figure>);
@@ -292,7 +337,6 @@ class createProject extends React.Component {
 
 						{/*//CLIENT*/}
 						<FormSelectField name='clientId'
-						                 value={this.state.clientId}
 						                 label={CREATE_PROJECT_INPUTS.BG.client}
 						                 className='client-field'
 						                 required={false}
@@ -340,7 +384,9 @@ class createProject extends React.Component {
 
 						<div className="project-data">
 							<h3 className="section-title">Изображения</h3>
-							<div className="container">
+							<div className="droppable container"
+							     onDragOver={this.onDragOver}
+							     onDrop={(e) => this.onDrop(e)}>
 								{images}
 							</div>
 
