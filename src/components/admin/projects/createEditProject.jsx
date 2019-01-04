@@ -183,51 +183,81 @@ class createProject extends React.Component {
 	};
 
 	onDragOver = (e) => {
+
+		// Enable movement
 		e.preventDefault();
 	};
 
 	onDragStart = (e, element) => {
 
+		// Set the initial position of the dragged element
 		this.setState({
 			startX: e.clientX,
 			startY: e.clientY
 		});
 
+		// Save element and its index in the array
 		e.dataTransfer.setData('element', element);
 		e.dataTransfer.setData('index', this.state.images.indexOf(element));
 	};
 
 	onDrop = (e) => {
 
+		// Get image width and height
 		let imageWidth = this.image.current.clientWidth;
 		let imageHeight = this.image.current.clientHeight;
+		let container = this.imagesContainer;
 
-		let imagesOnRow = Math.floor(this.imagesContainer.current.clientWidth / imageWidth);
+		// Get images on row
+		let imagesOnRow = Math.floor(container.current.clientWidth / imageWidth);
 
+		// Get the image that we want to change
 		let el = e.dataTransfer.getData('element');
 		let imageIndex = Number(e.dataTransfer.getData('index'));
 
+		// Get the image start position
 		let startX = this.state.startX;
 		let startY = this.state.startY;
 
 		let stepX = 0;
 		let stepY = 0;
 
+		// Get movement
 		stepX = Math.round((e.clientX - startX) / imageWidth);
-
 		stepY = Math.round((e.clientY - startY) / imageHeight) * imagesOnRow;
 
-		console.log(stepX);
-		console.log(stepY);
+		// Change image index according to the movement
+		let newIndex = imageIndex + stepY + stepX;
 
-		imageIndex = imageIndex + stepY + stepX;
+		// Fade out new position
+		this.fadeOut(container.current.children[imageIndex]);
+		this.fadeOut(container.current.children[newIndex]);
 
-		console.log(imageIndex);
-
+		// Remove image from the array and then place it in the new index position
 		let filtered = this.state.images.filter(e => e !== el);
-		filtered.splice(imageIndex, 0, el);
+		filtered.splice(newIndex, 0, el);
 
+		// Save new arrangement
 		this.setState({images: filtered});
+
+		setTimeout(() => {
+			this.fadeIn(container.current.children[newIndex]);
+			this.fadeIn(container.current.children[imageIndex]);
+		}, 200);
+	};
+
+	fadeOut = (el) => {
+		window.requestAnimationFrame(function () {
+			el.style.transition = 'opacity 0ms';
+			el.style.opacity = .3;
+		});
+	};
+
+	fadeIn = (el) => {
+		window.requestAnimationFrame(function () {
+			el.style.transition = 'opacity 1200ms';
+			el.style.opacity = 1;
+		});
 	};
 
 	render () {
@@ -241,9 +271,12 @@ class createProject extends React.Component {
 			return (<div className="lds-dual-ring"/>);
 		}
 
-		let thumbnail = this.state.thumbnail !== '' ? (<figure className="image">
-			<img src={this.state.thumbnail} alt="project thumbnail" className="img-fit"/>
-		</figure>) : null;
+		let thumbnail = this.state.thumbnail !== ''
+			? (<figure className="image">
+					<img src={this.state.thumbnail} alt="project thumbnail" className="img-fit"/>
+				</figure>
+			)
+			: null;
 
 		let images = this.state.images.map((imageUrl, index) => {
 			return (
@@ -274,9 +307,9 @@ class createProject extends React.Component {
 		});
 
 		let categories = this.state.allCategories.map(e => {
-			let style = this.state.categoryIds.includes(e._id) ? 'btn category-label selected' : 'btn category-label';
+			let classList = this.state.categoryIds.includes(e._id) ? 'btn category-label selected' : 'btn category-label';
 			return (
-				<button key={e._id} className={style} name="categoryIds" value={e._id}
+				<button key={e._id} className={classList} name="categoryIds" value={e._id}
 				        onClick={this.handleArrChange}>{e.name.BG}</button>
 			);
 		});
