@@ -45,6 +45,9 @@ class createProject extends React.Component {
 			allClients: [],
 			allCategories: []
 		};
+
+		this.image = React.createRef();
+		this.imagesContainer = React.createRef();
 	}
 
 	projectId = this.props.match.params.id;
@@ -185,34 +188,44 @@ class createProject extends React.Component {
 
 	onDragStart = (e, element) => {
 
-
 		this.setState({
 			startX: e.clientX,
 			startY: e.clientY
-		})
+		});
 
 		e.dataTransfer.setData('element', element);
 		e.dataTransfer.setData('index', this.state.images.indexOf(element));
 	};
 
-
 	onDrop = (e) => {
 
+		let imageWidth = this.image.current.clientWidth;
+		let imageHeight = this.image.current.clientHeight;
+
+		let imagesOnRow = Math.floor(this.imagesContainer.current.clientWidth / imageWidth);
+
 		let el = e.dataTransfer.getData('element');
-		let index = Number(e.dataTransfer.getData('index'));
+		let imageIndex = Number(e.dataTransfer.getData('index'));
 
-		if (e.clientX > this.state.startX) {
-			let step = 150;
+		let startX = this.state.startX;
+		let startY = this.state.startY;
 
-			let test = (e.clientX - this.state.startX) / step;
+		let stepX = 0;
+		let stepY = 0;
 
-			index = index + Math.ceil(test);
-		}
+		stepX = Math.round((e.clientX - startX) / imageWidth);
 
+		stepY = Math.round((e.clientY - startY) / imageHeight) * imagesOnRow;
 
+		console.log(stepX);
+		console.log(stepY);
+
+		imageIndex = imageIndex + stepY + stepX;
+
+		console.log(imageIndex);
 
 		let filtered = this.state.images.filter(e => e !== el);
-		filtered.splice(index, 0, el);
+		filtered.splice(imageIndex, 0, el);
 
 		this.setState({images: filtered});
 	};
@@ -235,6 +248,7 @@ class createProject extends React.Component {
 		let images = this.state.images.map((imageUrl, index) => {
 			return (
 				<figure key={index}
+				        ref={this.image}
 				        className="image"
 				        draggable
 				        onDragStart={(e) => this.onDragStart(e, imageUrl)}>
@@ -385,6 +399,7 @@ class createProject extends React.Component {
 						<div className="project-data">
 							<h3 className="section-title">Изображения</h3>
 							<div className="droppable container"
+							     ref={this.imagesContainer}
 							     onDragOver={this.onDragOver}
 							     onDrop={(e) => this.onDrop(e)}>
 								{images}
@@ -423,7 +438,9 @@ class createProject extends React.Component {
 						<button className="btn btn-primary" type="submit">{buttonText}</button>
 					</div>
 				</form>
+
 			</div>
+
 		);
 	}
 }
