@@ -5,6 +5,7 @@ import FormInput from '../../common/formComponents/FormInput';
 import FormSelectField from '../../common/formComponents/FormSelectField';
 import Textarea from '../../common/formComponents/TextArea';
 import AddOnInput from '../../common/formComponents/AddOnInput';
+import SortableList from './partials/SortableList';
 
 // Services
 import projectsService from '../../../services/projects/projectsService';
@@ -29,6 +30,7 @@ class createProject extends React.Component {
 			name: {},
 			description: {},
 			year: '',
+			webPage: '',
 			clientId: '',
 			categoryIds: [],
 			images: [],
@@ -36,17 +38,12 @@ class createProject extends React.Component {
 			videos: [],
 
 			projectLoaded: false,
-
 			dataLoaded: false,
-
-			startX: 0,
-			startY: 0,
 
 			allClients: [],
 			allCategories: []
 		};
 
-		this.image = React.createRef();
 		this.imagesContainer = React.createRef();
 	}
 
@@ -54,7 +51,7 @@ class createProject extends React.Component {
 
 	componentDidMount () {
 
-		this.loadData();
+		this.loadInputsData();
 
 		if (this.projectId) {
 
@@ -71,6 +68,7 @@ class createProject extends React.Component {
 						name: res.name,
 						description: res.description,
 						year: res.year,
+						webPage: res.webPage,
 						clientId: res.clientId,
 						categoryIds: res.categoryIds,
 						images: res.images,
@@ -86,7 +84,7 @@ class createProject extends React.Component {
 		}
 	}
 
-	loadData = () => {
+	loadInputsData = () => {
 		clientsService
 			.loadAllClients()
 			.then(res => {
@@ -106,7 +104,7 @@ class createProject extends React.Component {
 			.catch(err => console.log(err));
 	};
 
-	handleChange = (e) => {
+	handleInputChange = (e) => {
 		this.setState({[e.target.name]: e.target.value});
 	};
 
@@ -132,6 +130,10 @@ class createProject extends React.Component {
 		} else {
 			this.setState({[e.target.name]: [...this.state[e.target.name], e.target.value]}, () => console.log(this.state));
 		}
+	};
+
+	handleNewOrder = (stateProp, reorderedElements ) => {
+		this.setState({[stateProp] : reorderedElements})
 	};
 
 	saveProject = (e) => {
@@ -182,83 +184,6 @@ class createProject extends React.Component {
 		this.props.history.go(-1);
 	};
 
-	onDragOver = (e) => {
-
-		// Enable movement
-		e.preventDefault();
-	};
-
-	onDragStart = (e, element) => {
-
-		// Set the initial position of the dragged element
-		this.setState({
-			startX: e.clientX,
-			startY: e.clientY
-		});
-
-		// Save element and its index in the array
-		e.dataTransfer.setData('element', element);
-		e.dataTransfer.setData('index', this.state.images.indexOf(element));
-	};
-
-	onDrop = (e) => {
-
-		// Get image width and height
-		let imageWidth = this.image.current.clientWidth;
-		let imageHeight = this.image.current.clientHeight;
-		let container = this.imagesContainer;
-
-		// Get images on row
-		let imagesOnRow = Math.floor(container.current.clientWidth / imageWidth);
-
-		// Get the image that we want to change
-		let el = e.dataTransfer.getData('element');
-		let imageIndex = Number(e.dataTransfer.getData('index'));
-
-		// Get the image start position
-		let startX = this.state.startX;
-		let startY = this.state.startY;
-
-		let stepX = 0;
-		let stepY = 0;
-
-		// Get movement
-		stepX = Math.round((e.clientX - startX) / imageWidth);
-		stepY = Math.round((e.clientY - startY) / imageHeight) * imagesOnRow;
-
-		// Change image index according to the movement
-		let newIndex = imageIndex + stepY + stepX;
-
-		// Fade out new position
-		this.fadeOut(container.current.children[imageIndex]);
-		this.fadeOut(container.current.children[newIndex]);
-
-		// Remove image from the array and then place it in the new index position
-		let filtered = this.state.images.filter(e => e !== el);
-		filtered.splice(newIndex, 0, el);
-
-		// Save new arrangement
-		this.setState({images: filtered});
-
-		setTimeout(() => {
-			this.fadeIn(container.current.children[newIndex]);
-			this.fadeIn(container.current.children[imageIndex]);
-		}, 200);
-	};
-
-	fadeOut = (el) => {
-		window.requestAnimationFrame(function () {
-			el.style.transition = 'opacity 0ms';
-			el.style.opacity = .3;
-		});
-	};
-
-	fadeIn = (el) => {
-		window.requestAnimationFrame(function () {
-			el.style.transition = 'opacity 1200ms';
-			el.style.opacity = 1;
-		});
-	};
 
 	render () {
 
@@ -277,22 +202,6 @@ class createProject extends React.Component {
 				</figure>
 			)
 			: null;
-
-		let images = this.state.images.map((imageUrl, index) => {
-			return (
-				<figure key={index}
-				        ref={this.image}
-				        className="image"
-				        draggable
-				        onDragStart={(e) => this.onDragStart(e, imageUrl)}>
-
-					<img src={imageUrl} className="img-fit" alt=""/>
-
-					<button className="btn xs btn-primary del-btn" name='images' value={imageUrl}
-					        onClick={this.handleArrChange}>clear
-					</button>
-				</figure>);
-		});
 
 		let videos = this.state.videos.map((video, index) => {
 			return (
@@ -390,7 +299,7 @@ class createProject extends React.Component {
 						                 disabled={false}
 						                 selected={this.state.clientId}
 						                 options={this.state.allClients}
-						                 onChange={this.handleChange}/>
+						                 onChange={this.handleInputChange}/>
 
 						{/*//YEAR*/}
 						<FormInput type='text'
@@ -402,7 +311,18 @@ class createProject extends React.Component {
 						           className='year-field'
 						           required={false}
 						           disabled={false}
-						           onChange={this.handleChange}/>
+						           onChange={this.handleInputChange}/>
+
+						<FormInput type='text'
+						           name='webPage'
+						           value={this.state.webPage}
+						           id='web-page'
+						           placeholder=''
+						           label={CREATE_PROJECT_INPUTS.BG.webPage}
+						           className=''
+						           required={false}
+						           disabled={false}
+						           onChange={this.handleInputChange}/>
 
 
 					</main>
@@ -425,31 +345,29 @@ class createProject extends React.Component {
 								labelClassName="no-label"
 								buttonText='+'
 								placeholder='Thumbnail'
-								onChange={this.handleChange}/>
+								onChange={this.handleInputChange}/>
 						</div>
 
 
 						<div className="project-data">
 							<h3 className="section-title">Изображения</h3>
-							<div className="droppable container"
-							     ref={this.imagesContainer}
-							     onDragOver={this.onDragOver}
-							     onDrop={(e) => this.onDrop(e)}>
-								{images}
-							</div>
+							<SortableList elements={this.state.images}
+							              name="images"
+							              onDelete={this.handleArrChange}
+							              onChange={this.handleNewOrder}/>
 
 							<AddOnInput
-								name="images"
+								name='images'
 								// label={CREATE_PROJECT_INPUTS.BG.images}
-								labelClassName="no-label"
+								labelClassName='no-label'
 								buttonText='+'
 								placeholder='Добави снимка'
 								onChange={this.handleArrChange}/>
 						</div>
 
-						<div className="project-data">
-							<h3 className="section-title">Видео</h3>
-							<div className="container">
+						<div className='project-data'>
+							<h3 className='section-title'>Видео</h3>
+							<div className='container'>
 								{videos}
 							</div>
 

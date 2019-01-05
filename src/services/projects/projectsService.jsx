@@ -48,12 +48,12 @@ function createProjectInfo (state) {
 		name: state.name,
 		description: state.description,
 		year: state.year,
+		webPage: state.webPage,
 		clientId: state.clientId,
 		categoryIds: state.categoryIds,
 		images: state.images,
 		thumbnail: state.thumbnail,
 		videos: state.videos,
 	};
-
 }
 
