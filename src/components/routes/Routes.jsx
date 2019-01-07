@@ -11,8 +11,8 @@ import ProjectsList from '../user/projects/projectsList/ProjectsList';
 import Project from '../user/projects/project/Project';
 
 // Admin Components
-import createProject from '../admin/projects/createEditProject';
-import adminProjectsList from '../admin/projects/projectsList';
+import createProject from '../admin/projects/createEditProject/createEditProject';
+import adminProjectsList from '../admin/projects/projectsList/projectsList';
 
 import createEditCategory from '../admin/categories/createEditCategory';
 import categoriesList from '../admin/categories/categoriesList';

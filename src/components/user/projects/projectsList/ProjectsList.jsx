@@ -17,7 +17,7 @@ class ProjectList extends React.Component {
 		super(props);
 
 		this.state = {
-			allProjects: [],
+			projects: [],
 
 			clients: [],
 			categories: [],
@@ -48,17 +48,17 @@ class ProjectList extends React.Component {
 	}
 
 	loadAll = () => {
-		console.log('from load');
+
 		projectsService
 			.loadAllProjects()
 			.then(res => {
 
 				this.setState({
-					allProjects: res,
+					projects: res,
 					filteredProjects: res
 				});
 
-				this.saveFilteredProjects(this.state.allProjects);
+				this.saveFilteredProjects(this.state.projects);
 
 				clientsService
 					.loadAllClients()
@@ -66,7 +66,7 @@ class ProjectList extends React.Component {
 
 						this.setState({clients: res});
 
-						this.state.allProjects.forEach(p => {
+						this.state.projects.forEach(p => {
 							p.client = this.state.clients.filter(c => c._id === p.clientId)[0].name.BG
 						});
 
@@ -97,10 +97,10 @@ class ProjectList extends React.Component {
 		if (e.target.name === 'all') {
 			this.setState({
 				selectedCategory: '',
-				filteredProjects: this.state.allProjects
+				filteredProjects: this.state.projects
 			});
 
-			this.saveFilteredProjects(this.state.allProjects);
+			this.saveFilteredProjects(this.state.projects);
 
 			return;
 		}
@@ -112,7 +112,7 @@ class ProjectList extends React.Component {
 	filterProjects = () => {
 		let filteredProjects = [];
 
-		for (let project of this.state.allProjects) {
+		for (let project of this.state.projects) {
 
 			if (filteredProjects.some(el => el._id === project._id)) continue;
 

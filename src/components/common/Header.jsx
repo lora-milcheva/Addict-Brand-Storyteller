@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 // Services
 import authService from '../../services/auth/authService';
@@ -27,29 +27,40 @@ class Header extends React.Component {
 		if (admin) {
 
 			return (
-				<nav id="main-nav">
+				<div id="header">
 
-					<NavLink to='/admin/projects-list' className="nav-link" activeClassName='active'>All Projects</NavLink>
-					<NavLink to='/admin/category-list' className="nav-link" activeClassName='active'>All Categories</NavLink>
-					<NavLink to='/admin/clients-list' className="nav-link" activeClassName='active'>All Clients</NavLink>
+					{/*<Link to="/home" id="brand"/>*/}
 
-					<NavLink to='/home' className="nav-link" activeClassName='active' onClick={this.logout}>Logout</NavLink>
+					<nav id="main-nav">
+						<NavLink to='/admin/projects-list' className="nav-link" activeClassName='active'>All
+							Projects</NavLink>
+						<NavLink to='/admin/category-list' className="nav-link" activeClassName='active'>All
+							Categories</NavLink>
+						<NavLink to='/admin/clients-list' className="nav-link" activeClassName='active'>All
+							Clients</NavLink>
 
-				</nav>
+						<NavLink to='/home' className="nav-link" activeClassName='active'
+						         onClick={this.logout}>Logout</NavLink>
+
+					</nav>
+				</div>
 			);
 		}
 
 		return (
-			<nav id="main-nav">
+			<div id="header">
 
+				<Link to="/home" id="brand"/>
 
-				<NavLink to="/home" className="nav-link" activeClassName='active'>Home</NavLink>
+				<nav id="main-nav">
+					{/*<NavLink to="/home" className="nav-link" activeClassName='active'>Home</NavLink>*/}
 
-				<NavLink to="/projects" className="nav-link" activeClassName='active'>Projects</NavLink>
+					<NavLink to="/projects" className="nav-link" activeClassName='active'>Projects</NavLink>
 
-				<NavLink to="/login" className="nav-link" activeClassName='active'>Login</NavLink>
+					{/*<NavLink to="/login" className="nav-link" activeClassName='active'>Login</NavLink>*/}
 
-			</nav>
+				</nav>
+			</div>
 		);
 	}
 }

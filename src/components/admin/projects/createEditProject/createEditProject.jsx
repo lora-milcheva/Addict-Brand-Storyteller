@@ -1,26 +1,26 @@
 import React from 'react';
 
 // Partials
-import FormInput from '../../common/formComponents/FormInput';
-import FormSelectField from '../../common/formComponents/FormSelectField';
-import Textarea from '../../common/formComponents/TextArea';
-import AddOnInput from '../../common/formComponents/AddOnInput';
+import FormInput from '../../../common/formComponents/FormInput';
+import FormSelectField from '../../../common/formComponents/FormSelectField';
+import Textarea from '../../../common/formComponents/TextArea';
+import AddOnInput from '../../../common/formComponents/AddOnInput';
 import SortableList from './partials/SortableList';
 
 // Services
-import projectsService from '../../../services/projects/projectsService';
-import clientsService from '../../../services/clients/clientsService';
-import categoriesService from '../../../services/categories/categoriesService';
+import projectsService from '../../../../services/projects/projectsService';
+import clientsService from '../../../../services/clients/clientsService';
+import categoriesService from '../../../../services/categories/categoriesService';
 
 // Notifications
-import Messages from '../../common/Messages';
-import ConfirmDialog from '../../common/ConfirmDialog';
+import Messages from '../../../common/Messages';
+import ConfirmDialog from '../../../common/ConfirmDialog';
 
 // Utils
-import Utils from '../../../utils/utils';
+import Utils from '../../../../utils/utils';
 
 // Constants
-import { CREATE_PROJECT_INPUTS, BUTTONS } from '../../../constants/constants';
+import { CREATE_PROJECT_INPUTS, BUTTONS } from '../../../../constants/constants';
 
 class createProject extends React.Component {
 	constructor (props) {
@@ -31,6 +31,7 @@ class createProject extends React.Component {
 			description: {},
 			year: '',
 			webPage: '',
+			isStar: false,
 			clientId: '',
 			categoryIds: [],
 			images: [],
@@ -69,6 +70,7 @@ class createProject extends React.Component {
 						description: res.description,
 						year: res.year,
 						webPage: res.webPage,
+						isStar: res.isStar,
 						clientId: res.clientId,
 						categoryIds: res.categoryIds,
 						images: res.images,
@@ -107,6 +109,13 @@ class createProject extends React.Component {
 	handleInputChange = (e) => {
 		this.setState({[e.target.name]: e.target.value});
 	};
+
+	handleCheckBoxChange = (e) => {
+
+		e.preventDefault();
+
+		this.setState({[e.target.name]: !this.state[e.target.name]})
+	}
 
 	handleMultiLangChange = (e) => {
 		let lang = e.target.id.split('-')[1];   // get the language
@@ -223,6 +232,11 @@ class createProject extends React.Component {
 			);
 		});
 
+		let isStar = <button className={this.state.isStar ? 'btn category-label attention' : 'btn category-label'}
+		                     name="isStar"
+		                     value={this.state.isStar}
+		                     onClick={this.handleCheckBoxChange}>{CREATE_PROJECT_INPUTS.BG.isStar}</button>
+
 		return (
 			<div id="project-create" className="container">
 
@@ -324,6 +338,9 @@ class createProject extends React.Component {
 						           disabled={false}
 						           onChange={this.handleInputChange}/>
 
+						<div className="form-group">
+							{isStar}
+						</div>
 
 					</main>
 

@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import ProjectCard from './partials/ProjectCard';
 
 // Services
-import projectsService from '../../../services/projects/projectsService';
+import projectsService from '../../../../services/projects/projectsService';
 
 // Notifications
-import Messages from '../../common/Messages';
+import Messages from '../../../common/Messages';
 
 
 class projectsList extends React.Component {

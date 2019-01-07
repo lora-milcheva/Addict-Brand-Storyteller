@@ -16,9 +16,9 @@ export default {
 	},
 
 
-	loadAllProjects: () => {
+	loadAllProjects: (query) => {
 		return requester
-			.get(sessionAuth, module, endPoint);
+			.get(sessionAuth, module, endPoint, query);
 	},
 
 
@@ -49,6 +49,7 @@ function createProjectInfo (state) {
 		description: state.description,
 		year: state.year,
 		webPage: state.webPage,
+		isStar: state.isStar,
 		clientId: state.clientId,
 		categoryIds: state.categoryIds,
 		images: state.images,

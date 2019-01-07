@@ -64,6 +64,11 @@ class SortableList extends React.Component {
 		// Change image index according to the movement
 		let newIndex = imageIndex + stepY + stepX;
 
+		if (newIndex >= container.current.children.length || newIndex === imageIndex) {
+			this.fadeIn(container.current.children[imageIndex], 1);
+			return
+		}
+
 		// Fade out new position
 		this.fadeOut(container.current.children[newIndex], .3);
 

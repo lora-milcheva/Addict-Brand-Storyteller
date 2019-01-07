@@ -8,7 +8,9 @@ export default {
 
 	get: (auth, module, endPoint, query) => {
 
-		let url = baseUrl + '/' + module + '/' + appKey + '/' + endPoint;
+		let url = query !== undefined
+			? baseUrl + '/' + module + '/' + appKey + '/' + endPoint + query
+			: baseUrl + '/' + module + '/' + appKey + '/' + endPoint;
 
 		return $.ajax(
 			{
@@ -44,7 +46,6 @@ export default {
 			});
 	},
 };
-
 
 let createHeader = (auth) => {
 	return auth === 'basicAuth'
