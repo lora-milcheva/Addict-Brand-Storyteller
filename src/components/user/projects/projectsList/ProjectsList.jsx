@@ -22,8 +22,7 @@ class ProjectList extends React.Component {
 			clients: [],
 			categories: [],
 
-			selectedCategory: '',
-			filteredProjects: [],
+			selectedCategoryId: '',
 
 			loading: true
 		};
@@ -37,38 +36,29 @@ class ProjectList extends React.Component {
 				.loginAnonymousUser()
 				.then(res => {
 					authService.saveSession(res);
-					this.loadAll();
+					this.loadAllData();
 				})
-				.catch(err => this.messages.showMessage(err.responseJSON.description))
+				.catch(err => this.messages.showMessage(err.responseJSON.description));
 
-			return
+			return;
 		}
 
-		this.loadAll();
+		this.loadAllData();
 	}
 
-	loadAll = () => {
+	loadAllData = () => {
 
 		projectsService
 			.loadAllProjects()
 			.then(res => {
 
-				this.setState({
-					projects: res,
-					filteredProjects: res
-				});
-
-				this.saveFilteredProjects(this.state.projects);
+				this.setState({projects: res}, () => this.saveProjectsInSession());
 
 				clientsService
 					.loadAllClients()
 					.then(res => {
 
-						this.setState({clients: res});
-
-						this.state.projects.forEach(p => {
-							p.client = this.state.clients.filter(c => c._id === p.clientId)[0].name.BG
-						});
+						this.setState({clients: res}, () => this.getClientName());
 
 						categoriesService
 							.loadAllCategories()
@@ -90,47 +80,54 @@ class ProjectList extends React.Component {
 			});
 	};
 
-	handleChange = (e) => {
+	loadProjectsByCategory = () => {
+
+		let query;
+
+		if (this.state.selectedCategoryId !== '') {
+			let categoryId = this.state.selectedCategoryId;
+
+			query = `?query={"categoryIds":"${categoryId}"}`;
+		}
+
+		projectsService
+			.loadAllProjects(query)
+			.then(res => {
+					res.forEach(p => {
+						p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name.BG;
+					});
+					this.setState({projects: res}, () => this.saveProjectsInSession());
+				}
+			)
+			.catch(err => {
+				this.messages.showMessage(err.responseJSON.description);
+			});
+	};
+
+	handleCategoryChange = (e) => {
 
 		e.preventDefault();
 
 		if (e.target.name === 'all') {
-			this.setState({
-				selectedCategory: '',
-				filteredProjects: this.state.projects
-			});
-
-			this.saveFilteredProjects(this.state.projects);
+			this.setState({selectedCategoryId: ''}, () => this.loadProjectsByCategory());
 
 			return;
 		}
 
-		this.setState({[e.target.name]: e.target.value}, () => this.filterProjects());
-
+		this.setState({[e.target.name]: e.target.value}, () => this.loadProjectsByCategory());
 	};
 
-	filterProjects = () => {
-		let filteredProjects = [];
-
-		for (let project of this.state.projects) {
-
-			if (filteredProjects.some(el => el._id === project._id)) continue;
-
-			if (project.categoryIds.includes(this.state.selectedCategory)) {
-				filteredProjects.push(project);
-			}
-		}
-
-		this.setState({filteredProjects: filteredProjects});
-
-		this.saveFilteredProjects(filteredProjects);
+	getClientName = () => {
+		this.state.projects.forEach(p => {
+			p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name.BG;
+		});
 	};
 
-	saveFilteredProjects = (filteredProjects) => {
+	saveProjectsInSession = () => {
 
 		let projectIds = [];
 
-		filteredProjects.forEach(e => projectIds.push(e._id));
+		this.state.projects.forEach(e => projectIds.push(e._id));
 		sessionStorage.setItem('filteredProjects', JSON.stringify(projectIds));
 	};
 
@@ -141,24 +138,24 @@ class ProjectList extends React.Component {
 		}
 
 		let categories = this.state.categories.map(e => {
-			let style = this.state.selectedCategory.includes(e._id) ? 'btn category-label selected' : 'btn category-label';
+			let style = this.state.selectedCategoryId.includes(e._id) ? 'btn category-label selected' : 'btn category-label';
 			return (
 				<button key={e._id}
 				        className={style}
-				        name="selectedCategory"
+				        name="selectedCategoryId"
 				        value={e._id}
-				        onClick={this.handleChange}>{e.name.BG}</button>
+				        onClick={this.handleCategoryChange}>{e.name.BG}</button>
 			);
 		});
 
 		categories.unshift(<button key='all'
-		                           className={this.state.selectedCategory.length === 0
+		                           className={this.state.selectedCategoryId === ''
 			                           ? 'btn category-label selected'
 			                           : 'btn category-label'}
 		                           name="all"
-		                           onClick={this.handleChange}>all</button>);
+		                           onClick={this.handleCategoryChange}>all</button>);
 
-		let projects = this.state.filteredProjects.map((e, i) => {
+		let projects = this.state.projects.map((e, i) => {
 			return (
 				<ProjectCard key={e._id + i} project={e}/>
 			);

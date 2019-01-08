@@ -40,9 +40,11 @@ class Home extends React.Component {
 		this.loadStarProjects();
 	}
 
+
 	loadStarProjects = () => {
 
 		let query = '?query={"isStar":true}';
+
 
 		projectsService
 			.loadAllProjects(query)
@@ -57,7 +59,7 @@ class Home extends React.Component {
 						this.setState({clients: res});
 
 						this.state.projects.forEach(p => {
-							p.client = this.state.clients.filter(c => c._id === p.clientId)[0].name.BG
+							p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name.BG
 						});
 
 						categoriesService
@@ -82,6 +84,7 @@ class Home extends React.Component {
 
 
 
+
 	render () {
 
 		let projects = this.state.projects.map(e => {
@@ -94,7 +97,7 @@ class Home extends React.Component {
 
 					<Link to={'projects/' + e._id} className="hover">
 						<div className="info">
-							<p className="project-client">{e.client}</p>
+							<p className="project-client">{e.clientName}</p>
 							<p className="project-name">{e.name.BG}</p>
 							<p className="project-year">{e.year}</p>
 						</div>

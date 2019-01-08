@@ -21,7 +21,7 @@ class ProjectCard extends React.Component {
 
 				<Link to={'projects/' + project._id} className="hover">
 					<div className="info">
-						<p className="project-client">{project.client}</p>
+						<p className="project-client">{project.clientName}</p>
 						<p className="project-name">{project.name.BG}</p>
 						<p className="project-year">{project.year}</p>
 					</div>

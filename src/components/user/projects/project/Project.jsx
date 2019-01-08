@@ -18,8 +18,7 @@ class Project extends React.Component {
 
 		this.state = {
 			project: [],
-			projectId: '',
-			client: '',
+			clientName: '',
 
 			selectedImage: '',
 
@@ -91,7 +90,7 @@ class Project extends React.Component {
 					.loadAllClients()
 					.then(res => {
 						let client = res.filter(e => e._id === this.state.project.clientId);
-						this.setState({client: client[0].name.BG, loading: false});
+						this.setState({clientName: client[0].name.BG, loading: false});
 					});
 			})
 			.catch(err => {
@@ -105,7 +104,7 @@ class Project extends React.Component {
 
 	hidePreview = () => {
 		this.setState({selectedImage: ''});
-	}
+	};
 
 	render () {
 
@@ -115,7 +114,7 @@ class Project extends React.Component {
 
 		let project = this.state.project;
 
-		let client = this.state.client;
+		let client = this.state.clientName;
 
 		let gallery = project.images.map(e => {
 			return (

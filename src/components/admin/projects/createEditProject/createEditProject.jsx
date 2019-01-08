@@ -307,7 +307,7 @@ class createProject extends React.Component {
 
 						{/*//CLIENT*/}
 						<FormSelectField name='clientId'
-						                 label={CREATE_PROJECT_INPUTS.BG.client}
+						                 label={CREATE_PROJECT_INPUTS.BG.clientName}
 						                 className='client-field'
 						                 required={false}
 						                 disabled={false}
