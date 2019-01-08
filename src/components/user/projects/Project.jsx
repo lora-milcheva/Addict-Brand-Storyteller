@@ -59,7 +59,8 @@ class Project extends React.Component {
 		this.projectId = nextProps.match.params.id;
 
 		this.setIndexes();
-		this.loadRandomProjects();
+
+		this.setState({randomProjects: []}, () => this.loadRandomProjects())
 	}
 
 	componentWillUnmount () {
@@ -95,27 +96,30 @@ class Project extends React.Component {
 			.then(res => {
 				this.setState({project: res});
 			})
-			.catch(err => {
-				this.messages.showMessage(err.responseJSON.description);
-			})
-			.then(
+			.then(() => {
 				clientsService
 					.loadAllClients()
 					.then(res => {
 						let client = res.filter(e => e._id === this.state.project.clientId);
 						this.setState({clientName: client[0].name.BG, loading: false});
-					})
-			);
+					});
+				}
+			)
+			.catch(err => {
+				this.messages.showMessage(err.responseJSON.description);
+			});
 	};
 
 	loadRandomProjects = () => {
 		projectsService
 			.getProjectsCount()
 			.then(res => {
+
 				const allProjectsCount = res.count;
 
 				const numberOfProjectsToLoad = 3;
 
+				// Get random numbers
 				let numbers = [];
 
 				while (numbers.length < numberOfProjectsToLoad) {
@@ -123,12 +127,11 @@ class Project extends React.Component {
 					let randomNumber = Math.floor((Math.random() * allProjectsCount));
 
 					if (!numbers.includes(randomNumber)) {
-						numbers.push(randomNumber)
+						numbers.push(randomNumber);
 					}
-
 				}
 
-
+				// Load random projects
 				for (let i = 0; i < numbers.length; i++) {
 
 					let query = `?query={}&limit=${1}&skip=${numbers[i]}`;
@@ -136,6 +139,9 @@ class Project extends React.Component {
 					projectsService
 						.loadAllProjects(query)
 						.then(res => {
+
+							if (res[0]._id === this.projectId) return;
+
 							this.setState({randomProjects: [...this.state.randomProjects, ...res]});
 						})
 						.catch(err => this.messages.showMessage(err.responseJSON.description));
