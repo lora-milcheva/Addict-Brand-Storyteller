@@ -7,8 +7,8 @@ import PrivateRoute from './PrivateRoute';
 // Components
 import Login from '../auth/Login';
 import Home from '../user/home/Home';
-import ProjectsList from '../user/projects/projectsList/ProjectsList';
-import Project from '../user/projects/project/Project';
+import ProjectsList from '../user/projects/ProjectsList';
+import Project from '../user/projects/Project';
 
 // Admin Components
 import createProject from '../admin/projects/createEditProject/createEditProject';

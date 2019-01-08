@@ -3,14 +3,15 @@ import { Link } from 'react-router-dom';
 
 // Partials
 import GalleryPreview from './partials/GalleryPreview';
+import ProjectCard from '../common/ProjectCard';
 
 // Services
-import projectsService from '../../../../services/projects/projectsService';
-import clientsService from '../../../../services/clients/clientsService';
-import authService from '../../../../services/auth/authService';
+import projectsService from '../../../services/projects/projectsService';
+import clientsService from '../../../services/clients/clientsService';
+import authService from '../../../services/auth/authService';
 
 // Notifications
-import Messages from '../../../common/Messages';
+import Messages from '../../common/Messages';
 
 class Project extends React.Component {
 	constructor (props) {
@@ -25,6 +26,8 @@ class Project extends React.Component {
 			currentProjectIndex: 0,
 			prevProjectId: undefined,
 			nextProjectId: undefined,
+
+			randomProjects: [],
 
 			loading: true
 		};
@@ -48,6 +51,7 @@ class Project extends React.Component {
 		}
 
 		this.setIndexes();
+		this.loadRandomProjects();
 	}
 
 	componentWillReceiveProps (nextProps) {
@@ -55,6 +59,11 @@ class Project extends React.Component {
 		this.projectId = nextProps.match.params.id;
 
 		this.setIndexes();
+		this.loadRandomProjects();
+	}
+
+	componentWillUnmount () {
+		sessionStorage.removeItem('filteredProjects');
 	}
 
 	setIndexes = () => {
@@ -85,17 +94,54 @@ class Project extends React.Component {
 			.loadProjectData(this.projectId)
 			.then(res => {
 				this.setState({project: res});
-
+			})
+			.catch(err => {
+				this.messages.showMessage(err.responseJSON.description);
+			})
+			.then(
 				clientsService
 					.loadAllClients()
 					.then(res => {
 						let client = res.filter(e => e._id === this.state.project.clientId);
 						this.setState({clientName: client[0].name.BG, loading: false});
-					});
+					})
+			);
+	};
+
+	loadRandomProjects = () => {
+		projectsService
+			.getProjectsCount()
+			.then(res => {
+				const allProjectsCount = res.count;
+
+				const numberOfProjectsToLoad = 3;
+
+				let numbers = [];
+
+				while (numbers.length < numberOfProjectsToLoad) {
+
+					let randomNumber = Math.floor((Math.random() * allProjectsCount));
+
+					if (!numbers.includes(randomNumber)) {
+						numbers.push(randomNumber)
+					}
+
+				}
+
+
+				for (let i = 0; i < numbers.length; i++) {
+
+					let query = `?query={}&limit=${1}&skip=${numbers[i]}`;
+
+					projectsService
+						.loadAllProjects(query)
+						.then(res => {
+							this.setState({randomProjects: [...this.state.randomProjects, ...res]});
+						})
+						.catch(err => this.messages.showMessage(err.responseJSON.description));
+				}
 			})
-			.catch(err => {
-				this.messages.showMessage(err.responseJSON.description);
-			});
+			.catch(err => this.messages.showMessage(err.responseJSON.description));
 	};
 
 	showPreview = (e) => {
@@ -124,6 +170,11 @@ class Project extends React.Component {
 			);
 		});
 
+		let randomProjects = this.state.randomProjects.map((e, i) => {
+			return (
+				<ProjectCard key={e._id + i} project={e}/>
+			);
+		});
 
 		return (
 			<div id="project" className="container">
@@ -150,6 +201,10 @@ class Project extends React.Component {
 
 					<Link to={'/projects'} className='btn btn-primary sm'>Back to all projects</Link>
 				</aside>
+
+				<div className="projects-container">
+					{randomProjects}
+				</div>
 			</div>
 		);
 	}

@@ -1,16 +1,16 @@
 import React from 'react';
 
 // Partials
-import ProjectCard from './partials/ProjectCard';
+import ProjectCard from '../common/ProjectCard';
 
 // Services
-import projectsService from '../../../../services/projects/projectsService';
-import clientsService from '../../../../services/clients/clientsService';
-import categoriesService from '../../../../services/categories/categoriesService';
-import authService from '../../../../services/auth/authService';
+import projectsService from '../../../services/projects/projectsService';
+import clientsService from '../../../services/clients/clientsService';
+import categoriesService from '../../../services/categories/categoriesService';
+import authService from '../../../services/auth/authService';
 
 // Notifications
-import Messages from '../../../common/Messages';
+import Messages from '../../common/Messages';
 
 class ProjectList extends React.Component {
 	constructor (props) {

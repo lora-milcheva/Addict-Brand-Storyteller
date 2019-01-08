@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// Partials
+import ProjectCard from '../common/ProjectCard';
 
 // Services
 import authService from '../../../services/auth/authService';
@@ -23,6 +25,9 @@ class Home extends React.Component {
 	}
 
 	componentDidMount () {
+
+		// Clear filtered by category projects
+		sessionStorage.removeItem('filteredProjects');
 
 		// Log anonymous user if storage is empty
 		if (sessionStorage.getItem('authtoken') === null) {
@@ -89,20 +94,7 @@ class Home extends React.Component {
 
 		let projects = this.state.projects.map(e => {
 			return (
-				<article key={e._id} className="project-card">
-					<div className="img-container">
-						<img className="img-fit" src={e.thumbnail} alt={e.name.BG}/>
-					</div>
-
-
-					<Link to={'projects/' + e._id} className="hover">
-						<div className="info">
-							<p className="project-client">{e.clientName}</p>
-							<p className="project-name">{e.name.BG}</p>
-							<p className="project-year">{e.year}</p>
-						</div>
-					</Link>
-				</article>
+				<ProjectCard key={e._id} project={e}/>
 			)
 		});
 

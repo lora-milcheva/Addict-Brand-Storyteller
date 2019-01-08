@@ -30,6 +30,15 @@ export default {
 			.get(sessionAuth, module, endPointId);
 	},
 
+	getProjectsCount: () => {
+
+		let endPointCount = endPoint + '/_count';
+
+		return requester
+			.get(sessionAuth, module, endPointCount);
+
+	},
+
 
 	editProject: (id, state) => {
 
