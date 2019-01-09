@@ -189,24 +189,33 @@ class Project extends React.Component {
 
 				<GalleryPreview image={this.state.selectedImage} allImages={project.images} onClose={this.hidePreview}/>
 
-				<main className="project-gallery">
-					{gallery}
-				</main>
-
-				<aside className="project-info">
+				<div className="project-info">
 					<p className="project-title">{project.name.BG}</p>
 					<p>{client}</p>
 					<p>{project.description.BG}</p>
 					<p>{project.year}</p>
 
-					<Link to={this.state.prevProjectId !== undefined ? this.state.prevProjectId : '/projects'}
-					      className={this.state.prevProjectId !== undefined ? 'btn btn-light' : 'btn btn-light disabled'}>prev</Link>
+					<div className="buttons-container">
+						<Link to={this.state.prevProjectId !== undefined ? this.state.prevProjectId : '/projects'}
+						      className={this.state.prevProjectId !== undefined ? 'btn btn-light' : 'btn btn-light disabled'}>
+							<i className="fa fa-arrow-left" aria-hidden="true"/>
+						</Link>
 
-					<Link to={this.state.nextProjectId !== undefined ? this.state.nextProjectId : '/projects'}
-					      className={this.state.nextProjectId !== undefined ? 'btn btn-light' : 'btn btn-light disabled'}>next</Link>
+						<Link to={this.state.nextProjectId !== undefined ? this.state.nextProjectId : '/projects'}
+						      className={this.state.nextProjectId !== undefined ? 'btn btn-light' : 'btn btn-light disabled'}>
+							<i className="fa fa-arrow-right" aria-hidden="true"/>
+						</Link>
 
-					<Link to={'/projects'} className='btn btn-primary sm'>Back to all projects</Link>
-				</aside>
+						{/*<Link to={'/projects'} className='btn btn-primary sm'>Back to all projects</Link>*/}
+					</div>
+
+				</div>
+
+				<div className="project-gallery">
+					{gallery}
+				</div>
+
+
 
 				<div className="projects-container">
 					{randomProjects}

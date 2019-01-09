@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // Partials
-import ProjectCard from '../common/ProjectCard';
+import Carousel from './partials/Carousel';
+import HomeProjectCard from '../common/HomeProjectCard';
 
 // Services
 import authService from '../../../services/auth/authService';
@@ -19,6 +20,8 @@ class Home extends React.Component {
 
 			clients: [],
 			categories: [],
+
+			images: [],
 
 			loading: true
 		};
@@ -94,24 +97,30 @@ class Home extends React.Component {
 
 		let projects = this.state.projects.map(e => {
 			return (
-				<ProjectCard key={e._id} project={e}/>
+				<HomeProjectCard key={e._id} project={e}/>
 			)
 		});
 
 		return (
 			<div id="home" className="container-fluid">
-				<section className="about">
-					<figure className="image">
-						<img src="images/addict_logo_10_color.svg" className="svg-icon img-fit"/>
-					</figure>
+				<section className="hero">
+					<Carousel images={this.state.images}/>
+					<div className="brand">
+						<figure className="image">
+							<img src="images/logo/addict_logo_10.svg" className="svg-icon img-fit"/>
+						</figure>
 
-					<p className="text">
-						е елементарен примерен текст, използван в печатарската и типографската индустрия. Lorem Ipsum е индустриален стандарт от около 1500 година, когато неизвестен печатар взема няколко печатарски букви и ги разбърква, за да напечата с тях книга с примерни шрифтове.
-					</p>
+						<p className="text">
+							Ние създаваме неща. Измисляме си. Мечтаем.<br/>
+							Просто обичаме това, което правим.
+
+						</p>
+					</div>
 				</section>
 
-
-				{projects}
+				<section className="projects-container">
+					{projects}
+				</section>
 
 			</div>
 

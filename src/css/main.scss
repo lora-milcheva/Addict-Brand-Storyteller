@@ -196,6 +196,12 @@ $header-height: 65px;
 
 }
 
+@mixin transform-text {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: .7em;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -230,9 +236,6 @@ img {
   width: 100%;
 }
 
-i {
-  margin-right: .5em;
-}
 
 a {
   text-decoration: none;
@@ -300,7 +303,6 @@ button {
     padding: 5px 10px;
     border: 1px solid $medium-grey;
     border-radius: 2px;
-    margin-right: 3px;
     font-size: .8em;
     @include main-transition;
 
@@ -437,7 +439,7 @@ button {
 }
 
 .buttons-container {
-  margin: 5px 0 20px;
+  margin: 15px 0 20px;
 }
 
 .category-label {
@@ -496,39 +498,42 @@ button {
 }
 
 #header {
-
-  @include flex;
-  @include justify-content(space-between);
-  @include align-items(center);
-  padding: 25px 10px;
+  padding: 5% 10%;
 
   #brand {
     display: inline-block;
-    margin-left: 15px;
     width: 180px;
+    margin-left: -3%;
     height: 50px;
-    background: url("/images/addict_logo_10.svg") no-repeat left/contain;
+    background: url("/images/logo/addict_logo_10.svg") no-repeat left/contain;
     @include main-transition;
   }
 
   #main-nav {
+
+    margin-top: 35px;
+    //border-bottom: 1px solid $blackish-grey;
+
     .nav-link {
-      padding: 5px 15px;
-      font-size: .8em;
-      color: $medium-to-dark-grey;
-      text-transform: uppercase;
-      letter-spacing: .2px;
+      display: inline-block;
+      padding: 5px 0;
+      margin-right: 15px;
+
+      color: $black;
+
+      @include transform-text;
       @include main-transition;
 
       &:hover,
       &:focus {
-        background-color: $primary;
-        color: $white;
+        //background-color: $primary;
+        color: $medium-to-dark-grey;
       }
 
       &.active {
-        background-color: $primary;
-        color: $white;
+        //background-color: $primary;
+        color: $medium-to-dark-grey;
+        border-bottom: 1px solid $primary;
       }
     }
   }
@@ -538,121 +543,174 @@ button {
 
 #home {
 
-  .about {
+  .hero {
     position: relative;
-    top: 0;
-    left: 0;
-    min-height: 60vh;
-    padding: 10% 0;
-    background-color: $blackish-grey;
-    @include gradient-two;
+    min-height: calc(100vh - 50px);
+    margin: 25px;
 
-    .image {
-      width: 15%;
-      margin: auto;
+    .carousel {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+      .img-container {
+        height: 100%;
+
+        .img-fit {
+          height: 100%;
+        }
+      }
     }
 
-    .text {
+    .brand {
+      position: absolute;
+      display: inline-block;
       width: 30%;
-      margin: auto;
-      margin-top: 5%;
-      text-align: center;
-      color: $dark-grey;
+      left: 5%;
+      top: 10%;
+      padding: 20px;
+
+      //background-color: $white;
+
+      .image {
+        width: 40%;
+        //margin: auto;
+      }
+
+      .text {
+        width: 90%;
+        margin: auto;
+        margin-top: 5%;
+        @include transform-text;
+        //text-align: center;
+        color: $dark-grey;
+      }
     }
   }
 
-  .project-card {
+  .projects-container {
     @include flex;
+    @include flex-wrap(wrap);
 
-    .img-container {
-      @include flex-basis(50%);
-      order: 0;
-    }
+    $margin: 25px;
+    $width: calc(50% - 50px);
 
-    .hover {
-      @include flex-basis(50%);
+    .project-card {
+      position: relative;
+      @include flex-basis($width);
+      margin: 22px 25px 0 25px;
+      @include flex-grow(1);
 
-      @include flex;
-      @include align-items(center);
-
-      padding: 0 10%;
-      background-color: $light-grey;
-
-      * {
-        @include flex-basis(100%);
+      &:nth-of-type(even) {
+        margin-left: 0;
       }
 
-      order: 1;
-    }
-
-    &:nth-of-type(even) {
       .img-container {
-        order: 1;
+        order: 0;
+
+        .img-fit {
+          height: 500px;
+        }
       }
 
       .hover {
-        order: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        @include flex;
+        @include align-items(center);
+
+        @include main-transition;
+
+        padding: 25px;
+        background-color: $light-grey;
+
+        order: 1;
+      }
+
+      &:nth-of-type(even) {
+        .img-container {
+          order: 1;
+        }
+
+        .hover {
+          order: 0;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+        .hover {
+          opacity: .9;
+        }
       }
     }
   }
 }
 
-.projects-container {
-  @include flex;
-  @include flex-wrap(wrap);
+#project,
+#projects-list {
+  .projects-container {
+    @include flex;
+    @include flex-wrap(wrap);
 
-  .project-card {
-    position: relative;
+    .project-card {
+      position: relative;
 
-    $width: calc((100% - (5 * 5px)) / 5);
-    $card-size: 200px;
+      $width: calc((100% - (5 * 5px)) / 5);
+      $card-size: 200px;
 
-    //@include flex-basis($width);
+      //@include flex-basis($width);
 
-    width: $card-size;
-    height: $card-size;
-    margin-right: 5px;
-    margin-bottom: 5px;
-
-    @include main-transition;
-
-    .img-fit {
-      object-fit: cover;
+      width: $card-size;
       height: $card-size;
-    }
-
-    .hover {
-      opacity: 0;
-      position: absolute;
-      top: 0;
-      left: 0;
-
-      @include flex;
-      @include align-items(center);
-      //@include justify-content(center);
-
-      padding-left: 10%;
-      width: 100%;
-      height: 100%;
-      background-color: $primary;
+      margin-right: 5px;
+      margin-bottom: 5px;
 
       @include main-transition;
 
-      .info {
-        color: $white;
-        font-size: .85em;
+      .img-fit {
+        object-fit: cover;
+        height: $card-size;
+      }
+
+      .hover {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        @include flex;
+        @include align-items(center);
+        //@include justify-content(center);
+
+        padding-left: 10%;
+        width: 100%;
+        height: 100%;
+        background-color: $primary;
+
         @include main-transition;
 
-        p {
-          margin: 2px 0;
+        .info {
+          color: $white;
+          font-size: .85em;
+          @include main-transition;
+
+          p {
+            margin: 2px 0;
+          }
         }
       }
-    }
 
-    &:hover {
-      cursor: pointer;
-      .hover {
-        opacity: 1;
+      &:hover {
+        cursor: pointer;
+        .hover {
+          opacity: 1;
+        }
       }
     }
   }
@@ -682,8 +740,14 @@ button {
   }
 
   .project-info {
-    @include flex-basis(30%);
-    padding-left: 2em;
+    @include flex-basis(20%);
+
+    @include transform-text;
+
+    .btn:hover {
+      background-color: $blackish-grey;
+      color: $medium-to-dark-grey;
+    }
   }
 
   .image-preview {
@@ -778,7 +842,6 @@ button {
       }
     }
   }
-
 }
 
 //ADMIN

@@ -4,6 +4,23 @@ const LANGUAGES = {
 	EN: 'EN'
 };
 
+const MENU = {
+	BG: {
+		projects: 'Проекти',
+		contact: 'Контакти',
+		clients: 'Клиенти',
+		categories: 'Категории',
+		logout: 'Изход'
+	},
+	EN: {
+		projects: 'Projects',
+		contact: 'Contacts',
+		clients: 'Clients',
+		categories: 'Categories',
+		logout: 'Logout'
+	}
+}
+
 const CREATE_PROJECT_INPUTS = {
 	BG: {
 		name: 'Име на проекта',
@@ -55,12 +72,14 @@ const BUTTONS = {
 		edit: 'Редакция',
 		delete: 'Изтриване',
 		cancel: 'Отказ',
+		view: 'Разгледай'
 	},
 	EN: {
 		create: 'Create',
 		edit: 'Edit',
 		delete: 'Delete',
-		cancel: 'Cancel'
+		cancel: 'Cancel',
+		view: 'View More'
 	}
 };
 
@@ -82,6 +101,7 @@ const CATEGORIES = {
 
 export {
 	LANGUAGES,
+	MENU,
 	CREATE_PROJECT_INPUTS,
 	CATEGORY_INPUTS,
 	CLIENT_INPUTS,

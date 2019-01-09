@@ -1,4 +1,6 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+
 import './css/main.css';
 import './css/animations.css';
 
@@ -16,7 +18,7 @@ class App extends React.Component {
 	}
 
 	componentDidMount () {
-		if (sessionStorage.length === 0){
+		if (sessionStorage.length === 0) {
 			authService
 				.loginAnonymousUser()
 				.then(res => {
@@ -29,12 +31,18 @@ class App extends React.Component {
 		}
 	}
 
+
+
 	render () {
+
+		let isHomePage = window.location.pathname === '/' || window.location.pathname === '/home';
+
 		return (
 
 			<div>
 				<Messages onRef={ref => (this.messages = ref)}/>
-				<Header/>
+
+				{!isHomePage && <Header/> }
 
 				<main>
 					<Routes />
