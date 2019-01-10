@@ -46,29 +46,24 @@ class ProjectList extends React.Component {
 		this.loadAllData();
 	}
 
-	loadAllData = () => {
+	componentWillReceiveProps (nextProps) {
+		this.props = nextProps;
+		console.log(nextProps)
+		this.getCategoryId();
+	}
 
-		projectsService
-			.loadAllProjects()
+	loadAllData = () => {
+		clientsService
+			.loadAllClients()
 			.then(res => {
 
-				this.setState({projects: res}, () => this.saveProjectsInSession());
+				this.setState({clients: res});
 
-				clientsService
-					.loadAllClients()
+				categoriesService
+					.loadAllCategories()
 					.then(res => {
-
-						this.setState({clients: res}, () => this.getClientName());
-
-						categoriesService
-							.loadAllCategories()
-							.then(res => {
-								this.setState({categories: res, loading: false});
-							})
-							.catch(err => {
-								this.messages.showMessage(err.responseJSON.description);
-							});
-
+						this.setState({categories: res},
+							() => this.getCategoryId());
 					})
 					.catch(err => {
 						this.messages.showMessage(err.responseJSON.description);
@@ -78,9 +73,10 @@ class ProjectList extends React.Component {
 			.catch(err => {
 				this.messages.showMessage(err.responseJSON.description);
 			});
+
 	};
 
-	loadProjectsByCategory = () => {
+	loadProjects = () => {
 
 		let query;
 
@@ -96,7 +92,7 @@ class ProjectList extends React.Component {
 					res.forEach(p => {
 						p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name.BG;
 					});
-					this.setState({projects: res}, () => this.saveProjectsInSession());
+					this.setState({projects: res, loading: false}, () => this.saveProjectsInSession());
 				}
 			)
 			.catch(err => {
@@ -104,23 +100,19 @@ class ProjectList extends React.Component {
 			});
 	};
 
-	handleCategoryChange = (e) => {
+	getCategoryId = () => {
 
-		e.preventDefault();
+		let pathName = this.props.location.pathname.split('/').pop();
 
-		if (e.target.name === 'all') {
-			this.setState({selectedCategoryId: ''}, () => this.loadProjectsByCategory());
-
+		if (pathName === 'projects') {
+			this.setState({selectedCategoryId: ''}, () => this.loadProjects());
 			return;
 		}
 
-		this.setState({[e.target.name]: e.target.value}, () => this.loadProjectsByCategory());
-	};
+		let catId = this.state.categories.filter(e => e.name.EN === pathName)[0]._id;
 
-	getClientName = () => {
-		this.state.projects.forEach(p => {
-			p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name.BG;
-		});
+		this.setState({selectedCategoryId: catId}, () => this.loadProjects());
+
 	};
 
 	saveProjectsInSession = () => {
@@ -137,27 +129,13 @@ class ProjectList extends React.Component {
 			return (<div className="lds-dual-ring"/> );
 		}
 
-		let categories = this.state.categories.map(e => {
-			let style = this.state.selectedCategoryId.includes(e._id) ? 'btn category-label selected' : 'btn category-label';
-			return (
-				<button key={e._id}
-				        className={style}
-				        name="selectedCategoryId"
-				        value={e._id}
-				        onClick={this.handleCategoryChange}>{e.name.BG}</button>
-			);
-		});
-
-		categories.unshift(<button key='all'
-		                           className={this.state.selectedCategoryId === ''
-			                           ? 'btn category-label selected'
-			                           : 'btn category-label'}
-		                           name="all"
-		                           onClick={this.handleCategoryChange}>all</button>);
+		let categoryName = this.props.location.pathname.split('/').pop();
 
 		let projects = this.state.projects.map((e, i) => {
 			return (
-				<ProjectCard key={e._id + i} project={e}/>
+				<ProjectCard key={e._id + i}
+				             project={e}
+				             category={categoryName}/>
 			);
 		});
 
@@ -165,14 +143,6 @@ class ProjectList extends React.Component {
 			<div id="projects-list" className="container">
 
 				<Messages onRef={ref => (this.messages = ref)}/>
-
-				<div className="page-header">
-					<h1 className="page-title">Портфолио</h1>
-				</div>
-
-				<div className="buttons-container">
-					{categories}
-				</div>
 
 				<div className="projects-container">
 					{projects}

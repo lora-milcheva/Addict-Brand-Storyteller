@@ -73,7 +73,7 @@ class Home extends React.Component {
 						categoriesService
 							.loadAllCategories()
 							.then(res => {
-								this.setState({categories: res, loading: false}, () => console.log(this.state));
+								this.setState({categories: res, loading: false});
 							})
 							.catch(err => {
 								this.messages.showMessage(err.responseJSON.description);

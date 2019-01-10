@@ -16,7 +16,6 @@ export default {
 	login: (userInfo) => {
 
 		let endpoint = 'login';
-		console.log('from admin request');
 
 		return requester
 			.post(basicAuth, module, endpoint, userInfo )
@@ -30,8 +29,6 @@ export default {
 		};
 
 		let endpoint = 'login';
-
-		console.log('from anonymous request');
 
 		return requester
 			.post(basicAuth, module, endpoint, anonymousUser )

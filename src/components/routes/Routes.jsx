@@ -23,31 +23,32 @@ import clientsList from '../admin/clients/clientsList';
 // ERRORS and CONFIRMATIONS
 import NotFound from '../errors/NotFound';
 
-
 let Routes = () => {
 	return (
 		<Switch>
 
 			<Route exact path='/' component={Home}/>
-			<Route exact path='/home' component={Home}/>
 
-			<Route exact path='/login' component={Login}/>
+			<Route path='/login' component={Login}/>
 
 			<Route exact path='/projects' component={ProjectsList}/>
-			<Route exact path='/projects/:id' component={Project}/>
+			<Route exact path='/projects/:category' component={ProjectsList}/>
+			<Route path='/projects/:category/:id' component={Project}/>
+
+			<Route path='/project/:id' component={Project}/>
 
 
-			<PrivateRoute exact path='/admin/projects-list' component={adminProjectsList}/>
-			<PrivateRoute exact path='/admin/project-create' component={createProject}/>
-			<PrivateRoute exact path='/admin/project-edit/:id' component={createProject}/>
+			<PrivateRoute path='/admin/projects-list' component={adminProjectsList}/>
+			<PrivateRoute path='/admin/project-create' component={createProject}/>
+			<PrivateRoute path='/admin/project-edit/:id' component={createProject}/>
 
-			<PrivateRoute exact path='/admin/category-list' component={categoriesList}/>
-			<PrivateRoute exact path='/admin/category-create' component={createEditCategory}/>
-			<PrivateRoute exact path='/admin/category-edit/:id' component={createEditCategory}/>
+			<PrivateRoute path='/admin/category-list' component={categoriesList}/>
+			<PrivateRoute path='/admin/category-create' component={createEditCategory}/>
+			<PrivateRoute path='/admin/category-edit/:id' component={createEditCategory}/>
 
-			<PrivateRoute exact path='/admin/clients-list' component={clientsList}/>
-			<PrivateRoute exact path='/admin/client-create' component={createEditClient}/>
-			<PrivateRoute exact path='/admin/client-edit/:id' component={createEditClient}/>
+			<PrivateRoute path='/admin/clients-list' component={clientsList}/>
+			<PrivateRoute path='/admin/client-create' component={createEditClient}/>
+			<PrivateRoute path='/admin/client-edit/:id' component={createEditClient}/>
 
 			<Route path='*' component={NotFound}/>
 		</Switch>

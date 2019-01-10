@@ -3,15 +3,30 @@ import { NavLink, Link } from 'react-router-dom';
 
 // Services
 import authService from '../../services/auth/authService';
-
+import categoriesService from '../../services/categories/categoriesService';
 
 // Constants
-import {MENU} from '../../constants/constants';
+import { MENU } from '../../constants/constants';
 
 class Header extends React.Component {
 
 	constructor (props) {
 		super(props);
+
+		this.state = {
+			categories: [],
+		};
+	}
+
+	componentDidMount () {
+		categoriesService
+			.loadAllCategories()
+			.then(res => {
+				this.setState({categories: res});
+			})
+			.catch(err => {
+				this.messages.showMessage(err.responseJSON.description);
+			});
 	}
 
 	logout = () => {
@@ -36,11 +51,22 @@ class Header extends React.Component {
 					{/*<Link to="/home" id="brand"/>*/}
 
 					<nav id="main-nav">
-						<NavLink to='/admin/projects-list' className="nav-link" activeClassName='active'>{MENU.BG.projects}</NavLink>
-						<NavLink to='/admin/category-list' className="nav-link" activeClassName='active'>{MENU.BG.categories}</NavLink>
-						<NavLink to='/admin/clients-list' className="nav-link" activeClassName='active'>{MENU.BG.clients}</NavLink>
 
-						<NavLink to='/home' className="nav-link" activeClassName='active'
+						<NavLink to='/admin/projects-list'
+						         className="nav-link"
+						         activeClassName='active'>{MENU.BG.projects}</NavLink>
+
+						<NavLink to='/admin/category-list'
+						         className="nav-link"
+						         activeClassName='active'>{MENU.BG.categories}</NavLink>
+
+						<NavLink to='/admin/clients-list'
+						         className="nav-link"
+						         activeClassName='active'>{MENU.BG.clients}</NavLink>
+
+						<NavLink exact to='/'
+						         className="nav-link"
+						         activeClassName='active'
 						         onClick={this.logout}>{MENU.BG.logout}</NavLink>
 
 					</nav>
@@ -48,19 +74,33 @@ class Header extends React.Component {
 			);
 		}
 
+		let categories = this.state.categories.map(e => {
+			return (
+				<NavLink key={e._id}
+				         to={'/projects/' + e.name.EN}
+				         className="nav-link"
+				         activeClassName='active'>{e.name.BG}</NavLink>
+			);
+		});
+
 		return (
 			<div id="header">
 
-				<Link to="/home" id="brand"/>
+				<Link to="/" id="brand"/>
 
 				<nav id="main-nav">
-					{/*<NavLink to="/home" className="nav-link" activeClassName='active'>Home</NavLink>*/}
 
-					<NavLink to="/projects" className="nav-link" activeClassName='active'>{MENU.BG.projects}</NavLink>
+					<NavLink exact
+					         to="/projects"
+					         className="nav-link"
+					         activeClassName='active'>{MENU.BG.projects}</NavLink>
 
-					<NavLink to="/home" className="nav-link" activeClassName='active'>{MENU.BG.contact}</NavLink>
+					{categories}
 
-					{/*<NavLink to="/login" className="nav-link" activeClassName='active'>Login</NavLink>*/}
+					<NavLink exact
+					         to="/"
+					         className="nav-link"
+					         activeClassName='active'>{MENU.BG.contact}</NavLink>
 
 				</nav>
 			</div>
