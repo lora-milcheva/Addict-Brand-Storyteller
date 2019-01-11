@@ -60,7 +60,7 @@ class Project extends React.Component {
 
 		this.setIndexes();
 
-		this.setState({randomProjects: []}, () => this.loadRandomProjects())
+		this.setState({randomProjects: []}, () => this.loadRandomProjects());
 	}
 
 	componentWillUnmount () {
@@ -97,12 +97,12 @@ class Project extends React.Component {
 				this.setState({project: res});
 			})
 			.then(() => {
-				clientsService
-					.loadAllClients()
-					.then(res => {
-						let client = res.filter(e => e._id === this.state.project.clientId);
-						this.setState({clientName: client[0].name.BG, loading: false});
-					});
+					clientsService
+						.loadAllClients()
+						.then(res => {
+							let client = res.filter(e => e._id === this.state.project.clientId);
+							this.setState({clientName: client[0].name.BG, loading: false});
+						});
 				}
 			)
 			.catch(err => {
@@ -206,7 +206,6 @@ class Project extends React.Component {
 							<i className="fa fa-arrow-right" aria-hidden="true"/>
 						</Link>
 
-						{/*<Link to={'/projects'} className='btn btn-primary sm'>Back to all projects</Link>*/}
 					</div>
 
 				</div>
@@ -216,7 +215,7 @@ class Project extends React.Component {
 				</div>
 
 
-
+				<h2 className="section-title">Други проекти</h2>
 				<div className="projects-container">
 					{randomProjects}
 				</div>

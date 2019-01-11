@@ -90,7 +90,7 @@ class Header extends React.Component {
 
 				<nav id="main-nav">
 
-					<NavLink exact
+					<NavLink
 					         to="/projects"
 					         className="nav-link"
 					         activeClassName='active'>{MENU.BG.projects}</NavLink>
