@@ -907,6 +907,194 @@ button {
   }
 }
 
+#project-one {
+  @include flex;
+  @include flex-wrap(wrap);
+  position: relative;
+
+  .project-info {
+    @include flex-basis(100%);
+
+    @include transform-text;
+
+    .btn:hover {
+      background-color: $blackish-grey;
+      color: $medium-to-dark-grey;
+    }
+  }
+
+  .project-gallery {
+    @include flex-basis(100%);
+
+    margin-bottom: 100px;
+
+    .image {
+      //height: 100%;
+      //margin: 0 1% .5% 0;
+      @include main-transition;
+
+      &:hover {
+        cursor: pointer;
+        opacity: .7;
+      }
+    }
+  }
+
+  .image-preview {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .8);
+
+    @include flex;
+    @include align-items(center);
+    @include justify-content(center);
+    opacity: 0;
+    visibility: hidden;
+
+    @include main-transition;
+
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+      z-index: 1;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 25px;
+      color: $medium-to-dark-grey;
+      background-color: $dark-grey;
+      z-index: 1000;
+
+      @include main-transition;
+
+      &:hover {
+        cursor: pointer;
+        color: $white;
+        background-color: $primary;
+      }
+    }
+
+    .gallery-navigation {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+
+      @include flex;
+      @include justify-content(space-between);
+      @include align-items(center);
+
+      .gallery-navigation-button {
+        @include flex-basis(50%);
+        height: 100%;
+        padding: 0 50px;
+
+        @include flex;
+        @include align-items(center);
+
+        @include main-transition;
+
+        &:hover {
+          cursor: pointer;
+          color: $primary;
+        }
+
+        &:nth-of-type(2) {
+          @include justify-content(flex-end);
+        }
+      }
+    }
+
+    .image {
+      margin: auto;
+      width: 80%;
+      height: 80vh;
+      text-align: center;
+
+      @include flex;
+      @include justify-content(center);
+      @include align-items(center);
+
+      @include main-transition;
+
+      .img-fit {
+        width: auto;
+        max-width: 80%;
+        height: auto;
+        max-height: 80vh;
+
+      }
+    }
+  }
+
+  .section-title {
+    @include flex-basis(20%);
+  }
+
+  .projects-container {
+    @include flex-basis(80%);
+    @include flex;
+
+    $margin: 12px;
+    $width: calc(33% - 50px);
+
+    .project-card {
+      position: relative;
+      margin-right: 25px;
+      height: 180px;
+      overflow: hidden;
+
+      @include flex-basis($width);
+      @include flex-grow(1);
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+
+      .img-container {
+        order: 0;
+        height: 100%;
+
+        .img-fit {
+          height: 100%;
+        }
+      }
+
+      .hover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 25px;
+        background-color: rgba(255, 255, 255, .5);
+
+        @include flex;
+        @include main-transition;
+        @include translate(-100%, 0);
+
+        .info {
+          @include transform-text;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+
+        .hover {
+          @include translate(0, 0);
+        }
+      }
+    }
+  }
+}
+
 //ADMIN
 #project-create {
 

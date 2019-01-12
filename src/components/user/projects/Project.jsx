@@ -183,7 +183,7 @@ class Project extends React.Component {
 		});
 
 		return (
-			<div id="project" className="container">
+			<div id="project-one" className="container-fluid">
 
 				<Messages onRef={ref => (this.messages = ref)}/>
 
