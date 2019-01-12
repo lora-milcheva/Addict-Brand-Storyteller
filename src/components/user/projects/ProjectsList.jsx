@@ -48,7 +48,6 @@ class ProjectList extends React.Component {
 
 	componentWillReceiveProps (nextProps) {
 		this.props = nextProps;
-		console.log(nextProps)
 		this.getCategoryId();
 	}
 
@@ -89,9 +88,12 @@ class ProjectList extends React.Component {
 		projectsService
 			.loadAllProjects(query)
 			.then(res => {
+
 					res.forEach(p => {
 						p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name.BG;
 					});
+
+
 					this.setState({projects: res, loading: false}, () => this.saveProjectsInSession());
 				}
 			)

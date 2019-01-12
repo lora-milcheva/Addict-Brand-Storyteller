@@ -433,6 +433,7 @@ button {
 
 .img-fit {
   object-fit: cover;
+  height: 100%;
 }
 
 .page-header {
@@ -725,8 +726,8 @@ button {
 
   .project-info {
     @include flex-basis(20%);
-
     @include transform-text;
+    padding-left: 25px;
 
     .btn:hover {
       background-color: $blackish-grey;
@@ -742,7 +743,7 @@ button {
 
     .image {
       @include flex-basis(49%);
-      margin: 0 1% .5% 0;
+      margin: 0 1% 1% 0;
       @include main-transition;
 
       &:hover {
@@ -825,8 +826,8 @@ button {
 
     .image {
       margin: auto;
-      width: 80%;
-      height: 80vh;
+      width: 90%;
+      height: 95vh;
       text-align: center;
 
       @include flex;
@@ -837,9 +838,9 @@ button {
 
       .img-fit {
         width: auto;
-        max-width: 80%;
+        max-width: 100%;
         height: auto;
-        max-height: 80vh;
+        max-height: 100%;
 
       }
     }
@@ -914,6 +915,7 @@ button {
 
   .project-info {
     @include flex-basis(100%);
+    padding-left: 10%;
 
     @include transform-text;
 
