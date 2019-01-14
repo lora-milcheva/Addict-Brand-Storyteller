@@ -19,7 +19,7 @@ const MENU = {
 		categories: 'Categories',
 		logout: 'Logout'
 	}
-}
+};
 
 const CREATE_PROJECT_INPUTS = {
 	BG: {
@@ -72,31 +72,123 @@ const BUTTONS = {
 		edit: 'Редакция',
 		delete: 'Изтриване',
 		cancel: 'Отказ',
-		view: 'Разгледай'
+		view: 'Разгледай',
+		confirm: 'OK',
+		close: 'Затвори',
+
+		newProject: 'Нов проект',
+		newClient: 'Нов клиент',
+		newCategory: 'Нова категория'
 	},
 	EN: {
 		create: 'Create',
 		edit: 'Edit',
 		delete: 'Delete',
 		cancel: 'Cancel',
-		view: 'View More'
+		view: 'View More',
+		confirm: 'OK',
+		close: 'Close',
+
+		newProject: 'New Project',
+		newClient: 'New Client',
+		newCategory: 'New Category'
 	}
 };
 
-const CATEGORIES = {
+const CONFIRM_DIALOG_MESSAGES = {
 	BG: {
-		print: 'печат',
-		web: 'уеб',
-		radio: 'радио',
-		other: 'други'
+		confirmDeleteProject: 'Желаете ли да изтриете този проект?',
 	},
 	EN: {
-		print: 'print',
-		web: 'web',
-		radio: 'radio',
-		other: 'other'
+		confirmDeleteProject: 'Delete this project?',
 	}
 };
+
+const NOTIFICATIONS = {
+	BG: {
+		projectCreated: 'Проектът беше създаден.',
+		projectDeleted: 'Проектът беше изтрит.',
+
+		categoryCreated: 'Категорията е създадена.',
+		categoryDeleted: 'Категорията беше изтрита.',
+
+		clientCreated: 'Клиентът е създаден.',
+		clientDeleted: 'Клиентът беше изтрит.',
+
+		successEdit: 'Успешна редакция.',
+
+	},
+	EN: {
+		projectCreated: 'Project created.',
+		projectDeleted: 'Project deleted.',
+
+		categoryCreated: 'Category created.',
+		categoryDeleted: 'Category deleted.',
+
+		clientCreated: 'Client created.',
+		clientDeleted: 'Client deleted.',
+
+		successEdit: 'Successful edit.',
+	}
+};
+
+const ADMIN_PAGES_TEXT = {
+	project: {
+		BG: {
+			thumbnail: 'Тъмбнейл',
+			images: 'Изображения',
+			videos: 'Видеа',
+			editProject: 'Редакция на проект',
+			createProject: 'Създаване на проект',
+			allProjects: 'Всички проекти'
+		},
+		EN: {
+			thumbnail: 'Thumbnail',
+			images: 'Images',
+			videos: 'Videos',
+			editProject: 'Edit Project',
+			createProject: 'Create New Project',
+			allProjects: 'All Projects'
+		}
+	},
+	client: {
+		BG: {
+			editClient: 'Редакция на клиент',
+			createClient: 'Създаване на клиент',
+			allClients: 'Всички клиенти'
+		},
+		EN: {
+			editClient: 'Edit Client',
+			createClient: 'Create New Client',
+			allClients: 'All Clients'
+		}
+	},
+	category: {
+		BG: {
+			editCategory: 'Редакция на категория',
+			createCategory: 'Създаване на категория',
+			allCategories: 'Всички категории'
+		},
+		EN: {
+			editCategory: 'Edit Category',
+			createCategory: 'Create New Category',
+			allCategories: 'All Categories'
+		}
+	}
+
+};
+
+const USER_PAGES_TEXT = {
+	project: {
+		BG: {
+			otherProjects: 'Други проекти',
+		},
+		EN: {
+			otherProjects: 'Other Projects',
+		}
+	}
+};
+
 
 
 export {
@@ -106,5 +198,8 @@ export {
 	CATEGORY_INPUTS,
 	CLIENT_INPUTS,
 	BUTTONS,
-	CATEGORIES
+	CONFIRM_DIALOG_MESSAGES,
+	NOTIFICATIONS,
+	ADMIN_PAGES_TEXT,
+	USER_PAGES_TEXT
 }

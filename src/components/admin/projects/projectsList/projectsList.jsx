@@ -8,8 +8,10 @@ import ProjectCard from './partials/ProjectCard';
 import projectsService from '../../../../services/projects/projectsService';
 
 // Notifications
-import Messages from '../../../common/Messages';
+import Notifications from '../../../common/Notifications';
 
+// Constants
+import { BUTTONS, ADMIN_PAGES_TEXT } from '../../../../constants/constants';
 
 class projectsList extends React.Component {
 	constructor (props) {
@@ -52,16 +54,16 @@ class projectsList extends React.Component {
 		return (
 			<div id="admin-projects-list" className="container">
 
-				<Messages onRef={ref => (this.messages = ref)}/>
+				<Notifications onRef={ref => (this.notifications = ref)}/>
 
 				<div className="page-header">
-					<h1 className="page-title">Проекти</h1>
+					<h1 className="page-title">{ADMIN_PAGES_TEXT.project.BG.allProjects}</h1>
 				</div>
 
 				<div className="buttons-container">
-					<Link to="/admin/project-create" className="btn btn-primary sm">New Project</Link>
-					<Link to="/admin/client-create" className="btn btn-primary sm">New Client</Link>
-					<Link to="/admin/category-create" className="btn btn-primary sm">New Category</Link>
+					<Link to="/admin/project-create" className="btn btn-primary sm">{BUTTONS.BG.newProject}</Link>
+					<Link to="/admin/client-create" className="btn btn-primary sm">{BUTTONS.BG.newClient}</Link>
+					<Link to="/admin/category-create" className="btn btn-primary sm">{BUTTONS.BG.newCategory}</Link>
 				</div>
 
 				<div className="projects-container">

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import clientsService from '../../../services/clients/clientsService';
 
 // Notifications
-import Messages from '../../common/Messages';
+import Notifications from '../../common/Notifications';
 
 
 class categoriesList extends React.Component {
@@ -57,7 +57,7 @@ class categoriesList extends React.Component {
 		return (
 			<div id="admin-clients-list" className="container">
 
-				<Messages onRef={ref => (this.messages = ref)}/>
+				<Notifications onRef={ref => (this.notifications = ref)}/>
 
 				<div className="page-header">
 					<h1 className="page-title">Клиенти</h1>

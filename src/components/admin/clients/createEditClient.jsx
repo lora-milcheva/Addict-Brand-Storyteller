@@ -7,14 +7,14 @@ import FormInput from '../../common/formComponents/FormInput';
 import clientsService from '../../../services/clients/clientsService';
 
 // Notifications
-import Messages from '../../common/Messages';
+import Notifications from '../../common/Notifications';
 import ConfirmDialog from '../../common/ConfirmDialog';
 
 // Utils
 import Utils from '../../../utils/utils';
 
 // Constants
-import { CLIENT_INPUTS, BUTTONS } from '../../../constants/constants';
+import { CLIENT_INPUTS, BUTTONS, NOTIFICATIONS, ADMIN_PAGES_TEXT } from '../../../constants/constants';
 
 class createEditCategory extends React.Component {
 	constructor (props) {
@@ -77,11 +77,11 @@ class createEditCategory extends React.Component {
 			clientsService
 				.editClient(this.clientId, Utils.createStateCopy(this.state))
 				.then(res => {
-					this.messages.showMessage('Успешна редакция.');
+					this.notifications.showMessage(NOTIFICATIONS.BG.successEdit);
 					setTimeout(() => this.props.history.go(-1), 2000);
 				})
 				.catch(err => {
-					this.messages.showMessage(err.responseJSON.description);
+					this.notifications.showMessage(err.responseJSON.description);
 				});
 			return;
 		}
@@ -89,12 +89,12 @@ class createEditCategory extends React.Component {
 		clientsService
 			.createClient(Utils.createStateCopy(this.state))
 			.then(res => {
-				this.messages.showMessage('Клиентът е създаден.');
+				this.notifications.showMessage(NOTIFICATIONS.BG.clientCreated);
 				this.clearData();
 				setTimeout(() => this.props.history.go(-1), 2000);
 			})
 			.catch(err => {
-				this.messages.showMessage(err.responseJSON.description);
+				this.notifications.showMessage(err.responseJSON.description);
 			});
 	};
 
@@ -114,7 +114,7 @@ class createEditCategory extends React.Component {
 	render () {
 
 
-		let title = this.clientId ? 'Редакция на категория' : 'Създаване на категория';
+		let title = this.clientId ? ADMIN_PAGES_TEXT.client.BG.editClient : ADMIN_PAGES_TEXT.client.BG.newClient;
 
 		let buttonText = this.clientId ? BUTTONS.BG.edit : BUTTONS.BG.create;
 
@@ -127,7 +127,7 @@ class createEditCategory extends React.Component {
 		return (
 			<div id="project-create" className="container">
 
-				<Messages onRef={ref => (this.messages = ref)}/>
+				<Notifications onRef={ref => (this.notifications = ref)}/>
 				<ConfirmDialog onRef={ref => (this.confirmDialog = ref)}/>
 
 				<div className="page-header">

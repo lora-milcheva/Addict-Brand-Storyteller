@@ -7,14 +7,14 @@ import FormInput from '../../common/formComponents/FormInput';
 import categoriesService from '../../../services/categories/categoriesService';
 
 // Notifications
-import Messages from '../../common/Messages';
+import Notifications from '../../common/Notifications';
 import ConfirmDialog from '../../common/ConfirmDialog';
 
 // Utils
 import Utils from '../../../utils/utils';
 
 // Constants
-import { CATEGORY_INPUTS, BUTTONS } from '../../../constants/constants';
+import { CATEGORY_INPUTS, BUTTONS, NOTIFICATIONS, ADMIN_PAGES_TEXT } from '../../../constants/constants';
 
 class createEditCategory extends React.Component {
 	constructor (props) {
@@ -76,11 +76,11 @@ class createEditCategory extends React.Component {
 			categoriesService
 				.editProject(this.categoryId, Utils.createStateCopy(this.state))
 				.then(res => {
-					this.messages.showMessage('Успешна редакция.');
+					this.notifications.showMessage(NOTIFICATIONS.BG.successEdit);
 					setTimeout(() => this.props.history.go(-1), 2000);
 				})
 				.catch(err => {
-					this.messages.showMessage(err.responseJSON.description);
+					this.notifications.showMessage(err.responseJSON.description);
 				});
 			return;
 		}
@@ -88,12 +88,12 @@ class createEditCategory extends React.Component {
 		categoriesService
 			.createCategory(Utils.createStateCopy(this.state))
 			.then(res => {
-				this.messages.showMessage('Категорията е създадена.');
+				this.notifications.showMessage(NOTIFICATIONS.BG.categoryCreated);
 				this.clearData();
 				setTimeout(() => this.props.history.go(-1), 2000);
 			})
 			.catch(err => {
-				this.messages.showMessage(err.responseJSON.description);
+				this.notifications.showMessage(err.responseJSON.description);
 			});
 	};
 
@@ -103,6 +103,7 @@ class createEditCategory extends React.Component {
 
 	deleteCategory = () => {
 		console.log('from delete');
+		// Delete from all projects categories list
 	};
 
 	cancel = (e) => {
@@ -113,7 +114,7 @@ class createEditCategory extends React.Component {
 	render () {
 
 
-		let title = this.categoryId ? 'Редакция на категория' : 'Създаване на категория';
+		let title = this.categoryId ? ADMIN_PAGES_TEXT.category.BG.editCategory : ADMIN_PAGES_TEXT.category.BG.newCategory;
 
 		let buttonText = this.categoryId ? BUTTONS.BG.edit : BUTTONS.BG.create;
 
@@ -124,7 +125,7 @@ class createEditCategory extends React.Component {
 		return (
 			<div id="project-create" className="container">
 
-				<Messages onRef={ref => (this.messages = ref)}/>
+				<Notifications onRef={ref => (this.notifications = ref)}/>
 				<ConfirmDialog onRef={ref => (this.confirmDialog = ref)}/>
 
 				<div className="page-header">

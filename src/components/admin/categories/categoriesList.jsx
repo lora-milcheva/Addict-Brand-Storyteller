@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import categoriesService from '../../../services/categories/categoriesService';
 
 // Notifications
-import Messages from '../../common/Messages';
+import Notifications from '../../common/Notifications';
 
 // Constants
 import { BUTTONS } from '../../../constants/constants';
@@ -59,7 +59,7 @@ class categoriesList extends React.Component {
 		return (
 			<div id="admin-categories-list" className="container">
 
-				<Messages onRef={ref => (this.messages = ref)}/>
+				<Notifications onRef={ref => (this.notifications = ref)}/>
 
 				<div className="page-header">
 					<h1 className="page-title">Категории</h1>

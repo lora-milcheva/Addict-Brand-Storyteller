@@ -1,6 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+// Constants
+import { BUTTONS } from '../../../../../constants/constants';
+
 
 class ProjectCard extends React.Component {
 	constructor (props) {
@@ -21,7 +24,7 @@ class ProjectCard extends React.Component {
 
 				<Link to={'project-edit/' + project._id} className="hover">
 					<div className="edit-btn">
-						<i className="fa fa-edit" aria-hidden="true"/>Редакция
+						<i className="fa fa-edit" aria-hidden="true"/>{BUTTONS.BG.edit}
 					</div>
 				</Link>
 			</article>

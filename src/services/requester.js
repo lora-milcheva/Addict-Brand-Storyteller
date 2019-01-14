@@ -45,6 +45,18 @@ export default {
 				data: JSON.stringify(data)
 			});
 	},
+
+	remove: (auth, module, endPoint,) => {
+
+		let url = baseUrl + '/' + module + '/' + appKey + '/' + endPoint;
+
+		return $.ajax(
+			{
+				url: url,
+				type: 'DELETE',
+				headers: createHeader(auth)
+			});
+	}
 };
 
 let createHeader = (auth) => {

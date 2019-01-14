@@ -48,6 +48,15 @@ export default {
 
 		return requester
 			.put(sessionAuth, module, endPointId, project);
+	},
+
+	deleteProject: (id) => {
+
+		let endPointId = endPoint + '/' + id;
+
+		return requester
+			.remove(sessionAuth, module, endPointId);
+
 	}
 };
 

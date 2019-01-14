@@ -11,7 +11,10 @@ import clientsService from '../../../services/clients/clientsService';
 import authService from '../../../services/auth/authService';
 
 // Notifications
-import Messages from '../../common/Messages';
+import Notifications from '../../common/Notifications';
+
+// Constants
+import { USER_PAGES_TEXT } from '../../../constants/constants'
 
 class Project extends React.Component {
 	constructor (props) {
@@ -45,7 +48,7 @@ class Project extends React.Component {
 					authService.saveSession(res);
 					this.setIndexes();
 				})
-				.catch(err => this.messages.showMessage(err.responseJSON.description));
+				.catch(err => this.notifications.showMessage(err.responseJSON.description));
 
 			return;
 		}
@@ -106,7 +109,7 @@ class Project extends React.Component {
 				}
 			)
 			.catch(err => {
-				this.messages.showMessage(err.responseJSON.description);
+				this.notifications.showMessage(err.responseJSON.description);
 			});
 	};
 
@@ -144,10 +147,10 @@ class Project extends React.Component {
 
 							this.setState({randomProjects: [...this.state.randomProjects, ...res]});
 						})
-						.catch(err => this.messages.showMessage(err.responseJSON.description));
+						.catch(err => this.notifications.showMessage(err.responseJSON.description));
 				}
 			})
-			.catch(err => this.messages.showMessage(err.responseJSON.description));
+			.catch(err => this.notifications.showMessage(err.responseJSON.description));
 	};
 
 	showPreview = (e) => {
@@ -185,7 +188,7 @@ class Project extends React.Component {
 		return (
 			<div id="project" className="container-fluid">
 
-				<Messages onRef={ref => (this.messages = ref)}/>
+				<Notifications onRef={ref => (this.notifications = ref)}/>
 
 				<GalleryPreview image={this.state.selectedImage} allImages={project.images} onClose={this.hidePreview}/>
 
@@ -215,7 +218,7 @@ class Project extends React.Component {
 				</div>
 
 
-				<h2 className="section-title">Други проекти</h2>
+				<h2 className="section-title">{USER_PAGES_TEXT.project.BG.otherProjects}</h2>
 				<div className="projects-container">
 					{randomProjects}
 				</div>

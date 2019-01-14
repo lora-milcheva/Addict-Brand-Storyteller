@@ -25,7 +25,7 @@ class Header extends React.Component {
 				this.setState({categories: res});
 			})
 			.catch(err => {
-				this.messages.showMessage(err.responseJSON.description);
+				this.notifications.showMessage(err.responseJSON.description);
 			});
 	}
 

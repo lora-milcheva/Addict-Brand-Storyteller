@@ -40,7 +40,7 @@ class Home extends React.Component {
 					authService.saveSession(res);
 					this.loadStarProjects();
 				})
-				.catch(err => this.messages.showMessage(err.responseJSON.description))
+				.catch(err => this.notifications.showMessage(err.responseJSON.description))
 
 			return
 		}
@@ -76,17 +76,17 @@ class Home extends React.Component {
 								this.setState({categories: res, loading: false});
 							})
 							.catch(err => {
-								this.messages.showMessage(err.responseJSON.description);
+								this.notifications.showMessage(err.responseJSON.description);
 							});
 
 					})
 					.catch(err => {
-						this.messages.showMessage(err.responseJSON.description);
+						this.notifications.showMessage(err.responseJSON.description);
 					});
 
 			})
 			.catch(err => {
-				this.messages.showMessage(err.responseJSON.description);
+				this.notifications.showMessage(err.responseJSON.description);
 			});
 	};
 

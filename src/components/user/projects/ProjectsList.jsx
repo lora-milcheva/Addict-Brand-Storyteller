@@ -10,7 +10,7 @@ import categoriesService from '../../../services/categories/categoriesService';
 import authService from '../../../services/auth/authService';
 
 // Notifications
-import Messages from '../../common/Messages';
+import Notifications from '../../common/Notifications';
 
 class ProjectList extends React.Component {
 	constructor (props) {
@@ -38,7 +38,7 @@ class ProjectList extends React.Component {
 					authService.saveSession(res);
 					this.loadAllData();
 				})
-				.catch(err => this.messages.showMessage(err.responseJSON.description));
+				.catch(err => this.notifications.showMessage(err.responseJSON.description));
 
 			return;
 		}
@@ -65,12 +65,12 @@ class ProjectList extends React.Component {
 							() => this.getCategoryId());
 					})
 					.catch(err => {
-						this.messages.showMessage(err.responseJSON.description);
+						this.notifications.showMessage(err.responseJSON.description);
 					});
 
 			})
 			.catch(err => {
-				this.messages.showMessage(err.responseJSON.description);
+				this.notifications.showMessage(err.responseJSON.description);
 			});
 
 	};
@@ -98,7 +98,7 @@ class ProjectList extends React.Component {
 				}
 			)
 			.catch(err => {
-				this.messages.showMessage(err.responseJSON.description);
+				this.notifications.showMessage(err.responseJSON.description);
 			});
 	};
 
@@ -144,7 +144,7 @@ class ProjectList extends React.Component {
 		return (
 			<div id="projects-list" className="container">
 
-				<Messages onRef={ref => (this.messages = ref)}/>
+				<Notifications onRef={ref => (this.notifications = ref)}/>
 
 				<div className="projects-container">
 					{projects}

@@ -1,6 +1,9 @@
 import React from 'react';
 
-class Messages extends React.Component {
+// Constants
+import { BUTTONS } from '../../constants/constants';
+
+class Notifications extends React.Component {
 	constructor (props) {
 		super(props);
 
@@ -43,7 +46,7 @@ class Messages extends React.Component {
 				<div className="message">
 					<p className="message-text">{this.state.message}</p>
 
-					<button className="btn btn-primary" onClick={this.hideMessage}>Close</button>
+					<button className="btn btn-primary" onClick={this.hideMessage}>{BUTTONS.BG.close}</button>
 				</div>
 
 			</div>
@@ -51,5 +54,5 @@ class Messages extends React.Component {
 	}
 }
 
-export default Messages;
+export default Notifications;
 

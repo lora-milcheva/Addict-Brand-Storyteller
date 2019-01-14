@@ -8,7 +8,7 @@ import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import Routes from './components/routes/Routes';
 
-import Messages from './components/common/Messages';
+import Notifications from './components/common/Notifications';
 
 import authService from './services/auth/authService';
 
@@ -22,11 +22,11 @@ class App extends React.Component {
 			authService
 				.loginAnonymousUser()
 				.then(res => {
-					this.messages.showMessage('logged in as: ' + res.username);
+					this.notifications.showMessage('logged in as: ' + res.username);
 					authService.saveSession(res);
 				})
 				.catch(err => {
-					this.messages.showMessage(err.responseJSON.description);
+					this.notifications.showMessage(err.responseJSON.description);
 				});
 		}
 	}
@@ -40,7 +40,7 @@ class App extends React.Component {
 		return (
 
 			<div>
-				<Messages onRef={ref => (this.messages = ref)}/>
+				<Notifications onRef={ref => (this.notifications = ref)}/>
 
 				{!isHomePage && <Header/> }
 

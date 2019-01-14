@@ -1,5 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
+// Constants
+import { BUTTONS } from '../../constants/constants';
 
 
 class ConfirmDialog extends React.Component {
@@ -53,8 +55,8 @@ class ConfirmDialog extends React.Component {
 				<div className="message">
 					<p className="message-text">{this.state.message}</p>
 
-					<button className="btn btn-primary" onClick={this.hideMessage}>Cancel</button>
-					<button className="btn btn-danger" onClick={this.confirm}>OK</button>
+					<button className="btn btn-primary" onClick={this.hideMessage}>{BUTTONS.BG.cancel}</button>
+					<button className="btn btn-danger" onClick={this.confirm}>{BUTTONS.BG.confirm}</button>
 				</div>
 
 			</div>

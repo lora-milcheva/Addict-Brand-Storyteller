@@ -13,14 +13,14 @@ import clientsService from '../../../../services/clients/clientsService';
 import categoriesService from '../../../../services/categories/categoriesService';
 
 // Notifications
-import Messages from '../../../common/Messages';
+import Notifications from '../../../common/Notifications';
 import ConfirmDialog from '../../../common/ConfirmDialog';
 
 // Utils
 import Utils from '../../../../utils/utils';
 
 // Constants
-import { CREATE_PROJECT_INPUTS, BUTTONS } from '../../../../constants/constants';
+import { CREATE_PROJECT_INPUTS, BUTTONS, CONFIRM_DIALOG_MESSAGES, NOTIFICATIONS, ADMIN_PAGES_TEXT} from '../../../../constants/constants';
 
 class createProject extends React.Component {
 	constructor (props) {
@@ -115,7 +115,7 @@ class createProject extends React.Component {
 		e.preventDefault();
 
 		this.setState({[e.target.name]: !this.state[e.target.name]})
-	}
+	};
 
 	handleMultiLangChange = (e) => {
 		let lang = e.target.id.split('-')[1];   // get the language
@@ -155,12 +155,12 @@ class createProject extends React.Component {
 				.editProject(this.projectId, Utils.createStateCopy(this.state))
 				.then(res => {
 
-					this.messages.showMessage('Успешна редкация');
+					this.notifications.showMessage(NOTIFICATIONS.BG.successEdit);
 					setTimeout(() => this.props.history.go(-1), 2000);
 
 				})
 				.catch(err => {
-					this.messages.showMessage(err.responseJSON.description);
+					this.notifications.showMessage(err.responseJSON.description);
 				});
 
 			return;
@@ -170,22 +170,31 @@ class createProject extends React.Component {
 			.createProject(Utils.createStateCopy(this.state))
 			.then(res => {
 
-				this.messages.showMessage('Проектът беше създаден.');
+				this.notifications.showMessage(NOTIFICATIONS.BG.projectCreated);
 				setTimeout(() => this.props.history.go(-1), 2000);
 
 			})
 			.catch(err => {
-				this.messages.showMessage(err.responseJSON.description);
+				this.notifications.showMessage(err.responseJSON.description);
 			});
 	};
 
 	confirmDelete = () => {
 		// First give the massage, then the callback to be executed
-		this.confirmDialog.showMessage('test', this.deleteProject);
+		this.confirmDialog.showMessage(CONFIRM_DIALOG_MESSAGES.BG.confirmDeleteProject, this.deleteProject);
 	};
 
 	deleteProject = () => {
-		console.log('from delete');
+
+		projectsService
+			.deleteProject(this.projectId)
+			.then(res => {
+				this.notifications.showMessage(NOTIFICATIONS.BG.projectDeleted);
+				setTimeout(() => this.props.history.go(-1), 2000);
+			})
+			.catch(err => {
+				this.notifications.showMessage(err.responseJSON.description);
+			});
 	};
 
 	cancel = (e) => {
@@ -196,7 +205,7 @@ class createProject extends React.Component {
 
 	render () {
 
-		let title = this.projectId ? 'Редакция на проект' : 'Създаване на проект';
+		let title = this.projectId ? ADMIN_PAGES_TEXT.project.BG.editProject : ADMIN_PAGES_TEXT.project.BG.createProject;
 
 		let buttonText = this.projectId ? BUTTONS.BG.edit : BUTTONS.BG.create;
 
@@ -240,7 +249,7 @@ class createProject extends React.Component {
 		return (
 			<div id="project-create" className="container">
 
-				<Messages onRef={ref => (this.messages = ref)}/>
+				<Notifications onRef={ref => (this.notifications = ref)}/>
 				<ConfirmDialog onRef={ref => (this.confirmDialog = ref)}/>
 
 				<div className="page-header">
@@ -351,7 +360,7 @@ class createProject extends React.Component {
 
 						<div className="project-data">
 
-							<h3 className="section-title">Thumbnail</h3>
+							<h3 className="section-title">{ADMIN_PAGES_TEXT.project.BG.thumbnail}</h3>
 							<div className="container">
 								{thumbnail}
 							</div>
@@ -367,7 +376,7 @@ class createProject extends React.Component {
 
 
 						<div className="project-data">
-							<h3 className="section-title">Изображения</h3>
+							<h3 className="section-title">{ADMIN_PAGES_TEXT.project.BG.images}</h3>
 							<SortableList elements={this.state.images}
 							              name="images"
 							              onDelete={this.handleArrChange}
@@ -383,7 +392,7 @@ class createProject extends React.Component {
 						</div>
 
 						<div className='project-data'>
-							<h3 className='section-title'>Видео</h3>
+							<h3 className='section-title'>{ADMIN_PAGES_TEXT.project.BG.videos}</h3>
 							<div className='container'>
 								{videos}
 							</div>

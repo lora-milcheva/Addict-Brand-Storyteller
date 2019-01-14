@@ -2,7 +2,7 @@ import React from 'react';
 
 import authService from '../../services/auth/authService';
 
-import Messages from '../common/Messages';
+import Notifications from '../common/Notifications';
 
 class Login extends React.Component {
 	constructor (props) {
@@ -24,12 +24,12 @@ class Login extends React.Component {
 		let {username, password} = this.state;
 
 		if (username.trim() === '') {
-			this.messages.showMessage('invalid username');
+			this.notifications.showMessage('invalid username');
 			return;
 		}
 
 		if (password.trim() === '') {
-			this.messages.showMessage('invalid password');
+			this.notifications.showMessage('invalid password');
 			return;
 		}
 
@@ -53,7 +53,7 @@ class Login extends React.Component {
 			.then(res => {
 				authService.saveSession(res);
 				this.clearForm();
-				this.messages.showMessage('logged in as: ' + res.username);
+				this.notifications.showMessage('logged in as: ' + res.username);
 
 				let path = '/';
 				if (authService.checkUser()) {path = '/admin/projects-list'}
@@ -64,7 +64,7 @@ class Login extends React.Component {
 
 			})
 			.catch(err => {
-				this.messages.showMessage(err.responseJSON.description);
+				this.notifications.showMessage(err.responseJSON.description);
 			});
 	};
 
@@ -76,7 +76,7 @@ class Login extends React.Component {
 
 		return (
 			<div id="login" className="container">
-				<Messages onRef={ref => (this.messages = ref)}/>
+				<Notifications onRef={ref => (this.notifications = ref)}/>
 
 				<h1>Login</h1>
 
