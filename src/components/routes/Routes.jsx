@@ -24,6 +24,7 @@ import clientsList from '../admin/clients/clientsList';
 import NotFound from '../errors/NotFound';
 
 let Routes = () => {
+
 	return (
 		<Switch>
 
@@ -31,11 +32,14 @@ let Routes = () => {
 
 			<Route path='/login' component={Login}/>
 
-			<Route exact path='/:lng/projects' component={ProjectsList}/>
-			<Route exact path='/:lng/projects/:category' component={ProjectsList}/>
-			<Route path='/projects/:category/:id' component={Project}/>
+			<Route exact path={['/:lng/projects', '/projects']} component={ProjectsList}/>
+			<Route exact path={['/:lng/projects/:category', '/projects/:category']} component={ProjectsList}/>
 
-			<Route path='/project/:id' component={Project}/>
+			<Route path={['/:lng/project/:id', '/project/:id']} component={Project}/>
+			<Route path={['/projects/:category/:id']} component={Project}/>
+			<Route path={[ '/:lng/projects/:category/:id']} component={Project}/>
+
+
 
 
 			<PrivateRoute path='/admin/projects-list' component={adminProjectsList}/>

@@ -40,6 +40,7 @@ class Project extends React.Component {
 
 	componentDidMount () {
 
+		console.log(this.props.match.params)
 		// Log anonymous user if storage is empty
 		if (sessionStorage.getItem('authtoken') === null) {
 			authService
@@ -59,6 +60,7 @@ class Project extends React.Component {
 
 	componentWillReceiveProps (nextProps) {
 		this.setState({loading: true});
+
 		this.projectId = nextProps.match.params.id;
 
 		this.setIndexes();
@@ -88,11 +90,12 @@ class Project extends React.Component {
 			currentProjectIndex,
 			prevProjectId,
 			nextProjectId
-		}, () => this.loadProject(this.projectId));
+		}, () => this.loadProject());
 
 	};
 
 	loadProject = () => {
+
 
 		projectsService
 			.loadProjectData(this.projectId)

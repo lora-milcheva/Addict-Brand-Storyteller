@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Link, Redirect } from 'react-router-dom';
-import {withRouter} from 'react-router'
+import { withRouter } from 'react-router';
 
 // Services
 import authService from '../../services/auth/authService';
@@ -35,15 +35,33 @@ class Header extends React.Component {
 	changeLanguage = () => {
 		if (this.state.activeLanguage === LANGUAGES.BG) {
 			this.setState({activeLanguage: LANGUAGES.EN}, () => {
-				document.documentElement.lang = this.state.activeLanguage;
-				console.log(this.props.history.location)
-				// this.props.history.location.push('')
+				this.redirect();
 			});
 		} else {
 			this.setState({activeLanguage: LANGUAGES.BG}, () => {
-				document.documentElement.lang = this.state.activeLanguage;
-				console.log(this.props.history.location)			});
+				this.redirect();
+			});
 		}
+	};
+
+	redirect = () => {
+
+		let pathArray = this.props.location.pathname.split('/').filter(e => e !== '');
+
+		let activeLanguage = this.state.activeLanguage;
+		console.log(activeLanguage)
+
+		if (activeLanguage === 'BG') { let removed = pathArray.splice(0, 1); }
+
+		let newPath = '';
+		pathArray.forEach(e => newPath += '/' + e);
+
+		if (activeLanguage === 'BG') {
+			this.props.history.push(newPath);
+		} else {
+			this.props.history.push('/' + this.state.activeLanguage + newPath);
+		}
+
 	};
 
 	logout = () => {
@@ -93,10 +111,18 @@ class Header extends React.Component {
 			);
 		}
 
+		let link = '';
+		if (this.state.activeLanguage === LANGUAGES.BG) {
+			link = '/projects/';
+		} else {
+			link = '/' + lang + '/projects/';
+		}
+
 		let categories = this.state.categories.map(e => {
+
 			return (
 				<NavLink key={e._id}
-				         to={'/' + lang + '/projects/' + e.name.EN}
+				         to={link + e.name.EN}
 				         className="nav-link"
 				         activeClassName='active'>{e.name[lang]}</NavLink>
 			);
@@ -110,7 +136,7 @@ class Header extends React.Component {
 				<nav id="main-nav">
 
 					<NavLink
-						to={'/' + lang + "/projects/"}
+						to={link}
 						className="nav-link"
 						activeClassName='active'>{MENU[lang].projects}</NavLink>
 
