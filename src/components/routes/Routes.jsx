@@ -31,8 +31,8 @@ let Routes = () => {
 
 			<Route path='/login' component={Login}/>
 
-			<Route exact path='/projects' component={ProjectsList}/>
-			<Route exact path='/projects/:category' component={ProjectsList}/>
+			<Route exact path='/:lng/projects' component={ProjectsList}/>
+			<Route exact path='/:lng/projects/:category' component={ProjectsList}/>
 			<Route path='/projects/:category/:id' component={Project}/>
 
 			<Route path='/project/:id' component={Project}/>

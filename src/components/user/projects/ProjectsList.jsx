@@ -24,7 +24,9 @@ class ProjectList extends React.Component {
 
 			selectedCategoryId: '',
 
-			loading: true
+			loading: true,
+
+			lang: document.documentElement.lang
 		};
 	}
 
@@ -50,6 +52,7 @@ class ProjectList extends React.Component {
 		this.props = nextProps;
 		this.getCategoryId();
 	}
+
 
 	loadAllData = () => {
 		clientsService
@@ -90,9 +93,8 @@ class ProjectList extends React.Component {
 			.then(res => {
 
 					res.forEach(p => {
-						p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name.BG;
+						p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name[this.state.lang];
 					});
-
 
 					this.setState({projects: res, loading: false}, () => this.saveProjectsInSession());
 				}
@@ -104,7 +106,11 @@ class ProjectList extends React.Component {
 
 	getCategoryId = () => {
 
-		let pathName = this.props.location.pathname.split('/').pop();
+		console.log(this.props.location.pathname)
+
+		let pathName = this.props.location.pathname.split('/').filter(e => e !== '').pop();
+
+		console.log(pathName)
 
 		if (pathName === 'projects') {
 			this.setState({selectedCategoryId: ''}, () => this.loadProjects());

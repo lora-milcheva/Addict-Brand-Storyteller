@@ -1,12 +1,13 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, Redirect } from 'react-router-dom';
+import {withRouter} from 'react-router'
 
 // Services
 import authService from '../../services/auth/authService';
 import categoriesService from '../../services/categories/categoriesService';
 
 // Constants
-import { MENU } from '../../constants/constants';
+import { MENU, LANGUAGES } from '../../constants/constants';
 
 class Header extends React.Component {
 
@@ -15,10 +16,12 @@ class Header extends React.Component {
 
 		this.state = {
 			categories: [],
+			activeLanguage: LANGUAGES.BG
 		};
 	}
 
 	componentDidMount () {
+
 		categoriesService
 			.loadAllCategories()
 			.then(res => {
@@ -28,6 +31,20 @@ class Header extends React.Component {
 				this.notifications.showMessage(err.responseJSON.description);
 			});
 	}
+
+	changeLanguage = () => {
+		if (this.state.activeLanguage === LANGUAGES.BG) {
+			this.setState({activeLanguage: LANGUAGES.EN}, () => {
+				document.documentElement.lang = this.state.activeLanguage;
+				console.log(this.props.history.location)
+				// this.props.history.location.push('')
+			});
+		} else {
+			this.setState({activeLanguage: LANGUAGES.BG}, () => {
+				document.documentElement.lang = this.state.activeLanguage;
+				console.log(this.props.history.location)			});
+		}
+	};
 
 	logout = () => {
 		authService
@@ -42,6 +59,8 @@ class Header extends React.Component {
 	render () {
 
 		let admin = sessionStorage.getItem('role') !== null;
+		let lang = this.state.activeLanguage;
+		let buttonText = this.state.activeLanguage === LANGUAGES.BG ? LANGUAGES.EN : LANGUAGES.BG;
 
 		if (admin) {
 
@@ -58,7 +77,7 @@ class Header extends React.Component {
 
 						<NavLink to='/admin/category-list'
 						         className="nav-link"
-						         activeClassName='active'>{MENU.BG.categories}</NavLink>
+						         activeClassName='active'>{MENU.lang.categories}</NavLink>
 
 						<NavLink to='/admin/clients-list'
 						         className="nav-link"
@@ -77,9 +96,9 @@ class Header extends React.Component {
 		let categories = this.state.categories.map(e => {
 			return (
 				<NavLink key={e._id}
-				         to={'/projects/' + e.name.EN}
+				         to={'/' + lang + '/projects/' + e.name.EN}
 				         className="nav-link"
-				         activeClassName='active'>{e.name.BG}</NavLink>
+				         activeClassName='active'>{e.name[lang]}</NavLink>
 			);
 		});
 
@@ -91,21 +110,26 @@ class Header extends React.Component {
 				<nav id="main-nav">
 
 					<NavLink
-					         to="/projects"
-					         className="nav-link"
-					         activeClassName='active'>{MENU.BG.projects}</NavLink>
+						to={'/' + lang + "/projects/"}
+						className="nav-link"
+						activeClassName='active'>{MENU[lang].projects}</NavLink>
 
 					{categories}
 
 					<NavLink exact
 					         to="/"
 					         className="nav-link"
-					         activeClassName='active'>{MENU.BG.contact}</NavLink>
+					         activeClassName='active'>{MENU[lang].contact}</NavLink>
 
+				</nav>
+
+				<nav id="second-nav">
+					<button className="btn btn-light sm"
+					        onClick={this.changeLanguage}>{buttonText}</button>
 				</nav>
 			</div>
 		);
 	}
 }
 
-export default Header;
+export default withRouter(Header);

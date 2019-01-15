@@ -30,7 +30,7 @@ const CREATE_PROJECT_INPUTS = {
 		webPage: 'Уеб страница',
 		isStar: 'Топ проект',
 		category: 'Категория',
-		thumbnail: 'Thumbnail',
+		thumbnail: 'Тъмбнейл',
 		images: 'Изображения',
 		videos: 'Видеа'
 	},
