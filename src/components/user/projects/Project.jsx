@@ -13,6 +13,9 @@ import authService from '../../../services/auth/authService';
 // Notifications
 import Notifications from '../../common/Notifications';
 
+//Utils
+import Utils from '../../../utils/utils'
+
 // Constants
 import { USER_PAGES_TEXT } from '../../../constants/constants'
 
@@ -32,13 +35,17 @@ class Project extends React.Component {
 
 			randomProjects: [],
 
-			loading: true
+			loading: true,
+
+			activeLanguage: ''
 		};
 	}
 
 	projectId = this.props.match.params.id;
 
 	componentDidMount () {
+
+		console.log('from project')
 
 		// Log anonymous user if storage is empty
 		if (sessionStorage.getItem('authtoken') === null) {
@@ -53,12 +60,20 @@ class Project extends React.Component {
 			return;
 		}
 
+		Utils.getLanguage(this);
+
 		this.setIndexes();
+
 		this.loadRandomProjects();
 	}
 
 	componentWillReceiveProps (nextProps) {
+
 		this.setState({loading: true});
+
+		this.props = nextProps;
+
+		Utils.getLanguage(this);
 
 		this.projectId = nextProps.match.params.id;
 
@@ -106,7 +121,7 @@ class Project extends React.Component {
 						.loadAllClients()
 						.then(res => {
 							let client = res.filter(e => e._id === this.state.project.clientId);
-							this.setState({clientName: client[0].name.BG, loading: false});
+							this.setState({clientName: client[0].name[this.state.activeLanguage], loading: false});
 						});
 				}
 			)
@@ -169,6 +184,8 @@ class Project extends React.Component {
 			return (<div className="lds-dual-ring"/> );
 		}
 
+		let activeLanguage = this.state.activeLanguage;
+
 		let project = this.state.project;
 
 		let client = this.state.clientName;
@@ -195,9 +212,9 @@ class Project extends React.Component {
 				<GalleryPreview image={this.state.selectedImage} allImages={project.images} onClose={this.hidePreview}/>
 
 				<div className="project-info">
-					<p className="project-title">{project.name.BG}</p>
+					<p className="project-title">{project.name[activeLanguage]}</p>
 					<p>{client}</p>
-					<p>{project.description.BG}</p>
+					<p>{project.description[activeLanguage]}</p>
 					<p>{project.year}</p>
 
 					<div className="buttons-container">

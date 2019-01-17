@@ -21,13 +21,24 @@ class Header extends React.Component {
 	}
 
 	componentDidMount () {
+		this.getLanguage();
 		this.loadCategories();
-
 	}
 
 	componentWillReceiveProps (nextProps) {
-		console.log(nextProps)
+		this.props = nextProps;
+		this.getLanguage();
 	}
+
+	getLanguage = () => {
+		let pathArray = this.props.location.pathname.split('/').filter(e => e !== '');
+
+		if (pathArray[0] === LANGUAGES.EN) {
+			this.setState({activeLanguage: LANGUAGES.EN })
+		} else {
+			this.setState({activeLanguage: LANGUAGES.BG })
+		}
+	};
 
 
 	loadCategories = () => {
@@ -103,7 +114,7 @@ class Header extends React.Component {
 
 						<NavLink to='/admin/category-list'
 						         className="nav-link"
-						         activeClassName='active'>{MENU.lang.categories}</NavLink>
+						         activeClassName='active'>{MENU.activeLanguage.categories}</NavLink>
 
 						<NavLink to='/admin/clients-list'
 						         className="nav-link"

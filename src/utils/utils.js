@@ -1,6 +1,6 @@
-/**
- * Created by Marian on 05/07/2018.
- */
+
+// Constants
+import { LANGUAGES } from '../constants/constants';
 
 let months = {
 	0: 'януари',
@@ -95,6 +95,17 @@ function createStateCopy (state) {
 	return JSON.parse(JSON.stringify(state))
 }
 
+function getLanguage (component) {
+
+	let lang = component.props.match.params.lng;
+
+	if (lang === LANGUAGES.EN) {
+		component.setState({activeLanguage: LANGUAGES.EN })
+	} else {
+		component.setState({activeLanguage: LANGUAGES.BG })
+	}
+};
+
 export default {
 	calculatePriceAfterDiscount,
     formatDate,
@@ -104,5 +115,6 @@ export default {
 	getMonth,
 	getYear,
 	getVideoDescription,
-	createStateCopy
+	createStateCopy,
+	getLanguage
 }

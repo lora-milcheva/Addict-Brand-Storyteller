@@ -12,6 +12,10 @@ import authService from '../../../services/auth/authService';
 // Notifications
 import Notifications from '../../common/Notifications';
 
+//Utils
+import Utils from '../../../utils/utils'
+
+
 class ProjectList extends React.Component {
 	constructor (props) {
 		super(props);
@@ -26,11 +30,13 @@ class ProjectList extends React.Component {
 
 			loading: true,
 
-			lang: document.documentElement.lang
+			activeLanguage: ''
 		};
 	}
 
 	componentDidMount () {
+
+		console.log('from list')
 
 		// Log anonymous user if storage is empty
 		if (sessionStorage.getItem('authtoken') === null) {
@@ -45,11 +51,14 @@ class ProjectList extends React.Component {
 			return;
 		}
 
+		Utils.getLanguage(this);
+
 		this.loadAllData();
 	}
 
 	componentWillReceiveProps (nextProps) {
 		this.props = nextProps;
+		Utils.getLanguage(this);
 		this.getCategoryId();
 	}
 
@@ -93,7 +102,7 @@ class ProjectList extends React.Component {
 			.then(res => {
 
 					res.forEach(p => {
-						p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name[this.state.lang];
+						p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name[this.state.activeLanguage];
 					});
 
 					this.setState({projects: res, loading: false}, () => this.saveProjectsInSession());
@@ -143,7 +152,9 @@ class ProjectList extends React.Component {
 			return (
 				<ProjectCard key={e._id + i}
 				             project={e}
-				             category={categoryName}/>
+				             category={categoryName}
+				             activeLanguage={this.state.activeLanguage}
+				/>
 			);
 		});
 
