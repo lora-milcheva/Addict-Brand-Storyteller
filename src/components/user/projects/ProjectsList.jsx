@@ -106,16 +106,20 @@ class ProjectList extends React.Component {
 
 	getCategoryId = () => {
 
-		let pathName = this.props.location.pathname.split('/').filter(e => e !== '').pop();
+		this.setState({loading: true});
 
-		if (pathName === 'projects') {
+		let pathName = this.props.match.params.category;
+
+		if (pathName !== undefined) {
+
+			let catId = this.state.categories.filter(e => e.name.EN === pathName)[0]._id;
+
+			this.setState({selectedCategoryId: catId}, () => this.loadProjects());
+
+		} else {
+
 			this.setState({selectedCategoryId: ''}, () => this.loadProjects());
-			return;
 		}
-
-		let catId = this.state.categories.filter(e => e.name.EN === pathName)[0]._id;
-
-		this.setState({selectedCategoryId: catId}, () => this.loadProjects());
 
 	};
 

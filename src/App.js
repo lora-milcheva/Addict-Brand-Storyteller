@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 
 import './css/main.css';
 import './css/animations.css';
@@ -18,15 +17,15 @@ class App extends React.Component {
 	}
 
 	componentDidMount () {
+
 		if (sessionStorage.length === 0) {
 			authService
 				.loginAnonymousUser()
 				.then(res => {
-					this.notifications.showMessage('logged in as: ' + res.username);
 					authService.saveSession(res);
 				})
 				.catch(err => {
-					this.notifications.showMessage(err.responseJSON.description);
+					console.log(err);
 				});
 		}
 	}
@@ -40,7 +39,6 @@ class App extends React.Component {
 		return (
 
 			<div>
-				<Notifications onRef={ref => (this.notifications = ref)}/>
 
 				{!isHomePage && <Header/> }
 

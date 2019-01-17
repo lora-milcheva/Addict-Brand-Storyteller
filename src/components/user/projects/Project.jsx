@@ -40,7 +40,6 @@ class Project extends React.Component {
 
 	componentDidMount () {
 
-		console.log(this.props.match.params)
 		// Log anonymous user if storage is empty
 		if (sessionStorage.getItem('authtoken') === null) {
 			authService

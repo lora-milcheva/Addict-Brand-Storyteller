@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, Link, Redirect } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
 // Services
@@ -21,7 +21,16 @@ class Header extends React.Component {
 	}
 
 	componentDidMount () {
+		this.loadCategories();
 
+	}
+
+	componentWillReceiveProps (nextProps) {
+		console.log(nextProps)
+	}
+
+
+	loadCategories = () => {
 		categoriesService
 			.loadAllCategories()
 			.then(res => {
@@ -30,7 +39,7 @@ class Header extends React.Component {
 			.catch(err => {
 				this.notifications.showMessage(err.responseJSON.description);
 			});
-	}
+	};
 
 	changeLanguage = () => {
 		if (this.state.activeLanguage === LANGUAGES.BG) {
@@ -49,7 +58,6 @@ class Header extends React.Component {
 		let pathArray = this.props.location.pathname.split('/').filter(e => e !== '');
 
 		let activeLanguage = this.state.activeLanguage;
-		console.log(activeLanguage)
 
 		if (activeLanguage === 'BG') { let removed = pathArray.splice(0, 1); }
 

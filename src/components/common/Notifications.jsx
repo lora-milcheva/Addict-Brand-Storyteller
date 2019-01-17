@@ -21,7 +21,11 @@ class Notifications extends React.Component {
 		this.props.onRef(undefined);
 	}
 
+
 	showMessage = (message) => {
+
+		document.addEventListener('keypress', this.handleKeyPress);
+
 		this.setState({
 			visible: true,
 			message: message
@@ -33,6 +37,13 @@ class Notifications extends React.Component {
 			visible: false,
 			message: ''
 		});
+	};
+
+	handleKeyPress = (e) => {
+		if (e.key === 'Enter') {
+			this.hideMessage();
+			document.removeEventListener('keypress', this.handleKeyPress);
+		}
 	};
 
 	render () {
