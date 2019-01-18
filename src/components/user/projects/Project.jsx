@@ -45,8 +45,6 @@ class Project extends React.Component {
 
 	componentDidMount () {
 
-		console.log('from project')
-
 		// Log anonymous user if storage is empty
 		if (sessionStorage.getItem('authtoken') === null) {
 			authService
@@ -56,8 +54,6 @@ class Project extends React.Component {
 					this.setIndexes();
 				})
 				.catch(err => this.notifications.showMessage(err.responseJSON.description));
-
-			return;
 		}
 
 		Utils.getLanguage(this);
@@ -131,38 +127,36 @@ class Project extends React.Component {
 	};
 
 	loadRandomProjects = () => {
+
+		let query = '?query={}&fields=_id';
+
 		projectsService
-			.getProjectsCount()
+			.loadAllProjects(query)
 			.then(res => {
 
-				const allProjectsCount = res.count;
+				const projects = res.filter(e => e._id !== this.projectId);
 
 				const numberOfProjectsToLoad = 3;
 
-				// Get random numbers
-				let numbers = [];
+				// Get random ids
+				let projectIds = [];
 
-				while (numbers.length < numberOfProjectsToLoad) {
+				while (projectIds.length < numberOfProjectsToLoad) {
 
-					let randomNumber = Math.floor((Math.random() * allProjectsCount));
+					let randomNumber = Math.floor((Math.random() * projects.length));
 
-					if (!numbers.includes(randomNumber)) {
-						numbers.push(randomNumber);
+					if (!projectIds.includes(projects[randomNumber]._id)) {
+						projectIds.push(projects[randomNumber]._id);
 					}
 				}
 
-				// Load random projects
-				for (let i = 0; i < numbers.length; i++) {
-
-					let query = `?query={}&limit=${1}&skip=${numbers[i]}`;
-
+				// Load random projects by id
+				for (let i = 0; i < projectIds.length; i++) {
 					projectsService
-						.loadAllProjects(query)
+						.loadProjectData(projectIds[i])
 						.then(res => {
-
-							if (res[0]._id === this.projectId) return;
-
-							this.setState({randomProjects: [...this.state.randomProjects, ...res]});
+							console.log(res)
+							this.setState({randomProjects: [...this.state.randomProjects, res]});
 						})
 						.catch(err => this.notifications.showMessage(err.responseJSON.description));
 				}
@@ -200,7 +194,7 @@ class Project extends React.Component {
 
 		let randomProjects = this.state.randomProjects.map((e, i) => {
 			return (
-				<ProjectCard key={e._id + i} project={e}/>
+				<ProjectCard key={e._id + i} project={e} activeLanguage={activeLanguage}/>
 			);
 		});
 

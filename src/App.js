@@ -12,29 +12,15 @@ import Notifications from './components/common/Notifications';
 import authService from './services/auth/authService';
 
 class App extends React.Component {
+
 	constructor (props) {
 		super(props);
 	}
 
-	componentDidMount () {
-
-		if (sessionStorage.length === 0) {
-			authService
-				.loginAnonymousUser()
-				.then(res => {
-					authService.saveSession(res);
-				})
-				.catch(err => {
-					console.log(err);
-				});
-		}
-	}
-
-
 
 	render () {
 
-		let isHomePage = window.location.pathname === '/' || window.location.pathname === '/home';
+		let isHomePage = window.location.pathname === '/';
 
 		return (
 

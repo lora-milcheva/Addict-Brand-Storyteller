@@ -36,8 +36,6 @@ class ProjectList extends React.Component {
 
 	componentDidMount () {
 
-		console.log('from list')
-
 		// Log anonymous user if storage is empty
 		if (sessionStorage.getItem('authtoken') === null) {
 			authService

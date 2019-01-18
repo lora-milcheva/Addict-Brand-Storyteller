@@ -20,17 +20,39 @@ class Header extends React.Component {
 		};
 	}
 
+
 	componentDidMount () {
-		this.getLanguage();
-		this.loadCategories();
+
+		if (sessionStorage.length === 0) {
+			authService
+				.loginAnonymousUser()
+				.then(res => {
+					authService.saveSession(res);
+					this.getLanguage();
+					this.loadCategories();
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		} else {
+			this.getLanguage();
+			this.loadCategories();
+		}
 	}
 
 	componentWillReceiveProps (nextProps) {
-		this.props = nextProps;
-		this.getLanguage();
+
+		let pathArray = this.props.location.pathname.split('/').filter(e => e !== '');
+		let newPathArray = nextProps.location.pathname.split('/').filter(e => e !== '');
+
+		if (pathArray[0] !== newPathArray[0]) {
+			this.props = nextProps;
+			this.getLanguage();
+		}
 	}
 
 	getLanguage = () => {
+		console.log(222);
 		let pathArray = this.props.location.pathname.split('/').filter(e => e !== '');
 
 		if (pathArray[0] === LANGUAGES.EN) {
@@ -42,13 +64,14 @@ class Header extends React.Component {
 
 
 	loadCategories = () => {
+
 		categoriesService
 			.loadAllCategories()
 			.then(res => {
 				this.setState({categories: res});
 			})
 			.catch(err => {
-				this.notifications.showMessage(err.responseJSON.description);
+				console.log(err);
 			});
 	};
 

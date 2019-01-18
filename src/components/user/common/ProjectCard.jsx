@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class ProjectCard extends React.Component {
 	constructor (props) {
@@ -9,8 +10,6 @@ class ProjectCard extends React.Component {
 	render () {
 
 		let {project, activeLanguage, category} = this.props;
-
-		console.log(project);
 
 		let linkPath = category
 			? '/projects/' + category + '/' + project._id
@@ -36,3 +35,9 @@ class ProjectCard extends React.Component {
 }
 
 export default ProjectCard;
+
+ProjectCard.propTypes = {
+	project: PropTypes.object,
+	activeLanguage: PropTypes.string,
+	category: PropTypes.string
+};
