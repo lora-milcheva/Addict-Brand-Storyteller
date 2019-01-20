@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Constants
 import { BUTTONS } from '../../constants/constants';
+
 
 class Notifications extends React.Component {
 	constructor (props) {
@@ -50,6 +52,8 @@ class Notifications extends React.Component {
 
 		let isVisible = this.state.visible;
 
+		let lang = this.props.lang;
+
 		return (
 			<div id="messages"
 			     className={isVisible ? 'visible' : ''}
@@ -57,7 +61,7 @@ class Notifications extends React.Component {
 				<div className="message">
 					<p className="message-text">{this.state.message}</p>
 
-					<button className="btn btn-primary" onClick={this.hideMessage}>{BUTTONS.BG.close}</button>
+					<button className="btn btn-primary" onClick={this.hideMessage}>{BUTTONS[lang].close}</button>
 				</div>
 
 			</div>
@@ -66,4 +70,8 @@ class Notifications extends React.Component {
 }
 
 export default Notifications;
+
+Notifications.propTypes = {
+	lang: PropTypes.string,
+};
 

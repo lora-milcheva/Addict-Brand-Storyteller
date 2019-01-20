@@ -99,12 +99,12 @@ function getLanguage (component) {
 
 	let lang = component.props.match.params.lng;
 
-	if (lang === LANGUAGES.EN) {
-		component.setState({activeLanguage: LANGUAGES.EN })
+	if (lang === LANGUAGES.en) {
+		component.setState({activeLanguage: LANGUAGES.en })
 	} else {
-		component.setState({activeLanguage: LANGUAGES.BG })
+		component.setState({activeLanguage: LANGUAGES.bg })
 	}
-};
+}
 
 export default {
 	calculatePriceAfterDiscount,

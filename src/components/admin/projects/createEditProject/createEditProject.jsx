@@ -134,10 +134,10 @@ class createProject extends React.Component {
 		e.preventDefault();
 
 		if (this.state[e.target.name].includes(e.target.value)) {
-			this.setState({[e.target.name]: this.state[e.target.name].filter(el => el !== e.target.value)}, () => console.log(this.state));
+			this.setState({[e.target.name]: this.state[e.target.name].filter(el => el !== e.target.value)});
 
 		} else {
-			this.setState({[e.target.name]: [...this.state[e.target.name], e.target.value]}, () => console.log(this.state));
+			this.setState({[e.target.name]: [...this.state[e.target.name], e.target.value]});
 		}
 	};
 
@@ -155,7 +155,7 @@ class createProject extends React.Component {
 				.editProject(this.projectId, Utils.createStateCopy(this.state))
 				.then(res => {
 
-					this.notifications.showMessage(NOTIFICATIONS.BG.successEdit);
+					this.notifications.showMessage(NOTIFICATIONS.bg.successEdit);
 					setTimeout(() => this.props.history.go(-1), 2000);
 
 				})
@@ -170,7 +170,7 @@ class createProject extends React.Component {
 			.createProject(Utils.createStateCopy(this.state))
 			.then(res => {
 
-				this.notifications.showMessage(NOTIFICATIONS.BG.projectCreated);
+				this.notifications.showMessage(NOTIFICATIONS.bg.projectCreated);
 				setTimeout(() => this.props.history.go(-1), 2000);
 
 			})
@@ -181,7 +181,7 @@ class createProject extends React.Component {
 
 	confirmDelete = () => {
 		// First give the massage, then the callback to be executed
-		this.confirmDialog.showMessage(CONFIRM_DIALOG_MESSAGES.BG.confirmDeleteProject, this.deleteProject);
+		this.confirmDialog.showMessage(CONFIRM_DIALOG_MESSAGES.bg.confirmDeleteProject, this.deleteProject);
 	};
 
 	deleteProject = () => {
@@ -189,7 +189,7 @@ class createProject extends React.Component {
 		projectsService
 			.deleteProject(this.projectId)
 			.then(res => {
-				this.notifications.showMessage(NOTIFICATIONS.BG.projectDeleted);
+				this.notifications.showMessage(NOTIFICATIONS.bg.projectDeleted);
 				setTimeout(() => this.props.history.go(-1), 2000);
 			})
 			.catch(err => {
@@ -205,9 +205,9 @@ class createProject extends React.Component {
 
 	render () {
 
-		let title = this.projectId ? ADMIN_PAGES_TEXT.project.BG.editProject : ADMIN_PAGES_TEXT.project.BG.createProject;
+		let title = this.projectId ? ADMIN_PAGES_TEXT.project.bg.editProject : ADMIN_PAGES_TEXT.project.bg.createProject;
 
-		let buttonText = this.projectId ? BUTTONS.BG.edit : BUTTONS.BG.create;
+		let buttonText = this.projectId ? BUTTONS.bg.edit : BUTTONS.bg.create;
 
 		// Show loader until data is loaded
 		if (!this.state.projectLoaded || !this.state.dataLoaded) {
@@ -237,26 +237,26 @@ class createProject extends React.Component {
 			let classList = this.state.categoryIds.includes(e._id) ? 'btn category-label selected' : 'btn category-label';
 			return (
 				<button key={e._id} className={classList} name="categoryIds" value={e._id}
-				        onClick={this.handleArrChange}>{e.name.BG}</button>
+				        onClick={this.handleArrChange}>{e.name.bg}</button>
 			);
 		});
 
 		let isStar = <button className={this.state.isStar ? 'btn category-label attention' : 'btn category-label'}
 		                     name="isStar"
 		                     value={this.state.isStar}
-		                     onClick={this.handleCheckBoxChange}>{CREATE_PROJECT_INPUTS.BG.isStar}</button>
+		                     onClick={this.handleCheckBoxChange}>{CREATE_PROJECT_INPUTS.bg.isStar}</button>
 
 		return (
 			<div id="project-create" className="container">
 
-				<Notifications onRef={ref => (this.notifications = ref)}/>
-				<ConfirmDialog onRef={ref => (this.confirmDialog = ref)}/>
+				<Notifications onRef={ref => (this.notifications = ref)} lang='bg'/>
+				<ConfirmDialog onRef={ref => (this.confirmDialog = ref)} lang='bg'/>
 
 				<div className="page-header">
 					<h1 className="page-title">{title}</h1>
 
 					{this.projectId &&
-					<button className="btn btn-danger xs" onClick={this.confirmDelete}>{BUTTONS.BG.delete}</button>
+					<button className="btn btn-danger xs" onClick={this.confirmDelete}>{BUTTONS.bg.delete}</button>
 					}
 				</div>
 
@@ -269,10 +269,10 @@ class createProject extends React.Component {
 						{/*//NAME BG*/}
 						<FormInput type='text'
 						           name='name'
-						           value={this.state.name.BG}
-						           id='name-BG'
+						           value={this.state.name.bg}
+						           id='name-bg'
 						           placeholder=''
-						           label={CREATE_PROJECT_INPUTS.BG.name}
+						           label={CREATE_PROJECT_INPUTS.bg.name}
 						           className='name-field'
 						           required={true}
 						           disabled={false}
@@ -281,10 +281,10 @@ class createProject extends React.Component {
 						{/*//NAME EN*/}
 						<FormInput type='text'
 						           name='name'
-						           value={this.state.name.EN}
-						           id='name-EN'
+						           value={this.state.name.en}
+						           id='name-en'
 						           placeholder=''
-						           label={CREATE_PROJECT_INPUTS.EN.name}
+						           label={CREATE_PROJECT_INPUTS.en.name}
 						           className='name-field'
 						           required={true}
 						           disabled={false}
@@ -296,27 +296,27 @@ class createProject extends React.Component {
 
 						{/*//DESCRIPTION BG*/}
 						<Textarea name='description'
-						          value={this.state.description.BG}
-						          id='description-BG'
+						          value={this.state.description.bg}
+						          id='description-bg'
 						          placeholder=''
-						          label={CREATE_PROJECT_INPUTS.BG.description}
+						          label={CREATE_PROJECT_INPUTS.bg.description}
 						          className='description-field'
 						          required={false}
 						          onChange={this.handleMultiLangChange}/>
 
 						{/*//DESCRIPTION EN*/}
 						<Textarea name='description'
-						          value={this.state.description.EN}
-						          id='description-EN'
+						          value={this.state.description.en}
+						          id='description-en'
 						          placeholder=''
-						          label={CREATE_PROJECT_INPUTS.EN.description}
+						          label={CREATE_PROJECT_INPUTS.en.description}
 						          className='description-field'
 						          required={false}
 						          onChange={this.handleMultiLangChange}/>
 
 						{/*//CLIENT*/}
 						<FormSelectField name='clientId'
-						                 label={CREATE_PROJECT_INPUTS.BG.clientName}
+						                 label={CREATE_PROJECT_INPUTS.bg.client}
 						                 className='client-field'
 						                 required={false}
 						                 disabled={false}
@@ -330,7 +330,7 @@ class createProject extends React.Component {
 						           value={this.state.year}
 						           id='year'
 						           placeholder=''
-						           label={CREATE_PROJECT_INPUTS.BG.year}
+						           label={CREATE_PROJECT_INPUTS.bg.year}
 						           className='year-field'
 						           required={false}
 						           disabled={false}
@@ -341,7 +341,7 @@ class createProject extends React.Component {
 						           value={this.state.webPage}
 						           id='web-page'
 						           placeholder=''
-						           label={CREATE_PROJECT_INPUTS.BG.webPage}
+						           label={CREATE_PROJECT_INPUTS.bg.webPage}
 						           className=''
 						           required={false}
 						           disabled={false}
@@ -360,14 +360,14 @@ class createProject extends React.Component {
 
 						<div className="project-data">
 
-							<h3 className="section-title">{ADMIN_PAGES_TEXT.project.BG.thumbnail}</h3>
+							<h3 className="section-title">{ADMIN_PAGES_TEXT.project.bg.thumbnail}</h3>
 							<div className="container">
 								{thumbnail}
 							</div>
 
 							<AddOnInput
 								name="thumbnail"
-								// label={CREATE_PROJECT_INPUTS.BG.thumbnail}
+								// label={CREATE_PROJECT_INPUTS.bg.thumbnail}
 								labelClassName="no-label"
 								buttonText='+'
 								placeholder='Thumbnail'
@@ -376,7 +376,7 @@ class createProject extends React.Component {
 
 
 						<div className="project-data">
-							<h3 className="section-title">{ADMIN_PAGES_TEXT.project.BG.images}</h3>
+							<h3 className="section-title">{ADMIN_PAGES_TEXT.project.bg.images}</h3>
 							<SortableList elements={this.state.images}
 							              name="images"
 							              onDelete={this.handleArrChange}
@@ -384,7 +384,7 @@ class createProject extends React.Component {
 
 							<AddOnInput
 								name='images'
-								// label={CREATE_PROJECT_INPUTS.BG.images}
+								// label={CREATE_PROJECT_INPUTS.bg.images}
 								labelClassName='no-label'
 								buttonText='+'
 								placeholder='Добави снимка'
@@ -392,14 +392,14 @@ class createProject extends React.Component {
 						</div>
 
 						<div className='project-data'>
-							<h3 className='section-title'>{ADMIN_PAGES_TEXT.project.BG.videos}</h3>
+							<h3 className='section-title'>{ADMIN_PAGES_TEXT.project.bg.videos}</h3>
 							<div className='container'>
 								{videos}
 							</div>
 
 							<AddOnInput
 								name="videos"
-								// label={CREATE_PROJECT_INPUTS.BG.videos}
+								// label={CREATE_PROJECT_INPUTS.bg.videos}
 								labelClassName="no-label"
 								buttonText='+'
 								placeholder='Добави видео'
@@ -411,7 +411,7 @@ class createProject extends React.Component {
 
 					{/*//SUBMIT*/}
 					<div className="form-group">
-						<button className="btn btn-default" onClick={this.cancel}>{BUTTONS.BG.cancel}</button>
+						<button className="btn btn-default" onClick={this.cancel}>{BUTTONS.bg.cancel}</button>
 						<button className="btn btn-primary" type="submit">{buttonText}</button>
 					</div>
 				</form>

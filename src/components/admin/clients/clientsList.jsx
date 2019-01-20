@@ -42,7 +42,7 @@ class categoriesList extends React.Component {
 					return (
 						<Link to={'/admin/client-edit/' + e._id}>
 						<span key={e._id} className="category-label">
-							{e.name.BG}
+							{e.name.bg}
 						</span>
 						</Link>
 					);
@@ -57,7 +57,7 @@ class categoriesList extends React.Component {
 		return (
 			<div id="admin-clients-list" className="container">
 
-				<Notifications onRef={ref => (this.notifications = ref)}/>
+				<Notifications onRef={ref => (this.notifications = ref)} lang='bg'/>
 
 				<div className="page-header">
 					<h1 className="page-title">Клиенти</h1>

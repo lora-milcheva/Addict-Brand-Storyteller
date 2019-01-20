@@ -11,6 +11,9 @@ import projectsService from '../../../services/projects/projectsService';
 import clientsService from '../../../services/clients/clientsService';
 import categoriesService from '../../../services/categories/categoriesService';
 
+//Utils
+import Utils from '../../../utils/utils'
+
 class Home extends React.Component {
 	constructor (props) {
 		super(props);
@@ -23,7 +26,9 @@ class Home extends React.Component {
 
 			images: [],
 
-			loading: true
+			loading: true,
+
+			activeLanguage: ''
 		};
 	}
 
@@ -31,6 +36,8 @@ class Home extends React.Component {
 
 		// Clear filtered by category projects
 		sessionStorage.removeItem('filteredProjects');
+
+		Utils.getLanguage(this);
 
 		// Log anonymous user if storage is empty
 		if (sessionStorage.getItem('authtoken') === null) {
@@ -46,6 +53,13 @@ class Home extends React.Component {
 		}
 
 		this.loadStarProjects();
+	}
+
+	componentWillReceiveProps (nextProps) {
+
+		this.props = nextProps;
+
+		Utils.getLanguage(this);
 	}
 
 
@@ -97,7 +111,7 @@ class Home extends React.Component {
 
 		let projects = this.state.projects.map(e => {
 			return (
-				<HomeProjectCard key={e._id} project={e}/>
+				<HomeProjectCard key={e._id} project={e} activeLanguage={this.state.activeLanguage}/>
 			)
 		});
 

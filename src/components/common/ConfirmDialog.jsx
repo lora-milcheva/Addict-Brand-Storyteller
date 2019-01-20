@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Constants
 import { BUTTONS } from '../../constants/constants';
-
 
 class ConfirmDialog extends React.Component {
 	constructor (props) {
@@ -23,7 +23,6 @@ class ConfirmDialog extends React.Component {
 		this.props.onRef(undefined);
 	}
 
-
 	showMessage = (message, callback) => {
 		this.setState({
 			visible: true,
@@ -33,7 +32,7 @@ class ConfirmDialog extends React.Component {
 	};
 
 	confirm = () => {
-		this.state.function()
+		this.state.function();
 	};
 
 	hideMessage = () => {
@@ -43,10 +42,11 @@ class ConfirmDialog extends React.Component {
 		});
 	};
 
-
 	render () {
 
 		let isVisible = this.state.visible;
+
+		let lang = this.props.lang;
 
 		return (
 			<div id="confirm-dialog"
@@ -55,8 +55,8 @@ class ConfirmDialog extends React.Component {
 				<div className="message">
 					<p className="message-text">{this.state.message}</p>
 
-					<button className="btn btn-primary" onClick={this.hideMessage}>{BUTTONS.BG.cancel}</button>
-					<button className="btn btn-danger" onClick={this.confirm}>{BUTTONS.BG.confirm}</button>
+					<button className="btn btn-primary" onClick={this.hideMessage}>{BUTTONS[lang].cancel}</button>
+					<button className="btn btn-danger" onClick={this.confirm}>{BUTTONS[lang].confirm}</button>
 				</div>
 
 			</div>
@@ -66,3 +66,6 @@ class ConfirmDialog extends React.Component {
 
 export default ConfirmDialog;
 
+ConfirmDialog.propTypes = {
+	lang: PropTypes.string,
+};

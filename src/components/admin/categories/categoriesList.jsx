@@ -7,8 +7,6 @@ import categoriesService from '../../../services/categories/categoriesService';
 // Notifications
 import Notifications from '../../common/Notifications';
 
-// Constants
-import { BUTTONS } from '../../../constants/constants';
 
 class categoriesList extends React.Component {
 	constructor (props) {
@@ -44,7 +42,7 @@ class categoriesList extends React.Component {
 					return (
 						<Link to={'/admin/category-edit/' + e._id}>
 						<span key={e._id} className="category-label">
-							{e.name.BG}
+							{e.name.bg}
 						</span>
 						</Link>
 					);
@@ -59,7 +57,7 @@ class categoriesList extends React.Component {
 		return (
 			<div id="admin-categories-list" className="container">
 
-				<Notifications onRef={ref => (this.notifications = ref)}/>
+				<Notifications onRef={ref => (this.notifications = ref)} lang='bg'/>
 
 				<div className="page-header">
 					<h1 className="page-title">Категории</h1>

@@ -64,7 +64,7 @@ class createEditCategory extends React.Component {
 
 	clearData = () => {
 		this.setState({
-			name: {BG: '', EN: ''},
+			name: {bg: '', en: ''},
 		});
 	};
 
@@ -77,7 +77,7 @@ class createEditCategory extends React.Component {
 			clientsService
 				.editClient(this.clientId, Utils.createStateCopy(this.state))
 				.then(res => {
-					this.notifications.showMessage(NOTIFICATIONS.BG.successEdit);
+					this.notifications.showMessage(NOTIFICATIONS.bg.successEdit);
 					setTimeout(() => this.props.history.go(-1), 2000);
 				})
 				.catch(err => {
@@ -89,7 +89,7 @@ class createEditCategory extends React.Component {
 		clientsService
 			.createClient(Utils.createStateCopy(this.state))
 			.then(res => {
-				this.notifications.showMessage(NOTIFICATIONS.BG.clientCreated);
+				this.notifications.showMessage(NOTIFICATIONS.bg.clientCreated);
 				this.clearData();
 				setTimeout(() => this.props.history.go(-1), 2000);
 			})
@@ -114,9 +114,9 @@ class createEditCategory extends React.Component {
 	render () {
 
 
-		let title = this.clientId ? ADMIN_PAGES_TEXT.client.BG.editClient : ADMIN_PAGES_TEXT.client.BG.newClient;
+		let title = this.clientId ? ADMIN_PAGES_TEXT.client.bg.editClient : ADMIN_PAGES_TEXT.client.bg.newClient;
 
-		let buttonText = this.clientId ? BUTTONS.BG.edit : BUTTONS.BG.create;
+		let buttonText = this.clientId ? BUTTONS.bg.edit : BUTTONS.bg.create;
 
 		if (this.state.projectLoading) {
 			return (<div className="lds-dual-ring"/>);
@@ -127,14 +127,14 @@ class createEditCategory extends React.Component {
 		return (
 			<div id="project-create" className="container">
 
-				<Notifications onRef={ref => (this.notifications = ref)}/>
-				<ConfirmDialog onRef={ref => (this.confirmDialog = ref)}/>
+				<Notifications onRef={ref => (this.notifications = ref)} lang='bg'/>
+				<ConfirmDialog onRef={ref => (this.confirmDialog = ref)} lang='bg'/>
 
 				<div className="page-header">
 					<h1 className="page-title">{title}</h1>
 
 					{this.clientId &&
-					<button className="btn btn-danger xs" onClick={this.confirm}>{BUTTONS.BG.delete}</button>
+					<button className="btn btn-danger xs" onClick={this.confirm}>{BUTTONS.bg.delete}</button>
 					}
 				</div>
 
@@ -146,10 +146,10 @@ class createEditCategory extends React.Component {
 						{/*//NAME BG*/}
 						<FormInput type='text'
 						           name='name'
-						           value={this.state.name.BG}
-						           id='name-BG'
+						           value={this.state.name.bg}
+						           id='name-bg'
 						           placeholder=''
-						           label={CLIENT_INPUTS.BG.name}
+						           label={CLIENT_INPUTS.bg.name}
 						           className='name-field'
 						           required={true}
 						           disabled={false}
@@ -158,10 +158,10 @@ class createEditCategory extends React.Component {
 						{/*//NAME EN*/}
 						<FormInput type='text'
 						           name='name'
-						           value={this.state.name.EN}
-						           id='name-EN'
+						           value={this.state.name.en}
+						           id='name-en'
 						           placeholder=''
-						           label={CLIENT_INPUTS.EN.name}
+						           label={CLIENT_INPUTS.en.name}
 						           className='name-field'
 						           required={true}
 						           disabled={false}
@@ -170,7 +170,7 @@ class createEditCategory extends React.Component {
 
 					{/*//SUBMIT*/}
 					<div className="form-group">
-						<button className="btn btn-default" onClick={this.cancel}>{BUTTONS.BG.cancel}</button>
+						<button className="btn btn-default" onClick={this.cancel}>{BUTTONS.bg.cancel}</button>
 						<button className="btn btn-primary" type="submit">{buttonText}</button>
 					</div>
 				</form>

@@ -119,7 +119,7 @@ class ProjectList extends React.Component {
 
 		if (pathName !== undefined) {
 
-			let catId = this.state.categories.filter(e => e.name.EN === pathName)[0]._id;
+			let catId = this.state.categories.filter(e => e.name.en === pathName)[0]._id;
 
 			this.setState({selectedCategoryId: catId}, () => this.loadProjects());
 
@@ -144,7 +144,7 @@ class ProjectList extends React.Component {
 			return (<div className="lds-dual-ring"/> );
 		}
 
-		let categoryName = this.props.location.pathname.split('/').pop();
+		let categoryName = this.props.match.params.category;
 
 		let projects = this.state.projects.map((e, i) => {
 			return (
@@ -159,7 +159,7 @@ class ProjectList extends React.Component {
 		return (
 			<div id="projects-list" className="container">
 
-				<Notifications onRef={ref => (this.notifications = ref)}/>
+				<Notifications onRef={ref => (this.notifications = ref)} lang={this.state.activeLanguage}/>
 
 				<div className="projects-container">
 					{projects}

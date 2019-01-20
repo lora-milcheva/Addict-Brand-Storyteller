@@ -16,7 +16,7 @@ class Header extends React.Component {
 
 		this.state = {
 			categories: [],
-			activeLanguage: LANGUAGES.BG
+			activeLanguage: LANGUAGES.bg
 		};
 	}
 
@@ -52,13 +52,13 @@ class Header extends React.Component {
 	}
 
 	getLanguage = () => {
-		console.log(222);
+
 		let pathArray = this.props.location.pathname.split('/').filter(e => e !== '');
 
-		if (pathArray[0] === LANGUAGES.EN) {
-			this.setState({activeLanguage: LANGUAGES.EN })
+		if (pathArray[0] === LANGUAGES.en) {
+			this.setState({activeLanguage: LANGUAGES.en })
 		} else {
-			this.setState({activeLanguage: LANGUAGES.BG })
+			this.setState({activeLanguage: LANGUAGES.bg })
 		}
 	};
 
@@ -76,12 +76,12 @@ class Header extends React.Component {
 	};
 
 	changeLanguage = () => {
-		if (this.state.activeLanguage === LANGUAGES.BG) {
-			this.setState({activeLanguage: LANGUAGES.EN}, () => {
+		if (this.state.activeLanguage === LANGUAGES.bg) {
+			this.setState({activeLanguage: LANGUAGES.en}, () => {
 				this.redirect();
 			});
 		} else {
-			this.setState({activeLanguage: LANGUAGES.BG}, () => {
+			this.setState({activeLanguage: LANGUAGES.bg}, () => {
 				this.redirect();
 			});
 		}
@@ -93,12 +93,12 @@ class Header extends React.Component {
 
 		let activeLanguage = this.state.activeLanguage;
 
-		if (activeLanguage === 'BG') { let removed = pathArray.splice(0, 1); }
+		if (activeLanguage === LANGUAGES.bg) { let removed = pathArray.splice(0, 1); }
 
 		let newPath = '';
 		pathArray.forEach(e => newPath += '/' + e);
 
-		if (activeLanguage === 'BG') {
+		if (activeLanguage === LANGUAGES.bg) {
 			this.props.history.push(newPath);
 		} else {
 			this.props.history.push('/' + this.state.activeLanguage + newPath);
@@ -120,7 +120,7 @@ class Header extends React.Component {
 
 		let admin = sessionStorage.getItem('role') !== null;
 		let lang = this.state.activeLanguage;
-		let buttonText = this.state.activeLanguage === LANGUAGES.BG ? LANGUAGES.EN : LANGUAGES.BG;
+		let buttonText = this.state.activeLanguage === LANGUAGES.bg ? LANGUAGES.en : LANGUAGES.bg;
 
 		if (admin) {
 
@@ -133,20 +133,20 @@ class Header extends React.Component {
 
 						<NavLink to='/admin/projects-list'
 						         className="nav-link"
-						         activeClassName='active'>{MENU.BG.projects}</NavLink>
+						         activeClassName='active'>{MENU[lang].projects}</NavLink>
 
 						<NavLink to='/admin/category-list'
 						         className="nav-link"
-						         activeClassName='active'>{MENU.activeLanguage.categories}</NavLink>
+						         activeClassName='active'>{MENU[lang].categories}</NavLink>
 
 						<NavLink to='/admin/clients-list'
 						         className="nav-link"
-						         activeClassName='active'>{MENU.BG.clients}</NavLink>
+						         activeClassName='active'>{MENU[lang].clients}</NavLink>
 
 						<NavLink exact to='/'
 						         className="nav-link"
 						         activeClassName='active'
-						         onClick={this.logout}>{MENU.BG.logout}</NavLink>
+						         onClick={this.logout}>{MENU[lang].logout}</NavLink>
 
 					</nav>
 				</div>
@@ -154,7 +154,7 @@ class Header extends React.Component {
 		}
 
 		let link = '';
-		if (this.state.activeLanguage === LANGUAGES.BG) {
+		if (this.state.activeLanguage === LANGUAGES.bg) {
 			link = '/projects/';
 		} else {
 			link = '/' + lang + '/projects/';
@@ -164,7 +164,7 @@ class Header extends React.Component {
 
 			return (
 				<NavLink key={e._id}
-				         to={link + e.name.EN}
+				         to={link + e.name.en}
 				         className="nav-link"
 				         activeClassName='active'>{e.name[lang]}</NavLink>
 			);

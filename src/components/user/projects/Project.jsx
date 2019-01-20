@@ -155,7 +155,6 @@ class Project extends React.Component {
 					projectsService
 						.loadProjectData(projectIds[i])
 						.then(res => {
-							console.log(res)
 							this.setState({randomProjects: [...this.state.randomProjects, res]});
 						})
 						.catch(err => this.notifications.showMessage(err.responseJSON.description));
@@ -201,7 +200,7 @@ class Project extends React.Component {
 		return (
 			<div id="project" className="container-fluid">
 
-				<Notifications onRef={ref => (this.notifications = ref)}/>
+				<Notifications onRef={ref => (this.notifications = ref)} lang={activeLanguage}/>
 
 				<GalleryPreview image={this.state.selectedImage} allImages={project.images} onClose={this.hidePreview}/>
 
@@ -231,7 +230,7 @@ class Project extends React.Component {
 				</div>
 
 
-				<h2 className="section-title">{USER_PAGES_TEXT.project.BG.otherProjects}</h2>
+				<h2 className="section-title">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>
 				<div className="projects-container">
 					{randomProjects}
 				</div>

@@ -1,18 +1,18 @@
 
 const LANGUAGES = {
-	BG: 'BG',
-	EN: 'EN'
+	bg: 'bg',
+	en: 'en'
 };
 
 const MENU = {
-	BG: {
+	bg: {
 		projects: 'Проекти',
 		contact: 'Контакти',
 		clients: 'Клиенти',
 		categories: 'Категории',
 		logout: 'Изход'
 	},
-	EN: {
+	en: {
 		projects: 'Projects',
 		contact: 'Contacts',
 		clients: 'Clients',
@@ -22,7 +22,7 @@ const MENU = {
 };
 
 const CREATE_PROJECT_INPUTS = {
-	BG: {
+	bg: {
 		name: 'Име на проекта',
 		description: 'Описание',
 		client: 'Клиент',
@@ -34,7 +34,7 @@ const CREATE_PROJECT_INPUTS = {
 		images: 'Изображения',
 		videos: 'Видеа'
 	},
-	EN: {
+	en: {
 		name: 'Project name',
 		description: 'Description',
 		client: 'Client',
@@ -49,25 +49,25 @@ const CREATE_PROJECT_INPUTS = {
 };
 
 const CATEGORY_INPUTS = {
-	BG: {
+	bg: {
 		name: 'Име на категорията',
 	},
-	EN: {
+	en: {
 		name: 'Category name',
 	}
 };
 
 const CLIENT_INPUTS = {
-	BG: {
+	bg: {
 		name: 'Име на клиента',
 	},
-	EN: {
+	en: {
 		name: 'Client name',
 	}
 };
 
 const BUTTONS = {
-	BG: {
+	bg: {
 		create: 'Създай',
 		edit: 'Редакция',
 		delete: 'Изтриване',
@@ -80,7 +80,7 @@ const BUTTONS = {
 		newClient: 'Нов клиент',
 		newCategory: 'Нова категория'
 	},
-	EN: {
+	en: {
 		create: 'Create',
 		edit: 'Edit',
 		delete: 'Delete',
@@ -96,16 +96,16 @@ const BUTTONS = {
 };
 
 const CONFIRM_DIALOG_MESSAGES = {
-	BG: {
+	bg: {
 		confirmDeleteProject: 'Желаете ли да изтриете този проект?',
 	},
-	EN: {
+	en: {
 		confirmDeleteProject: 'Delete this project?',
 	}
 };
 
 const NOTIFICATIONS = {
-	BG: {
+	bg: {
 		projectCreated: 'Проектът беше създаден.',
 		projectDeleted: 'Проектът беше изтрит.',
 
@@ -118,7 +118,7 @@ const NOTIFICATIONS = {
 		successEdit: 'Успешна редакция.',
 
 	},
-	EN: {
+	en: {
 		projectCreated: 'Project created.',
 		projectDeleted: 'Project deleted.',
 
@@ -134,7 +134,7 @@ const NOTIFICATIONS = {
 
 const ADMIN_PAGES_TEXT = {
 	project: {
-		BG: {
+		bg: {
 			thumbnail: 'Тъмбнейл',
 			images: 'Изображения',
 			videos: 'Видеа',
@@ -142,7 +142,7 @@ const ADMIN_PAGES_TEXT = {
 			createProject: 'Създаване на проект',
 			allProjects: 'Всички проекти'
 		},
-		EN: {
+		en: {
 			thumbnail: 'Thumbnail',
 			images: 'Images',
 			videos: 'Videos',
@@ -152,24 +152,24 @@ const ADMIN_PAGES_TEXT = {
 		}
 	},
 	client: {
-		BG: {
+		bg: {
 			editClient: 'Редакция на клиент',
 			createClient: 'Създаване на клиент',
 			allClients: 'Всички клиенти'
 		},
-		EN: {
+		en: {
 			editClient: 'Edit Client',
 			createClient: 'Create New Client',
 			allClients: 'All Clients'
 		}
 	},
 	category: {
-		BG: {
+		bg: {
 			editCategory: 'Редакция на категория',
 			createCategory: 'Създаване на категория',
 			allCategories: 'Всички категории'
 		},
-		EN: {
+		en: {
 			editCategory: 'Edit Category',
 			createCategory: 'Create New Category',
 			allCategories: 'All Categories'
@@ -180,10 +180,10 @@ const ADMIN_PAGES_TEXT = {
 
 const USER_PAGES_TEXT = {
 	project: {
-		BG: {
+		bg: {
 			otherProjects: 'Други проекти',
 		},
-		EN: {
+		en: {
 			otherProjects: 'Other Projects',
 		}
 	}

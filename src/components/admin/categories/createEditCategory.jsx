@@ -63,7 +63,7 @@ class createEditCategory extends React.Component {
 
 	clearData = () => {
 		this.setState({
-			name: {BG: '', EN: ''},
+			name: {bg: '', en: ''},
 		});
 	};
 
@@ -76,7 +76,7 @@ class createEditCategory extends React.Component {
 			categoriesService
 				.editProject(this.categoryId, Utils.createStateCopy(this.state))
 				.then(res => {
-					this.notifications.showMessage(NOTIFICATIONS.BG.successEdit);
+					this.notifications.showMessage(NOTIFICATIONS.bg.successEdit);
 					setTimeout(() => this.props.history.go(-1), 2000);
 				})
 				.catch(err => {
@@ -88,7 +88,7 @@ class createEditCategory extends React.Component {
 		categoriesService
 			.createCategory(Utils.createStateCopy(this.state))
 			.then(res => {
-				this.notifications.showMessage(NOTIFICATIONS.BG.categoryCreated);
+				this.notifications.showMessage(NOTIFICATIONS.bg.categoryCreated);
 				this.clearData();
 				setTimeout(() => this.props.history.go(-1), 2000);
 			})
@@ -114,9 +114,9 @@ class createEditCategory extends React.Component {
 	render () {
 
 
-		let title = this.categoryId ? ADMIN_PAGES_TEXT.category.BG.editCategory : ADMIN_PAGES_TEXT.category.BG.newCategory;
+		let title = this.categoryId ? ADMIN_PAGES_TEXT.category.bg.editCategory : ADMIN_PAGES_TEXT.category.bg.newCategory;
 
-		let buttonText = this.categoryId ? BUTTONS.BG.edit : BUTTONS.BG.create;
+		let buttonText = this.categoryId ? BUTTONS.bf.edit : BUTTONS.bg.create;
 
 		if (this.state.projectLoading) {
 			return (<div className="lds-dual-ring"/>);
@@ -125,14 +125,14 @@ class createEditCategory extends React.Component {
 		return (
 			<div id="project-create" className="container">
 
-				<Notifications onRef={ref => (this.notifications = ref)}/>
-				<ConfirmDialog onRef={ref => (this.confirmDialog = ref)}/>
+				<Notifications onRef={ref => (this.notifications = ref)} lang='bg'/>
+				<ConfirmDialog onRef={ref => (this.confirmDialog = ref)} lang='bg'/>
 
 				<div className="page-header">
 					<h1 className="page-title">{title}</h1>
 
 					{this.categoryId &&
-					<button className="btn btn-danger xs" onClick={this.confirm}>{BUTTONS.BG.delete}</button>
+					<button className="btn btn-danger xs" onClick={this.confirm}>{BUTTONS.bg.delete}</button>
 					}
 				</div>
 
@@ -144,10 +144,10 @@ class createEditCategory extends React.Component {
 						{/*//NAME BG*/}
 						<FormInput type='text'
 						           name='name'
-						           value={this.state.name.BG}
-						           id='name-BG'
+						           value={this.state.name.bg}
+						           id='name-bg'
 						           placeholder=''
-						           label={CATEGORY_INPUTS.BG.name}
+						           label={CATEGORY_INPUTS.bg.name}
 						           className='name-field'
 						           required={true}
 						           disabled={false}
@@ -156,10 +156,10 @@ class createEditCategory extends React.Component {
 						{/*//NAME EN*/}
 						<FormInput type='text'
 						           name='name'
-						           value={this.state.name.EN}
-						           id='name-EN'
+						           value={this.state.name.en}
+						           id='name-en'
 						           placeholder=''
-						           label={CATEGORY_INPUTS.EN.name}
+						           label={CATEGORY_INPUTS.en.name}
 						           className='name-field'
 						           required={true}
 						           disabled={false}
@@ -167,7 +167,7 @@ class createEditCategory extends React.Component {
 
 					{/*//SUBMIT*/}
 					<div className="form-group">
-						<button className="btn btn-default" onClick={this.cancel}>{BUTTONS.BG.cancel}</button>
+						<button className="btn btn-default" onClick={this.cancel}>{BUTTONS.bg.cancel}</button>
 						<button className="btn btn-primary" type="submit">{buttonText}</button>
 					</div>
 				</form>
