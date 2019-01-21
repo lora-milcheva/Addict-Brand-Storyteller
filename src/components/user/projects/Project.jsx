@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 // Partials
 import GalleryPreview from './partials/GalleryPreview';
@@ -14,10 +15,10 @@ import authService from '../../../services/auth/authService';
 import Notifications from '../../common/Notifications';
 
 //Utils
-import Utils from '../../../utils/utils'
+import Utils from '../../../utils/utils';
 
 // Constants
-import { USER_PAGES_TEXT } from '../../../constants/constants'
+import { USER_PAGES_TEXT } from '../../../constants/constants';
 
 class Project extends React.Component {
 	constructor (props) {
@@ -35,9 +36,7 @@ class Project extends React.Component {
 
 			randomProjects: [],
 
-			loading: true,
-
-			activeLanguage: ''
+			loading: true
 		};
 	}
 
@@ -52,30 +51,28 @@ class Project extends React.Component {
 				.then(res => {
 					authService.saveSession(res);
 					this.setIndexes();
+					this.loadRandomProjects();
 				})
 				.catch(err => this.notifications.showMessage(err.responseJSON.description));
+		} else {
+			this.setIndexes();
+			this.loadRandomProjects();
 		}
-
-		Utils.getLanguage(this);
-
-		this.setIndexes();
-
-		this.loadRandomProjects();
 	}
 
 	componentWillReceiveProps (nextProps) {
 
-		this.setState({loading: true});
+		if (this.props.match.params.id !== nextProps.match.params.id) {
+			this.setState({loading: true});
+			this.props = nextProps;
 
-		this.props = nextProps;
+			this.projectId = nextProps.match.params.id;
 
-		Utils.getLanguage(this);
+			this.setIndexes();
+		}
 
-		this.projectId = nextProps.match.params.id;
+		// this.setState({randomProjects: []}, () => this.loadRandomProjects());
 
-		this.setIndexes();
-
-		this.setState({randomProjects: []}, () => this.loadRandomProjects());
 	}
 
 	componentWillUnmount () {
@@ -91,6 +88,8 @@ class Project extends React.Component {
 			return;
 		}
 
+		console.log(this.projectId);
+
 		let currentProjectIndex = filteredProjectIds.indexOf(this.projectId);
 
 		let nextProjectId = filteredProjectIds[currentProjectIndex + 1];
@@ -105,8 +104,6 @@ class Project extends React.Component {
 	};
 
 	loadProject = () => {
-
-
 		projectsService
 			.loadProjectData(this.projectId)
 			.then(res => {
@@ -117,7 +114,7 @@ class Project extends React.Component {
 						.loadAllClients()
 						.then(res => {
 							let client = res.filter(e => e._id === this.state.project.clientId);
-							this.setState({clientName: client[0].name[this.state.activeLanguage], loading: false});
+							this.setState({clientName: client[0], loading: false});
 						});
 				}
 			)
@@ -177,11 +174,11 @@ class Project extends React.Component {
 			return (<div className="lds-dual-ring"/> );
 		}
 
-		let activeLanguage = this.state.activeLanguage;
+		let activeLanguage = this.context.language;
 
 		let project = this.state.project;
 
-		let client = this.state.clientName;
+		let client = this.state.clientName[activeLanguage];
 
 		let gallery = project.images.map(e => {
 			return (
@@ -238,5 +235,7 @@ class Project extends React.Component {
 		);
 	}
 }
+
+Project.contextType = LanguageContext;
 
 export default Project;

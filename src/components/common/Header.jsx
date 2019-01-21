@@ -7,7 +7,9 @@ import authService from '../../services/auth/authService';
 import categoriesService from '../../services/categories/categoriesService';
 
 // Constants
-import { MENU, LANGUAGES } from '../../constants/constants';
+import { MENU } from '../../constants/constants';
+
+import { LanguageContext, languages } from './languagesContext/LanguageContext';
 
 class Header extends React.Component {
 
@@ -15,14 +17,11 @@ class Header extends React.Component {
 		super(props);
 
 		this.state = {
-			categories: [],
-			activeLanguage: LANGUAGES.bg
+			categories: []
 		};
 	}
 
-
 	componentDidMount () {
-
 		if (sessionStorage.length === 0) {
 			authService
 				.loginAnonymousUser()
@@ -51,20 +50,7 @@ class Header extends React.Component {
 		}
 	}
 
-	getLanguage = () => {
-
-		let pathArray = this.props.location.pathname.split('/').filter(e => e !== '');
-
-		if (pathArray[0] === LANGUAGES.en) {
-			this.setState({activeLanguage: LANGUAGES.en })
-		} else {
-			this.setState({activeLanguage: LANGUAGES.bg })
-		}
-	};
-
-
 	loadCategories = () => {
-
 		categoriesService
 			.loadAllCategories()
 			.then(res => {
@@ -75,35 +61,37 @@ class Header extends React.Component {
 			});
 	};
 
-	changeLanguage = () => {
-		if (this.state.activeLanguage === LANGUAGES.bg) {
-			this.setState({activeLanguage: LANGUAGES.en}, () => {
-				this.redirect();
-			});
-		} else {
-			this.setState({activeLanguage: LANGUAGES.bg}, () => {
-				this.redirect();
-			});
-		}
-	};
-
-	redirect = () => {
+	getLanguage = () => {
 
 		let pathArray = this.props.location.pathname.split('/').filter(e => e !== '');
 
-		let activeLanguage = this.state.activeLanguage;
+		if (pathArray[0] === languages.en) {
+			this.context.updateLanguage(languages.en)
+		} else {
+			this.context.updateLanguage(languages.bg)
+		}
+	};
 
-		if (activeLanguage === LANGUAGES.bg) { let removed = pathArray.splice(0, 1); }
+	changeLanguage = (e) => {
+
+		let pathArray = this.props.location.pathname.split('/').filter(e => e !== '');
+
+		let activeLanguage = this.context.language;
+
+		if (activeLanguage === languages.en) { let removed = pathArray.splice(0, 1); }
 
 		let newPath = '';
 		pathArray.forEach(e => newPath += '/' + e);
 
-		if (activeLanguage === LANGUAGES.bg) {
+		if (activeLanguage === languages.en) {
 			this.props.history.push(newPath);
+
 		} else {
-			this.props.history.push('/' + this.state.activeLanguage + newPath);
+
+			this.props.history.push('/' + languages.en + newPath);
 		}
 
+		this.context.updateLanguage(e.target.value);
 	};
 
 	logout = () => {
@@ -119,11 +107,9 @@ class Header extends React.Component {
 	render () {
 
 		let admin = sessionStorage.getItem('role') !== null;
-		let lang = this.state.activeLanguage;
-		let buttonText = this.state.activeLanguage === LANGUAGES.bg ? LANGUAGES.en : LANGUAGES.bg;
+		let lang = this.context.language;
 
 		if (admin) {
-
 			return (
 				<div id="header">
 
@@ -154,7 +140,7 @@ class Header extends React.Component {
 		}
 
 		let link = '';
-		if (this.state.activeLanguage === LANGUAGES.bg) {
+		if (lang === languages.bg) {
 			link = '/projects/';
 		} else {
 			link = '/' + lang + '/projects/';
@@ -193,11 +179,14 @@ class Header extends React.Component {
 
 				<nav id="second-nav">
 					<button className="btn btn-light sm"
-					        onClick={this.changeLanguage}>{buttonText}</button>
+					        value={lang}
+					        onClick={this.changeLanguage}>{lang === languages.bg ? languages.en : languages.bg}</button>
 				</nav>
 			</div>
 		);
 	}
 }
+
+Header.contextType = LanguageContext;
 
 export default withRouter(Header);

@@ -7,33 +7,41 @@ import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import Routes from './components/routes/Routes';
 
-import Notifications from './components/common/Notifications';
-
-import authService from './services/auth/authService';
+import { LanguageContext, languages } from './components/common/languagesContext/LanguageContext';
 
 class App extends React.Component {
 
 	constructor (props) {
 		super(props);
+
+		this.state = {
+			lang: languages.bg
+		};
 	}
 
+	updateLanguage = (lang) => {
+		this.setState({lang});
+	};
 
 	render () {
+
 
 		let isHomePage = window.location.pathname === '/';
 
 		return (
 
-			<div>
+			<LanguageContext.Provider  value={{ language: this.state.lang, updateLanguage: this.updateLanguage }}>
 
-				{!isHomePage && <Header/> }
+				{/*{!isHomePage && <Header changeLanguage={this.changeLanguage}/> }*/}
+
+				<Header/>
 
 				<main>
-					<Routes />
+					<Routes/>
 				</main>
 
 				<Footer/>
-			</div>
+			</LanguageContext.Provider>
 
 		);
 	}

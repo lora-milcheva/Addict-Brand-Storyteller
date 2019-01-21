@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { LanguageContext } from '../../common/languagesContext/LanguageContext';
+
 // Partials
 import ProjectCard from '../common/ProjectCard';
 
@@ -28,9 +30,7 @@ class ProjectList extends React.Component {
 
 			selectedCategoryId: '',
 
-			loading: true,
-
-			activeLanguage: ''
+			loading: true
 		};
 	}
 
@@ -49,15 +49,14 @@ class ProjectList extends React.Component {
 			return;
 		}
 
-		Utils.getLanguage(this);
-
 		this.loadAllData();
 	}
 
 	componentWillReceiveProps (nextProps) {
-		this.props = nextProps;
-		Utils.getLanguage(this);
-		this.getCategoryId();
+		if (this.props.match.params.category !== nextProps.match.params.category) {
+			this.props = nextProps;
+			this.getCategoryId();
+		}
 	}
 
 
@@ -100,7 +99,7 @@ class ProjectList extends React.Component {
 			.then(res => {
 
 					res.forEach(p => {
-						p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name[this.state.activeLanguage];
+						p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name[this.context.language];
 					});
 
 					this.setState({projects: res, loading: false}, () => this.saveProjectsInSession());
@@ -115,11 +114,13 @@ class ProjectList extends React.Component {
 
 		this.setState({loading: true});
 
-		let pathName = this.props.match.params.category;
+		let categoryName = this.props.match.params.category;
 
-		if (pathName !== undefined) {
+		if (categoryName !== undefined) {
 
-			let catId = this.state.categories.filter(e => e.name.en === pathName)[0]._id;
+			// Get categoryId from the name coming from route
+
+			let catId = this.state.categories.filter(e => e.name.en === categoryName)[0]._id;
 
 			this.setState({selectedCategoryId: catId}, () => this.loadProjects());
 
@@ -144,6 +145,8 @@ class ProjectList extends React.Component {
 			return (<div className="lds-dual-ring"/> );
 		}
 
+		let activeLanguage = this.context.language;
+
 		let categoryName = this.props.match.params.category;
 
 		let projects = this.state.projects.map((e, i) => {
@@ -151,7 +154,7 @@ class ProjectList extends React.Component {
 				<ProjectCard key={e._id + i}
 				             project={e}
 				             category={categoryName}
-				             activeLanguage={this.state.activeLanguage}
+				             activeLanguage={activeLanguage}
 				/>
 			);
 		});
@@ -159,7 +162,7 @@ class ProjectList extends React.Component {
 		return (
 			<div id="projects-list" className="container">
 
-				<Notifications onRef={ref => (this.notifications = ref)} lang={this.state.activeLanguage}/>
+				<Notifications onRef={ref => (this.notifications = ref)} lang={activeLanguage}/>
 
 				<div className="projects-container">
 					{projects}
@@ -169,5 +172,7 @@ class ProjectList extends React.Component {
 		);
 	}
 }
+
+ProjectList.contextType = LanguageContext;
 
 export default ProjectList;
