@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 // Partials
 import Carousel from './partials/Carousel';
@@ -11,8 +11,6 @@ import projectsService from '../../../services/projects/projectsService';
 import clientsService from '../../../services/clients/clientsService';
 import categoriesService from '../../../services/categories/categoriesService';
 
-//Utils
-import Utils from '../../../utils/utils'
 
 class Home extends React.Component {
 	constructor (props) {
@@ -26,9 +24,7 @@ class Home extends React.Component {
 
 			images: [],
 
-			loading: true,
-
-			activeLanguage: ''
+			loading: true
 		};
 	}
 
@@ -37,7 +33,6 @@ class Home extends React.Component {
 		// Clear filtered by category projects
 		sessionStorage.removeItem('filteredProjects');
 
-		Utils.getLanguage(this);
 
 		// Log anonymous user if storage is empty
 		if (sessionStorage.getItem('authtoken') === null) {
@@ -55,18 +50,11 @@ class Home extends React.Component {
 		this.loadStarProjects();
 	}
 
-	componentWillReceiveProps (nextProps) {
-
-		this.props = nextProps;
-
-		Utils.getLanguage(this);
-	}
 
 
 	loadStarProjects = () => {
 
 		let query = '?query={"isStar":true}';
-
 
 		projectsService
 			.loadAllProjects(query)
@@ -81,7 +69,7 @@ class Home extends React.Component {
 						this.setState({clients: res});
 
 						this.state.projects.forEach(p => {
-							p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name.BG
+							p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name;
 						});
 
 						categoriesService
@@ -109,9 +97,16 @@ class Home extends React.Component {
 
 	render () {
 
+		if (this.state.loading) {
+			return (<div className="lds-dual-ring"/> );
+		}
+
+
+		let activeLanguage = this.context.language;
+
 		let projects = this.state.projects.map(e => {
 			return (
-				<HomeProjectCard key={e._id} project={e} activeLanguage={this.state.activeLanguage}/>
+				<HomeProjectCard key={e._id} project={e}/>
 			)
 		});
 
@@ -141,5 +136,7 @@ class Home extends React.Component {
 		);
 	}
 }
+
+Home.contextType = LanguageContext;
 
 export default Home;

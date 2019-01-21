@@ -14,9 +14,6 @@ import authService from '../../../services/auth/authService';
 // Notifications
 import Notifications from '../../common/Notifications';
 
-//Utils
-import Utils from '../../../utils/utils'
-
 
 class ProjectList extends React.Component {
 	constructor (props) {
@@ -99,7 +96,9 @@ class ProjectList extends React.Component {
 			.then(res => {
 
 					res.forEach(p => {
-						p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name[this.context.language];
+						p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name;
+
+						console.log(p.clientName)
 					});
 
 					this.setState({projects: res, loading: false}, () => this.saveProjectsInSession());
@@ -154,7 +153,6 @@ class ProjectList extends React.Component {
 				<ProjectCard key={e._id + i}
 				             project={e}
 				             category={categoryName}
-				             activeLanguage={activeLanguage}
 				/>
 			);
 		});
@@ -162,7 +160,7 @@ class ProjectList extends React.Component {
 		return (
 			<div id="projects-list" className="container">
 
-				<Notifications onRef={ref => (this.notifications = ref)} lang={activeLanguage}/>
+				<Notifications onRef={ref => (this.notifications = ref)} language={activeLanguage}/>
 
 				<div className="projects-container">
 					{projects}

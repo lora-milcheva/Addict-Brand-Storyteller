@@ -197,7 +197,7 @@ class Project extends React.Component {
 		return (
 			<div id="project" className="container-fluid">
 
-				<Notifications onRef={ref => (this.notifications = ref)} lang={activeLanguage}/>
+				<Notifications onRef={ref => (this.notifications = ref)} language={activeLanguage}/>
 
 				<GalleryPreview image={this.state.selectedImage} allImages={project.images} onClose={this.hidePreview}/>
 

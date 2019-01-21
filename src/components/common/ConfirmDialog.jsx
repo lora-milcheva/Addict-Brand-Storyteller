@@ -46,7 +46,7 @@ class ConfirmDialog extends React.Component {
 
 		let isVisible = this.state.visible;
 
-		let lang = this.props.lang;
+		let language = this.props.language;
 
 		return (
 			<div id="confirm-dialog"
@@ -55,8 +55,8 @@ class ConfirmDialog extends React.Component {
 				<div className="message">
 					<p className="message-text">{this.state.message}</p>
 
-					<button className="btn btn-primary" onClick={this.hideMessage}>{BUTTONS[lang].cancel}</button>
-					<button className="btn btn-danger" onClick={this.confirm}>{BUTTONS[lang].confirm}</button>
+					<button className="btn btn-primary" onClick={this.hideMessage}>{BUTTONS[language].cancel}</button>
+					<button className="btn btn-danger" onClick={this.confirm}>{BUTTONS[language].confirm}</button>
 				</div>
 
 			</div>
@@ -67,5 +67,5 @@ class ConfirmDialog extends React.Component {
 export default ConfirmDialog;
 
 ConfirmDialog.propTypes = {
-	lang: PropTypes.string,
+	language: PropTypes.string,
 };

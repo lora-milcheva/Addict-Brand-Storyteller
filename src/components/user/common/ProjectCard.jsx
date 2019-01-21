@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { LanguageContext } from '../../common/languagesContext/LanguageContext';
+
 class ProjectCard extends React.Component {
 	constructor (props) {
 		super(props);
@@ -9,7 +11,11 @@ class ProjectCard extends React.Component {
 
 	render () {
 
-		let {project, activeLanguage, category} = this.props;
+		let {project, category} = this.props;
+
+
+		let activeLanguage = this.context.language
+		console.log(activeLanguage)
 
 		let linkPath = category
 			? '/projects/' + category + '/' + project._id
@@ -24,7 +30,7 @@ class ProjectCard extends React.Component {
 
 				<Link to={linkPath} className="hover">
 					<div className="info">
-						<p className="project-client">{project.clientName}</p>
+						<p className="project-client">{project.clientName[activeLanguage]}</p>
 						<p className="project-name">{project.name[activeLanguage]}</p>
 						<p className="project-year">{project.year}</p>
 					</div>
@@ -33,6 +39,8 @@ class ProjectCard extends React.Component {
 		);
 	}
 }
+
+ProjectCard.contextType = LanguageContext;
 
 export default ProjectCard;
 

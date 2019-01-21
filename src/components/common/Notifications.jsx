@@ -52,7 +52,7 @@ class Notifications extends React.Component {
 
 		let isVisible = this.state.visible;
 
-		let lang = this.props.lang;
+		let language = this.props.language;
 
 		return (
 			<div id="messages"
@@ -61,7 +61,7 @@ class Notifications extends React.Component {
 				<div className="message">
 					<p className="message-text">{this.state.message}</p>
 
-					<button className="btn btn-primary" onClick={this.hideMessage}>{BUTTONS[lang].close}</button>
+					<button className="btn btn-primary" onClick={this.hideMessage}>{BUTTONS[language].close}</button>
 				</div>
 
 			</div>
@@ -72,6 +72,6 @@ class Notifications extends React.Component {
 export default Notifications;
 
 Notifications.propTypes = {
-	lang: PropTypes.string,
+	language: PropTypes.string,
 };
 

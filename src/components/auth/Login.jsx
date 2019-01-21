@@ -76,7 +76,7 @@ class Login extends React.Component {
 
 		return (
 			<div id="login" className="container">
-				<Notifications onRef={ref => (this.notifications = ref)} lang='bg'/>
+				<Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
 
 				<h1>Login</h1>
 

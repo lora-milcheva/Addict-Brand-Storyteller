@@ -54,7 +54,7 @@ class projectsList extends React.Component {
 		return (
 			<div id="admin-projects-list" className="container">
 
-				<Notifications onRef={ref => (this.notifications = ref)} lang='bg'/>
+				<Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
 
 				<div className="page-header">
 					<h1 className="page-title">{ADMIN_PAGES_TEXT.project.bg.allProjects}</h1>

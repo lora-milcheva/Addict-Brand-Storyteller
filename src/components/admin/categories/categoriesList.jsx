@@ -57,7 +57,7 @@ class categoriesList extends React.Component {
 		return (
 			<div id="admin-categories-list" className="container">
 
-				<Notifications onRef={ref => (this.notifications = ref)} lang='bg'/>
+				<Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
 
 				<div className="page-header">
 					<h1 className="page-title">Категории</h1>

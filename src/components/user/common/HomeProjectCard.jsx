@@ -2,6 +2,8 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { LanguageContext } from '../../common/languagesContext/LanguageContext';
+
 // Constants
 import {BUTTONS} from '../../../constants/constants';
 
@@ -14,7 +16,10 @@ class HomeProjectCard extends React.Component {
 
 	render () {
 
-		let {project, activeLanguage} = this.props;
+		let project = this.props.project;
+
+		let activeLanguage = this.context.language
+
 
 		return (
 			<article className="project-card">
@@ -25,7 +30,7 @@ class HomeProjectCard extends React.Component {
 
 				<Link to={'/projects/all/' + project._id} className="hover">
 					<div className="info">
-						{/*<p className="project-client">{project.clientName}</p>*/}
+						<p className="project-client">{project.clientName[activeLanguage]}</p>
 						<p className="project-name">{project.name[activeLanguage]}</p>
 						<p className="project-year">{project.year}</p>
 						<button className="btn btn-light xs">{BUTTONS[activeLanguage].view}</button>
@@ -35,6 +40,8 @@ class HomeProjectCard extends React.Component {
 		);
 	}
 }
+
+HomeProjectCard.contextType = LanguageContext;
 
 export default HomeProjectCard;
 

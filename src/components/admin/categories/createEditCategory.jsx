@@ -125,8 +125,8 @@ class createEditCategory extends React.Component {
 		return (
 			<div id="project-create" className="container">
 
-				<Notifications onRef={ref => (this.notifications = ref)} lang='bg'/>
-				<ConfirmDialog onRef={ref => (this.confirmDialog = ref)} lang='bg'/>
+				<Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
+				<ConfirmDialog onRef={ref => (this.confirmDialog = ref)} language='bg'/>
 
 				<div className="page-header">
 					<h1 className="page-title">{title}</h1>

@@ -15,12 +15,12 @@ class App extends React.Component {
 		super(props);
 
 		this.state = {
-			lang: languages.bg
+			language: languages.bg
 		};
 	}
 
-	updateLanguage = (lang) => {
-		this.setState({lang});
+	updateLanguage = (language) => {
+		this.setState({language});
 	};
 
 	render () {
@@ -30,7 +30,7 @@ class App extends React.Component {
 
 		return (
 
-			<LanguageContext.Provider  value={{ language: this.state.lang, updateLanguage: this.updateLanguage }}>
+			<LanguageContext.Provider  value={{ language: this.state.language, updateLanguage: this.updateLanguage }}>
 
 				{/*{!isHomePage && <Header changeLanguage={this.changeLanguage}/> }*/}
 
