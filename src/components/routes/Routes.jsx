@@ -25,38 +25,40 @@ import NotFound from '../errors/NotFound';
 
 let Routes = () => {
 
-
 	return (
 		<Switch>
 
 			{/*//User*/}
-			<Route exact path='/' component={Home}/>
-			<Route exact path='/:lng' component={Home}/>
+			<Route exact path='/:lng(en)?' component={Home}/>
 
-			<Route path='/login' component={Login}/>
+			<Route path='/:lng(en)?/login' component={Login}/>
 
-			<Route exact path='/projects'  component={ProjectsList}/>
-			<Route exact path='/:lng/projects' component={ProjectsList}/>
+			<Route exact path='/:lng(en)?/projects' component={ProjectsList}/>
 
-			<Route exact path='/projects/:category' component={ProjectsList}/>
-			<Route exact path='/:lng/projects/:category' component={ProjectsList}/>
+			<Route exact path='/:lng(en)?/projects/:category' component={ProjectsList}/>
 
-			<Route exact path='/projects/:category/:id' component={Project}/>
-			<Route exact path='/:lng/projects/:category/:id' component={Project}/>
+			<Route exact path='/:lng(en)?/projects/:category/:id' component={Project}/>
 
 
 			{/*//Admin*/}
-			<PrivateRoute path='/admin/projects-list' component={adminProjectsList}/>
-			<PrivateRoute path='/admin/project-create' component={createProject}/>
-			<PrivateRoute path='/admin/project-edit/:id' component={createProject}/>
+			<Route
+				path="/admin"
+				render={({ match: { url } }) => (
+					<>
+					<Route exact path={`${url}/projects-list`} component={adminProjectsList} />
+					<Route path={`${url}/project-create`} component={createProject} />
+					<Route path={`${url}/project-edit/:id`} component={createProject} />
 
-			<PrivateRoute path='/admin/category-list' component={categoriesList}/>
-			<PrivateRoute path='/admin/category-create' component={createEditCategory}/>
-			<PrivateRoute path='/admin/category-edit/:id' component={createEditCategory}/>
+					<Route exact path={`${url}/category-list`} component={categoriesList} />
+					<Route path={`${url}/category-create`} component={createEditCategory} />
+					<Route path={`${url}/category-edit/:id`} component={createEditCategory} />
 
-			<PrivateRoute path='/admin/clients-list' component={clientsList}/>
-			<PrivateRoute path='/admin/client-create' component={createEditClient}/>
-			<PrivateRoute path='/admin/client-edit/:id' component={createEditClient}/>
+					<Route exact path={`${url}/clients-list`} component={clientsList} />
+					<Route path={`${url}/client-create`} component={createEditClient} />
+					<Route path={`${url}/client-edit/:id`} component={createEditClient} />
+					</>
+				)}
+			/>
 
 			<Route path='*' component={NotFound}/>
 		</Switch>

@@ -7,7 +7,6 @@ import categoriesService from '../../../services/categories/categoriesService';
 // Notifications
 import Notifications from '../../common/Notifications';
 
-
 class categoriesList extends React.Component {
 	constructor (props) {
 		super(props);
@@ -40,8 +39,8 @@ class categoriesList extends React.Component {
 		if (this.state.categories.length > 0) {
 			categories = this.state.categories.map(e => {
 					return (
-						<Link to={'/admin/category-edit/' + e._id}>
-						<span key={e._id} className="category-label">
+						<Link key={e._id} to={'/admin/category-edit/' + e._id}>
+						<span className="category-label">
 							{e.name.bg}
 						</span>
 						</Link>

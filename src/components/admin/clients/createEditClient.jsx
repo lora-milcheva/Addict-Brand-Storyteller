@@ -118,7 +118,7 @@ class createEditCategory extends React.Component {
 
 		let buttonText = this.clientId ? BUTTONS.bg.edit : BUTTONS.bg.create;
 
-		if (this.state.projectLoading) {
+		if (this.state.loading) {
 			return (<div className="lds-dual-ring"/>);
 		}
 

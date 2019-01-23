@@ -56,7 +56,6 @@ class ProjectList extends React.Component {
 		}
 	}
 
-
 	loadAllData = () => {
 		clientsService
 			.loadAllClients()
@@ -97,8 +96,6 @@ class ProjectList extends React.Component {
 
 					res.forEach(p => {
 						p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name;
-
-						console.log(p.clientName)
 					});
 
 					this.setState({projects: res, loading: false}, () => this.saveProjectsInSession());

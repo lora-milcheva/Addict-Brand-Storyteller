@@ -14,9 +14,6 @@ import authService from '../../../services/auth/authService';
 // Notifications
 import Notifications from '../../common/Notifications';
 
-//Utils
-import Utils from '../../../utils/utils';
-
 // Constants
 import { USER_PAGES_TEXT } from '../../../constants/constants';
 
@@ -69,10 +66,9 @@ class Project extends React.Component {
 			this.projectId = nextProps.match.params.id;
 
 			this.setIndexes();
+
+			this.setState({randomProjects: []}, () => this.loadRandomProjects());
 		}
-
-		// this.setState({randomProjects: []}, () => this.loadRandomProjects());
-
 	}
 
 	componentWillUnmount () {
@@ -87,8 +83,6 @@ class Project extends React.Component {
 			this.loadProject();
 			return;
 		}
-
-		console.log(this.projectId);
 
 		let currentProjectIndex = filteredProjectIds.indexOf(this.projectId);
 

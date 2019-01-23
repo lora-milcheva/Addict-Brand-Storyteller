@@ -13,13 +13,12 @@ class ProjectCard extends React.Component {
 
 		let {project, category} = this.props;
 
+		let activeLanguage = this.context.language;
 
-		let activeLanguage = this.context.language
-		console.log(activeLanguage)
-
+		let pathLang = activeLanguage === 'en' ? '/' + activeLanguage : '';
 		let linkPath = category
-			? '/projects/' + category + '/' + project._id
-			: '/projects/all/' + project._id;
+			? pathLang + '/projects/' + category + '/' + project._id
+			: pathLang + '/projects/all/' + project._id;
 
 		return (
 			<article className="project-card">
@@ -30,7 +29,7 @@ class ProjectCard extends React.Component {
 
 				<Link to={linkPath} className="hover">
 					<div className="info">
-						<p className="project-client">{project.clientName[activeLanguage]}</p>
+						{project.clientName && <p className="project-client">{project.clientName[activeLanguage]}</p>}
 						<p className="project-name">{project.name[activeLanguage]}</p>
 						<p className="project-year">{project.year}</p>
 					</div>

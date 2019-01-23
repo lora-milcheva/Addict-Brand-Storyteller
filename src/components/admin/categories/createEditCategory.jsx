@@ -38,7 +38,6 @@ class createEditCategory extends React.Component {
 
 					this.setState({
 						name: res.name,
-
 						loading: false
 					});
 				})
@@ -71,10 +70,11 @@ class createEditCategory extends React.Component {
 
 		e.preventDefault();
 
+		// Edit category
 		if (this.categoryId) {
 
 			categoriesService
-				.editProject(this.categoryId, Utils.createStateCopy(this.state))
+				.editCategory(this.categoryId, Utils.createStateCopy(this.state))
 				.then(res => {
 					this.notifications.showMessage(NOTIFICATIONS.bg.successEdit);
 					setTimeout(() => this.props.history.go(-1), 2000);
@@ -85,6 +85,8 @@ class createEditCategory extends React.Component {
 			return;
 		}
 
+
+		// Create Category
 		categoriesService
 			.createCategory(Utils.createStateCopy(this.state))
 			.then(res => {
@@ -116,9 +118,9 @@ class createEditCategory extends React.Component {
 
 		let title = this.categoryId ? ADMIN_PAGES_TEXT.category.bg.editCategory : ADMIN_PAGES_TEXT.category.bg.newCategory;
 
-		let buttonText = this.categoryId ? BUTTONS.bf.edit : BUTTONS.bg.create;
+		let buttonText = this.categoryId ? BUTTONS.bg.edit : BUTTONS.bg.create;
 
-		if (this.state.projectLoading) {
+		if (this.state.loading) {
 			return (<div className="lds-dual-ring"/>);
 		}
 

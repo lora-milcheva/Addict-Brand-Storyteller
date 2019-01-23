@@ -4,7 +4,17 @@ import PropTypes from 'prop-types';
 class FormInput extends React.Component {
 	constructor (props) {
 		super(props);
+
+		this.state = {
+			value: this.props.value || ''
+		}
 	}
+
+
+	handleChange = (e) => {
+		this.setState({value: e.target.value});
+		this.props.onChange(e)
+	};
 
 	render () {
 
@@ -15,7 +25,7 @@ class FormInput extends React.Component {
 				<label htmlFor={id}>{label}</label>
 				<input className="form-control"
 				       type={type}
-				       value={value}
+				       value={this.state.value}
 				       name={name}
 				       id={id}
 				       placeholder={placeholder}
@@ -24,7 +34,7 @@ class FormInput extends React.Component {
 				       step={step}
 				       min={min}
 				       max={max}
-				       onChange={onChange}/>
+				       onChange={this.handleChange}/>
 			</div>
 		);
 	}

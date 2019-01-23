@@ -40,8 +40,8 @@ class categoriesList extends React.Component {
 		if (this.state.clients.length > 0) {
 			clients = this.state.clients.map(e => {
 					return (
-						<Link to={'/admin/client-edit/' + e._id}>
-						<span key={e._id} className="category-label">
+						<Link key={e._id} to={'/admin/client-edit/' + e._id}>
+						<span  className="category-label">
 							{e.name.bg}
 						</span>
 						</Link>

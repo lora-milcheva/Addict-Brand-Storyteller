@@ -20,17 +20,16 @@ class App extends React.Component {
 	}
 
 	updateLanguage = (language) => {
-		this.setState({language});
+		this.setState({language: language});
 	};
 
 	render () {
-
 
 		let isHomePage = window.location.pathname === '/';
 
 		return (
 
-			<LanguageContext.Provider  value={{ language: this.state.language, updateLanguage: this.updateLanguage }}>
+			<LanguageContext.Provider value={{language: this.state.language, updateLanguage: this.updateLanguage}}>
 
 				{/*{!isHomePage && <Header changeLanguage={this.changeLanguage}/> }*/}
 

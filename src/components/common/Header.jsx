@@ -22,6 +22,9 @@ class Header extends React.Component {
 	}
 
 	componentDidMount () {
+
+		console.log(this.props)
+
 		if (sessionStorage.length === 0) {
 			authService
 				.loginAnonymousUser()
@@ -40,14 +43,8 @@ class Header extends React.Component {
 	}
 
 	componentWillReceiveProps (nextProps) {
-
-		let pathArray = this.props.location.pathname.split('/').filter(e => e !== '');
-		let newPathArray = nextProps.location.pathname.split('/').filter(e => e !== '');
-
-		if (pathArray[0] !== newPathArray[0]) {
-			this.props = nextProps;
-			this.getLanguage();
-		}
+		console.log(nextProps.history.action)
+		// this.getLanguage();
 	}
 
 	loadCategories = () => {
@@ -66,32 +63,27 @@ class Header extends React.Component {
 		let pathArray = this.props.location.pathname.split('/').filter(e => e !== '');
 
 		if (pathArray[0] === languages.en) {
-			this.context.updateLanguage(languages.en)
+			this.context.updateLanguage(languages.en);
 		} else {
-			this.context.updateLanguage(languages.bg)
+			this.context.updateLanguage(languages.bg);
 		}
 	};
 
-	changeLanguage = (e) => {
+	changeRouteByLanguage = (e) => {
 
-		let pathArray = this.props.location.pathname.split('/').filter(e => e !== '');
+		let pathArray = this.props.location.pathname;
 
 		let activeLanguage = this.context.language;
 
-		if (activeLanguage === languages.en) { let removed = pathArray.splice(0, 1); }
-
-		let newPath = '';
-		pathArray.forEach(e => newPath += '/' + e);
-
 		if (activeLanguage === languages.en) {
-			this.props.history.push(newPath);
-
+			let subStr = pathArray.substring(3);
+			this.context.updateLanguage(languages.bg);
+			this.props.history.push(subStr);
 		} else {
-
-			this.props.history.push('/' + languages.en + newPath);
+			this.context.updateLanguage(languages.en);
+			this.props.history.push('/' + languages.en + pathArray);
 		}
 
-		this.context.updateLanguage(e.target.value);
 	};
 
 	logout = () => {
@@ -139,12 +131,7 @@ class Header extends React.Component {
 			);
 		}
 
-		let link = '';
-		if (lang === languages.bg) {
-			link = '/projects/';
-		} else {
-			link = '/' + lang + '/projects/';
-		}
+		let link = lang === languages.bg ? '/projects/' : '/' + lang + '/projects/';
 
 		let categories = this.state.categories.map(e => {
 
@@ -180,7 +167,7 @@ class Header extends React.Component {
 				<nav id="second-nav">
 					<button className="btn btn-light sm"
 					        value={lang}
-					        onClick={this.changeLanguage}>{lang === languages.bg ? languages.en : languages.bg}</button>
+					        onClick={this.changeRouteByLanguage}>{lang === languages.bg ? languages.en : languages.bg}</button>
 				</nav>
 			</div>
 		);

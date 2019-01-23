@@ -26,6 +26,10 @@ class projectsList extends React.Component {
 
 	componentDidMount () {
 
+		if (sessionStorage.length === 0) {
+			this.props.history.push('/')
+		}
+
 		projectsService
 			.loadAllProjects()
 			.then(res => {
