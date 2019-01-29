@@ -31,9 +31,7 @@ class App extends React.Component {
 
 			<LanguageContext.Provider value={{language: this.state.language, updateLanguage: this.updateLanguage}}>
 
-				{/*{!isHomePage && <Header changeLanguage={this.changeLanguage}/> }*/}
-
-				<Header/>
+				{!isHomePage && <Header/> }
 
 				<main>
 					<Routes/>

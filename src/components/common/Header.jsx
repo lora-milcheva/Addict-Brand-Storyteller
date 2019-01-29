@@ -11,7 +11,7 @@ import { MENU } from '../../constants/constants';
 
 import { LanguageContext, languages } from './languagesContext/LanguageContext';
 
-class Header extends React.Component {
+class HeaderC extends React.Component {
 
 	constructor (props) {
 		super(props);
@@ -22,8 +22,6 @@ class Header extends React.Component {
 	}
 
 	componentDidMount () {
-
-		console.log(this.props)
 
 		if (sessionStorage.length === 0) {
 			authService
@@ -42,10 +40,6 @@ class Header extends React.Component {
 		}
 	}
 
-	componentWillReceiveProps (nextProps) {
-		console.log(nextProps.history.action)
-		// this.getLanguage();
-	}
 
 	loadCategories = () => {
 		categoriesService
@@ -174,6 +168,11 @@ class Header extends React.Component {
 	}
 }
 
-Header.contextType = LanguageContext;
+// To fix mistake index.js:1452 Warning: withRouter(Header): Function components do not support contextType.
+const Header = withRouter(HeaderC);
+Header.WrappedComponent.contextType = LanguageContext;
+export default Header
 
-export default withRouter(Header);
+// Header.contextType = LanguageContext;
+//
+// export default withRouter(Header);
