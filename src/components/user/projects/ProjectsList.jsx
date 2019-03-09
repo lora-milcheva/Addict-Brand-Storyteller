@@ -1,4 +1,5 @@
 import React from 'react';
+import posed from 'react-pose';
 
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
@@ -13,7 +14,6 @@ import authService from '../../../services/auth/authService';
 
 // Notifications
 import Notifications from '../../common/Notifications';
-
 
 class ProjectList extends React.Component {
 	constructor (props) {
@@ -141,12 +141,19 @@ class ProjectList extends React.Component {
 			return (<div className="lds-dual-ring"/> );
 		}
 
+		const ListContainer = posed.div({
+			enter: {staggerChildren: 50},
+			exit: {staggerChildren: 20, staggerDirection: -1}
+		});
+
+
 		let activeLanguage = this.context.language;
 
 		let categoryName = this.props.match.params.category;
 
 		let projects = this.state.projects.map((e, i) => {
 			return (
+
 				<ProjectCard key={e._id + i}
 				             project={e}
 				             category={categoryName}
@@ -155,15 +162,17 @@ class ProjectList extends React.Component {
 		});
 
 		return (
-			<div id="projects-list" className="container">
+
+			<div key={'test'} id="projects-list" className="container">
 
 				<Notifications onRef={ref => (this.notifications = ref)} language={activeLanguage}/>
 
-				<div className="projects-container">
+				<ListContainer className="projects-container">
 					{projects}
-				</div>
+				</ListContainer>
 
 			</div>
+
 		);
 	}
 }

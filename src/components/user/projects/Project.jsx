@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import posed from 'react-pose';
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 // Partials
 import GalleryPreview from './partials/GalleryPreview';
 import ProjectCard from '../common/ProjectCard';
+import List from '../test/List';
 
 // Services
 import projectsService from '../../../services/projects/projectsService';
@@ -17,12 +19,30 @@ import Notifications from '../../common/Notifications';
 // Constants
 import { USER_PAGES_TEXT } from '../../../constants/constants';
 
+const ImagesContainer = posed.div({
+	enter: {staggerChildren: 100},
+	exit: {staggerChildren: 20, staggerDirection: -1}
+});
+
+const Card = posed.figure({
+	enter: {
+		y: 0,
+		opacity: 1,
+		transition: {
+			// type: 'spring', stiffness: 200, damping: 5,
+			opacity: { ease: 'easeOut', duration: 100 },
+			default: { ease: 'linear', duration: 100 }
+		},
+	},
+	exit: {y: 250, opacity: 0}
+});
+
 class Project extends React.Component {
 	constructor (props) {
 		super(props);
 
 		this.state = {
-			project: [],
+			project: '',
 			clientName: '',
 
 			selectedImage: '',
@@ -164,39 +184,47 @@ class Project extends React.Component {
 
 	render () {
 
-		if (this.state.loading) {
-			return (<div className="lds-dual-ring"/> );
-		}
+		// if (this.state.loading) {
+		// 	return (<div className="lds-dual-ring"/> );
+		// }
 
 		let activeLanguage = this.context.language;
 
 		let project = this.state.project;
 
+		let isProjectLoaded = project !== '';
+
 		let client = this.state.clientName[activeLanguage];
 
-		let gallery = project.images.map(e => {
-			return (
-				<figure className="image" key={e}>
-					<img src={e} className="img-fit" alt={e} onClick={this.showPreview}/>
-				</figure>
-			);
-		});
+		let gallery, randomProjects;
 
-		let randomProjects = this.state.randomProjects.map((e, i) => {
-			return (
-				<ProjectCard key={e._id + i} project={e} activeLanguage={activeLanguage}/>
-			);
-		});
+		if (project !== '') {
+			gallery = project.images.map(e => {
+				return (
+					<Card className="image" key={e}>
+						<img src={e} className="img-fit" alt={e} onClick={this.showPreview}/>
+					</Card>
+				);
+			});
+
+			randomProjects = this.state.randomProjects.map((e, i) => {
+				return (
+					<ProjectCard key={e._id + i} project={e} activeLanguage={activeLanguage}/>
+				);
+			});
+		}
 
 		return (
 			<div id="project" className="container-fluid">
+				{/*<List/>*/}
 
 				<Notifications onRef={ref => (this.notifications = ref)} language={activeLanguage}/>
 
 				<GalleryPreview image={this.state.selectedImage} allImages={project.images} onClose={this.hidePreview}/>
 
+				{isProjectLoaded &&
 				<div className="project-info">
-					<p className="project-title">{project.name[activeLanguage]}</p>
+					<p>{project.name[activeLanguage]}</p>
 					<p>{client}</p>
 					<p>{project.description[activeLanguage]}</p>
 					<p>{project.year}</p>
@@ -213,12 +241,13 @@ class Project extends React.Component {
 						</Link>
 
 					</div>
-
 				</div>
+				}
 
-				<div className="project-gallery">
+
+				<ImagesContainer className="project-gallery">
 					{gallery}
-				</div>
+				</ImagesContainer>
 
 
 				<h2 className="section-title">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>
@@ -228,6 +257,7 @@ class Project extends React.Component {
 			</div>
 		);
 	}
+
 }
 
 Project.contextType = LanguageContext;

@@ -491,6 +491,8 @@ button {
   @include transform-text;
 }
 
+
+
 //COMMON
 #messages,
 #confirm-dialog {
@@ -531,7 +533,7 @@ button {
     width: 180px;
     margin-left: -3%;
     height: 50px;
-    background: url("/images/logo/addict_logo_10.svg") no-repeat left/contain;
+    background: url("/images/logo/addict_logo.svg") no-repeat left/contain;
     @include main-transition;
   }
 
@@ -583,7 +585,8 @@ button {
         height: 100%;
 
         .img-fit {
-          height: 100%;
+          width: 100%;
+          height: auto;
         }
       }
     }
@@ -591,16 +594,17 @@ button {
     .brand {
       position: absolute;
       display: inline-block;
-      width: 30%;
       left: 5%;
       top: 10%;
       padding: 20px;
+      width: 30%;
+      max-width: 300px;
+      min-width: 200px;
 
       //background-color: $white;
 
       .image {
-        width: 40%;
-        //margin: auto;
+
       }
 
       .text {

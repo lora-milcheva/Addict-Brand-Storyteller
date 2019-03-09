@@ -13,7 +13,7 @@ class Carousel extends React.Component {
 
 			<div className="carousel">
 				<div className="img-container">
-					<img className="img-fit" src='/images/carousel/carousel_03.jpg' alt=''/>
+					<img className="img-fit" src='/images/carousel/home_01.jpg' alt=''/>
 				</div>
 			</div>
 		);

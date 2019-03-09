@@ -252,7 +252,7 @@ button {
     width: 180px;
     margin-left: -3%;
     height: 50px;
-    background: url("/images/logo/addict_logo_10.svg") no-repeat left/contain;
+    background: url("/images/logo/addict_logo.svg") no-repeat left/contain;
     -webkit-transition: .4s;
     -moz-transition: .4s;
     transition: .4s; }
@@ -286,16 +286,17 @@ button {
     #home .hero .carousel .img-container {
       height: 100%; }
       #home .hero .carousel .img-container .img-fit {
-        height: 100%; }
+        width: 100%;
+        height: auto; }
   #home .hero .brand {
     position: absolute;
     display: inline-block;
-    width: 30%;
     left: 5%;
     top: 10%;
-    padding: 20px; }
-    #home .hero .brand .image {
-      width: 40%; }
+    padding: 20px;
+    width: 30%;
+    max-width: 300px;
+    min-width: 200px; }
     #home .hero .brand .text {
       width: 90%;
       margin: auto;

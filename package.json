@@ -12,9 +12,10 @@
     "react-dom": "^16.6.3",
     "react-drag-drop-container": "^6.1.1",
     "react-drop-to-upload": "^1.0.2",
+    "react-pose": "^4.0.8",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1",
+    "react-scripts": "^2.1.8",
     "react-sortable-hoc": "^0.8.4"
   },
   "scripts": {

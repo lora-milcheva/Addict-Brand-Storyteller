@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import posed from 'react-pose';
 import PropTypes from 'prop-types';
 
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
+
+const Card = posed.article({
+	enter: {y: 0, opacity: 1},
+	exit: {y: 50, opacity: 0}
+});
 
 class ProjectCard extends React.Component {
 	constructor (props) {
@@ -21,7 +27,7 @@ class ProjectCard extends React.Component {
 			: pathLang + '/projects/all/' + project._id;
 
 		return (
-			<article className="project-card">
+			<Card className="project-card">
 				<div className="img-container">
 					<img className="img-fit" src={project.thumbnail} alt={project.name[activeLanguage]}/>
 				</div>
@@ -34,7 +40,7 @@ class ProjectCard extends React.Component {
 						<p className="project-year">{project.year}</p>
 					</div>
 				</Link>
-			</article>
+			</Card>
 		);
 	}
 }

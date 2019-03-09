@@ -1,9 +1,11 @@
 import React from 'react';
-import { LanguageContext } from '../../common/languagesContext/LanguageContext';
+import {Link} from 'react-router-dom';
+import { LanguageContext , languages } from '../../common/languagesContext/LanguageContext';
 
 // Partials
 import Carousel from './partials/Carousel';
 import HomeProjectCard from '../common/HomeProjectCard';
+import List from '../test/List';
 
 // Services
 import authService from '../../../services/auth/authService';
@@ -97,38 +99,43 @@ class Home extends React.Component {
 
 	render () {
 
-		if (this.state.loading) {
-			return (<div className="lds-dual-ring"/> );
-		}
-
+		// if (this.state.loading) {
+		// 	return (<div className="lds-dual-ring"/> );
+		// }
 
 		let activeLanguage = this.context.language;
 
-		let projects = this.state.projects.map(e => {
-			return (
-				<HomeProjectCard key={e._id} project={e}/>
-			)
-		});
+		// let projects = this.state.projects.map(e => {
+		// 	return (
+		// 		<HomeProjectCard key={e._id} project={e}/>
+		// 	)
+		// });
+
+		let link = activeLanguage === languages.bg ? '/projects/' : '/' + activeLanguage + '/projects/';
 
 		return (
 			<div id="home" className="container-fluid">
+
+				{/*<List/>*/}
+
 				<section className="hero">
 					<Carousel images={this.state.images}/>
 					<div className="brand">
 						<figure className="image">
-							<img src="images/logo/addict_logo_10.svg" className="svg-icon img-fit"/>
+							<img src="images/logo/addict_logo.svg" alt="logo" className="svg-icon img-fit"/>
 						</figure>
 
-						<p className="text">
-							Ние създаваме неща. Измисляме си. Мечтаем.<br/>
-							Просто обичаме това, което правим.
+						{/*<p className="text">*/}
+							{/*Ние създаваме неща. Измисляме си. Мечтаем.<br/>*/}
+							{/*Просто обичаме това, което правим.*/}
+						{/*</p>*/}
 
-						</p>
+						<Link  to={link} className="nav-link">Projects</Link>
 					</div>
 				</section>
 
 				<section className="projects-container">
-					{projects}
+					{/*{projects}*/}
 				</section>
 
 			</div>
