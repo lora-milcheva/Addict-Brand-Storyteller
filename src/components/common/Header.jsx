@@ -1,6 +1,9 @@
 import React from 'react';
+import posed from 'react-pose';
 import { NavLink, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
+
+import { LanguageContext, languages } from './languagesContext/LanguageContext';
 
 // Services
 import authService from '../../services/auth/authService';
@@ -8,8 +11,6 @@ import categoriesService from '../../services/categories/categoriesService';
 
 // Constants
 import { MENU } from '../../constants/constants';
-
-import { LanguageContext, languages } from './languagesContext/LanguageContext';
 
 class HeaderC extends React.Component {
 
@@ -149,20 +150,19 @@ class HeaderC extends React.Component {
 						className="nav-link"
 						activeClassName='active'>{MENU[lang].projects}</NavLink>
 
-					{categories}
+					{/*{categories}*/}
 
 					<NavLink exact
-					         to="/"
+					         to="/contact"
 					         className="nav-link"
 					         activeClassName='active'>{MENU[lang].contact}</NavLink>
 
-				</nav>
-
-				<nav id="second-nav">
-					<button className="btn btn-light sm"
+					<button id="lang-btn" className="btn btn-default-light sm"
 					        value={lang}
 					        onClick={this.changeRouteByLanguage}>{lang === languages.bg ? languages.en : languages.bg}</button>
+
 				</nav>
+
 			</div>
 		);
 	}

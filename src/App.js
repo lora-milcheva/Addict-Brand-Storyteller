@@ -1,9 +1,17 @@
 import React from 'react';
 
+
+// CSS
 import './css/main.css';
+// import './css/main-2.css';
 import './css/animations.css';
+import './css/user.css';
+// import './css/user-2.css';
+import './css/admin.css';
 // import './css/test.css'
 
+
+// Components
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import Routes from './components/routes/Routes';
@@ -32,7 +40,7 @@ class App extends React.Component {
 
 			<LanguageContext.Provider value={{language: this.state.language, updateLanguage: this.updateLanguage}}>
 
-				{!isHomePage && <Header/> }
+				<Header/>
 
 				<main>
 					<Routes/>

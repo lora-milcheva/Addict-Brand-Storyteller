@@ -1,17 +1,20 @@
 import React from 'react';
 
-const IMAGES = ['slider_one_white.jpg','slider-two.jpg', 'slider-three.jpg'];
+// Constants
+import { USER_PAGES_TEXT } from '../../../../constants/constants';
+
+const SLIDES = ['slide1', 'slide2', 'slide3'];
 
 const SLIDE_TIME = 10000;
 const FADE_OUT_TIME = 1000;
 const FADE_IN_TIME = 500;
 
-class Carousel extends React.Component {
+class CarouselNew extends React.Component {
 	constructor (props) {
 		super(props);
 
 		this.state = {
-			activeImage: IMAGES[0],
+			activeSlide: SLIDES[0],
 			intervalId: ''
 		};
 
@@ -19,7 +22,7 @@ class Carousel extends React.Component {
 	}
 
 	componentDidMount () {
-		this.startTimer();
+		// this.startTimer();
 	}
 
 	componentWillUnmount () {
@@ -39,22 +42,21 @@ class Carousel extends React.Component {
 
 		let imageHTML = this.image.current;
 
-		let currentImageIndex = IMAGES.indexOf(this.state.activeImage);
+		let currentImageIndex = SLIDES.indexOf(this.state.activeSlide);
 		let nextImageIndex = index;
 
 		if (nextImageIndex === undefined) {
 			nextImageIndex = currentImageIndex + 1;
 
-			if (nextImageIndex >= IMAGES.length) {
+			if (nextImageIndex >= SLIDES.length) {
 				nextImageIndex = 0;
 			}
 		}
 
-
 		this.fadeOut(imageHTML);
 
 		setTimeout(() => {
-			this.setState({activeImage: IMAGES[nextImageIndex]}, () => this.fadeIn(imageHTML));
+			this.setState({activeSlide: SLIDES[nextImageIndex]}, () => this.fadeIn(imageHTML));
 		}, FADE_OUT_TIME);
 	};
 
@@ -80,11 +82,15 @@ class Carousel extends React.Component {
 
 	render () {
 
-		let previews = IMAGES.map((e, i) => {
+		let lang = this.props.language;
+
+		let slide = this.state.activeSlide;
+
+		let previews = SLIDES.map((e, i) => {
 
 			let style = 'slide-preview';
 
-			if (IMAGES.indexOf(this.state.activeImage) === i) {
+			if (SLIDES.indexOf(this.state.activeSlide) === i) {
 				style += ' selected';
 			}
 			return <span key={e}
@@ -96,16 +102,20 @@ class Carousel extends React.Component {
 			             } }/>;
 		});
 
-
 		return (
 
-			<section id="carousel">
+			<section id="carousel-new" ref={this.image}>
 
-				<figure className="img-container" ref={this.image}>
+				<figure className="img-container" >
 					<img className="img-fit"
-					     src={'/images/carousel/' + this.state.activeImage}
+					     src={USER_PAGES_TEXT.carousel[lang][slide].image}
 					     alt=''/>
 				</figure>
+
+				<div className="slide-content">
+					<h1 className="slide-headline">{USER_PAGES_TEXT.carousel[lang][slide].headline}</h1>
+					<p className="slide-text">{USER_PAGES_TEXT.carousel[lang][slide].text}</p>
+				</div>
 
 				<div className="carousel-navigation">
 					{previews}
@@ -115,4 +125,4 @@ class Carousel extends React.Component {
 	}
 }
 
-export default Carousel;
+export default CarouselNew;

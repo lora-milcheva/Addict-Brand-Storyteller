@@ -6,7 +6,7 @@ class AddOnInput extends React.Component {
 		super(props);
 
 		this.state = {
-			value: '',
+			value: this.props.value,
 		};
 	}
 
@@ -21,12 +21,12 @@ class AddOnInput extends React.Component {
 
 		this.props.onChange(e);
 
-		this.setState({value: ''});
+		if (this.props.clearText) this.setState({value: ''});
 	};
 
 	render () {
 
-		const {placeholder, label, buttonText, name, labelClassName} = this.props;
+		const { placeholder, label, buttonText, name, labelClassName} = this.props;
 
 		return (
 			<div className={'form-group add-on'}>
@@ -53,8 +53,10 @@ export default AddOnInput;
 AddOnInput.propTypes = {
 	name: PropTypes.string,
 	labelClassName: PropTypes.string,
+	value: PropTypes.string,
 	placeholder: PropTypes.string,
 	label: PropTypes.string,
 	buttonText: PropTypes.string,
-	onChange: PropTypes.func
+	onChange: PropTypes.func,
+	clearText: PropTypes.bool
 };

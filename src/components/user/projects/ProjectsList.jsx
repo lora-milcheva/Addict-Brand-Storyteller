@@ -15,6 +15,28 @@ import authService from '../../../services/auth/authService';
 // Notifications
 import Notifications from '../../common/Notifications';
 
+const Test = posed.div({
+	enter: {
+		opacity: 1,
+		transition: {
+			opacity: { ease: 'easeOut', duration: 1000 },
+			default: { ease: 'linear', duration: 200 }
+		},
+	},
+	exit: {
+		opacity: 0,
+		transition: {
+			opacity: { ease: 'easeOut', duration: 1000 },
+			default: { ease: 'linear', duration: 200 }
+		}
+	}
+});
+
+const ListContainer = posed.div({
+	enter: {staggerChildren: 200},
+	exit: {staggerChildren: 20, staggerDirection: -1}
+});
+
 class ProjectList extends React.Component {
 	constructor (props) {
 		super(props);
@@ -141,19 +163,12 @@ class ProjectList extends React.Component {
 			return (<div className="lds-dual-ring"/> );
 		}
 
-		const ListContainer = posed.div({
-			enter: {staggerChildren: 50},
-			exit: {staggerChildren: 20, staggerDirection: -1}
-		});
-
-
 		let activeLanguage = this.context.language;
 
 		let categoryName = this.props.match.params.category;
 
 		let projects = this.state.projects.map((e, i) => {
 			return (
-
 				<ProjectCard key={e._id + i}
 				             project={e}
 				             category={categoryName}
@@ -163,7 +178,7 @@ class ProjectList extends React.Component {
 
 		return (
 
-			<div key={'test'} id="projects-list" className="container">
+			<Test key={'test'} id="projects-list" className="container">
 
 				<Notifications onRef={ref => (this.notifications = ref)} language={activeLanguage}/>
 
@@ -171,7 +186,7 @@ class ProjectList extends React.Component {
 					{projects}
 				</ListContainer>
 
-			</div>
+			</Test>
 
 		);
 	}

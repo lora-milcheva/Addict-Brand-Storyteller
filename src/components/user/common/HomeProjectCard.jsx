@@ -9,17 +9,12 @@ import {BUTTONS} from '../../../constants/constants';
 
 
 class HomeProjectCard extends React.Component {
-	constructor (props) {
-		super(props);
-	}
-
 
 	render () {
 
 		let project = this.props.project;
 
-		let activeLanguage = this.context.language
-
+		let activeLanguage = this.context.language;
 
 		return (
 			<article className="project-card">
@@ -30,10 +25,10 @@ class HomeProjectCard extends React.Component {
 
 				<Link to={'/projects/all/' + project._id} className="hover">
 					<div className="info">
-						<p className="project-client">{project.clientName[activeLanguage]}</p>
+						{/*<p className="project-client">{project.clientName[activeLanguage]}</p>*/}
 						<p className="project-name">{project.name[activeLanguage]}</p>
 						<p className="project-year">{project.year}</p>
-						<button className="btn btn-light xs">{BUTTONS[activeLanguage].view}</button>
+						<button className="btn btn-default-light xs">{BUTTONS[activeLanguage].view}</button>
 					</div>
 				</Link>
 			</article>

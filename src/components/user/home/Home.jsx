@@ -1,18 +1,17 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import { LanguageContext , languages } from '../../common/languagesContext/LanguageContext';
+import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 // Partials
 import Carousel from './partials/Carousel';
-import HomeProjectCard from '../common/HomeProjectCard';
-import List from '../test/List';
+import CarouselNew from './partials/CarouselNew';
+import Company from './partials/Company';
+import Projects from './partials/Projects';
 
 // Services
 import authService from '../../../services/auth/authService';
 import projectsService from '../../../services/projects/projectsService';
 import clientsService from '../../../services/clients/clientsService';
 import categoriesService from '../../../services/categories/categoriesService';
-
 
 class Home extends React.Component {
 	constructor (props) {
@@ -24,8 +23,6 @@ class Home extends React.Component {
 			clients: [],
 			categories: [],
 
-			images: [],
-
 			loading: true
 		};
 	}
@@ -35,7 +32,6 @@ class Home extends React.Component {
 		// Clear filtered by category projects
 		sessionStorage.removeItem('filteredProjects');
 
-
 		// Log anonymous user if storage is empty
 		if (sessionStorage.getItem('authtoken') === null) {
 			authService
@@ -44,15 +40,13 @@ class Home extends React.Component {
 					authService.saveSession(res);
 					this.loadStarProjects();
 				})
-				.catch(err => this.notifications.showMessage(err.responseJSON.description))
+				.catch(err => this.notifications.showMessage(err.responseJSON.description));
 
-			return
+			return;
 		}
 
 		this.loadStarProjects();
 	}
-
-
 
 	loadStarProjects = () => {
 
@@ -62,7 +56,7 @@ class Home extends React.Component {
 			.loadAllProjects(query)
 			.then(res => {
 
-				this.setState({ projects: res, });
+				this.setState({projects: res});
 
 				clientsService
 					.loadAllClients()
@@ -94,49 +88,20 @@ class Home extends React.Component {
 			});
 	};
 
-
-
-
 	render () {
-
-		// if (this.state.loading) {
-		// 	return (<div className="lds-dual-ring"/> );
-		// }
 
 		let activeLanguage = this.context.language;
 
-		// let projects = this.state.projects.map(e => {
-		// 	return (
-		// 		<HomeProjectCard key={e._id} project={e}/>
-		// 	)
-		// });
-
-		let link = activeLanguage === languages.bg ? '/projects/' : '/' + activeLanguage + '/projects/';
-
 		return (
-			<div id="home" className="container-fluid">
+			<div id="home">
 
-				{/*<List/>*/}
+				{/*<Carousel/>*/}
 
-				<section className="hero">
-					<Carousel images={this.state.images}/>
-					<div className="brand">
-						<figure className="image">
-							<img src="images/logo/addict_logo.svg" alt="logo" className="svg-icon img-fit"/>
-						</figure>
+				<CarouselNew language={activeLanguage}/>
 
-						{/*<p className="text">*/}
-							{/*Ние създаваме неща. Измисляме си. Мечтаем.<br/>*/}
-							{/*Просто обичаме това, което правим.*/}
-						{/*</p>*/}
+				<Company language={activeLanguage}/>
 
-						<Link  to={link} className="nav-link">Projects</Link>
-					</div>
-				</section>
-
-				<section className="projects-container">
-					{/*{projects}*/}
-				</section>
+				<Projects projects={this.state.projects} language={activeLanguage}/>
 
 			</div>
 

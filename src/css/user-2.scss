@@ -1,0 +1,643 @@
+@import "colors";
+@import "mixins";
+
+#home {
+
+  #carousel-new {
+    position: relative;
+    height: calc(100vh - 80px); // header
+    background-color: $light-grey;
+    overflow: hidden;
+
+    .carousel-navigation {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      .slide-preview {
+        @include inline-flex;
+        width: 40px;
+        height: 5px;
+        margin: 0 2px;
+        background-color: $medium-grey;
+        @include main-transition;
+
+        &:hover,
+        &:active,
+        &.selected {
+          background-color: $black;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .slide-content {
+      position: absolute;
+      top: 5%;
+      left: 10%;
+
+      .slide-headline {
+        font-size: 2em;
+      }
+
+      .slide-text {
+        width: 40%;
+      }
+    }
+
+    .img-container {
+      height: 100%;
+
+      .img-fit {
+        width: 100%;
+        height: auto;
+        min-height: 100%;
+      }
+    }
+  }
+
+  #carousel {
+    position: relative;
+
+    .carousel-navigation {
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      .slide-preview {
+        @include inline-flex;
+        width: 40px;
+        height: 5px;
+        margin: 0 2px;
+        background-color: $medium-grey;
+        @include main-transition;
+
+        &:hover,
+        &:active,
+        &.selected {
+          background-color: $black;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .img-container {
+      height: 100%;
+
+      .img-fit {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  #company {
+    @include flex;
+    @include flex-wrap(wrap);
+
+    .section-title {
+      @include flex-basis(100%);
+    }
+
+    .about-us {
+      @include flex-basis(70%);
+      border-bottom: 2px solid $primary;
+      margin-top: 25px;
+      padding: 10px 10px 25px 10px;
+    }
+
+    #categories {
+      @include flex-basis(100%);
+      @include flex;
+      //margin-top: 150px;
+      padding: 50px 0;
+
+      .category {
+        padding: 0 15px;
+      }
+
+      .category-name {
+        @include transform-text;
+        color: $primary;
+        font-weight: 400;
+      }
+    }
+  }
+
+  #home-projects {
+    @include flex;
+    @include flex-wrap(wrap);
+    @include justify-content(center);
+    background-color: $white;
+
+    .section-title {
+      @include flex-basis(100%);
+    }
+
+    .project-card {
+      position: relative;
+      overflow: hidden;
+
+      @include flex-basis(33%);
+      @include flex-grow(1);
+
+      color: $white;
+
+      .hover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 25px;
+        background-color: rgba(0, 0, 0, .8);
+        //background-color: $primary;
+
+        //color: $primary;
+
+        @include flex;
+        @include main-transition;
+        @include translate(-100%, 0);
+
+        .info {
+          @include transform-text;
+
+          p {
+            margin: 0;
+          }
+
+          .btn {
+            @include transform-text;
+            margin-top: 10px;
+          }
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+
+        .hover {
+          @include translate(0, 0);
+        }
+      }
+    }
+  }
+}
+
+#projects-list {
+  .projects-container {
+    @include flex;
+    @include flex-wrap(wrap);
+
+    $margin: 12px;
+    $width: calc(50% - 50px);
+
+    .project-card {
+      position: relative;
+      margin: 25px 0 0 25px;
+      height: 350px;
+      overflow: hidden;
+
+      @include flex-basis($width);
+      @include flex-grow(1);
+
+      &:nth-of-type(odd) {
+        margin-left: 0;
+      }
+
+      .img-container {
+        order: 0;
+        height: 100%;
+
+        .img-fit {
+          height: 100%;
+        }
+      }
+
+      .hover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 25px;
+        background-color: rgba(255, 255, 255, .5);
+
+        @include flex;
+        @include main-transition;
+        @include translate(-100%, 0);
+
+        .info {
+          @include transform-text;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+
+        .hover {
+          @include translate(0, 0);
+        }
+      }
+    }
+  }
+}
+
+#project {
+  @include flex;
+  @include flex-wrap(wrap);
+  position: relative;
+
+  .project-info {
+    @include flex-basis(20%);
+    @include transform-text;
+    padding-left: 25px;
+
+    .btn:hover {
+      background-color: $blackish-grey;
+      color: $medium-to-dark-grey;
+    }
+  }
+
+  .project-gallery {
+    @include flex-basis(80%);
+    @include flex;
+    @include flex-wrap(wrap);
+    margin-bottom: 100px;
+
+    .image {
+      @include flex-basis(49%);
+      margin: 0 1% 1% 0;
+      @include main-transition;
+
+      &:hover {
+        cursor: pointer;
+        opacity: .7;
+      }
+    }
+  }
+
+  .image-preview {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .8);
+
+    @include flex;
+    @include align-items(center);
+    @include justify-content(center);
+    opacity: 0;
+    visibility: hidden;
+
+    @include main-transition;
+
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+      z-index: 1;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 40px;
+      height: 40px;
+      padding: 5px 7px;
+      background-color: transparent;
+
+      @include main-transition;
+
+      &:hover {
+        cursor: pointer;
+        color: $white;
+        background-color: $primary;
+      }
+    }
+
+    .gallery-navigation {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+
+      @include flex;
+      @include justify-content(space-between);
+      @include align-items(center);
+
+      .gallery-navigation-button {
+        @include flex-basis(50%);
+        height: 100%;
+        padding: 0 50px;
+
+        @include flex;
+        @include align-items(center);
+
+        @include main-transition;
+
+        &:hover {
+
+          cursor: pointer;
+
+          #prevBtn,
+          #nextBtn {
+            cursor: pointer;
+            color: $white;
+            background-color: $primary;
+          }
+
+        }
+
+        &:nth-of-type(2) {
+          @include justify-content(flex-end);
+        }
+
+        #prevBtn,
+        #nextBtn {
+          width: 40px;
+          height: 40px;
+          padding: 5px 7px;
+          background-color: transparent;
+
+          @include main-transition;
+
+        }
+      }
+    }
+
+    .image {
+      margin: auto;
+      width: 90%;
+      height: 95vh;
+      text-align: center;
+
+      @include flex;
+      @include justify-content(center);
+      @include align-items(center);
+
+      @include main-transition;
+
+      .img-fit {
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        max-height: 100%;
+
+      }
+    }
+  }
+
+  .section-title {
+    @include flex-basis(20%);
+  }
+
+  .projects-container {
+    @include flex-basis(80%);
+    @include flex;
+
+    $margin: 12px;
+    $width: calc(33% - 50px);
+
+    .project-card {
+      position: relative;
+      margin-right: 25px;
+      height: 180px;
+      overflow: hidden;
+
+      @include flex-basis($width);
+      @include flex-grow(1);
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+
+      .img-container {
+        order: 0;
+        height: 100%;
+
+        .img-fit {
+          height: 100%;
+        }
+      }
+
+      .hover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 25px;
+        background-color: rgba(255, 255, 255, .5);
+
+        @include flex;
+        @include main-transition;
+        @include translate(-100%, 0);
+
+        .info {
+          @include transform-text;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+
+        .hover {
+          @include translate(0, 0);
+        }
+      }
+    }
+  }
+}
+
+#project-one {
+  @include flex;
+  @include flex-wrap(wrap);
+  position: relative;
+
+  .project-info {
+    @include flex-basis(100%);
+    padding-left: 10%;
+
+    @include transform-text;
+
+    .btn:hover {
+      background-color: $blackish-grey;
+      color: $medium-to-dark-grey;
+    }
+  }
+
+  .project-gallery {
+    @include flex-basis(100%);
+
+    margin-bottom: 100px;
+
+    .image {
+      //height: 100%;
+      //margin: 0 1% .5% 0;
+      @include main-transition;
+
+      &:hover {
+        cursor: pointer;
+        opacity: .7;
+      }
+    }
+  }
+
+  .image-preview {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .8);
+
+    @include flex;
+    @include align-items(center);
+    @include justify-content(center);
+    opacity: 0;
+    visibility: hidden;
+
+    @include main-transition;
+
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+      z-index: 1;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 25px;
+      color: $medium-to-dark-grey;
+      background-color: $dark-grey;
+      z-index: 1000;
+
+      @include main-transition;
+
+      &:hover {
+        cursor: pointer;
+        color: $white;
+        background-color: $primary;
+      }
+    }
+
+    .gallery-navigation {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+
+      @include flex;
+      @include justify-content(space-between);
+      @include align-items(center);
+
+      .gallery-navigation-button {
+        @include flex-basis(50%);
+        height: 100%;
+        padding: 0 50px;
+
+        @include flex;
+        @include align-items(center);
+
+        @include main-transition;
+
+        &:hover {
+          cursor: pointer;
+          color: $primary;
+        }
+
+        &:nth-of-type(2) {
+          @include justify-content(flex-end);
+        }
+      }
+    }
+
+    .image {
+      margin: auto;
+      width: 80%;
+      height: 80vh;
+      text-align: center;
+
+      @include flex;
+      @include justify-content(center);
+      @include align-items(center);
+
+      @include main-transition;
+
+      .img-fit {
+        width: auto;
+        max-width: 80%;
+        height: auto;
+        max-height: 80vh;
+
+      }
+    }
+  }
+
+  .section-title {
+    @include flex-basis(20%);
+  }
+
+  .projects-container {
+    @include flex-basis(80%);
+    @include flex;
+
+    $margin: 12px;
+    $width: calc(33% - 50px);
+
+    .project-card {
+      position: relative;
+      margin-right: 25px;
+      height: 180px;
+      overflow: hidden;
+
+      @include flex-basis($width);
+      @include flex-grow(1);
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+
+      .img-container {
+        order: 0;
+        height: 100%;
+
+        .img-fit {
+          height: 100%;
+        }
+      }
+
+      .hover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 25px;
+        background-color: rgba(255, 255, 255, .5);
+
+        @include flex;
+        @include main-transition;
+        @include translate(-100%, 0);
+
+        .info {
+          @include transform-text;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+
+        .hover {
+          @include translate(0, 0);
+        }
+      }
+    }
+  }
+}

@@ -7,14 +7,14 @@ const LANGUAGES = {
 const MENU = {
 	bg: {
 		projects: 'Проекти',
-		contact: 'Контакти',
+		contact: 'Контакт',
 		clients: 'Клиенти',
 		categories: 'Категории',
 		logout: 'Изход'
 	},
 	en: {
 		projects: 'Projects',
-		contact: 'Contacts',
+		contact: 'Contact',
 		clients: 'Clients',
 		categories: 'Categories',
 		logout: 'Logout'
@@ -179,6 +179,84 @@ const ADMIN_PAGES_TEXT = {
 };
 
 const USER_PAGES_TEXT = {
+
+	home: {
+		bg: {
+			projects: 'Проекти'
+		},
+		en: {
+			projects: 'Projects'
+		}
+	},
+
+	carousel: {
+		bg: {
+			slide1: {
+				headline: 'Има само истории',
+				text: 'Несподелени. Неразказани. Неизживяни. Погубващи, но и... истории, които обикваш, защото нямаш време за неща, които нямат душа. Истории, които събуждат в теб онова малко момче, което има силата да промени света.',
+				image: '/images/carouselNew/birds_BW.jpg'
+			},
+			slide2: {
+				headline: '',
+				text: '',
+				image: '/images/carouselNew/birds_BW.jpg'
+			},
+			slide3: {
+				headline: '',
+				text: '',
+				image: '/images/carouselNew/birds_BW.jpg'
+			}
+		},
+		en: {
+			slide1: {
+				headline: 'There are only stories',
+				text: 'Несподелени. Неразказани. Неизживяни. Погубващи, но и... истории, които обикваш, защото нямаш време за неща, които нямат душа. Истории, които събуждат в теб онова малко момче, което има силата да промени света.',
+				image: '/images/carouselNew/birds_BW.jpg'
+			},
+			slide2: {
+				headline: '',
+				text: '',
+				image: '/images/carouselNew/birds_BW.jpg'
+			},
+			slide3: {
+				headline: '',
+				text: '',
+				image: '/images/carouselNew/birds_BW.jpg'
+			}
+		}
+	},
+
+	company: {
+		bg: {
+			radio: {
+				name: 'Радио',
+				text: 'Елементарен примерен текст, използван в печатарската и типографската индустрия. Lorem Ipsum е индустриален стандарт от около 1500 година, когато неизвестен печатар взема няколко печатарски букви и ги разбърква'
+			},
+			creative: {
+				name: 'Криейтив',
+				text: 'Елементарен примерен текст, използван в печатарската и типографската индустрия. Lorem Ipsum е индустриален стандарт от около 1500 година, когато неизвестен печатар взема няколко печатарски букви и ги разбърква'
+			},
+			events: {
+				name: 'Събития',
+				text: 'Елементарен примерен текст, използван в печатарската и типографската индустрия. Lorem Ipsum е индустриален стандарт от около 1500 година, когато неизвестен печатар взема няколко печатарски букви и ги разбърква'
+			}
+		},
+		en: {
+			radio: {
+				name: 'Radio',
+				text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
+			},
+			creative: {
+				name: 'Creative',
+				text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
+			},
+			events: {
+				name: 'Events',
+				text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
+			}
+		}
+	},
+
 	project: {
 		bg: {
 			otherProjects: 'Други проекти',

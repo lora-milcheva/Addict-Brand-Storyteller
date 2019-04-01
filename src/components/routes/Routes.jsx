@@ -25,8 +25,19 @@ import clientsList from '../admin/clients/clientsList';
 import NotFound from '../errors/NotFound';
 
 const RouteContainer = posed.div({
-	enter: {opacity: 1, delay: 1000, beforeChildren: true},
-	exit: {opacity: 0}
+	enter: {
+		opacity: 1,
+		delay: 0,
+		beforeChildren: true,
+		transition: {
+			opacity: { ease: 'easeOut', duration: 1000 },
+		},
+	},
+	exit: {
+		opacity: 0,
+		transition: {
+		opacity: { ease: 'easeOut', duration: 1000 },
+	},},
 });
 
 let Routes = () => {
@@ -34,8 +45,6 @@ let Routes = () => {
 	return (
 
 		<Route render={({location}) => (
-
-
 
 			<PoseGroup>
 				<RouteContainer key={location.key || '200'}>
@@ -46,7 +55,7 @@ let Routes = () => {
 
 						<Route exact path='/:lng(en)?/projects' component={ProjectsList} key="projects"/>
 
-						<Route exact path='/:lng(en)?/projects/:category' component={ProjectsList} key="category"/>
+						<Route exact path='/:lng(en)?/projects/:category' component={ProjectsList} key="projects/category"/>
 
 						<Route exact path='/:lng(en)?/projects/:category/:id' component={Project} key="project"/>
 

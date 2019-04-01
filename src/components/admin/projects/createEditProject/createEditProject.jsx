@@ -20,7 +20,13 @@ import ConfirmDialog from '../../../common/ConfirmDialog';
 import Utils from '../../../../utils/utils';
 
 // Constants
-import { CREATE_PROJECT_INPUTS, BUTTONS, CONFIRM_DIALOG_MESSAGES, NOTIFICATIONS, ADMIN_PAGES_TEXT} from '../../../../constants/constants';
+import {
+	CREATE_PROJECT_INPUTS,
+	BUTTONS,
+	CONFIRM_DIALOG_MESSAGES,
+	NOTIFICATIONS,
+	ADMIN_PAGES_TEXT
+} from '../../../../constants/constants';
 
 class createProject extends React.Component {
 	constructor (props) {
@@ -114,7 +120,7 @@ class createProject extends React.Component {
 
 		e.preventDefault();
 
-		this.setState({[e.target.name]: !this.state[e.target.name]})
+		this.setState({[e.target.name]: !this.state[e.target.name]});
 	};
 
 	handleMultiLangChange = (e) => {
@@ -141,8 +147,8 @@ class createProject extends React.Component {
 		}
 	};
 
-	handleNewOrder = (stateProp, reorderedElements ) => {
-		this.setState({[stateProp] : reorderedElements})
+	handleNewOrder = (stateProp, reorderedElements) => {
+		this.setState({[stateProp]: reorderedElements});
 	};
 
 	saveProject = (e) => {
@@ -202,7 +208,6 @@ class createProject extends React.Component {
 		this.props.history.go(-1);
 	};
 
-
 	render () {
 
 		let title = this.projectId ? ADMIN_PAGES_TEXT.project.bg.editProject : ADMIN_PAGES_TEXT.project.bg.createProject;
@@ -244,7 +249,7 @@ class createProject extends React.Component {
 		let isStar = <button className={this.state.isStar ? 'btn category-label attention' : 'btn category-label'}
 		                     name="isStar"
 		                     value={this.state.isStar}
-		                     onClick={this.handleCheckBoxChange}>{CREATE_PROJECT_INPUTS.bg.isStar}</button>
+		                     onClick={this.handleCheckBoxChange}>{CREATE_PROJECT_INPUTS.bg.isStar}</button>;
 
 		return (
 			<div id="project-create" className="container">
@@ -318,7 +323,7 @@ class createProject extends React.Component {
 						<FormSelectField name='clientId'
 						                 label={CREATE_PROJECT_INPUTS.bg.client}
 						                 className='client-field'
-						                 required={false}
+						                 required={true}
 						                 disabled={false}
 						                 selected={this.state.clientId}
 						                 options={this.state.allClients}
@@ -367,11 +372,13 @@ class createProject extends React.Component {
 
 							<AddOnInput
 								name="thumbnail"
-								// label={CREATE_PROJECT_INPUTS.bg.thumbnail}
+								label={CREATE_PROJECT_INPUTS.bg.thumbnail}
 								labelClassName="no-label"
 								buttonText='+'
-								placeholder='Thumbnail'
-								onChange={this.handleInputChange}/>
+								value={this.state.thumbnail}
+								placeholder={this.state.thumbnail}
+								onChange={this.handleInputChange}
+								clearText={false}/>
 						</div>
 
 
@@ -388,7 +395,8 @@ class createProject extends React.Component {
 								labelClassName='no-label'
 								buttonText='+'
 								placeholder='Добави снимка'
-								onChange={this.handleArrChange}/>
+								onChange={this.handleArrChange}
+								clearText={true}/>
 						</div>
 
 						<div className='project-data'>

@@ -6,8 +6,15 @@ import PropTypes from 'prop-types';
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 const Card = posed.article({
-	enter: {y: 0, opacity: 1},
-	exit: {y: 50, opacity: 0}
+	enter: {
+		y: 0,
+		opacity: 1,
+		transition: {
+			opacity: { ease: 'easeOut', duration: 100 },
+			default: { ease: 'linear', duration: 100 }
+		},
+	},
+	exit: {y: 250, opacity: 0}
 });
 
 class ProjectCard extends React.Component {

@@ -19,8 +19,9 @@ import Notifications from '../../common/Notifications';
 // Constants
 import { USER_PAGES_TEXT } from '../../../constants/constants';
 
+
 const ImagesContainer = posed.div({
-	enter: {staggerChildren: 100},
+	enter: { staggerChildren: 50 },
 	exit: {staggerChildren: 20, staggerDirection: -1}
 });
 
@@ -29,7 +30,6 @@ const Card = posed.figure({
 		y: 0,
 		opacity: 1,
 		transition: {
-			// type: 'spring', stiffness: 200, damping: 5,
 			opacity: { ease: 'easeOut', duration: 100 },
 			default: { ease: 'linear', duration: 100 }
 		},
@@ -147,7 +147,12 @@ class Project extends React.Component {
 
 				const projects = res.filter(e => e._id !== this.projectId);
 
-				const numberOfProjectsToLoad = 3;
+				let numberOfProjectsToLoad = projects.length;
+
+				if (numberOfProjectsToLoad > 3 ) {
+					numberOfProjectsToLoad = 3;
+				}
+
 
 				// Get random ids
 				let projectIds = [];
@@ -175,7 +180,7 @@ class Project extends React.Component {
 	};
 
 	showPreview = (e) => {
-		this.setState({selectedImage: e.target.src});
+		this.setState({selectedImage: e.target.name});
 	};
 
 	hidePreview = () => {
@@ -202,7 +207,7 @@ class Project extends React.Component {
 			gallery = project.images.map(e => {
 				return (
 					<Card className="image" key={e}>
-						<img src={e} className="img-fit" alt={e} onClick={this.showPreview}/>
+						<img src={e} className="img-fit" alt={e} name={e} onClick={this.showPreview}/>
 					</Card>
 				);
 			});
@@ -244,10 +249,12 @@ class Project extends React.Component {
 				</div>
 				}
 
+				{isProjectLoaded &&
 
 				<ImagesContainer className="project-gallery">
 					{gallery}
 				</ImagesContainer>
+				}
 
 
 				<h2 className="section-title">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>
