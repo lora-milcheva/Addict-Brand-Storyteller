@@ -19,9 +19,8 @@ import Notifications from '../../common/Notifications';
 // Constants
 import { USER_PAGES_TEXT } from '../../../constants/constants';
 
-
 const ImagesContainer = posed.div({
-	enter: { staggerChildren: 50 },
+	enter: {staggerChildren: 50},
 	exit: {staggerChildren: 20, staggerDirection: -1}
 });
 
@@ -30,8 +29,8 @@ const Card = posed.figure({
 		y: 0,
 		opacity: 1,
 		transition: {
-			opacity: { ease: 'easeOut', duration: 100 },
-			default: { ease: 'linear', duration: 100 }
+			opacity: {ease: 'easeOut', duration: 100},
+			default: {ease: 'linear', duration: 100}
 		},
 	},
 	exit: {y: 250, opacity: 0}
@@ -149,10 +148,9 @@ class Project extends React.Component {
 
 				let numberOfProjectsToLoad = projects.length;
 
-				if (numberOfProjectsToLoad > 3 ) {
+				if (numberOfProjectsToLoad > 3) {
 					numberOfProjectsToLoad = 3;
 				}
-
 
 				// Get random ids
 				let projectIds = [];
@@ -189,9 +187,9 @@ class Project extends React.Component {
 
 	render () {
 
-		// if (this.state.loading) {
-		// 	return (<div className="lds-dual-ring"/> );
-		// }
+		if (this.state.loading) {
+			return (<div className="lds-dual-ring"/> );
+		}
 
 		let activeLanguage = this.context.language;
 
@@ -199,7 +197,7 @@ class Project extends React.Component {
 
 		let isProjectLoaded = project !== '';
 
-		let client = this.state.clientName[activeLanguage];
+		let client = this.state.clientName.name[activeLanguage];
 
 		let gallery, randomProjects;
 
@@ -221,46 +219,127 @@ class Project extends React.Component {
 
 		return (
 			<div id="project" className="container-fluid">
-				{/*<List/>*/}
-
-				<Notifications onRef={ref => (this.notifications = ref)} language={activeLanguage}/>
 
 				<GalleryPreview image={this.state.selectedImage} allImages={project.images} onClose={this.hidePreview}/>
 
-				{isProjectLoaded &&
-				<div className="project-info">
-					<p>{project.name[activeLanguage]}</p>
-					<p>{client}</p>
-					<p>{project.description[activeLanguage]}</p>
-					<p>{project.year}</p>
 
-					<div className="buttons-container">
-						<Link to={this.state.prevProjectId !== undefined ? this.state.prevProjectId : '/projects'}
-						      className={this.state.prevProjectId !== undefined ? 'btn btn-light' : 'btn btn-light disabled'}>
-							<i className="fa fa-arrow-left" aria-hidden="true"/>
-						</Link>
+				<div id="project-info">
+					<section id="project-summary">
+						<p>{project.name[activeLanguage]}</p>
+						<p>{client}</p>
+						{/*<p>{project.description[activeLanguage]}</p>*/}
+						<p>{project.year}</p>
+					</section>
 
-						<Link to={this.state.nextProjectId !== undefined ? this.state.nextProjectId : '/projects'}
-						      className={this.state.nextProjectId !== undefined ? 'btn btn-light' : 'btn btn-light disabled'}>
-							<i className="fa fa-arrow-right" aria-hidden="true"/>
-						</Link>
 
-					</div>
+					<section id="project-description">
+						<article className="section">
+							<h4 className="section-title">Идеята.</h4>
+							<div className="section-text">
+								<p> - Това не е просто календар. „Просто календар“ хората или вече
+									не правят, защото го намират за „отживелица“, или влагат минимум средства и усилия,
+									правейки го стандартен. А стандартни календари бол. Искам повече. Искам идеология.
+									Искам тема, която да
+									докосва. Нищо, че сме компания, която се занимава със строителни материали. Не
+									значи, че не
+									можем да се разпознаем в тема, която те грабва и прави с теб каквото си поиска.,
+									леко
+									въздъхна един от главните мениджъри на Сдружение Топливо след като вече беше
+									поставил
+									задачата си.
+								</p>>
+								<p>
+									- „Тема, която те грабва и прави с теб каквото си поиска.“, думите му оттекваха
+									в главата ми като камбанен звън.
+									- Мислил ли сте за посока? Посока, в която да тръгнем?
+								</p>
+								<p>
+
+									Едно от най-важните неща за партньора, с когото работим и за нашия екип бе
+									посоката, в която гледаме и вървим. Тя винаги трябва да е една и съща.
+								</p>
+							</div>
+						</article>
+
+						<article className="section">
+							<h4 className="section-title">Посоката.</h4>
+							<div className="section-text">
+								<p>- Напоследък си мисля върху нещата, които остават след нас.
+									Животът е сеитба, казват. А жътвата не е тук. Не че съм толкова стар и съм се
+									замислил
+									за завещание, но защо не направим календар с визии, които да завещават ценности.
+									Нека
+									бъде идеология и за компанията ни, и за хората, които ще го получат.
+								</p>
+							</div>
+						</article>
+
+						<article className="section">
+							<h4 className="section-title">Нашата история.</h4>
+							<div className="section-text">
+								<p>Много труд и ентусиазъм. </p>
+								<p>Броени дни преди проектът, решен в Калeндар и Тефтер, да влезе в печатница, в
+									откровен разговор:</p>
+								<p> - Много е силен. Браво. Само за заглавието не съм сигурен. Колебая се.
+									„Завещанието“?!
+									- Какво ви притеснява?, попитах бързо аз като се сещате какво ми мина през главата и
+									как за секунди се очести ритъма на сърцето ми. Визии, текстове, всичко е не
+									еднократно мислено, работено и прочитано... да сменим заглавието ...на прага на
+									края...
+									- Ами... много е силно. Завещанието. Самата дума е силна.
+									- Нали затова го кръстихме така?!, репликирах на момента аз. Какъв е смисълът да
+									направим силен проект със слабо заглавие. И то само, защото ни е страх как ще го
+									приемат хората. Нима забравихте как звучи „Завещанието“. Позволете ми да ви зачета:
+									„Казват, че всички ние имаме два живота. Вторият започва когато осъзнаем, че
+									всъщност имаме само един. Всеки ден е подарък. Всяка сутрин - благословия. Всяка
+									вечер - вдъхновение. Много дребни неща надживях, много падах, много ставах...“
+									Внезапно решителен мъжки глас ме прекъсна с думите: „Пускай го за печат.“
+								</p>
+							</div>
+						</article>
+
+						<article className="section">
+							<h4 className="section-title">Детайлите. Малките детайли.</h4>
+							<div className="section-text">
+								<p>Soft touch на корицата на тефтера. Още при първия допир усещаш, че държиш нещо скъпо.
+									И в прекия, и в преносния смисъл. Цветовата комбинация на крафт и черно носи дух и
+									стил на нещо много, много истинско. Различният шрифт и големина на завещаните думи:
+									<b>Самоувереност. Вяра. Ентусиазъм. Трезвеност. Страст. Свобода. Богатство. Любов.
+										Уют. Сила. Самота. Магия. </b> те сграбчват за гърлото и без да се усетиш
+									зачиташ написаното. После просто искаш да го имаш. Искаш да имаш Завещанието. За
+									подсилен ефект на твоето желание страниците са ръчно боядисани, в черно по края.
+
+								</p>
+								<p>Ние от Addict обичаме детайлите. И най-малките детайли.</p>
+
+							</div>
+						</article>
+
+						{/*<div className="buttons-container">*/}
+						{/*<Link to={this.state.prevProjectId !== undefined ? this.state.prevProjectId : '/projects'}*/}
+						{/*className={this.state.prevProjectId !== undefined ? 'btn btn-light' : 'btn btn-light disabled'}>*/}
+						{/*<i className="fa fa-arrow-left" aria-hidden="true"/>*/}
+						{/*</Link>*/}
+
+						{/*<Link to={this.state.nextProjectId !== undefined ? this.state.nextProjectId : '/projects'}*/}
+						{/*className={this.state.nextProjectId !== undefined ? 'btn btn-light' : 'btn btn-light disabled'}>*/}
+						{/*<i className="fa fa-arrow-right" aria-hidden="true"/>*/}
+						{/*</Link>*/}
+
+						{/*</div>*/}
+					</section>
 				</div>
-				}
 
-				{isProjectLoaded &&
 
 				<ImagesContainer className="project-gallery">
 					{gallery}
 				</ImagesContainer>
-				}
 
 
-				<h2 className="section-title">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>
-				<div className="projects-container">
-					{randomProjects}
-				</div>
+				{/*<h2 className="section-title">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>*/}
+				{/*<div className="projects-container">*/}
+				{/*{randomProjects}*/}
+				{/*</div>*/}
 			</div>
 		);
 	}

@@ -197,14 +197,14 @@ const USER_PAGES_TEXT = {
 				image: '/images/carouselNew/birds_BW.jpg'
 			},
 			slide2: {
-				headline: '',
-				text: '',
-				image: '/images/carouselNew/birds_BW.jpg'
+				headline: 'Има значение кой разказва твоята история',
+				text: 'Несподелени. Неразказани. Неизживяни. Погубващи, но и... истории, които обикваш, защото нямаш време за неща, които нямат душа. Истории, които събуждат в теб онова малко момче, което има силата да промени света.',
+				image: '/images/carouselNew/violin.jpg'
 			},
 			slide3: {
-				headline: '',
-				text: '',
-				image: '/images/carouselNew/birds_BW.jpg'
+				headline: 'Ако не го почувстваш няма да го запомниш',
+				text: 'Несподелени. Неразказани. Неизживяни. Погубващи, но и... истории, които обикваш, защото нямаш време за неща, които нямат душа. Истории, които събуждат в теб онова малко момче, което има силата да промени света.',
+				image: '/images/carouselNew/typing.jpg'
 			}
 		},
 		en: {
@@ -214,14 +214,14 @@ const USER_PAGES_TEXT = {
 				image: '/images/carouselNew/birds_BW.jpg'
 			},
 			slide2: {
-				headline: '',
-				text: '',
-				image: '/images/carouselNew/birds_BW.jpg'
+				headline: 'Some test text',
+				text: 'Несподелени. Неразказани. Неизживяни. Погубващи, но и... истории, които обикваш, защото нямаш време за неща, които нямат душа. Истории, които събуждат в теб онова малко момче, което има силата да промени света.',
+				image: '/images/carouselNew/violin.jpg'
 			},
 			slide3: {
-				headline: '',
-				text: '',
-				image: '/images/carouselNew/birds_BW.jpg'
+				headline: 'Another headline',
+				text: 'Несподелени. Неразказани. Неизживяни. Погубващи, но и... истории, които обикваш, защото нямаш време за неща, които нямат душа. Истории, които събуждат в теб онова малко момче, което има силата да промени света.',
+				image: '/images/carouselNew/typing.jpg'
 			}
 		}
 	},

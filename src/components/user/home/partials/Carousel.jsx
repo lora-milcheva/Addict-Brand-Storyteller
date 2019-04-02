@@ -1,6 +1,6 @@
 import React from 'react';
 
-const IMAGES = ['slider_one_white.jpg','slider-two.jpg', 'slider-three.jpg'];
+const IMAGES = ['slider_one_white.jpg', 'slider-three.jpg', 'slider-two.jpg'];
 
 const SLIDE_TIME = 10000;
 const FADE_OUT_TIME = 1000;
@@ -50,7 +50,6 @@ class Carousel extends React.Component {
 			}
 		}
 
-
 		this.fadeOut(imageHTML);
 
 		setTimeout(() => {
@@ -95,7 +94,6 @@ class Carousel extends React.Component {
 				             this.showImage(i);
 			             } }/>;
 		});
-
 
 		return (
 

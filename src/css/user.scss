@@ -246,23 +246,50 @@
 }
 
 #project {
+  padding-top: 100px;
   @include flex;
   @include flex-wrap(wrap);
   position: relative;
 
-  .project-info {
-    @include flex-basis(20%);
-    @include transform-text;
-    padding-left: 25px;
+
+  // info
+  #project-info {
+    @include flex-basis(35%);
+    padding: 0 25px;
 
     .btn:hover {
       background-color: $blackish-grey;
       color: $medium-to-dark-grey;
     }
+
+
+    // summary
+    #project-summary {
+      @include transform-text;
+    }
+
+    // description
+    #project-description {
+      .section {
+        .section-title {
+          color: $primary;
+          font-size: 2em;
+        }
+
+        .section-text {
+
+        }
+      }
+    }
   }
 
+
+
+
+
+  // project images or videos
   .project-gallery {
-    @include flex-basis(80%);
+    @include flex-basis(65%);
     @include flex;
     @include flex-wrap(wrap);
     margin-bottom: 100px;
@@ -279,6 +306,8 @@
     }
   }
 
+
+  // preview on click
   .image-preview {
     position: fixed;
     top: 0;
@@ -298,7 +327,7 @@
     &.visible {
       opacity: 1;
       visibility: visible;
-      z-index: 1;
+      z-index: 2000;
     }
 
     .close-btn {
@@ -395,6 +424,7 @@
     @include flex-basis(20%);
   }
 
+  // other projects
   .projects-container {
     @include flex-basis(80%);
     @include flex;

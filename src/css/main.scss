@@ -21,9 +21,10 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6, p {
-  margin: .7em 0 .2em 0;
-  line-height: 1.7em;
+  margin: 1em 0 .2em 0;
 }
+
+
 
 h1, h2 {
   text-transform: uppercase;
@@ -31,6 +32,10 @@ h1, h2 {
 
 h2 {
   font-size: 1.9em;
+}
+
+p {
+  line-height: 1.7em;
 }
 
 .container-fluid {

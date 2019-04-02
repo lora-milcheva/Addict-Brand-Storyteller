@@ -95,9 +95,9 @@ class Home extends React.Component {
 		return (
 			<div id="home">
 
-				{/*<Carousel/>*/}
+				<Carousel/>
 
-				<CarouselNew language={activeLanguage}/>
+				{/*<CarouselNew language={activeLanguage}/>*/}
 
 				<Company language={activeLanguage}/>
 
