@@ -3,7 +3,6 @@ import React from 'react';
 
 // CSS
 import './css/main.css';
-// import './css/main-2.css';
 import './css/animations.css';
 import './css/user.css';
 // import './css/user-2.css';

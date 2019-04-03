@@ -113,7 +113,7 @@ class CarouselNew extends React.Component {
 				</figure>
 
 				<div className="slide-content">
-					<h1 className="slide-headline">{USER_PAGES_TEXT.carousel[lang][slide].sectionTitle}</h1>
+					<h1 className="slide-headline">{USER_PAGES_TEXT.carousel[lang][slide].sectionId}</h1>
 					<p className="slide-text">{USER_PAGES_TEXT.carousel[lang][slide].text}</p>
 				</div>
 

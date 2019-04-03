@@ -124,6 +124,14 @@ button {
   display: -ms-flexbox;
   display: flex;
   padding: 10px 0; }
+  .form-group.row {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -moz-box-direction: normal;
+    -moz-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column; }
   .form-group label {
     -webkit-flex-basis: 30%;
     flex-basis: 30%;
@@ -181,6 +189,9 @@ button {
   .form-group option {
     color: #5d5d5d;
     font-family: Montserrat, sans-serif; }
+  .form-group .section {
+    padding: 25px;
+    border: 1px solid #eaeaea; }
 
 .img-fit {
   object-fit: cover;

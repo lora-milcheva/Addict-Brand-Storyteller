@@ -15,14 +15,18 @@ class FormSelectField extends React.Component {
 
 		return (
 			<div className={'form-group ' + className}>
+
 				<label>{label}{required && <label className="text-danger">&nbsp;*</label>}</label>
+
 				<select className="form-control"
 				        name={name}
 				        disabled={disabled}
 				        required={required}
 				        onChange={onChange}
 				        defaultValue={selected}>
+
 					<option value=''/>
+
 					{optionElements}
 
 				</select>

@@ -2,30 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactQuill from 'react-quill';
 
-import { BUTTONS, CREATE_PROJECT_INPUTS} from '../../../../../constants/constants';
+// Partials
+import FormSelectField from '../../../../common/formComponents/FormSelectField';
 
+// Services
+import sectionsService from '../../../../../services/projects/sectionsService';
 
+// Constants
+import { BUTTONS, CREATE_PROJECT_INPUTS } from '../../../../../constants/constants';
 
 class TextSectionFrom extends React.Component {
 	constructor (props) {
 		super(props);
 
 		this.state = {
-			sectionTitle: '',
+			sectionId: '',
 			textBG: '',
-			textEN: ''
+			textEN: '',
+
+			sections: []
 		};
 	}
 
 	componentDidMount () {
 
-		let {sectionTitle, textBG, textEN} = this.props;
+		let {sectionId, textBG, textEN, sections} = this.props;
 
 		this.setState({
-			sectionTitle: sectionTitle,
+			sectionId: sectionId,
 			textBG: textBG,
-			textEN: textEN
-		})
+			textEN: textEN,
+			sections: sections
+		});
 	}
 
 	handleChange = (e) => {
@@ -40,15 +48,13 @@ class TextSectionFrom extends React.Component {
 		this.setState({textEN: value});
 	};
 
-
 	submitInfo = (e) => {
 		e.preventDefault();
 
 		let s = this.state;
 
 		let data = {
-			sectionTitle: s.sectionTitle,
-			text: {
+			[s.sectionId]: {
 				bg: s.textBG,
 				en: s.textEN
 			}
@@ -59,25 +65,28 @@ class TextSectionFrom extends React.Component {
 
 	render () {
 
-		return (
-			<div className="add-form-group">
-				<label>{CREATE_PROJECT_INPUTS.bg.textSectionName}</label>
+		if (this.state.loading) return (<div className="loader"/>);
 
-				<input className="form-control"
-				       type="text"
-				       onChange={this.handleChange}
-				       name="sectionTitle"
-				       value={this.state.sectionTitle}>
-				</input>
+		return (
+			<div className="section">
+
+				<FormSelectField name='sectionId'
+				                 label={CREATE_PROJECT_INPUTS.bg.textSectionName}
+				                 className='client-field'
+				                 required={true}
+				                 disabled={false}
+					// selected={this.state.sections}
+					             options={this.state.sections}
+					             onChange={this.handleChange}/>
 
 				<ReactQuill value={this.state.textBG}
 				            onChange={this.handleTextChangeBG}/>
-				
+
 				<ReactQuill value={this.state.textEN}
 				            onChange={this.handleTextChangeEN}/>
 
 
-				<button className="btn md btn-primary add-on-btn"
+				<button className="btn md btn-primary"
 				        onClick={this.submitInfo}>{BUTTONS.bg.add}
 				</button>
 			</div>
@@ -88,7 +97,8 @@ class TextSectionFrom extends React.Component {
 export default TextSectionFrom;
 
 TextSectionFrom.propTypes = {
-	sectionTitle: PropTypes.string,
+	sectionId: PropTypes.string,
 	textBG: PropTypes.string,
 	textEN: PropTypes.string,
+	sections: PropTypes.array
 };

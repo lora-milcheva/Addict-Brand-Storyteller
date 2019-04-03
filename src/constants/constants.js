@@ -89,10 +89,12 @@ const BUTTONS = {
 		view: 'Разгледай',
 		confirm: 'OK',
 		close: 'Затвори',
+		addSection: 'Добави секция',
 
 		newProject: 'Нов проект',
 		newClient: 'Нов клиент',
-		newCategory: 'Нова категория'
+		newCategory: 'Нова категория',
+		newSection: 'Нова секция',
 	},
 	en: {
 		create: 'Create',
@@ -103,10 +105,12 @@ const BUTTONS = {
 		view: 'View More',
 		confirm: 'OK',
 		close: 'Close',
+		addSection: 'Add Section',
 
 		newProject: 'New Project',
 		newClient: 'New Client',
-		newCategory: 'New Category'
+		newCategory: 'New Category',
+		newSection: 'New Section',
 	}
 };
 

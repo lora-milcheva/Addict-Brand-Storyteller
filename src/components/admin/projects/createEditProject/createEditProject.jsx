@@ -12,6 +12,7 @@ import TextSectionFrom from './partials/TextSectionForm';
 import projectsService from '../../../../services/projects/projectsService';
 import clientsService from '../../../../services/clients/clientsService';
 import categoriesService from '../../../../services/categories/categoriesService';
+import sectionsService from '../../../../services/projects/sectionsService';
 
 // Notifications
 import Notifications from '../../../common/Notifications';
@@ -36,7 +37,7 @@ class createProject extends React.Component {
 		this.state = {
 			name: {},
 			description: {},
-			info: [],
+			info: {},
 			year: '',
 			webPage: '',
 			isStar: false,
@@ -46,11 +47,14 @@ class createProject extends React.Component {
 			thumbnail: '',
 			videos: [],
 
+			showInfoInputs: false,
+
 			projectLoaded: false,
 			dataLoaded: false,
 
 			allClients: [],
-			allCategories: []
+			allCategories: [],
+			allInfoSections: [],
 		};
 
 		this.imagesContainer = React.createRef();
@@ -76,6 +80,7 @@ class createProject extends React.Component {
 					this.setState({
 						name: res.name,
 						description: res.description,
+						info: res.info || {},
 						year: res.year,
 						webPage: res.webPage,
 						isStar: res.isStar,
@@ -105,9 +110,19 @@ class createProject extends React.Component {
 					.loadAllCategories()
 					.then(res => {
 						this.setState({
-							allCategories: res,
-							dataLoaded: true
+							allCategories: res
 						});
+
+						sectionsService
+							.loadAllSections()
+							.then(res => {
+								this.setState({
+									allInfoSections: res,
+									dataLoaded: true
+								});
+							})
+
+							.catch(err => console.log(err))
 					})
 					.catch(err => console.log(err));
 			})
@@ -125,8 +140,19 @@ class createProject extends React.Component {
 		this.setState({[e.target.name]: !this.state[e.target.name]});
 	};
 
-	addInfo = (info) => {
-		console.log(info)
+	showInfoSectionInputs = (e) => {
+		e.preventDefault();
+
+		this.setState({showInfoInputs: !this.state.showInfoInputs});
+	};
+
+	addInfo = (data) => {
+		this.setState(prevState => (
+			{
+				info: {...prevState.info, ...data},
+				showInfoInputs: false
+			}
+		));
 	};
 
 	handleMultiLangChange = (e) => {
@@ -216,9 +242,13 @@ class createProject extends React.Component {
 
 	render () {
 
-		let title = this.projectId ? ADMIN_PAGES_TEXT.project.bg.editProject : ADMIN_PAGES_TEXT.project.bg.createProject;
+		let title = this.projectId
+			? ADMIN_PAGES_TEXT.project.bg.editProject
+			: ADMIN_PAGES_TEXT.project.bg.createProject;
 
-		let buttonText = this.projectId ? BUTTONS.bg.edit : BUTTONS.bg.create;
+		let buttonText = this.projectId
+			? BUTTONS.bg.edit
+			: BUTTONS.bg.create;
 
 		// Show loader until data is loaded
 		if (!this.state.projectLoaded || !this.state.dataLoaded) {
@@ -257,6 +287,20 @@ class createProject extends React.Component {
 		                     value={this.state.isStar}
 		                     onClick={this.handleCheckBoxChange}>{CREATE_PROJECT_INPUTS.bg.isStar}</button>;
 
+		let info = Object.keys(this.state.info).map(e => {
+
+			let section = this.state.allInfoSections.filter(s => s._id === e)[0];
+			let text = this.state.info[e];
+
+			return (
+				<div key={e}>
+					<h3>{section.name.bg}</h3>
+					<div dangerouslySetInnerHTML={{ __html: text.bg }} />
+					<div dangerouslySetInnerHTML={{ __html: text.en }} />
+				</div>
+			)
+		});
+
 		return (
 			<div id="project-create" className="container">
 
@@ -271,12 +315,14 @@ class createProject extends React.Component {
 					}
 				</div>
 
+				<div className="buttons-container">
+					<a href="/admin/section-create" className="btn btn-default sm">new section</a>
+					<a href="/admin/sections-list" className="btn btn-default sm">all sections</a>
+				</div>
+
 
 				{/*//FORM*/}
 				<form method="post" onSubmit={this.saveProject} id="create-project-form">
-
-					<a href="/admin/section-create" className="btn btn-default sm">new section</a>
-					<a href="/admin/sections-list" className="btn btn-default sm">all sections</a>
 
 					<main id="project-info">
 
@@ -308,7 +354,27 @@ class createProject extends React.Component {
 							{categories}
 						</div>
 
-						<TextSectionFrom sectionTitle={''} textEN={''} textBG={''} submit={this.addInfo}/>
+
+						<div className="form-group row">
+							<label>{'Info'}</label>
+
+							{!this.state.showInfoInputs &&
+							<button className="btn btn-default xs"
+							        onClick={this.showInfoSectionInputs}>{BUTTONS.bg.addSection}</button>
+							}
+
+							{info}
+
+							{this.state.showInfoInputs &&
+							<TextSectionFrom
+								sectionId={''}
+								textEN={''}
+								textBG={''}
+								sections={this.state.allInfoSections}
+								submit={this.addInfo}/>
+							}
+						</div>
+
 
 						{/*//DESCRIPTION BG*/}
 						<Textarea name='description'

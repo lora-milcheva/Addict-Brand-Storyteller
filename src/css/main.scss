@@ -185,12 +185,13 @@ button {
 
 .form-group {
   $input-height: 40px;
-
   @include flex-basis(100%);
-
   @include flex;
-
   padding: 10px 0;
+
+  &.row {
+    @include flex-direction(column);
+  }
 
   label {
     @include flex-basis(30%);
@@ -259,6 +260,11 @@ button {
   option {
     color: $dark-grey;
     font-family: Montserrat, sans-serif;
+  }
+
+  .section {
+    padding: 25px;
+    border: 1px solid $medium-grey;
   }
 }
 
