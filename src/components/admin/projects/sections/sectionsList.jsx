@@ -2,21 +2,21 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // Services
-import clientsService from '../../../services/clients/clientsService';
+import sectionsService from '../../../../services/projects/sectionsService';
 
 // Notifications
-import Notifications from '../../common/Notifications';
+import Notifications from '../../../common/Notifications';
 
 // Constants
-import { ADMIN_PAGES_TEXT } from '../../../constants/constants';
+import { ADMIN_PAGES_TEXT } from '../../../../constants/constants';
 
 
-class categoriesList extends React.Component {
+class sectionsList extends React.Component {
 	constructor (props) {
 		super(props);
 
 		this.state = {
-			clients: [],
+			sections: [],
 
 			loading: true
 		};
@@ -24,11 +24,11 @@ class categoriesList extends React.Component {
 
 	componentDidMount () {
 
-		clientsService
-			.loadAllClients()
+		sectionsService
+			.loadAllSections()
 			.then(res => {
 				this.setState({
-					clients: res,
+					sections: res,
 					loading: false
 				});
 			})
@@ -38,12 +38,12 @@ class categoriesList extends React.Component {
 
 	render () {
 
-		let clients;
+		let sections;
 
-		if (this.state.clients.length > 0) {
-			clients = this.state.clients.map(e => {
+		if (this.state.sections.length > 0) {
+			sections = this.state.sections.map(e => {
 					return (
-						<Link key={e._id} to={'/admin/client-edit/' + e._id}>
+						<Link key={e._id} to={'/admin/section-edit/' + e._id}>
 						<span  className="category-label">
 							{e.name.bg}
 						</span>
@@ -63,11 +63,11 @@ class categoriesList extends React.Component {
 				<Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
 
 				<div className="page-header">
-					<h1 className="page-title">{ADMIN_PAGES_TEXT.client.bg.clients}</h1>
+					<h1 className="page-title">{ADMIN_PAGES_TEXT.section.bg.sections}</h1>
 				</div>
 
 				<div className="clients-container">
-					{clients}
+					{sections}
 				</div>
 
 			</div>
@@ -75,5 +75,5 @@ class categoriesList extends React.Component {
 	}
 }
 
-export default categoriesList;
+export default sectionsList;
 

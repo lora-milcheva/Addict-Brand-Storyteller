@@ -7,6 +7,11 @@ import categoriesService from '../../../services/categories/categoriesService';
 // Notifications
 import Notifications from '../../common/Notifications';
 
+// Constants
+import { ADMIN_PAGES_TEXT } from '../../../constants/constants';
+
+
+
 class categoriesList extends React.Component {
 	constructor (props) {
 		super(props);
@@ -49,7 +54,7 @@ class categoriesList extends React.Component {
 			);
 		}
 
-		if (this.state.projectLoading) {
+		if (this.state.loading) {
 			return (<div className="lds-dual-ring"/> );
 		}
 
@@ -59,7 +64,7 @@ class categoriesList extends React.Component {
 				<Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
 
 				<div className="page-header">
-					<h1 className="page-title">Категории</h1>
+					<h1 className="page-title">{ADMIN_PAGES_TEXT.category.bg.categories}</h1>
 				</div>
 
 				<div className="categories-container">

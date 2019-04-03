@@ -83,7 +83,7 @@ class ProjectList extends React.Component {
 			.loadAllClients()
 			.then(res => {
 
-				this.setState({clients: res});
+				this.setState({sections: res});
 
 				categoriesService
 					.loadAllCategories()
@@ -117,7 +117,7 @@ class ProjectList extends React.Component {
 			.then(res => {
 
 					res.forEach(p => {
-						p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name;
+						p.clientName = this.state.sections.filter(c => c._id === p.clientId)[0].name;
 					});
 
 					this.setState({projects: res, loading: false}, () => this.saveProjectsInSession());

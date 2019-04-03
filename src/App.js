@@ -7,7 +7,7 @@ import './css/main.css';
 import './css/animations.css';
 import './css/user.css';
 // import './css/user-2.css';
-// import './css/admin.css';
+import './css/admin.css';
 // import './css/test.css'
 
 

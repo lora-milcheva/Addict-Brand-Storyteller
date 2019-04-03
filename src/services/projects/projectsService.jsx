@@ -65,6 +65,7 @@ function createProjectInfo (state) {
 	return {
 		name: state.name,
 		description: state.description,
+		info: state.info,
 		year: state.year,
 		webPage: state.webPage,
 		isStar: state.isStar,

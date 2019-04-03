@@ -6,6 +6,7 @@ import FormSelectField from '../../../common/formComponents/FormSelectField';
 import Textarea from '../../../common/formComponents/TextArea';
 import AddOnInput from '../../../common/formComponents/AddOnInput';
 import SortableList from './partials/SortableList';
+import TextSectionFrom from './partials/TextSectionForm';
 
 // Services
 import projectsService from '../../../../services/projects/projectsService';
@@ -35,6 +36,7 @@ class createProject extends React.Component {
 		this.state = {
 			name: {},
 			description: {},
+			info: [],
 			year: '',
 			webPage: '',
 			isStar: false,
@@ -121,6 +123,10 @@ class createProject extends React.Component {
 		e.preventDefault();
 
 		this.setState({[e.target.name]: !this.state[e.target.name]});
+	};
+
+	addInfo = (info) => {
+		console.log(info)
 	};
 
 	handleMultiLangChange = (e) => {
@@ -269,6 +275,9 @@ class createProject extends React.Component {
 				{/*//FORM*/}
 				<form method="post" onSubmit={this.saveProject} id="create-project-form">
 
+					<a href="/admin/section-create" className="btn btn-default sm">new section</a>
+					<a href="/admin/sections-list" className="btn btn-default sm">all sections</a>
+
 					<main id="project-info">
 
 						{/*//NAME BG*/}
@@ -298,6 +307,8 @@ class createProject extends React.Component {
 						<div className="form-group">
 							{categories}
 						</div>
+
+						<TextSectionFrom sectionTitle={''} textEN={''} textBG={''} submit={this.addInfo}/>
 
 						{/*//DESCRIPTION BG*/}
 						<Textarea name='description'

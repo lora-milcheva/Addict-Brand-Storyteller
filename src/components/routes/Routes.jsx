@@ -21,6 +21,9 @@ import categoriesList from '../admin/categories/categoriesList';
 import createEditClient from '../admin/clients/createEditClient';
 import clientsList from '../admin/clients/clientsList';
 
+import createEditSection from '../admin/projects/sections/createEditSection';
+import sectionsList from '../admin/projects/sections/sectionsList';
+
 // ERRORS and CONFIRMATIONS
 import NotFound from '../errors/NotFound';
 
@@ -76,6 +79,10 @@ let Routes = () => {
 								<Route exact path={`${url}/clients-list`} component={clientsList} key='clients'/>
 								<Route path={`${url}/client-create`} component={createEditClient} key='createClient'/>
 								<Route path={`${url}/client-edit/:id`} component={createEditClient} key='editClient'/>
+
+								<Route exact path={`${url}/sections-list`} component={sectionsList} key='sections'/>
+								<Route path={`${url}/section-create`} component={createEditSection} key='createSection'/>
+								<Route path={`${url}/section-edit/:id`} component={createEditSection} key='editSection'/>
 								</>
 							)}
 						/>

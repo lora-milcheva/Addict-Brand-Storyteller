@@ -116,6 +116,10 @@ class HeaderC extends React.Component {
 						         className="nav-link"
 						         activeClassName='active'>{MENU[lang].clients}</NavLink>
 
+						<NavLink to='/admin/sections-list'
+						         className="nav-link"
+						         activeClassName='active'>{MENU[lang].sections}</NavLink>
+
 						<NavLink exact to='/'
 						         className="nav-link"
 						         activeClassName='active'

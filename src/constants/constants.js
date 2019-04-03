@@ -10,6 +10,7 @@ const MENU = {
 		contact: 'Контакт',
 		clients: 'Клиенти',
 		categories: 'Категории',
+		sections: 'Секциии',
 		logout: 'Изход'
 	},
 	en: {
@@ -17,6 +18,7 @@ const MENU = {
 		contact: 'Contact',
 		clients: 'Clients',
 		categories: 'Categories',
+		sections: 'Sections',
 		logout: 'Logout'
 	}
 };
@@ -27,6 +29,7 @@ const CREATE_PROJECT_INPUTS = {
 		description: 'Описание',
 		client: 'Клиент',
 		year: 'Година',
+		textSectionName: 'Име на секцията',
 		webPage: 'Уеб страница',
 		isStar: 'Топ проект',
 		category: 'Категория',
@@ -39,6 +42,7 @@ const CREATE_PROJECT_INPUTS = {
 		description: 'Description',
 		client: 'Client',
 		year: 'Year',
+		textSectionName: 'Text Section Name',
 		webPage: 'Web Page',
 		isStar: 'Top Project',
 		category: 'Category',
@@ -66,10 +70,20 @@ const CLIENT_INPUTS = {
 	}
 };
 
+const SECTION_INPUTS = {
+	bg: {
+		name: 'Име на секцията',
+	},
+	en: {
+		name: 'Section name',
+	}
+};
+
 const BUTTONS = {
 	bg: {
 		create: 'Създай',
 		edit: 'Редакция',
+		add: 'Добави',
 		delete: 'Изтриване',
 		cancel: 'Отказ',
 		view: 'Разгледай',
@@ -83,6 +97,7 @@ const BUTTONS = {
 	en: {
 		create: 'Create',
 		edit: 'Edit',
+		add: 'Add',
 		delete: 'Delete',
 		cancel: 'Cancel',
 		view: 'View More',
@@ -115,6 +130,9 @@ const NOTIFICATIONS = {
 		clientCreated: 'Клиентът е създаден.',
 		clientDeleted: 'Клиентът беше изтрит.',
 
+		sectionCreated: 'Секцията е създадена',
+		sectionDeleted: 'Секцията беше изтрита',
+
 		successEdit: 'Успешна редакция.',
 
 	},
@@ -127,6 +145,9 @@ const NOTIFICATIONS = {
 
 		clientCreated: 'Client created.',
 		clientDeleted: 'Client deleted.',
+
+		sectionCreated: 'Section created',
+		sectionDeleted: 'Section deleted',
 
 		successEdit: 'Successful edit.',
 	}
@@ -153,11 +174,13 @@ const ADMIN_PAGES_TEXT = {
 	},
 	client: {
 		bg: {
+			clients: 'Клиенти',
 			editClient: 'Редакция на клиент',
 			createClient: 'Създаване на клиент',
 			allClients: 'Всички клиенти'
 		},
 		en: {
+			clients: 'Clients',
 			editClient: 'Edit Client',
 			createClient: 'Create New Client',
 			allClients: 'All Clients'
@@ -165,14 +188,30 @@ const ADMIN_PAGES_TEXT = {
 	},
 	category: {
 		bg: {
+			categories: 'Категории',
 			editCategory: 'Редакция на категория',
 			createCategory: 'Създаване на категория',
 			allCategories: 'Всички категории'
 		},
 		en: {
+			categories: 'Categories',
 			editCategory: 'Edit Category',
 			createCategory: 'Create New Category',
 			allCategories: 'All Categories'
+		}
+	},
+	section: {
+		bg: {
+			sections: 'Секции',
+			editSection: 'Редакция на инфо секция',
+			createSection: 'Създаване на инфо секция',
+			allSection: 'Всички секции'
+		},
+		en: {
+			sections: 'Sections',
+			editSection: 'Edit Info Section',
+			createSection: 'Create New Info Section',
+			allSection: 'All Sections'
 		}
 	}
 
@@ -275,6 +314,7 @@ export {
 	CREATE_PROJECT_INPUTS,
 	CATEGORY_INPUTS,
 	CLIENT_INPUTS,
+	SECTION_INPUTS,
 	BUTTONS,
 	CONFIRM_DIALOG_MESSAGES,
 	NOTIFICATIONS,
