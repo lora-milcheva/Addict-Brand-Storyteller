@@ -65,9 +65,9 @@ class projectsList extends React.Component {
 				</div>
 
 				<div className="buttons-container">
-					<Link to="/admin/project-create" className="btn btn-primary sm">{BUTTONS.bg.newProject}</Link>
-					<Link to="/admin/client-create" className="btn btn-primary sm">{BUTTONS.bg.newClient}</Link>
-					<Link to="/admin/category-create" className="btn btn-primary sm">{BUTTONS.bg.newCategory}</Link>
+					<Link to="/admin/project-create" className="btn btn-primary sm">{BUTTONS.bg.createProject}</Link>
+					<Link to="/admin/client-create" className="btn btn-primary sm">{BUTTONS.bg.createClient}</Link>
+					<Link to="/admin/category-create" className="btn btn-primary sm">{BUTTONS.bg.createCategory}</Link>
 				</div>
 
 				<div className="projects-container">

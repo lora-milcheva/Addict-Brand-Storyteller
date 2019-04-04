@@ -9,7 +9,7 @@ import FormSelectField from '../../../../common/formComponents/FormSelectField';
 import sectionsService from '../../../../../services/projects/sectionsService';
 
 // Constants
-import { BUTTONS, CREATE_PROJECT_INPUTS } from '../../../../../constants/constants';
+import { BUTTONS, CREATE_PROJECT_INPUTS, NOTIFICATIONS } from '../../../../../constants/constants';
 
 class TextSectionFrom extends React.Component {
 	constructor (props) {
@@ -53,6 +53,13 @@ class TextSectionFrom extends React.Component {
 
 		let s = this.state;
 
+		// Check info
+
+		if (!this.state.sectionId) {
+			this.props.notifications.showMessage(NOTIFICATIONS.bg.selectSectionName);
+			return;
+		}
+
 		let data = {
 			[s.sectionId]: {
 				bg: s.textBG,
@@ -68,7 +75,15 @@ class TextSectionFrom extends React.Component {
 		if (this.state.loading) return (<div className="loader"/>);
 
 		return (
-			<div className="section">
+			<div className="form-control" id="info-section-inputs">
+
+
+				<div className="buttons-container">
+					<a href="/admin/section-create" className="btn btn-default-light xs">
+						{BUTTONS.bg.createSection}
+					</a>
+				</div>
+
 
 				<FormSelectField name='sectionId'
 				                 label={CREATE_PROJECT_INPUTS.bg.textSectionName}
@@ -79,16 +94,28 @@ class TextSectionFrom extends React.Component {
 					             options={this.state.sections}
 					             onChange={this.handleChange}/>
 
-				<ReactQuill value={this.state.textBG}
-				            onChange={this.handleTextChangeBG}/>
+				<div className="form-group">
+					<label>{CREATE_PROJECT_INPUTS.bg.textBG}</label>
+					<ReactQuill value={this.state.textBG}
+					            onChange={this.handleTextChangeBG}/>
+				</div>
 
-				<ReactQuill value={this.state.textEN}
-				            onChange={this.handleTextChangeEN}/>
+
+				<div className="form-group">
+					<label>{CREATE_PROJECT_INPUTS.bg.textEN}</label>
+					<ReactQuill value={this.state.textEN}
+					            onChange={this.handleTextChangeEN}/>
+				</div>
 
 
-				<button className="btn md btn-primary"
-				        onClick={this.submitInfo}>{BUTTONS.bg.add}
-				</button>
+				<div className="buttons-container text-center">
+					<button className="btn md btn-primary"
+					        onClick={this.submitInfo}>{BUTTONS.bg.add}
+					</button>
+					<button className="btn md btn-default-light"
+					        onClick={this.props.cancel}>{BUTTONS.bg.cancel}
+					</button>
+				</div>
 			</div>
 		);
 	}

@@ -27,9 +27,12 @@ const CREATE_PROJECT_INPUTS = {
 	bg: {
 		name: 'Име на проекта',
 		description: 'Описание',
+		info: 'Информация',
 		client: 'Клиент',
 		year: 'Година',
 		textSectionName: 'Име на секцията',
+		textBG: 'Текст БГ',
+		textEN: 'Текст EN',
 		webPage: 'Уеб страница',
 		isStar: 'Топ проект',
 		category: 'Категория',
@@ -40,9 +43,12 @@ const CREATE_PROJECT_INPUTS = {
 	en: {
 		name: 'Project name',
 		description: 'Description',
+		info: 'Info',
 		client: 'Client',
 		year: 'Year',
 		textSectionName: 'Text Section Name',
+		textBG: 'Text BG',
+		textEN: 'Text EN',
 		webPage: 'Web Page',
 		isStar: 'Top Project',
 		category: 'Category',
@@ -91,10 +97,10 @@ const BUTTONS = {
 		close: 'Затвори',
 		addSection: 'Добави секция',
 
-		newProject: 'Нов проект',
-		newClient: 'Нов клиент',
-		newCategory: 'Нова категория',
-		newSection: 'Нова секция',
+		createProject: 'Нов проект',
+		createClient: 'Нов клиент',
+		createCategory: 'Нова категория',
+		createSection: 'Създай секция',
 	},
 	en: {
 		create: 'Create',
@@ -107,10 +113,10 @@ const BUTTONS = {
 		close: 'Close',
 		addSection: 'Add Section',
 
-		newProject: 'New Project',
-		newClient: 'New Client',
-		newCategory: 'New Category',
-		newSection: 'New Section',
+		createProject: 'New Project',
+		createClient: 'New Client',
+		createCategory: 'New Category',
+		createSection: 'Create Section',
 	}
 };
 
@@ -139,6 +145,8 @@ const NOTIFICATIONS = {
 
 		successEdit: 'Успешна редакция.',
 
+		selectSectionName: 'Моля, изберете име на секция.'
+
 	},
 	en: {
 		projectCreated: 'Project created.',
@@ -154,6 +162,8 @@ const NOTIFICATIONS = {
 		sectionDeleted: 'Section deleted',
 
 		successEdit: 'Successful edit.',
+
+		selectSectionName: 'Please, select section name.'
 	}
 };
 

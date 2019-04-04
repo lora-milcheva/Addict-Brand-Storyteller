@@ -15,6 +15,14 @@
     @include flex;
     @include flex-wrap(wrap);
     @include align-items(flex-start);
+
+    .buttons-container {
+      @include justify-content(center);
+    }
+  }
+
+  #info-section-inputs {
+    background-color: $light-grey;
   }
 
   #project-info {

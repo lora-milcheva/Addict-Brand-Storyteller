@@ -114,7 +114,7 @@ class createEditCategory extends React.Component {
 	render () {
 
 
-		let title = this.clientId ? ADMIN_PAGES_TEXT.client.bg.editClient : ADMIN_PAGES_TEXT.client.bg.newClient;
+		let title = this.clientId ? ADMIN_PAGES_TEXT.client.bg.editClient : ADMIN_PAGES_TEXT.client.bg.createClient;
 
 		let buttonText = this.clientId ? BUTTONS.bg.edit : BUTTONS.bg.create;
 

@@ -116,7 +116,7 @@ class createEditCategory extends React.Component {
 	render () {
 
 
-		let title = this.categoryId ? ADMIN_PAGES_TEXT.category.bg.editCategory : ADMIN_PAGES_TEXT.category.bg.newCategory;
+		let title = this.categoryId ? ADMIN_PAGES_TEXT.category.bg.editCategory : ADMIN_PAGES_TEXT.category.bg.createCategory;
 
 		let buttonText = this.categoryId ? BUTTONS.bg.edit : BUTTONS.bg.create;
 
