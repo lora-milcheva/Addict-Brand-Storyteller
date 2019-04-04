@@ -199,8 +199,13 @@ button {
     max-width: 70%;
     min-height: 180px;
 
+    .ql-toolbar {
+      background-color: $white;
+    }
+
     .ql-container {
       height: 60%;
+      background-color: $white;
     }
   }
 
@@ -233,7 +238,7 @@ button {
     border: 1px solid $medium-grey;
 
     @include main-transition;
-    font-size: 1.2em;
+    font-size: 1.1em;
 
     &.add-on {
       border-top-right-radius: 0;
@@ -315,7 +320,7 @@ button {
   @include main-transition;
 
   &.selected {
-    background-color: $primary;
+    background-color: $black;
     color: $white;
   }
 

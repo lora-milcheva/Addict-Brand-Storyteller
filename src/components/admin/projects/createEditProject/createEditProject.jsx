@@ -282,13 +282,14 @@ class createProject extends React.Component {
 			);
 		});
 
-		let isStar = (<button className={this.state.isStar ? 'btn category-label attention' : 'btn category-label'}
-		                      name="isStar"
-		                      value={this.state.isStar}
-		                      onClick={this.handleCheckBoxChange}>
-			<i className="fa fa-star" aria-hidden="true"/>
-			{CREATE_PROJECT_INPUTS.bg.isStar}
-		</button>);
+		let isStar = (
+			<button className={this.state.isStar ? 'btn category-label attention' : 'btn category-label'}
+			        name="isStar"
+			        value={this.state.isStar}
+			        onClick={this.handleCheckBoxChange}>
+				<i className="fa fa-star" aria-hidden="true"/>
+				{CREATE_PROJECT_INPUTS.bg.isStar}
+			</button>);
 
 		let info = Object.keys(this.state.info).map(e => {
 
@@ -296,8 +297,18 @@ class createProject extends React.Component {
 			let text = this.state.info[e];
 
 			return (
-				<div key={e}>
-					<h3>{section.name.bg}</h3>
+				<div key={e} className="info-text">
+
+					<div className="section-header">
+						<h3 className="title">{section.name.bg}&nbsp;&nbsp;| </h3>
+						<button className="btn btn-default xs"
+						        onClick={this.editSectionText}>{BUTTONS.bg.edit}
+						</button>
+						<button className="btn btn-default xs"
+						        onClick={this.editSectionText}>{BUTTONS.bg.delete}
+						</button>
+					</div>
+
 					<div dangerouslySetInnerHTML={{__html: text.bg}}/>
 					<div dangerouslySetInnerHTML={{__html: text.en}}/>
 				</div>
@@ -422,16 +433,17 @@ class createProject extends React.Component {
 							</button>
 							}
 
-							{this.state.showInfoInputs &&
+
 							<TextSectionFrom
 								sectionId={''}
 								textEN={''}
 								textBG={''}
+								visible={this.state.showInfoInputs}
 								sections={this.state.allInfoSections}
 								submit={this.addInfo}
 								cancel={this.toggleInfoSectionInputs}
 								notifications={this.notifications}/>
-							}
+
 
 							{info}
 						</div>
@@ -441,7 +453,6 @@ class createProject extends React.Component {
 
 					{/*//PROJECT IMAGES & VIDEOS*/}
 					<aside id="project-data">
-
 
 						<div className="project-data">
 
@@ -498,7 +509,7 @@ class createProject extends React.Component {
 
 
 					{/*//SUBMIT*/}
-					<div  className="buttons-container text-center form-group">
+					<div className="buttons-container text-center form-group">
 						<button className="btn btn-default-light" onClick={this.cancel}>{BUTTONS.bg.cancel}</button>
 						<button className="btn btn-primary" type="submit">{buttonText}</button>
 					</div>

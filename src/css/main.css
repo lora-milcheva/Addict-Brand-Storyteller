@@ -140,8 +140,11 @@ button {
     flex-grow: 1;
     max-width: 70%;
     min-height: 180px; }
+    .form-group .quill .ql-toolbar {
+      background-color: #fff; }
     .form-group .quill .ql-container {
-      height: 60%; }
+      height: 60%;
+      background-color: #fff; }
   .form-group label {
     -webkit-flex-basis: 30%;
     flex-basis: 30%;
@@ -170,7 +173,7 @@ button {
     -webkit-transition: .4s;
     -moz-transition: .4s;
     transition: .4s;
-    font-size: 1.2em; }
+    font-size: 1.1em; }
     .form-group .form-control.add-on {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
@@ -249,7 +252,7 @@ button {
   -moz-transition: .4s;
   transition: .4s; }
   .category-label.selected {
-    background-color: #f94848;
+    background-color: #000;
     color: #fff; }
   .category-label.attention {
     background-color: #00b2d0;
