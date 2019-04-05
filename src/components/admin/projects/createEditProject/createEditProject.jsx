@@ -47,14 +47,12 @@ class createProject extends React.Component {
 			thumbnail: '',
 			videos: [],
 
-			showInfoInputs: false,
-
 			projectLoaded: false,
 			dataLoaded: false,
 
 			allClients: [],
 			allCategories: [],
-			allInfoSections: [],
+			allInfoSectionIds: [],
 		};
 
 		this.imagesContainer = React.createRef();
@@ -117,7 +115,7 @@ class createProject extends React.Component {
 							.loadAllSections()
 							.then(res => {
 								this.setState({
-									allInfoSections: res,
+									allInfoSectionIds: res,
 									dataLoaded: true
 								});
 							})
@@ -142,8 +140,35 @@ class createProject extends React.Component {
 
 	toggleInfoSectionInputs = (e) => {
 		e.preventDefault();
-
 		this.setState({showInfoInputs: !this.state.showInfoInputs});
+	};
+
+	loadTextSectionForm = (e) => {
+		e.preventDefault();
+
+		let sectionId = e.target.name;
+
+		if (!sectionId) {
+			let data = {
+				sections: this.state.allInfoSectionIds,
+				sectionId: '',
+				textBG: '',
+				textEN: '',
+			};
+
+			this.textSectionForm.loadData(data);
+		} else {
+			let text = this.state.info[sectionId];
+
+			let data = {
+				sections: this.state.allInfoSectionIds,
+				sectionId: sectionId,
+				textBG: text.bg,
+				textEN: text.en,
+			};
+
+			this.textSectionForm.loadData(data);
+		}
 	};
 
 	addInfo = (data) => {
@@ -291,9 +316,10 @@ class createProject extends React.Component {
 				{CREATE_PROJECT_INPUTS.bg.isStar}
 			</button>);
 
+
 		let info = Object.keys(this.state.info).map(e => {
 
-			let section = this.state.allInfoSections.filter(s => s._id === e)[0];
+			let section = this.state.allInfoSectionIds.filter(s => s._id === e)[0];
 			let text = this.state.info[e];
 
 			return (
@@ -302,10 +328,11 @@ class createProject extends React.Component {
 					<div className="section-header">
 						<h3 className="title">{section.name.bg}&nbsp;&nbsp;| </h3>
 						<button className="btn btn-default xs"
-						        onClick={this.editSectionText}>{BUTTONS.bg.edit}
+						        name={e}
+						        onClick={this.loadTextSectionForm}>{BUTTONS.bg.edit}
 						</button>
 						<button className="btn btn-default xs"
-						        onClick={this.editSectionText}>{BUTTONS.bg.delete}
+						        onClick={this.loadTextSectionForm}>{BUTTONS.bg.delete}
 						</button>
 					</div>
 
@@ -320,6 +347,15 @@ class createProject extends React.Component {
 
 				<Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
 				<ConfirmDialog onRef={ref => (this.confirmDialog = ref)} language='bg'/>
+				<TextSectionFrom onRef={ref => (this.textSectionForm = ref)}
+				                 sectionId={''}
+				                 textEN={''}
+				                 textBG={''}
+				                 visible={this.state.showInfoInputs}
+				                 sections={this.state.allInfoSectionIds}
+				                 submit={this.addInfo}
+				                 cancel={this.toggleInfoSectionInputs}
+				                 notifications={this.notifications}/>
 
 				<div className="page-header">
 					<h1 className="page-title">{title}</h1>
@@ -396,7 +432,7 @@ class createProject extends React.Component {
 						                 className='client-field'
 						                 required={true}
 						                 disabled={false}
-						                 selected={this.state.clientId}
+						                 defaultValue={this.state.clientId}
 						                 options={this.state.allClients}
 						                 onChange={this.handleInputChange}/>
 
@@ -429,21 +465,9 @@ class createProject extends React.Component {
 
 							{!this.state.showInfoInputs &&
 							<button className="btn btn-default-light xs"
-							        onClick={this.toggleInfoSectionInputs}>{BUTTONS.bg.addSection}
+							        onClick={this.loadTextSectionForm}>{BUTTONS.bg.addSection}
 							</button>
 							}
-
-
-							<TextSectionFrom
-								sectionId={''}
-								textEN={''}
-								textBG={''}
-								visible={this.state.showInfoInputs}
-								sections={this.state.allInfoSections}
-								submit={this.addInfo}
-								cancel={this.toggleInfoSectionInputs}
-								notifications={this.notifications}/>
-
 
 							{info}
 						</div>

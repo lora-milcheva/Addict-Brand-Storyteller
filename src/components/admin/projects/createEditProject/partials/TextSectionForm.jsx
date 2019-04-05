@@ -27,22 +27,32 @@ class TextSectionFrom extends React.Component {
 	}
 
 	componentDidMount () {
-
-		let {sectionId, textBG, textEN, sections, visible} = this.props;
-
-		this.setState({
-			sectionId: sectionId,
-			textBG: textBG,
-			textEN: textEN,
-			sections: sections,
-			visible: visible
-		});
+		this.props.onRef(this);
 	}
 
+	componentWillUnmount () {
+		this.props.onRef(undefined);
+	}
 
+	loadData = (data) => {
+		this.setState({
+			sectionId: data.sectionId,
+			textBG: data.textBG,
+			textEN: data.textEN,
+			sections: data.sections,
+			visible: true
+		});
+	};
+
+	handleKeyPress = (e) => {
+		if (e.key === 'Escape') {
+			this.cancel();
+			document.removeEventListener('keypress', this.handleKeyPress);
+		}
+	};
 
 	handleChange = (e) => {
-		this.setState({[e.target.name]: e.target.value});
+		this.setState({sectionId: e.target.value});
 	};
 
 	handleTextChangeBG = (value) => {
@@ -73,20 +83,33 @@ class TextSectionFrom extends React.Component {
 		};
 
 		this.props.submit(data);
+		this.cancel();
+	};
+
+	cancel = () => {
+		this.setState({
+			sectionId: '',
+			textBG: '',
+			textEN: '',
+
+			sections: [],
+
+			visible: false
+		});
 	};
 
 	render () {
 
-		if (this.state.loading) return (<div className="loader"/>);
+		let isVisible = this.state.visible;
 
-		let isVisible = this.props.visible;
+		console.log(this.state.sectionId)
 
 		return (
 			<div className={isVisible ? 'visible' : ''}
 			     onClick={this.hideMessage}
 			     id="info-section-inputs">
 
-				<div className="form form-control" >
+				<div className="form form-control">
 					<div className="buttons-container">
 						<a href="/admin/section-create" className="btn btn-default-light xs">
 							{BUTTONS.bg.createSection}
@@ -99,9 +122,9 @@ class TextSectionFrom extends React.Component {
 					                 className='client-field'
 					                 required={true}
 					                 disabled={false}
-						// selected={this.state.sections}
-						             options={this.state.sections}
-						             onChange={this.handleChange}/>
+					                 defaultValue={this.state.sectionId}
+					                 options={this.state.sections}
+					                 onChange={this.handleChange}/>
 
 					<div className="form-group">
 						<label>{CREATE_PROJECT_INPUTS.bg.textBG}</label>
@@ -119,7 +142,7 @@ class TextSectionFrom extends React.Component {
 
 					<div className="buttons-container text-center">
 						<button className="btn sm btn-default-light"
-						        onClick={this.props.cancel}>{BUTTONS.bg.cancel}
+						        onClick={this.cancel}>{BUTTONS.bg.cancel}
 						</button>
 						<button className="btn sm btn-primary"
 						        onClick={this.submitInfo}>{BUTTONS.bg.add}

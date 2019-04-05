@@ -7,7 +7,9 @@ class FormSelectField extends React.Component {
 	}
 
 	render () {
-		const {label, name, className, required, disabled, onChange, options, selected} = this.props;
+		const {label, name, className, required, disabled, onChange, options, defaultValue} = this.props;
+
+		console.log(defaultValue)
 
 		let optionElements = options.map(el => {
 			return (<option key={el._id} value={el._id} >{el.name.bg}</option>);
@@ -23,7 +25,7 @@ class FormSelectField extends React.Component {
 				        disabled={disabled}
 				        required={required}
 				        onChange={onChange}
-				        defaultValue={selected}>
+				        defaultValue={defaultValue}>
 
 					<option value=''/>
 
