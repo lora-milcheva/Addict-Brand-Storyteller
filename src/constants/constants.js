@@ -123,9 +123,11 @@ const BUTTONS = {
 const CONFIRM_DIALOG_MESSAGES = {
 	bg: {
 		confirmDeleteProject: 'Желаете ли да изтриете този проект?',
+		confirmDeleteSection: 'Изтриване на секцията?',
 	},
 	en: {
 		confirmDeleteProject: 'Delete this project?',
+		confirmDeleteSection: 'Delete section?',
 	}
 };
 
@@ -312,9 +314,17 @@ const USER_PAGES_TEXT = {
 
 	project: {
 		bg: {
+			cliche: 'Клишето',
+			year: 'Година',
+			client: 'Клиент',
+			project: 'Проектът',
 			otherProjects: 'Други проекти',
 		},
 		en: {
+			cliche: 'Cliche',
+			year: 'Year',
+			client: 'Client',
+			project: 'Project',
 			otherProjects: 'Other Projects',
 		}
 	}

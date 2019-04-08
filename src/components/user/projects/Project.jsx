@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import posed from 'react-pose';
+import AspectRatio from 'react-aspect-ratio';
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 // Partials
@@ -10,11 +11,9 @@ import List from '../test/List';
 
 // Services
 import projectsService from '../../../services/projects/projectsService';
+import sectionsService from '../../../services/projects/sectionsService';
 import clientsService from '../../../services/clients/clientsService';
 import authService from '../../../services/auth/authService';
-
-// Notifications
-import Notifications from '../../common/Notifications';
 
 // Constants
 import { USER_PAGES_TEXT } from '../../../constants/constants';
@@ -52,13 +51,21 @@ class Project extends React.Component {
 
 			randomProjects: [],
 
+			allSections: [],
+
+			visibleSectionIds: [],
+
 			loading: true
 		};
+
+		this.image = React.createRef();
 	}
 
 	projectId = this.props.match.params.id;
 
 	componentDidMount () {
+
+		console.log(222)
 
 		// Log anonymous user if storage is empty
 		if (sessionStorage.getItem('authtoken') === null) {
@@ -123,11 +130,18 @@ class Project extends React.Component {
 				this.setState({project: res});
 			})
 			.then(() => {
-					clientsService
-						.loadAllClients()
+					sectionsService
+						.loadAllSections()
 						.then(res => {
-							let client = res.filter(e => e._id === this.state.project.clientId);
-							this.setState({clientName: client[0], loading: false});
+
+							this.setState({allSections: res});
+
+							clientsService
+								.loadAllClients()
+								.then(res => {
+									let client = res.filter(e => e._id === this.state.project.clientId);
+									this.setState({clientName: client[0], loading: false});
+								});
 						});
 				}
 			)
@@ -185,6 +199,25 @@ class Project extends React.Component {
 		this.setState({selectedImage: ''});
 	};
 
+	toggleSection = (e) => {
+
+		let sectionId = e.target.name;
+
+		if (this.state.visibleSectionIds.includes(sectionId)) {
+			this.setState({
+				visibleSectionIds: this.state.visibleSectionIds.filter(el => el !== sectionId)
+			});
+		} else {
+			this.setState({
+				visibleSectionIds: [...this.state.visibleSectionIds, sectionId]
+			});
+		}
+	};
+
+	handleSize = () => {
+		console.log(this.image.current);
+	};
+
 	render () {
 
 		if (this.state.loading) {
@@ -195,138 +228,111 @@ class Project extends React.Component {
 
 		let project = this.state.project;
 
-		let isProjectLoaded = project !== '';
-
 		let client = this.state.clientName.name[activeLanguage];
 
-		let gallery, randomProjects;
+		let info;
 
-		if (project !== '') {
-			gallery = project.images.map(e => {
-				return (
-					<Card className="image" key={e}>
-						<img src={e} className="img-fit" alt={e} name={e} onClick={this.showPreview}/>
-					</Card>
-				);
-			});
+		if (Object.keys(project.info)) {
+			info = Object.keys(project.info).map(e => {
 
-			randomProjects = this.state.randomProjects.map((e, i) => {
+				let section = project.info[e];
+
+				let name = this.state.allSections.filter(s => s._id === e)[0].name[activeLanguage];
+
+				let style = this.state.visibleSectionIds.includes(e) ? 'section-text visible' : 'section-text';
+
+				let buttonStyle = this.state.visibleSectionIds.includes(e) ? 'toggle-menu clicked' : 'toggle-menu';
+
 				return (
-					<ProjectCard key={e._id + i} project={e} activeLanguage={activeLanguage}/>
+					<article key={e} className="section">
+						<div className="section-header">
+							<h4 className="section-title">{name}</h4>
+
+							<div className={buttonStyle}>
+								<span className="toggle"/>
+								<span className="toggle"/>
+								<button className="over" name={e}
+								        onClick={this.toggleSection}/>
+							</div>
+
+						</div>
+						<div className={style}
+						     dangerouslySetInnerHTML={{__html: section[activeLanguage]}}>
+						</div>
+					</article>
 				);
 			});
 		}
 
+		let gallery, randomProjects;
+
+		gallery = project.images.map((e, i) => {
+
+			let name = 'img' + i;
+
+			this[name] = React.createRef();
+
+			return (
+				<figure key={e}
+				        className="image"
+				        ref={this[name]}
+				        onLoad={() => {
+					        let img = this[name].current;
+					        if (img.clientWidth < img.clientHeight) {
+						        img.classList.add('portrait');
+					        }
+				        }}>
+					<img src={e} className="img-fit" alt={e} name={e} onClick={this.showPreview}/>
+				</figure>
+			);
+		});
+
+		randomProjects = this.state.randomProjects.map((e, i) => {
+			return (
+				<ProjectCard key={e._id + i} project={e} activeLanguage={activeLanguage}/>
+			);
+		});
+
 		return (
-			<div id="project" className="container-fluid">
+			<div id="project" className="container">
 
 				<GalleryPreview image={this.state.selectedImage} allImages={project.images} onClose={this.hidePreview}/>
 
 
 				<div id="project-info">
 					<section id="project-summary">
-						<p>{project.name[activeLanguage]}</p>
-						<p>{client}</p>
-						{/*<p>{project.description[activeLanguage]}</p>*/}
-						<p>{project.year}</p>
+						<p>
+							{/*<span className="field">{USER_PAGES_TEXT.project[activeLanguage].project}</span>*/}
+							{project.name[activeLanguage]}&nbsp;&nbsp;|&nbsp;&nbsp;{project.year}
+						</p>
+						<p>
+							{/*<span className="field">{USER_PAGES_TEXT.project[activeLanguage].year}</span>*/}
+
+						</p>
+						<p>
+							{/*<span className="field">{USER_PAGES_TEXT.project[activeLanguage].client}</span>*/}
+							{client}
+						</p>
+						<p className="cliche">
+							<span className="field">{USER_PAGES_TEXT.project[activeLanguage].cliche}</span>
+							{project.description[activeLanguage]}
+						</p>
+
 					</section>
+
+					<div className="buttons-container">
+						<Link to={this.state.prevProjectId !== undefined ? this.state.prevProjectId : '/projects'}
+						      className={this.state.prevProjectId !== undefined ? 'btn btn-prev' : 'btn btn-prev disabled'}/>
+
+
+						<Link to={this.state.nextProjectId !== undefined ? this.state.nextProjectId : '/projects'}
+						      className={this.state.nextProjectId !== undefined ? 'btn btn-next' : 'btn btn-next disabled'}/>
+
+					</div>
 
 
 					<section id="project-description">
-						<article className="section">
-							<h4 className="section-title">Идеята.</h4>
-							<div className="section-text">
-								<p> - Това не е просто календар. „Просто календар“ хората или вече
-									не правят, защото го намират за „отживелица“, или влагат минимум средства и усилия,
-									правейки го стандартен. А стандартни календари бол. Искам повече. Искам идеология.
-									Искам тема, която да
-									докосва. Нищо, че сме компания, която се занимава със строителни материали. Не
-									значи, че не
-									можем да се разпознаем в тема, която те грабва и прави с теб каквото си поиска.,
-									леко
-									въздъхна един от главните мениджъри на Сдружение Топливо след като вече беше
-									поставил
-									задачата си.
-								</p>
-								<p>
-									- „Тема, която те грабва и прави с теб каквото си поиска.“, думите му оттекваха
-									в главата ми като камбанен звън.
-									- Мислил ли сте за посока? Посока, в която да тръгнем?
-								</p>
-								<p>
-
-									Едно от най-важните неща за партньора, с когото работим и за нашия екип бе
-									посоката, в която гледаме и вървим. Тя винаги трябва да е една и съща.
-								</p>
-							</div>
-						</article>
-
-						<article className="section">
-							<h4 className="section-title">Посоката.</h4>
-							<div className="section-text">
-								<p>- Напоследък си мисля върху нещата, които остават след нас.
-									Животът е сеитба, казват. А жътвата не е тук. Не че съм толкова стар и съм се
-									замислил
-									за завещание, но защо не направим календар с визии, които да завещават ценности.
-									Нека
-									бъде идеология и за компанията ни, и за хората, които ще го получат.
-								</p>
-							</div>
-						</article>
-
-						<article className="section">
-							<h4 className="section-title">Нашата история.</h4>
-							<div className="section-text">
-								<p>Много труд и ентусиазъм. </p>
-								<p>Броени дни преди проектът, решен в Калeндар и Тефтер, да влезе в печатница, в
-									откровен разговор:</p>
-								<p> - Много е силен. Браво. Само за заглавието не съм сигурен. Колебая се.
-									„Завещанието“?!
-									- Какво ви притеснява?, попитах бързо аз като се сещате какво ми мина през главата и
-									как за секунди се очести ритъма на сърцето ми. Визии, текстове, всичко е не
-									еднократно мислено, работено и прочитано... да сменим заглавието ...на прага на
-									края...
-									- Ами... много е силно. Завещанието. Самата дума е силна.
-									- Нали затова го кръстихме така?!, репликирах на момента аз. Какъв е смисълът да
-									направим силен проект със слабо заглавие. И то само, защото ни е страх как ще го
-									приемат хората. Нима забравихте как звучи „Завещанието“. Позволете ми да ви зачета:
-									„Казват, че всички ние имаме два живота. Вторият започва когато осъзнаем, че
-									всъщност имаме само един. Всеки ден е подарък. Всяка сутрин - благословия. Всяка
-									вечер - вдъхновение. Много дребни неща надживях, много падах, много ставах...“
-									Внезапно решителен мъжки глас ме прекъсна с думите: „Пускай го за печат.“
-								</p>
-							</div>
-						</article>
-
-						<article className="section">
-							<h4 className="section-title">Детайлите. Малките детайли.</h4>
-							<div className="section-text">
-								<p>Soft touch на корицата на тефтера. Още при първия допир усещаш, че държиш нещо скъпо.
-									И в прекия, и в преносния смисъл. Цветовата комбинация на крафт и черно носи дух и
-									стил на нещо много, много истинско. Различният шрифт и големина на завещаните думи:
-									<b>Самоувереност. Вяра. Ентусиазъм. Трезвеност. Страст. Свобода. Богатство. Любов.
-										Уют. Сила. Самота. Магия. </b> те сграбчват за гърлото и без да се усетиш
-									зачиташ написаното. После просто искаш да го имаш. Искаш да имаш Завещанието. За
-									подсилен ефект на твоето желание страниците са ръчно боядисани, в черно по края.
-
-								</p>
-								<p>Ние от Addict обичаме детайлите. И най-малките детайли.</p>
-
-							</div>
-						</article>
-
-						{/*<div className="buttons-container">*/}
-						{/*<Link to={this.state.prevProjectId !== undefined ? this.state.prevProjectId : '/projects'}*/}
-						{/*className={this.state.prevProjectId !== undefined ? 'btn btn-light' : 'btn btn-light disabled'}>*/}
-						{/*<i className="fa fa-arrow-left" aria-hidden="true"/>*/}
-						{/*</Link>*/}
-
-						{/*<Link to={this.state.nextProjectId !== undefined ? this.state.nextProjectId : '/projects'}*/}
-						{/*className={this.state.nextProjectId !== undefined ? 'btn btn-light' : 'btn btn-light disabled'}>*/}
-						{/*<i className="fa fa-arrow-right" aria-hidden="true"/>*/}
-						{/*</Link>*/}
-
-						{/*</div>*/}
+						{info}
 					</section>
 				</div>
 

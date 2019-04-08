@@ -1,31 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class FormInput extends React.Component {
-	constructor (props) {
-		super(props);
+function FormInput (props) {
 
-		this.state = {
-			value: this.props.value || ''
-		}
-	}
-
-
-	handleChange = (e) => {
-		this.setState({value: e.target.value});
-		this.props.onChange(e)
-	};
-
-	render () {
-
-		const {type, name, value, id, placeholder, label, className, required, disabled, step, min, max, onChange} = this.props;
+		const {type, name, value, id, placeholder, label, className, required, disabled, step, min, max, onChange} = props;
 
 		return (
 			<div className={"form-group "+ className}>
 				<label htmlFor={id}>{label}</label>
 				<input className="form-control"
 				       type={type}
-				       value={this.state.value}
+				       value={value}
 				       name={name}
 				       id={id}
 				       placeholder={placeholder}
@@ -34,10 +19,10 @@ class FormInput extends React.Component {
 				       step={step}
 				       min={min}
 				       max={max}
-				       onChange={this.handleChange}/>
+				       onChange={onChange}/>
 			</div>
 		);
-	}
+
 }
 
 export default FormInput;

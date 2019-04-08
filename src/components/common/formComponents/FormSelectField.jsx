@@ -1,40 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class FormSelectField extends React.Component {
-	constructor (props) {
-		super(props);
-	}
+function FormSelectField (props){
+	const {label, name, className, required, disabled, onChange, options, defaultValue} = props;
 
-	render () {
-		const {label, name, className, required, disabled, onChange, options, defaultValue} = this.props;
+	let optionElements = options.map(el => {
+		return (<option key={el._id} value={el._id}>{el.name.bg}</option>);
+	});
 
-		console.log(defaultValue)
+	return (
+		<div className={'form-group ' + className}>
 
-		let optionElements = options.map(el => {
-			return (<option key={el._id} value={el._id} >{el.name.bg}</option>);
-		});
+			<label>{label}{required && <label className="text-danger">&nbsp;*</label>}</label>
 
-		return (
-			<div className={'form-group ' + className}>
+			<select className="form-control"
+			        name={name}
+			        disabled={disabled}
+			        required={required}
+			        onChange={onChange}
+			        value={defaultValue}>
 
-				<label>{label}{required && <label className="text-danger">&nbsp;*</label>}</label>
+				<option value=''/>
 
-				<select className="form-control"
-				        name={name}
-				        disabled={disabled}
-				        required={required}
-				        onChange={onChange}
-				        defaultValue={defaultValue}>
+				{optionElements}
 
-					<option value=''/>
+			</select>
+		</div>
+	);
 
-					{optionElements}
-
-				</select>
-			</div>
-		);
-	}
 }
 
 export default FormSelectField;

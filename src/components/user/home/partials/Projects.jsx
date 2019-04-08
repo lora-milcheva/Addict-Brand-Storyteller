@@ -19,7 +19,9 @@ function Projects (props) {
 	return (
 		<section id="home-projects" className="container section-padding">
 			<h2 className="section-title">{USER_PAGES_TEXT.home[lang].projects}</h2>
-			{projects.map(e => <HomeProjectCard key={e._id} project={e}/>)}
+			<div className="projects-container">
+				{projects.map(e => <HomeProjectCard key={e._id} project={e}/>)}
+			</div>
 		</section>
 	);
 }

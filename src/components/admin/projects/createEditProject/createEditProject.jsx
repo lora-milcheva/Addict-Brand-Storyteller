@@ -138,11 +138,6 @@ class createProject extends React.Component {
 		this.setState({[e.target.name]: !this.state[e.target.name]});
 	};
 
-	toggleInfoSectionInputs = (e) => {
-		e.preventDefault();
-		this.setState({showInfoInputs: !this.state.showInfoInputs});
-	};
-
 	loadTextSectionForm = (e) => {
 		e.preventDefault();
 
@@ -169,6 +164,19 @@ class createProject extends React.Component {
 
 			this.textSectionForm.loadData(data);
 		}
+	};
+
+	removeSection = (e) => {
+		e.preventDefault();
+
+		let sectionId = e.target.name;
+
+		this.confirmDialog.showMessage(CONFIRM_DIALOG_MESSAGES.bg.confirmDeleteSection, () => {
+			let filtered = this.state.info;
+			delete filtered[sectionId];
+
+			this.setState({info: filtered});
+		});
 	};
 
 	addInfo = (data) => {
@@ -242,7 +250,7 @@ class createProject extends React.Component {
 			});
 	};
 
-	confirmDelete = () => {
+	confirmDeleteProject = () => {
 		// First give the massage, then the callback to be executed
 		this.confirmDialog.showMessage(CONFIRM_DIALOG_MESSAGES.bg.confirmDeleteProject, this.deleteProject);
 	};
@@ -307,15 +315,13 @@ class createProject extends React.Component {
 			);
 		});
 
-		let isStar = (
-			<button className={this.state.isStar ? 'btn category-label attention' : 'btn category-label'}
-			        name="isStar"
-			        value={this.state.isStar}
-			        onClick={this.handleCheckBoxChange}>
-				<i className="fa fa-star" aria-hidden="true"/>
-				{CREATE_PROJECT_INPUTS.bg.isStar}
-			</button>);
-
+		let isStar = ( <button className={this.state.isStar ? 'btn category-label attention' : 'btn category-label'}
+		                       name="isStar"
+		                       value={this.state.isStar}
+		                       onClick={this.handleCheckBoxChange}>
+			<i className="fa fa-star" aria-hidden="true"/>
+			{CREATE_PROJECT_INPUTS.bg.isStar}
+		</button>);
 
 		let info = Object.keys(this.state.info).map(e => {
 
@@ -332,12 +338,18 @@ class createProject extends React.Component {
 						        onClick={this.loadTextSectionForm}>{BUTTONS.bg.edit}
 						</button>
 						<button className="btn btn-default xs"
-						        onClick={this.loadTextSectionForm}>{BUTTONS.bg.delete}
+						        name={e}
+						        onClick={this.removeSection}>{BUTTONS.bg.delete}
 						</button>
 					</div>
 
-					<div dangerouslySetInnerHTML={{__html: text.bg}}/>
-					<div dangerouslySetInnerHTML={{__html: text.en}}/>
+					<span className="label">BG</span>
+					<div dangerouslySetInnerHTML={{__html: text.bg}}
+					     className="text"/>
+
+					<span className="label">EN</span>
+					<div dangerouslySetInnerHTML={{__html: text.en}}
+					     className="text"/>
 				</div>
 			);
 		});
@@ -347,21 +359,18 @@ class createProject extends React.Component {
 
 				<Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
 				<ConfirmDialog onRef={ref => (this.confirmDialog = ref)} language='bg'/>
+
 				<TextSectionFrom onRef={ref => (this.textSectionForm = ref)}
-				                 sectionId={''}
-				                 textEN={''}
-				                 textBG={''}
-				                 visible={this.state.showInfoInputs}
-				                 sections={this.state.allInfoSectionIds}
 				                 submit={this.addInfo}
-				                 cancel={this.toggleInfoSectionInputs}
 				                 notifications={this.notifications}/>
 
+
+				{/*//PAGE HEADER*/}
 				<div className="page-header">
 					<h1 className="page-title">{title}</h1>
 
 					{this.projectId &&
-					<button className="btn btn-danger xs" onClick={this.confirmDelete}>
+					<button className="btn btn-danger xs" onClick={this.confirmDeleteProject}>
 						<i className="fa fa-trash" aria-hidden="true"/>
 						{BUTTONS.bg.delete}
 					</button>
@@ -371,6 +380,8 @@ class createProject extends React.Component {
 				{/*//FORM*/}
 				<form method="post" onSubmit={this.saveProject} id="create-project-form">
 
+
+					{/*//PROJECT Info*/}
 					<div id="project-info">
 
 						{/*//NAME BG*/}
@@ -463,11 +474,9 @@ class createProject extends React.Component {
 						<div className="form-group">
 							<label>{CREATE_PROJECT_INPUTS.bg.info}</label>
 
-							{!this.state.showInfoInputs &&
 							<button className="btn btn-default-light xs"
 							        onClick={this.loadTextSectionForm}>{BUTTONS.bg.addSection}
 							</button>
-							}
 
 							{info}
 						</div>

@@ -33,7 +33,7 @@ const RouteContainer = posed.div({
 		delay: 0,
 		beforeChildren: true,
 		transition: {
-			opacity: { ease: 'easeOut', duration: 1000 },
+			opacity: { ease: 'easeIn', duration: 1000 },
 		},
 	},
 	exit: {
@@ -47,53 +47,94 @@ let Routes = () => {
 
 	return (
 
-		<Route render={({location}) => (
+		<Switch>
 
-			<PoseGroup>
-				<RouteContainer key={location.key || '200'}>
-					<Switch location={location}>
-						<Route exact path='/:lng(en)?' component={Home} key="home"/>
+			{/*//User*/}
+			<Route exact path='/' component={Home}/>
+			<Route exact path='/:lng' component={Home}/>
 
-						<Route path='/:lng(en)?/login' component={Login} key="login"/>
+			<Route path='/login' component={Login}/>
 
-						<Route exact path='/:lng(en)?/projects' component={ProjectsList} key="projects"/>
+			<Route exact path='/projects'  component={ProjectsList}/>
+			<Route exact path='/:lng/projects' component={ProjectsList}/>
 
-						<Route exact path='/:lng(en)?/projects/:category' component={ProjectsList} key="projects/category"/>
+			<Route exact path='/projects/:category' component={ProjectsList}/>
+			<Route exact path='/:lng/projects/:category' component={ProjectsList}/>
 
-						<Route exact path='/:lng(en)?/projects/:category/:id' component={Project} key="project"/>
+			<Route exact path='/projects/:category/:id' component={Project}/>
+			<Route exact path='/:lng/projects/:category/:id' component={Project}/>
 
 
-						{/*//Admin*/}
-						<Route
-							path="/admin"
-							render={({match: {url}}) => (
-								<>
-								<Route exact path={`${url}/projects-list`} component={adminProjectsList} key='adminProjects'/>
-								<Route path={`${url}/project-create`} component={createProject} key='createProject'/>
-								<Route path={`${url}/project-edit/:id`} component={createProject} key='editProject'/>
+			{/*//Admin*/}
+			<PrivateRoute path='/admin/projects-list' component={adminProjectsList}/>
+			<PrivateRoute path='/admin/project-create' component={createProject}/>
+			<PrivateRoute path='/admin/project-edit/:id' component={createProject}/>
 
-								<Route exact path={`${url}/category-list`} component={categoriesList} key='categories'/>
-								<Route path={`${url}/category-create`} component={createEditCategory} key='createCategory'/>
-								<Route path={`${url}/category-edit/:id`} component={createEditCategory} key='editCategory'/>
+			<PrivateRoute path='/admin/category-list' component={categoriesList}/>
+			<PrivateRoute path='/admin/category-create' component={createEditCategory}/>
+			<PrivateRoute path='/admin/category-edit/:id' component={createEditCategory}/>
 
-								<Route exact path={`${url}/clients-list`} component={clientsList} key='clients'/>
-								<Route path={`${url}/client-create`} component={createEditClient} key='createClient'/>
-								<Route path={`${url}/client-edit/:id`} component={createEditClient} key='editClient'/>
+			<PrivateRoute path='/admin/clients-list' component={clientsList}/>
+			<PrivateRoute path='/admin/client-create' component={createEditClient}/>
+			<PrivateRoute path='/admin/client-edit/:id' component={createEditClient}/>
 
-								<Route exact path={`${url}/sections-list`} component={sectionsList} key='sections'/>
-								<Route path={`${url}/section-create`} component={createEditSection} key='createSection'/>
-								<Route path={`${url}/section-edit/:id`} component={createEditSection} key='editSection'/>
-								</>
-							)}
-						/>
-
-						<Route path='*' component={NotFound} key='error'/>
-					</Switch>
-				</RouteContainer>
-			</PoseGroup>
-		)}
-		/>
+			<Route path='*' component={NotFound}/>
+		</Switch>
 	);
 };
 
 export default Routes;
+
+let backup = <Route render={({location}) => (
+
+	<PoseGroup>
+		<RouteContainer key={location.key || '200'}>
+			<Switch location={location}>
+				<Route exact path='/:lng(en)?' component={Home} key="home"/>
+
+				<Route path='/:lng(en)?/login' component={Login} key="login"/>
+
+				<Route exact path='/:lng(en)?/projects' component={ProjectsList} key="projects"/>
+
+				<Route exact path='/:lng(en)?/projects/:category' component={ProjectsList}
+				       key="projects/category"/>
+
+				<Route exact path='/:lng(en)?/projects/:category/:id' component={Project} key="project"/>
+
+
+				{/*//Admin*/}
+				<Route
+					path="/admin"
+					render={({match: {url}}) => (
+						<>
+						<Route exact path={`${url}/projects-list`} component={adminProjectsList}
+						       key='adminProjects'/>
+						<Route path={`${url}/project-create`} component={createProject} key='createProject'/>
+						<Route path={`${url}/project-edit/:id`} component={createProject} key='editProject'/>
+
+						<Route exact path={`${url}/category-list`} component={categoriesList} key='categories'/>
+						<Route path={`${url}/category-create`} component={createEditCategory}
+						       key='createCategory'/>
+						<Route path={`${url}/category-edit/:id`} component={createEditCategory}
+						       key='editCategory'/>
+
+						<Route exact path={`${url}/clients-list`} component={clientsList} key='clients'/>
+						<Route path={`${url}/client-create`} component={createEditClient} key='createClient'/>
+						<Route path={`${url}/client-edit/:id`} component={createEditClient} key='editClient'/>
+
+						<Route exact path={`${url}/sections-list`} component={sectionsList} key='sections'/>
+						<Route path={`${url}/section-create`} component={createEditSection}
+						       key='createSection'/>
+						<Route path={`${url}/section-edit/:id`} component={createEditSection}
+						       key='editSection'/>
+						</>
+					)}
+				/>
+
+				<Route path='*' component={NotFound} key='error'/>
+			</Switch>
+		</RouteContainer>
+	</PoseGroup>
+
+
+)} />

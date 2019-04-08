@@ -5,9 +5,6 @@ import ReactQuill from 'react-quill';
 // Partials
 import FormSelectField from '../../../../common/formComponents/FormSelectField';
 
-// Services
-import sectionsService from '../../../../../services/projects/sectionsService';
-
 // Constants
 import { BUTTONS, CREATE_PROJECT_INPUTS, NOTIFICATIONS } from '../../../../../constants/constants';
 
@@ -44,13 +41,6 @@ class TextSectionFrom extends React.Component {
 		});
 	};
 
-	handleKeyPress = (e) => {
-		if (e.key === 'Escape') {
-			this.cancel();
-			document.removeEventListener('keypress', this.handleKeyPress);
-		}
-	};
-
 	handleChange = (e) => {
 		this.setState({sectionId: e.target.value});
 	};
@@ -69,7 +59,6 @@ class TextSectionFrom extends React.Component {
 		let s = this.state;
 
 		// Check info
-
 		if (!this.state.sectionId) {
 			this.props.notifications.showMessage(NOTIFICATIONS.bg.selectSectionName);
 			return;
@@ -83,7 +72,7 @@ class TextSectionFrom extends React.Component {
 		};
 
 		this.props.submit(data);
-		this.cancel();
+		this.cancel();  // To close modal
 	};
 
 	cancel = () => {
@@ -102,16 +91,14 @@ class TextSectionFrom extends React.Component {
 
 		let isVisible = this.state.visible;
 
-		console.log(this.state.sectionId)
-
 		return (
 			<div className={isVisible ? 'visible' : ''}
 			     onClick={this.hideMessage}
 			     id="info-section-inputs">
 
-				<div className="form form-control">
+				<div className="form">
 					<div className="buttons-container">
-						<a href="/admin/section-create" className="btn btn-default-light xs">
+						<a href="/admin/section-create" className="btn btn-default xs">
 							{BUTTONS.bg.createSection}
 						</a>
 					</div>

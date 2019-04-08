@@ -34,7 +34,7 @@ p {
   margin: auto; }
 
 .section-padding {
-  padding: 80px 25px 80px 25px; }
+  padding: 80px 25px 0 25px; }
 
 .text-danger {
   color: #d22a45; }
@@ -69,6 +69,32 @@ button {
     cursor: pointer; }
   .btn .fa {
     margin-right: 5px; }
+  .btn.btn-prev, .btn.btn-next {
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    background-color: #f94848; }
+    .btn.btn-prev.disabled, .btn.btn-next.disabled {
+      opacity: .5;
+      background-color: #eaeaea;
+      pointer-events: none;
+      cursor: none; }
+  .btn.btn-prev {
+    background: url("/images/icons/arrow-left-white.svg") no-repeat center;
+    background-size: 80%;
+    background-color: #f94848; }
+    .btn.btn-prev:hover {
+      background: url("/images/icons/arrow-left-primary.svg") no-repeat center;
+      background-size: 80%;
+      background-color: #fff; }
+  .btn.btn-next {
+    background: url("/images/icons/arrow-right-white.svg") no-repeat center;
+    background-size: 80%;
+    background-color: #f94848; }
+    .btn.btn-next:hover {
+      background: url("/images/icons/arrow-right-primary.svg") no-repeat center;
+      background-size: 80%;
+      background-color: #fff; }
   .btn.btn-primary {
     color: #fff;
     background-color: #f94848; }
@@ -104,10 +130,6 @@ button {
       color: #fff; }
     .btn.btn-light:hover {
       cursor: pointer; }
-    .btn.btn-light.disabled {
-      color: #ccc;
-      pointer-events: none;
-      cursor: none; }
     .btn.btn-light.active {
       background-color: #d22a45; }
   .btn.xs {
@@ -132,19 +154,6 @@ button {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin: 10px 0; }
-  .form-group .quill {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -webkit-flex-grow: 1;
-    -ms-flex: 1;
-    flex-grow: 1;
-    max-width: 70%;
-    min-height: 180px; }
-    .form-group .quill .ql-toolbar {
-      background-color: #fff; }
-    .form-group .quill .ql-container {
-      height: 60%;
-      background-color: #fff; }
   .form-group label {
     -webkit-flex-basis: 30%;
     flex-basis: 30%;
@@ -238,9 +247,7 @@ button {
 
 .buttons-container {
   margin: 15px 0 20px;
-  padding: 10px 0;
-  border-top: 1px solid #eaeaea;
-  border-bottom: 1px solid #eaeaea; }
+  padding: 10px 0; }
 
 .category-label {
   padding: 5px 10px;
@@ -259,6 +266,12 @@ button {
     color: #fff; }
   .category-label:hover {
     cursor: pointer; }
+
+.label {
+  background-color: #000;
+  color: #fff;
+  padding: 2px 5px;
+  font-size: .85em; }
 
 .text-center {
   text-align: center; }
@@ -382,5 +395,10 @@ footer {
     footer #footer-nav .nav-link.active {
       background-color: #000;
       color: #ccc; }
+
+.quill {
+  width: 100%; }
+  .quill .ql-container {
+    height: auto; }
 
 /*# sourceMappingURL=main.css.map */

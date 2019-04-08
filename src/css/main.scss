@@ -46,7 +46,7 @@ p {
 }
 
 .section-padding {
-  padding: 80px 25px 80px 25px;
+  padding: 80px 25px 0 25px;
 }
 
 .text-danger {
@@ -90,6 +90,46 @@ button {
   .fa {
     margin-right: 5px;
   }
+
+  &.btn-prev,
+  &.btn-next {
+    width: 40px;
+    height: 40px;
+    padding: 5px ;
+    background-color: $primary;
+
+    &.disabled {
+      opacity: .5;
+      background-color: $medium-grey;
+      pointer-events: none;
+      cursor: none;
+    }
+  }
+
+  &.btn-prev {
+    background: url("/images/icons/arrow-left-white.svg") no-repeat center;
+    background-size: 80%;
+    background-color: $primary;
+
+    &:hover {
+      background: url("/images/icons/arrow-left-primary.svg") no-repeat center;
+      background-size: 80%;
+      background-color: $white;
+    }
+  }
+
+  &.btn-next {
+    background: url("/images/icons/arrow-right-white.svg") no-repeat center;
+    background-size: 80%;
+    background-color: $primary;
+
+    &:hover {
+      background: url("/images/icons/arrow-right-primary.svg") no-repeat center;
+      background-size: 80%;
+      background-color: $white;
+    }
+  }
+
 
   &.btn-primary {
     color: $white;
@@ -156,12 +196,6 @@ button {
       cursor: pointer;
     }
 
-    &.disabled {
-      color: $medium-to-dark-grey;
-      pointer-events: none;
-      cursor: none;
-    }
-
     &.active {
       background-color: $attention;
     }
@@ -192,22 +226,6 @@ button {
   @include flex;
   @include flex-wrap(wrap);
   margin: 10px 0;
-
-  & .quill {
-
-    @include flex-grow(1);
-    max-width: 70%;
-    min-height: 180px;
-
-    .ql-toolbar {
-      background-color: $white;
-    }
-
-    .ql-container {
-      height: 60%;
-      background-color: $white;
-    }
-  }
 
   label {
     @include flex-basis(30%);
@@ -307,8 +325,8 @@ button {
 .buttons-container {
   margin: 15px 0 20px;
   padding: 10px 0;
-  border-top: 1px solid $medium-grey;
-  border-bottom: 1px solid $medium-grey;
+  //border-top: 1px solid $medium-grey;
+  //border-bottom: 1px solid $medium-grey;
 }
 
 .category-label {
@@ -332,6 +350,13 @@ button {
   &:hover {
     cursor: pointer;
   }
+}
+
+.label {
+  background-color: $black;
+  color: $white;
+  padding: 2px 5px;
+  font-size: .85em;
 }
 
 .text-center {
@@ -467,5 +492,16 @@ footer {
         //border-bottom: 1px solid $medium-to-dark-grey;
       }
     }
+  }
+}
+
+.quill {
+  width: 100%;
+
+  .ql-toolbar {
+  }
+
+  .ql-container {
+    height: auto;
   }
 }

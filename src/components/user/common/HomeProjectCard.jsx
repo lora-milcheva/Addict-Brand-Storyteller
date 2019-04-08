@@ -26,9 +26,8 @@ class HomeProjectCard extends React.Component {
 				<Link to={'/projects/all/' + project._id} className="hover">
 					<div className="info">
 						{/*<p className="project-client">{project.clientName[activeLanguage]}</p>*/}
-						<p className="project-name">{project.name[activeLanguage]}</p>
-						<p className="project-year">{project.year}</p>
-						<button className="btn btn-default-light xs">{BUTTONS[activeLanguage].view}</button>
+						<p>{project.name[activeLanguage]}&nbsp;&#8212;&nbsp;{project.year}</p>
+						{/*<button className="btn btn-default sm">{BUTTONS[activeLanguage].view}</button>*/}
 					</div>
 				</Link>
 			</article>

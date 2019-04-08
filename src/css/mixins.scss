@@ -4,6 +4,33 @@
   transition: .4s;
 }
 
+@mixin slow-transition {
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  transition: 1s;
+}
+
+@mixin ease-out {
+  -webkit-transition:  0.25s ease-out;
+  -moz-transition:  0.25s ease-out;
+  transition:  0.25s ease-out;
+}
+
+@mixin ease-in {
+  -webkit-transition:  0.25s ease-in;
+  -moz-transition:  0.25s ease-in;
+  transition:  0.25s ease-in;
+}
+
+@mixin grid($columns: 1, $gap: 0px) {
+  -webkit-column-count: $columns;
+  -webkit-column-gap:   $gap;
+  -moz-column-count:    $columns;
+  -moz-column-gap:      $gap;
+  column-count:         $columns;
+  column-gap:           $gap;
+}
+
 @mixin flex {
   display: -webkit-box;
   display: -webkit-flex;
