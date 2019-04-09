@@ -185,7 +185,6 @@
 }
 
 #project {
-  padding-top: 100px;
   @include flex;
   @include flex-wrap(wrap);
   @include align-items(flex-start);

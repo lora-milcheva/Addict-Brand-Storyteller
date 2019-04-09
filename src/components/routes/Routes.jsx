@@ -51,7 +51,7 @@ let Routes = () => {
 
 			{/*//User*/}
 			<Route exact path='/' component={Home}/>
-			<Route exact path='/:lng' component={Home}/>
+			<Route exact path='/en' component={Home}/>
 
 			<Route path='/login' component={Login}/>
 

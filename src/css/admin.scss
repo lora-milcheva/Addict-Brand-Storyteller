@@ -58,6 +58,43 @@
     }
   }
 
+  #media-info {
+    //background-color: $light-grey;
+
+    display: none;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .2);
+
+    z-index: 500;
+
+    &.visible {
+      display: block;
+    }
+
+    .info {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 80%;
+      margin: auto;
+      @include translate(-50%, -50%);
+      overflow-y: auto;
+
+      max-height: 80vh;
+      padding: 20px 30px;
+      background-color: white;
+
+      .message-text {
+        font-size: 2em;
+      }
+    }
+  }
+
   #project-info {
     @include flex-basis(45%);
     @include flex-grow(1);

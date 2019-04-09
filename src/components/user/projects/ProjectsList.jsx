@@ -178,7 +178,7 @@ class ProjectList extends React.Component {
 
 		return (
 
-			<Test key={'test'} id="projects-list" className="container">
+			<Test key={'test'} id="projects-list" className="container section-padding">
 
 				<Notifications onRef={ref => (this.notifications = ref)} language={activeLanguage}/>
 

@@ -13,6 +13,7 @@ class TextSectionFrom extends React.Component {
 		super(props);
 
 		this.state = {
+			stateProp: '',
 			sectionId: '',
 			textBG: '',
 			textEN: '',
@@ -32,7 +33,11 @@ class TextSectionFrom extends React.Component {
 	}
 
 	loadData = (data) => {
+
+		console.log(data)
+
 		this.setState({
+			stateProp: data.stateProp,
 			sectionId: data.sectionId,
 			textBG: data.textBG,
 			textEN: data.textEN,
@@ -71,12 +76,13 @@ class TextSectionFrom extends React.Component {
 			}
 		};
 
-		this.props.submit(data);
+		this.props.submit(data, this.state.stateProp);
 		this.cancel();  // To close modal
 	};
 
 	cancel = () => {
 		this.setState({
+			stateProp: '',
 			sectionId: '',
 			textBG: '',
 			textEN: '',
@@ -93,7 +99,6 @@ class TextSectionFrom extends React.Component {
 
 		return (
 			<div className={isVisible ? 'visible' : ''}
-			     onClick={this.hideMessage}
 			     id="info-section-inputs">
 
 				<div className="form">
@@ -132,6 +137,7 @@ class TextSectionFrom extends React.Component {
 						        onClick={this.cancel}>{BUTTONS.bg.cancel}
 						</button>
 						<button className="btn sm btn-primary"
+						        name={this.state.stateProp}
 						        onClick={this.submitInfo}>{BUTTONS.bg.add}
 						</button>
 					</div>
@@ -142,11 +148,3 @@ class TextSectionFrom extends React.Component {
 }
 
 export default TextSectionFrom;
-
-TextSectionFrom.propTypes = {
-	sectionId: PropTypes.string,
-	textBG: PropTypes.string,
-	textEN: PropTypes.string,
-	sections: PropTypes.array,
-	visible: PropTypes.bool
-};

@@ -6,8 +6,6 @@ import FormSelectField from '../../../common/formComponents/FormSelectField';
 import Textarea from '../../../common/formComponents/TextArea';
 import AddOnInput from '../../../common/formComponents/AddOnInput';
 import SortableList from './partials/SortableList';
-import SortableVideos from './partials/SortableVideos';
-import MediaInfo from './partials/MediaInfo';
 import TextSectionFrom from './partials/TextSectionForm';
 
 // Services
@@ -130,7 +128,6 @@ class createProject extends React.Component {
 	};
 
 	handleInputChange = (e) => {
-
 		this.setState({[e.target.name]: e.target.value});
 	};
 
@@ -144,89 +141,51 @@ class createProject extends React.Component {
 	loadTextSectionForm = (e) => {
 		e.preventDefault();
 
-		let stateProp = e.target.getAttribute('data-state-prop');
 		let sectionId = e.target.name;
 
-		if (stateProp === 'info') {
-			if (!sectionId) {
-				let data = {
-					stateProp: stateProp,
-					sections: this.state.allInfoSectionIds,
-					sectionId: '',
-					textBG: '',
-					textEN: '',
-				};
+		if (!sectionId) {
+			let data = {
+				sections: this.state.allInfoSectionIds,
+				sectionId: '',
+				textBG: '',
+				textEN: '',
+			};
 
-				this.textSectionForm.loadData(data);
-
-			} else {
-
-				let text = this.state[stateProp][sectionId];
-
-				let data = {
-					stateProp: stateProp,
-					sections: this.state.allInfoSectionIds,
-					sectionId: sectionId,
-					textBG: text.bg,
-					textEN: text.en,
-				};
-
-				this.textSectionForm.loadData(data);
-			}
+			this.textSectionForm.loadData(data);
 		} else {
-			console.log(stateProp, sectionId);
+			let text = this.state.info[sectionId];
 
-			let media = this.state[stateProp].filter(e => e.url === sectionId)[0];
+			let data = {
+				sections: this.state.allInfoSectionIds,
+				sectionId: sectionId,
+				textBG: text.bg,
+				textEN: text.en,
+			};
 
-			console.log(media)
+			this.textSectionForm.loadData(data);
 		}
-
 	};
 
 	removeInfoSection = (e) => {
 		e.preventDefault();
 
-		console.log(e.target.getAttribute('data-state-prop'));
-
-		let stateProp = e.target.getAttribute('data-state-prop');
-
 		let sectionId = e.target.name;
 
-		if (stateProp === 'info') {
-			this.confirmDialog
-				.showMessage(CONFIRM_DIALOG_MESSAGES.bg.confirmDeleteSection, () => {
-					let filtered = this.state[stateProp];
-					delete filtered[sectionId];
-					this.setState({[stateProp]: filtered});
-				});
-		}
+		this.confirmDialog.showMessage(CONFIRM_DIALOG_MESSAGES.bg.confirmDeleteSection, () => {
+			let filtered = this.state.info;
+			delete filtered[sectionId];
+
+			this.setState({info: filtered});
+		});
 	};
 
-	addInfoSection = (data, stateProp) => {
-
-		console.log(stateProp);
-
+	addInfoSection = (data) => {
 		this.setState(prevState => (
 			{
-				[stateProp]: {...prevState[stateProp], ...data},
+				info: {...prevState.info, ...data},
 				showInfoInputs: false
 			}
 		));
-	};
-
-	showMediaInfo = (e, input) => {
-		e.preventDefault();
-
-		let stateProp = e.target.getAttribute('data-state-prop');
-
-		let data = {
-			stateProp: stateProp,
-			sections: this.state.allInfoSectionIds,
-			id: input.url,
-			info: input.info
-		};
-
-		this.mediaInfo.loadData(data);
 	};
 
 	handleMultiLangChange = (e) => {
@@ -251,29 +210,6 @@ class createProject extends React.Component {
 		} else {
 			this.setState({[e.target.name]: [...this.state[e.target.name], e.target.value]});
 		}
-	};
-
-	addImageVideo = (e) => {
-
-		e.preventDefault();
-
-		let elementToAdd = {
-			url: e.target.value,
-			info: {}
-		};
-
-		this.setState({[e.target.name]: [...this.state[e.target.name], elementToAdd]});
-
-	};
-
-	removeImageVideo = (e) => {
-		e.preventDefault();
-
-		let arr = this.state[e.target.name];
-
-		let filtered = arr.filter((el) => el.url !== e.target.value);
-
-		this.setState({[e.target.name]: filtered});
 	};
 
 	handleNewOrder = (stateProp, reorderedElements) => {
@@ -339,11 +275,6 @@ class createProject extends React.Component {
 
 	render () {
 
-		// Show loader until data is loaded
-		if (!this.state.projectLoaded || !this.state.dataLoaded) {
-			return (<div className="lds-dual-ring"/>);
-		}
-
 		let title = this.projectId
 			? ADMIN_PAGES_TEXT.project.bg.editProject
 			: ADMIN_PAGES_TEXT.project.bg.createProject;
@@ -352,6 +283,11 @@ class createProject extends React.Component {
 			? BUTTONS.bg.edit
 			: BUTTONS.bg.create;
 
+		// Show loader until data is loaded
+		if (!this.state.projectLoaded || !this.state.dataLoaded) {
+			return (<div className="lds-dual-ring"/>);
+		}
+
 		let thumbnail = this.state.thumbnail !== ''
 			? (<figure className="image">
 					<img src={this.state.thumbnail} alt="project thumbnail" className="img-fit"/>
@@ -359,23 +295,13 @@ class createProject extends React.Component {
 			)
 			: null;
 
-		let videos = (this.state.videos).map((video, index) => {
+		let videos = this.state.videos.map((video, index) => {
 			return (
-				<div className='image' key={index}>
-					<iframe src={video.url}/>
-
-					<div className='del-btn'>
-						<button className="btn xs btn-primary"
-						        name='videos'
-						        value={video.url}
-						        onClick={this.removeImageVideo}>clear
-						</button>
-
-						<button className="btn xs btn-primary"
-						        data-state-prop={'videos'}
-						        onClick={(e) => this.showMediaInfo(e, video)}>info
-						</button>
-					</div>
+				<div className="image" key={index}>
+					<iframe src={video} title={video}/>
+					<button className="btn xs btn-primary del-btn" name='videos' value={video}
+					        onClick={this.handleArrChange}>clear
+					</button>
 				</div>
 			);
 		});
@@ -383,19 +309,15 @@ class createProject extends React.Component {
 		let categories = this.state.allCategories.map(e => {
 			let classList = this.state.categoryIds.includes(e._id) ? 'btn category-label selected' : 'btn category-label';
 			return (
-				<button key={e._id}
-				        className={classList}
-				        name="categoryIds"
-				        value={e._id}
-				        onClick={this.handleArrChange}>{e.name.bg}
-				</button>
+				<button key={e._id} className={classList} name="categoryIds" value={e._id}
+				        onClick={this.handleArrChange}>{e.name.bg}</button>
 			);
 		});
 
-		let isStar = (<button className={this.state.isStar ? 'btn category-label attention' : 'btn category-label'}
-		                      name="isStar"
-		                      value={this.state.isStar}
-		                      onClick={this.handleCheckBoxChange}>
+		let isStar = ( <button className={this.state.isStar ? 'btn category-label attention' : 'btn category-label'}
+		                       name="isStar"
+		                       value={this.state.isStar}
+		                       onClick={this.handleCheckBoxChange}>
 			<i className="fa fa-star" aria-hidden="true"/>
 			{CREATE_PROJECT_INPUTS.bg.isStar}
 		</button>);
@@ -411,13 +333,11 @@ class createProject extends React.Component {
 					<div className="section-header">
 						<h3 className="title">{section.name.bg}&nbsp;&nbsp;| </h3>
 						<button className="btn btn-default xs"
-						        data-state-prop={'info'}
 						        name={e}
 						        onClick={this.loadTextSectionForm}>{BUTTONS.bg.edit}
 						</button>
 						<button className="btn btn-default xs"
 						        name={e}
-						        data-state-prop={'info'}
 						        onClick={this.removeInfoSection}>{BUTTONS.bg.delete}
 						</button>
 					</div>
@@ -443,9 +363,6 @@ class createProject extends React.Component {
 				                 submit={this.addInfoSection}
 				                 notifications={this.notifications}/>
 
-				<MediaInfo onRef={ref => (this.mediaInfo = ref)}
-				           loadTextSectionForm={this.loadTextSectionForm}
-				           notifications={this.notifications}/>
 
 				{/*//PAGE HEADER*/}
 				<div className="page-header">
@@ -498,6 +415,7 @@ class createProject extends React.Component {
 							{categories}
 						</div>
 
+
 						{/*//DESCRIPTION BG*/}
 						<Textarea name='description'
 						          value={this.state.description.bg}
@@ -540,7 +458,6 @@ class createProject extends React.Component {
 						           disabled={false}
 						           onChange={this.handleInputChange}/>
 
-						{/*//Web page*/}
 						<FormInput type='text'
 						           name='webPage'
 						           value={this.state.webPage}
@@ -552,11 +469,11 @@ class createProject extends React.Component {
 						           disabled={false}
 						           onChange={this.handleInputChange}/>
 
+
 						<div className="form-group">
 							<label>{CREATE_PROJECT_INPUTS.bg.info}</label>
 
 							<button className="btn btn-default-light xs"
-							        data-state-prop={'info'}
 							        onClick={this.loadTextSectionForm}>{BUTTONS.bg.addSection}
 							</button>
 
@@ -587,7 +504,7 @@ class createProject extends React.Component {
 								clearText={false}/>
 						</div>
 
-						{/*Images*/}
+
 						<div className="project-data">
 							<h3 className="section-title">{ADMIN_PAGES_TEXT.project.bg.images}</h3>
 							<SortableList elements={this.state.images}
@@ -600,12 +517,11 @@ class createProject extends React.Component {
 								// label={CREATE_PROJECT_INPUTS.bg.images}
 								labelClassName='no-label'
 								buttonText='+'
-								placeholder='/images/projects/folderName/imageName'
+								placeholder='Добави снимка'
 								onChange={this.handleArrChange}
 								clearText={true}/>
 						</div>
 
-						{/*Videos*/}
 						<div className='project-data'>
 							<h3 className='section-title'>{ADMIN_PAGES_TEXT.project.bg.videos}</h3>
 							<div className='container'>
@@ -618,8 +534,7 @@ class createProject extends React.Component {
 								labelClassName="no-label"
 								buttonText='+'
 								placeholder='Добави видео'
-								onChange={this.addImageVideo}
-								clearText={true}/>
+								onChange={this.handleArrChange}/>
 						</div>
 
 					</aside>

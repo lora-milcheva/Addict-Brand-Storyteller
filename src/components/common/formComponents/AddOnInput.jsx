@@ -6,8 +6,12 @@ class AddOnInput extends React.Component {
 		super(props);
 
 		this.state = {
-			value: this.props.value,
+			value: '',
 		};
+	}
+
+	componentDidMount () {
+		this.setState({value: this.props.value})
 	}
 
 	handleChange = (e) => {

@@ -294,7 +294,7 @@ class Project extends React.Component {
 		});
 
 		return (
-			<div id="project" className="container">
+			<div id="project" className="container section-padding">
 
 				<GalleryPreview image={this.state.selectedImage} allImages={project.images} onClose={this.hidePreview}/>
 
