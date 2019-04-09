@@ -217,8 +217,6 @@ class createProject extends React.Component {
 
 		if (stateProp === 'info') {
 
-			console.log(333)
-
 			this.confirmDialog
 				.showMessage(CONFIRM_DIALOG_MESSAGES.bg.confirmDeleteSection, () => {
 					let filtered = this.state[stateProp];
@@ -227,19 +225,19 @@ class createProject extends React.Component {
 				});
 		} else {
 
-			console.log(this.state[stateProp])
+			this.confirmDialog
+				.showMessage(CONFIRM_DIALOG_MESSAGES.bg.confirmDeleteSection, () => {
 
-			let element = this.state[stateProp].filter(el => el.url === elId)[0];
+					let arr = this.state[stateProp];
 
-			console.log(element);
+					arr.forEach(el => {
+						if (el.url === elId) {
+							delete el.info[sectionId];
+						}
+					});
 
-
-			// this.confirmDialog
-			// 	.showMessage(CONFIRM_DIALOG_MESSAGES.bg.confirmDeleteSection, () => {
-			// 		let filtered = this.state[stateProp];
-			// 		delete filtered[sectionId];
-			// 		this.setState({[stateProp]: filtered});
-			// 	});
+					this.setState({[stateProp]: arr}, () => console.log(this.state[stateProp]));
+				});
 		}
 	};
 
@@ -257,17 +255,13 @@ class createProject extends React.Component {
 
 	addMediaInfo = (data, stateProp, mediaId) => {
 
-		let arr = this.state[stateProp]
+		let arr = this.state[stateProp];
 
-		let media = arr.filter(el => el.url === mediaId)[0];
-
-		for (let key in data) {
-			media.info[key] = data[key];
-		}
-
-		arr.forEach((el, i) => {
+		arr.forEach((el) => {
 			if (el.url === mediaId) {
-				el.info = media.info
+				for (let key in data) {
+					el.info[key] = data[key];
+				}
 			}
 		});
 
@@ -279,7 +273,7 @@ class createProject extends React.Component {
 
 		let stateProp = e.target.getAttribute('data-state-prop');
 
-		console.log(this.state[stateProp])
+		console.log(this.state[stateProp]);
 
 		let data = {
 			stateProp: stateProp,
