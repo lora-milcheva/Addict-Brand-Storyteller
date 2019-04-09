@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactQuill from 'react-quill';
 
+// Notifications
+import Notifications from '../../../../common/Notifications';
+
 // Partials
 import FormSelectField from '../../../../common/formComponents/FormSelectField';
 
@@ -14,6 +17,7 @@ class TextSectionFrom extends React.Component {
 
 		this.state = {
 			stateProp: '',
+			mediaId: '',
 			sectionId: '',
 			textBG: '',
 			textEN: '',
@@ -34,10 +38,9 @@ class TextSectionFrom extends React.Component {
 
 	loadData = (data) => {
 
-		console.log(data)
-
 		this.setState({
 			stateProp: data.stateProp,
+			mediaId: data.mediaId,
 			sectionId: data.sectionId,
 			textBG: data.textBG,
 			textEN: data.textEN,
@@ -65,7 +68,7 @@ class TextSectionFrom extends React.Component {
 
 		// Check info
 		if (!this.state.sectionId) {
-			this.props.notifications.showMessage(NOTIFICATIONS.bg.selectSectionName);
+			this.notifications.showMessage(NOTIFICATIONS.bg.selectSectionName);
 			return;
 		}
 
@@ -76,13 +79,17 @@ class TextSectionFrom extends React.Component {
 			}
 		};
 
-		this.props.submit(data, this.state.stateProp);
+		this.state.stateProp === 'info'
+			? this.props.addTextSection(data, this.state.stateProp)
+			: this.props.addMediaInfo(data, this.state.stateProp, this.state.mediaId);
+
 		this.cancel();  // To close modal
 	};
 
 	cancel = () => {
 		this.setState({
 			stateProp: '',
+			mediaId: '',
 			sectionId: '',
 			textBG: '',
 			textEN: '',
@@ -100,6 +107,8 @@ class TextSectionFrom extends React.Component {
 		return (
 			<div className={isVisible ? 'visible' : ''}
 			     id="info-section-inputs">
+
+				<Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
 
 				<div className="form">
 					<div className="buttons-container">

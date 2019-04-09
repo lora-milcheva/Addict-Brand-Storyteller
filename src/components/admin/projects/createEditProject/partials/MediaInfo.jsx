@@ -41,9 +41,6 @@ class MediaInfo extends React.Component {
 		this.setState({sectionId: e.target.value});
 	};
 
-	submitInfo = (e) => {
-		e.preventDefault();
-	};
 
 	cancel = () => {
 		this.setState({
@@ -62,8 +59,10 @@ class MediaInfo extends React.Component {
 
 		let info = Object.keys(this.state.info).map(e => {
 
-			let section = this.state.allInfoSectionIds.filter(s => s._id === e)[0];
+			let section = this.state.allSectionIds.filter(s => s._id === e)[0];
 			let text = this.state.info[e];
+
+			console.log(e)
 
 			return (
 				<div key={e} className="info-text">
@@ -71,14 +70,17 @@ class MediaInfo extends React.Component {
 					<div className="section-header">
 						<h3 className="title">{section.name.bg}&nbsp;&nbsp;| </h3>
 						<button className="btn btn-default xs"
-						        data-state-prop={'info'}
-						        name={e}
-						        onClick={this.loadTextSectionForm}>{BUTTONS.bg.edit}
+						        data-state-prop={this.state.stateProp}
+						        data-el-id={this.state.id}
+						        data-section-name={e}
+						        onClick={this.props.loadTextSectionForm}>{BUTTONS.bg.edit}
 						</button>
 						<button className="btn btn-default xs"
 						        name={e}
-						        data-state-prop={'info'}
-						        onClick={this.removeInfoSection}>{BUTTONS.bg.delete}
+						        data-state-prop={this.state.stateProp}
+						        data-el-id={this.state.id}
+						        data-section-name={e}
+						        onClick={this.props.deleteSection}>{BUTTONS.bg.delete}
 						</button>
 					</div>
 
@@ -103,7 +105,8 @@ class MediaInfo extends React.Component {
 					<div className="buttons-container text-center">
 						<button className="btn sm btn-default-light"
 						        data-state-prop={this.state.stateProp}
-						        name={this.state.id}
+						        data-el-id={this.state.id}
+						        data-section-name={null}
 						        onClick={this.props.loadTextSectionForm}>{BUTTONS.bg.addSection}
 						</button>
 					</div>
@@ -112,11 +115,7 @@ class MediaInfo extends React.Component {
 
 					<div className="buttons-container text-center">
 						<button className="btn sm btn-default-light"
-						        onClick={this.cancel}>{BUTTONS.bg.cancel}
-						</button>
-						<button className="btn sm btn-primary"
-						        name={this.state.stateProp}
-						        onClick={this.submitInfo}>{BUTTONS.bg.add}
+						        onClick={this.cancel}>{BUTTONS.bg.close}
 						</button>
 					</div>
 				</div>

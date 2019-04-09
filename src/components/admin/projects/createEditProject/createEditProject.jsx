@@ -145,7 +145,10 @@ class createProject extends React.Component {
 		e.preventDefault();
 
 		let stateProp = e.target.getAttribute('data-state-prop');
-		let sectionId = e.target.name;
+		let elId = e.target.getAttribute('data-el-id');
+		let sectionId = e.target.getAttribute('data-section-name');
+
+		console.log(stateProp, elId, sectionId);
 
 		if (stateProp === 'info') {
 			if (!sectionId) {
@@ -174,11 +177,31 @@ class createProject extends React.Component {
 				this.textSectionForm.loadData(data);
 			}
 		} else {
-			console.log(stateProp, sectionId);
 
-			let media = this.state[stateProp].filter(e => e.url === sectionId)[0];
+			let data = {};
+			let media = this.state[stateProp].filter(e => e.url === elId)[0];
 
-			console.log(media)
+			if (!sectionId) {
+				data = {
+					stateProp: stateProp,
+					sections: this.state.allInfoSectionIds,
+					mediaId: media.url,
+					sectionId: '',
+					textBG: '',
+					textEN: '',
+				};
+			} else {
+				data = {
+					stateProp: stateProp,
+					sections: this.state.allInfoSectionIds,
+					mediaId: media.url,
+					sectionId: sectionId,
+					textBG: media.info[sectionId].bg,
+					textEN: media.info[sectionId].en,
+				};
+			}
+
+			this.textSectionForm.loadData(data);
 		}
 
 	};
@@ -186,19 +209,37 @@ class createProject extends React.Component {
 	removeInfoSection = (e) => {
 		e.preventDefault();
 
-		console.log(e.target.getAttribute('data-state-prop'));
-
 		let stateProp = e.target.getAttribute('data-state-prop');
+		let elId = e.target.getAttribute('data-el-id');
+		let sectionId = e.target.getAttribute('data-section-name');
 
-		let sectionId = e.target.name;
+		console.log(stateProp, elId, sectionId);
 
 		if (stateProp === 'info') {
+
+			console.log(333)
+
 			this.confirmDialog
 				.showMessage(CONFIRM_DIALOG_MESSAGES.bg.confirmDeleteSection, () => {
 					let filtered = this.state[stateProp];
 					delete filtered[sectionId];
 					this.setState({[stateProp]: filtered});
 				});
+		} else {
+
+			console.log(this.state[stateProp])
+
+			let element = this.state[stateProp].filter(el => el.url === elId)[0];
+
+			console.log(element);
+
+
+			// this.confirmDialog
+			// 	.showMessage(CONFIRM_DIALOG_MESSAGES.bg.confirmDeleteSection, () => {
+			// 		let filtered = this.state[stateProp];
+			// 		delete filtered[sectionId];
+			// 		this.setState({[stateProp]: filtered});
+			// 	});
 		}
 	};
 
@@ -214,10 +255,31 @@ class createProject extends React.Component {
 		));
 	};
 
+	addMediaInfo = (data, stateProp, mediaId) => {
+
+		let arr = this.state[stateProp]
+
+		let media = arr.filter(el => el.url === mediaId)[0];
+
+		for (let key in data) {
+			media.info[key] = data[key];
+		}
+
+		arr.forEach((el, i) => {
+			if (el.url === mediaId) {
+				el.info = media.info
+			}
+		});
+
+		this.setState({[stateProp]: arr}, () => console.log(this.state[stateProp]));
+	};
+
 	showMediaInfo = (e, input) => {
 		e.preventDefault();
 
 		let stateProp = e.target.getAttribute('data-state-prop');
+
+		console.log(this.state[stateProp])
 
 		let data = {
 			stateProp: stateProp,
@@ -412,11 +474,11 @@ class createProject extends React.Component {
 						<h3 className="title">{section.name.bg}&nbsp;&nbsp;| </h3>
 						<button className="btn btn-default xs"
 						        data-state-prop={'info'}
-						        name={e}
+						        data-section-name={e}
 						        onClick={this.loadTextSectionForm}>{BUTTONS.bg.edit}
 						</button>
 						<button className="btn btn-default xs"
-						        name={e}
+						        data-section-name={e}
 						        data-state-prop={'info'}
 						        onClick={this.removeInfoSection}>{BUTTONS.bg.delete}
 						</button>
@@ -440,12 +502,12 @@ class createProject extends React.Component {
 				<ConfirmDialog onRef={ref => (this.confirmDialog = ref)} language='bg'/>
 
 				<TextSectionFrom onRef={ref => (this.textSectionForm = ref)}
-				                 submit={this.addInfoSection}
-				                 notifications={this.notifications}/>
+				                 addTextSection={this.addInfoSection}
+				                 addMediaInfo={this.addMediaInfo}/>
 
 				<MediaInfo onRef={ref => (this.mediaInfo = ref)}
 				           loadTextSectionForm={this.loadTextSectionForm}
-				           notifications={this.notifications}/>
+				           deleteSection={this.removeInfoSection}/>
 
 				{/*//PAGE HEADER*/}
 				<div className="page-header">
@@ -557,6 +619,7 @@ class createProject extends React.Component {
 
 							<button className="btn btn-default-light xs"
 							        data-state-prop={'info'}
+							        data-section-name={null}
 							        onClick={this.loadTextSectionForm}>{BUTTONS.bg.addSection}
 							</button>
 
