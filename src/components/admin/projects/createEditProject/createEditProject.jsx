@@ -148,8 +148,6 @@ class createProject extends React.Component {
 		let elId = e.target.getAttribute('data-el-id');
 		let sectionId = e.target.getAttribute('data-section-name');
 
-		console.log(stateProp, elId, sectionId);
-
 		if (stateProp === 'info') {
 			if (!sectionId) {
 				let data = {
@@ -213,8 +211,6 @@ class createProject extends React.Component {
 		let elId = e.target.getAttribute('data-el-id');
 		let sectionId = e.target.getAttribute('data-section-name');
 
-		console.log(stateProp, elId, sectionId);
-
 		if (stateProp === 'info') {
 
 			this.confirmDialog
@@ -236,14 +232,12 @@ class createProject extends React.Component {
 						}
 					});
 
-					this.setState({[stateProp]: arr}, () => console.log(this.state[stateProp]));
+					this.setState({[stateProp]: arr});
 				});
 		}
 	};
 
 	addInfoSection = (data, stateProp) => {
-
-		console.log(stateProp);
 
 		this.setState(prevState => (
 			{
@@ -265,15 +259,13 @@ class createProject extends React.Component {
 			}
 		});
 
-		this.setState({[stateProp]: arr}, () => console.log(this.state[stateProp]));
+		this.setState({[stateProp]: arr});
 	};
 
 	showMediaInfo = (e, input) => {
 		e.preventDefault();
 
 		let stateProp = e.target.getAttribute('data-state-prop');
-
-		console.log(this.state[stateProp]);
 
 		let data = {
 			stateProp: stateProp,
@@ -330,10 +322,24 @@ class createProject extends React.Component {
 		let filtered = arr.filter((el) => el.url !== e.target.value);
 
 		this.setState({[e.target.name]: filtered});
+
 	};
 
 	handleNewOrder = (stateProp, reorderedElements) => {
 		this.setState({[stateProp]: reorderedElements});
+	};
+
+	saveMediaContentOrder = (stateProp, element) => {
+
+		let arr = this.state[stateProp];
+
+		arr.forEach(e => {
+			if (e.url === element.url) {
+				e.info = element.info
+			}
+		});
+
+		this.setState({[stateProp] : arr})
 	};
 
 	saveProject = (e) => {
@@ -347,7 +353,7 @@ class createProject extends React.Component {
 				.then(res => {
 
 					this.notifications.showMessage(NOTIFICATIONS.bg.successEdit);
-					setTimeout(() => this.props.history.go(-1), 2000);
+					setTimeout(() => this.props.history.push('/admin/projects-list'), 2000);
 
 				})
 				.catch(err => {
@@ -362,7 +368,7 @@ class createProject extends React.Component {
 			.then(res => {
 
 				this.notifications.showMessage(NOTIFICATIONS.bg.projectCreated);
-				setTimeout(() => this.props.history.go(-1), 2000);
+				setTimeout(() => this.props.history.go('/admin/projects-list'), 2000);
 
 			})
 			.catch(err => {
@@ -427,7 +433,7 @@ class createProject extends React.Component {
 						        onClick={this.removeImageVideo}>clear
 						</button>
 
-						<button className="btn xs btn-primary"
+						<button className="btn xs btn-success"
 						        data-state-prop={'videos'}
 						        onClick={(e) => this.showMediaInfo(e, video)}>info
 						</button>
@@ -501,14 +507,17 @@ class createProject extends React.Component {
 
 				<MediaInfo onRef={ref => (this.mediaInfo = ref)}
 				           loadTextSectionForm={this.loadTextSectionForm}
-				           deleteSection={this.removeInfoSection}/>
+				           deleteSection={this.removeInfoSection}
+				           saveMediaContentOrder={this.saveMediaContentOrder}
+				           saveOrder={this.saveMediaContentOrder}/>
 
 				{/*//PAGE HEADER*/}
 				<div className="page-header">
 					<h1 className="page-title">{title}</h1>
 
 					{this.projectId &&
-					<button className="btn btn-danger xs" onClick={this.confirmDeleteProject}>
+					<button className="btn btn-danger xs"
+					        onClick={this.confirmDeleteProject}>
 						<i className="fa fa-trash" aria-hidden="true"/>
 						{BUTTONS.bg.delete}
 					</button>
@@ -665,9 +674,13 @@ class createProject extends React.Component {
 						{/*Videos*/}
 						<div className='project-data'>
 							<h3 className='section-title'>{ADMIN_PAGES_TEXT.project.bg.videos}</h3>
-							<div className='container'>
-								{videos}
-							</div>
+
+							<SortableVideos elements={this.state.videos}
+							                name="videos"
+							                onChange={this.handleNewOrder}
+							                onDelete={this.removeImageVideo}
+							                showMediaInfo={this.showMediaInfo}
+							                removeImageVideo={this.removeImageVideo}/>
 
 							<AddOnInput
 								name="videos"

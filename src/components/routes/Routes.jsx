@@ -78,6 +78,10 @@ let Routes = () => {
 			<PrivateRoute path='/admin/client-create' component={createEditClient}/>
 			<PrivateRoute path='/admin/client-edit/:id' component={createEditClient}/>
 
+			<Route exact path={'/admin/sections-list'} component={sectionsList}/>
+			<Route path={'/admin/section-create'} component={createEditSection} />
+			<Route path={'/admin/section-edit/:id'} component={createEditSection} />
+
 			<Route path='*' component={NotFound}/>
 		</Switch>
 	);

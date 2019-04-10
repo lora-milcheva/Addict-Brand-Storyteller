@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { BUTTONS } from '../../../../../constants/constants';
 
-class SortableVideos extends React.Component {
+class SortableContent extends React.Component {
 	constructor (props) {
 		super(props);
 
@@ -14,11 +15,12 @@ class SortableVideos extends React.Component {
 	}
 
 	onDragOver = (e) => {
+
 		// Enable movement
 		e.preventDefault();
 	};
 
-	onDragStart = (e, element) => {
+	onDragStart = (e, elementKey) => {
 
 		// Set the initial position of the dragged element
 		this.setState({
@@ -26,15 +28,13 @@ class SortableVideos extends React.Component {
 			startY: e.clientY
 		});
 
-		console.log(this.props.elements)
-
 		// Fade out element
-		let elementIndex = this.props.elements.indexOf(element);
+		let elementIndex = Object.keys(this.props.elements).indexOf(elementKey);
 		this.fadeOut(this.dataContainer.current.children[elementIndex], .1);
 
 		// Save element and its index in the array
-		e.dataTransfer.setData('element', JSON.stringify(element));
-		e.dataTransfer.setData('index', this.props.elements.indexOf(element));
+		e.dataTransfer.setData('element', elementKey);
+		e.dataTransfer.setData('index', Object.keys(this.props.elements).indexOf(elementKey));
 	};
 
 	onDrop = (e) => {
@@ -48,7 +48,7 @@ class SortableVideos extends React.Component {
 		let imagesOnRow = Math.floor(container.current.clientWidth / imageWidth);
 
 		// Get the image that we want to change
-		let el = JSON.parse(e.dataTransfer.getData('element'));
+		let el = e.dataTransfer.getData('element');
 		let imageIndex = Number(e.dataTransfer.getData('index'));
 
 		// Get the image start position
@@ -74,11 +74,18 @@ class SortableVideos extends React.Component {
 		this.fadeOut(container.current.children[newIndex], .3);
 
 		// Remove image from the array and then place it in the new index position
-		let reorderedElements = this.props.elements.filter(e => e.url !== el.url);
+		let reorderedElements = Object.keys(this.props.elements).filter(e => e !== el);
 		reorderedElements.splice(newIndex, 0, el);
 
+		let arr = {};
+
+		reorderedElements.forEach(e => {
+			arr[e] = this.props.elements[e];
+		});
+
+
 		// Save new arrangement
-		this.props.onChange(this.props.name, reorderedElements);
+		this.props.onChange(arr);
 
 		// Fade in changed elements
 		setTimeout(() => {
@@ -103,32 +110,42 @@ class SortableVideos extends React.Component {
 
 	render () {
 
-		let elements = (this.props.elements).map((element, index) => {
+		let elements = Object.keys(this.props.elements).map((element, index) => {
+
+			let section = this.props.allSectionIds.filter(s => s._id === element)[0];
+			let text = this.props.info[element];
 
 			return (
 				<div key={index}
-				     className="image"
+				     className="info-text"
 				     draggable
 				     onDragStart={(e) => this.onDragStart(e, element)}>
 
-					<iframe src={element.url}/>
-
-					<div className={'draggable'}/>
-
-					<div className='del-btn'>
-						<button className="btn xs btn-primary"
-						        name='videos'
-						        value={element.url}
-						        onClick={this.props.onDelete}>clear
+					<div className="section-header">
+						<h3 className="title">{section.name.bg}&nbsp;&nbsp;| </h3>
+						<button className="btn btn-default xs"
+						        data-state-prop={this.props.stateProp}
+						        data-el-id={this.props.id}
+						        data-section-name={element}
+						        onClick={(e) => this.props.loadTextSectionForm(e)}>{BUTTONS.bg.edit}
 						</button>
-
-						<button className="btn xs btn-success"
-						        data-state-prop={'videos'}
-						        onClick={(e) => this.props.showMediaInfo(e, element)}>info
+						<button className="btn btn-default xs"
+						        name={element}
+						        data-state-prop={this.props.stateProp}
+						        data-el-id={this.props.id}
+						        data-section-name={element}
+						        onClick={(e) => this.props.deleteSection(e)}>{BUTTONS.bg.delete}
 						</button>
 					</div>
-				</div>
-			);
+
+					<span className="label">BG</span>
+					<div dangerouslySetInnerHTML={{__html: text.bg}}
+					     className="text"/>
+
+					<span className="label">EN</span>
+					<div dangerouslySetInnerHTML={{__html: text.en}}
+					     className="text"/>
+				</div>);
 		});
 
 		return (
@@ -142,11 +159,13 @@ class SortableVideos extends React.Component {
 	}
 }
 
-export default SortableVideos;
+export default SortableContent;
 
-SortableVideos.propTypes = {
-	elements: PropTypes.array,
-	name: PropTypes.string,
-	onDelete: PropTypes.func,
-	onChange: PropTypes.func
+SortableContent.propTypes = {
+	elements: PropTypes.object,
+	info: PropTypes.object,
+	allSectionsIds: PropTypes.array,
+	deleteSection: PropTypes.func,
+	loadTextSectionForm: PropTypes.func,
+	// onChange: this.props.onChange
 };

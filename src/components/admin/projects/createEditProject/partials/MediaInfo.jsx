@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Partials
+import SortableContent from './SortableContent';
+
 // Constants
 import { BUTTONS, NOTIFICATIONS } from '../../../../../constants/constants';
 
@@ -41,6 +44,17 @@ class MediaInfo extends React.Component {
 		this.setState({sectionId: e.target.value});
 	};
 
+	saveOrder = (newOrder) => {
+		this.setState({info: newOrder}, () => {
+
+			let element = {
+				url: this.state.id,
+				info: this.state.info
+			};
+
+			this.props.saveOrder(this.state.stateProp, element);
+		});
+	};
 
 	cancel = () => {
 		this.setState({
@@ -61,8 +75,6 @@ class MediaInfo extends React.Component {
 
 			let section = this.state.allSectionIds.filter(s => s._id === e)[0];
 			let text = this.state.info[e];
-
-			console.log(e)
 
 			return (
 				<div key={e} className="info-text">
@@ -103,7 +115,7 @@ class MediaInfo extends React.Component {
 				<div className='info'>
 
 					<div className="buttons-container text-center">
-						<button className="btn sm btn-default-light"
+						<button className="btn sm btn-default"
 						        data-state-prop={this.state.stateProp}
 						        data-el-id={this.state.id}
 						        data-section-name={null}
@@ -111,10 +123,24 @@ class MediaInfo extends React.Component {
 						</button>
 					</div>
 
-					{info}
+
+					<h3></h3>
+
+					<SortableContent name={'videos'}
+					                 elements={this.state.info}
+					                 allSectionIds={this.state.allSectionIds}
+					                 info={this.state.info}
+					                 id={this.state.id}
+					                 stateProp={this.state.stateProp}
+					                 loadTextSectionForm={this.props.loadTextSectionForm}
+					                 deleteSection={this.props.deleteSection}
+					                 onChange={this.saveOrder}/>
+
+
+					{/*{info}*/}
 
 					<div className="buttons-container text-center">
-						<button className="btn sm btn-default-light"
+						<button className="btn sm btn-default"
 						        onClick={this.cancel}>{BUTTONS.bg.close}
 						</button>
 					</div>

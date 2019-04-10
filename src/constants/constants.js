@@ -123,10 +123,12 @@ const BUTTONS = {
 const CONFIRM_DIALOG_MESSAGES = {
 	bg: {
 		confirmDeleteProject: 'Желаете ли да изтриете този проект?',
+		conformDelete: 'Изтриване?',
 		confirmDeleteSection: 'Изтриване на секцията?',
 	},
 	en: {
 		confirmDeleteProject: 'Delete this project?',
+		conformDelete: 'Confirm delete',
 		confirmDeleteSection: 'Delete section?',
 	}
 };

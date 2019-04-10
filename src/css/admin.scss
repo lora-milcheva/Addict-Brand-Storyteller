@@ -108,34 +108,37 @@
       @include flex-basis(100%);
     }
 
-    .info-text {
-      @include flex-basis(100%);
-      font-size: .85em;
-      padding-bottom: 10px;
-      border-bottom: 1px solid $medium-grey;
 
-      .section-header {
-        margin-bottom: 5px;
+  }
 
-        .title {
-          //border-bottom: 1px solid $black;
-          display: inline-block;
-          margin-right: 10px;
-          padding-bottom: 5px;
-        }
+  .info-text {
+    @include flex-basis(100%);
+    font-size: .85em;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $medium-grey;
+
+    .section-header {
+      margin-bottom: 5px;
+
+      .title {
+        //border-bottom: 1px solid $black;
+        display: inline-block;
+        margin-right: 10px;
+        padding-bottom: 5px;
       }
+    }
 
-      .label {
-        float: left;
-        margin-right: 8px;
-        background-color: $medium-grey;
-        color: $dark-grey;
-      }
+    .label {
+      float: left;
+      margin-right: 8px;
+      background-color: $medium-grey;
+      color: $dark-grey;
+    }
 
-      .text {
-        p {
-          margin: 0 0 .5em 0;
-        }
+    .text {
+      min-height: 15px;
+      p {
+        margin: 0 0 .5em 0;
       }
     }
   }
@@ -167,6 +170,17 @@
         .image {
           position: relative;
           @include flex-basis(32%);
+
+          iframe {
+            pointer-events: none;
+          }
+
+          .draggable {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            color: $black;
+          }
 
           @include flex;
           @include align-items(center);
