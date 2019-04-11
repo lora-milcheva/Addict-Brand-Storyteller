@@ -15,10 +15,18 @@
     @include flex;
     @include flex-wrap(wrap);
     @include align-items(flex-start);
+    padding-bottom: 50px;
+  }
 
-    .buttons-container {
-      @include justify-content(center);
-    }
+  #submit-buttons {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+    @include justify-content(center);
+    background-color: $white;
+    @include shadow-top;
   }
 
   #info-section-inputs {
@@ -137,6 +145,7 @@
 
     .text {
       min-height: 15px;
+
       p {
         margin: 0 0 .5em 0;
       }
@@ -170,6 +179,12 @@
         .image {
           position: relative;
           @include flex-basis(32%);
+          min-height: 38px;
+          overflow: hidden;
+          margin: 0 1% 1% 0;
+          border: 1px solid $medium-grey;
+          @include flex;
+          @include align-items(center);
 
           iframe {
             pointer-events: none;
@@ -181,13 +196,6 @@
             height: 100%;
             color: $black;
           }
-
-          @include flex;
-          @include align-items(center);
-
-          overflow: hidden;
-          margin: 0 1% 1% 0;
-          border: 1px solid $medium-grey;
 
           .del-btn {
             position: absolute;

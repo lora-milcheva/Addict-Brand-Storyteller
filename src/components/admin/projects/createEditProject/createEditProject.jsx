@@ -6,6 +6,7 @@ import FormSelectField from '../../../common/formComponents/FormSelectField';
 import Textarea from '../../../common/formComponents/TextArea';
 import AddOnInput from '../../../common/formComponents/AddOnInput';
 import SortableList from './partials/SortableList';
+import SortableImages from './partials/SortableImages';
 import SortableVideos from './partials/SortableVideos';
 import MediaInfo from './partials/MediaInfo';
 import TextSectionFrom from './partials/TextSectionForm';
@@ -335,11 +336,11 @@ class createProject extends React.Component {
 
 		arr.forEach(e => {
 			if (e.url === element.url) {
-				e.info = element.info
+				e.info = element.info;
 			}
 		});
 
-		this.setState({[stateProp] : arr})
+		this.setState({[stateProp]: arr});
 	};
 
 	saveProject = (e) => {
@@ -411,7 +412,7 @@ class createProject extends React.Component {
 			: ADMIN_PAGES_TEXT.project.bg.createProject;
 
 		let buttonText = this.projectId
-			? BUTTONS.bg.edit
+			? BUTTONS.bg.saveChanges
 			: BUTTONS.bg.create;
 
 		let thumbnail = this.state.thumbnail !== ''
@@ -420,27 +421,6 @@ class createProject extends React.Component {
 				</figure>
 			)
 			: null;
-
-		let videos = (this.state.videos).map((video, index) => {
-			return (
-				<div className='image' key={index}>
-					<iframe src={video.url}/>
-
-					<div className='del-btn'>
-						<button className="btn xs btn-primary"
-						        name='videos'
-						        value={video.url}
-						        onClick={this.removeImageVideo}>clear
-						</button>
-
-						<button className="btn xs btn-success"
-						        data-state-prop={'videos'}
-						        onClick={(e) => this.showMediaInfo(e, video)}>info
-						</button>
-					</div>
-				</div>
-			);
-		});
 
 		let categories = this.state.allCategories.map(e => {
 			let classList = this.state.categoryIds.includes(e._id) ? 'btn category-label selected' : 'btn category-label';
@@ -454,13 +434,14 @@ class createProject extends React.Component {
 			);
 		});
 
-		let isStar = (<button className={this.state.isStar ? 'btn category-label attention' : 'btn category-label'}
-		                      name="isStar"
-		                      value={this.state.isStar}
-		                      onClick={this.handleCheckBoxChange}>
-			<i className="fa fa-star" aria-hidden="true"/>
-			{CREATE_PROJECT_INPUTS.bg.isStar}
-		</button>);
+		let isStar = (
+			<button className={this.state.isStar ? 'btn category-label attention' : 'btn category-label'}
+			        name="isStar"
+			        value={this.state.isStar}
+			        onClick={this.handleCheckBoxChange}>
+				<i className="fa fa-star" aria-hidden="true"/>
+				{CREATE_PROJECT_INPUTS.bg.isStar}
+			</button>);
 
 		let info = Object.keys(this.state.info).map(e => {
 
@@ -656,10 +637,13 @@ class createProject extends React.Component {
 						{/*Images*/}
 						<div className="project-data">
 							<h3 className="section-title">{ADMIN_PAGES_TEXT.project.bg.images}</h3>
-							<SortableList elements={this.state.images}
-							              name="images"
-							              onDelete={this.handleArrChange}
-							              onChange={this.handleNewOrder}/>
+
+							<SortableImages elements={this.state.images}
+							                name="images"
+							                onChange={this.handleNewOrder}
+							                onDelete={this.removeImageVideo}
+							                showMediaInfo={this.showMediaInfo}
+							                removeImageVideo={this.removeImageVideo}/>
 
 							<AddOnInput
 								name='images'
@@ -667,7 +651,7 @@ class createProject extends React.Component {
 								labelClassName='no-label'
 								buttonText='+'
 								placeholder='/images/projects/folderName/imageName'
-								onChange={this.handleArrChange}
+								onChange={this.addImageVideo}
 								clearText={true}/>
 						</div>
 
@@ -694,14 +678,13 @@ class createProject extends React.Component {
 
 					</aside>
 
-
-					{/*//SUBMIT*/}
-					<div className="buttons-container text-center form-group">
-						<button className="btn btn-default-light" onClick={this.cancel}>{BUTTONS.bg.cancel}</button>
-						<button className="btn btn-primary" type="submit">{buttonText}</button>
-					</div>
-
 				</form>
+
+				{/*//SUBMIT*/}
+				<div id={'submit-buttons'} className="buttons-container text-center form-group">
+					<button className="btn btn-default-light" onClick={this.cancel}>{BUTTONS.bg.cancel}</button>
+					<button className="btn btn-primary" onClick={this.saveProject} type="submit">{buttonText}</button>
+				</div>
 
 			</div>
 

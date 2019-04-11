@@ -14,11 +14,9 @@ class GalleryPreview extends React.Component {
 		this.image = React.createRef();
 	}
 
-
 	componentWillReceiveProps (nextProps) {
 		this.setState({image: nextProps.image, allImages: nextProps.allImages});
 	}
-
 
 	showNextImage = () => {
 
@@ -26,27 +24,41 @@ class GalleryPreview extends React.Component {
 
 		let image = this.image.current;
 
-		let nextImageIndex = allImages.indexOf(this.state.image) + 1;
+		let currentImageIndex = 0;
+
+		allImages.forEach((e, i) => {
+			if (e.url === this.state.image) currentImageIndex = (i);
+		});
+
+		let nextImageIndex = currentImageIndex + 1;
 		if (nextImageIndex === allImages.length) {
 			nextImageIndex = 0;
 		}
 
 		this.fadeOut(image);
 
+		console.log(nextImageIndex);
+		console.log(this.state.allImages[nextImageIndex]);
+
 		setTimeout(() => {
-			this.setState({ image: this.state.allImages[nextImageIndex]});
-			this.fadeIn(image)
+			this.setState({image: this.state.allImages[nextImageIndex].url});
+			this.fadeIn(image);
 		}, 600);
 
 	};
-
 
 	showPrevImage = () => {
 		let allImages = this.state.allImages;
 
 		let image = this.image.current;
 
-		let prevImageIndex = allImages.indexOf(this.state.image) - 1;
+		let currentImageIndex = 0;
+
+		allImages.forEach((e, i) => {
+			if (e.url === this.state.image) currentImageIndex = (i);
+		});
+
+		let prevImageIndex = currentImageIndex - 1;
 		if (prevImageIndex < 0) {
 			prevImageIndex = allImages.length - 1;
 		}
@@ -54,8 +66,8 @@ class GalleryPreview extends React.Component {
 		this.fadeOut(image);
 
 		setTimeout(() => {
-			this.setState({image: this.state.allImages[prevImageIndex]});
-			this.fadeIn(image)
+			this.setState({image: this.state.allImages[prevImageIndex].url});
+			this.fadeIn(image);
 		}, 600);
 	};
 

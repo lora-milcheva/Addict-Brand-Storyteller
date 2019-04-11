@@ -89,6 +89,7 @@ const BUTTONS = {
 	bg: {
 		create: 'Създай',
 		edit: 'Редакция',
+		saveChanges: 'Запази промените',
 		add: 'Добави',
 		delete: 'Изтриване',
 		cancel: 'Отказ',
@@ -105,6 +106,7 @@ const BUTTONS = {
 	en: {
 		create: 'Create',
 		edit: 'Edit',
+		saveChanges: 'Save Changes',
 		add: 'Add',
 		delete: 'Delete',
 		cancel: 'Cancel',

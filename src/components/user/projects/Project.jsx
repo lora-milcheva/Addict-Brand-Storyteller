@@ -65,8 +65,6 @@ class Project extends React.Component {
 
 	componentDidMount () {
 
-		console.log(222)
-
 		// Log anonymous user if storage is empty
 		if (sessionStorage.getItem('authtoken') === null) {
 			authService
@@ -214,10 +212,6 @@ class Project extends React.Component {
 		}
 	};
 
-	handleSize = () => {
-		console.log(this.image.current);
-	};
-
 	render () {
 
 		if (this.state.loading) {
@@ -273,7 +267,7 @@ class Project extends React.Component {
 			this[name] = React.createRef();
 
 			return (
-				<figure key={e}
+				<figure key={name}
 				        className="image"
 				        ref={this[name]}
 				        onLoad={() => {
@@ -282,7 +276,7 @@ class Project extends React.Component {
 						        img.classList.add('portrait');
 					        }
 				        }}>
-					<img src={e} className="img-fit" alt={e} name={e} onClick={this.showPreview}/>
+					<img src={e.url} className="img-fit" alt={e.url} name={e.url} onClick={this.showPreview}/>
 				</figure>
 			);
 		});

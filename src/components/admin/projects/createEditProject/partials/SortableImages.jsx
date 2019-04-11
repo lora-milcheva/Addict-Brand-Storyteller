@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class SortableVideos extends React.Component {
+class SortableImages extends React.Component {
 	constructor (props) {
 		super(props);
 
@@ -106,28 +106,26 @@ class SortableVideos extends React.Component {
 		let elements = (this.props.elements).map((element, index) => {
 
 			return (
-				<div key={index}
-				     className="image"
-				     draggable
-				     onDragStart={(e) => this.onDragStart(e, element)}>
+				<figure key={index}
+				        className="image"
+				        draggable
+				        onDragStart={(e) => this.onDragStart(e, element)}>
 
-					<iframe src={element.url}/>
-
-					<div className={'draggable'}/>
+					<img src={element.url} className="img-fit" alt=""/>
 
 					<div className='del-btn'>
 						<button className="btn xs btn-primary"
-						        name='videos'
+						        name='images'
 						        value={element.url}
 						        onClick={this.props.onDelete}>clear
 						</button>
 
 						<button className="btn xs btn-success"
-						        data-state-prop={'videos'}
+						        data-state-prop={'images'}
 						        onClick={(e) => this.props.showMediaInfo(e, element)}>info
 						</button>
 					</div>
-				</div>
+				</figure>
 			);
 		});
 
@@ -142,9 +140,9 @@ class SortableVideos extends React.Component {
 	}
 }
 
-export default SortableVideos;
+export default SortableImages;
 
-SortableVideos.propTypes = {
+SortableImages.propTypes = {
 	elements: PropTypes.array,
 	name: PropTypes.string,
 	onDelete: PropTypes.func,
