@@ -126,6 +126,8 @@ class HeaderC extends React.Component {
 						         onClick={this.logout}>{MENU[lang].logout}</NavLink>
 
 					</nav>
+
+					<span>Logged in as: {sessionStorage.getItem('username')}</span>
 				</div>
 			);
 		}
@@ -160,6 +162,11 @@ class HeaderC extends React.Component {
 					         to="/contact"
 					         className="nav-link"
 					         activeClassName='active'>{MENU[lang].contact}</NavLink>
+
+					<NavLink exact
+					         to="/login"
+					         className="nav-link"
+					         activeClassName='active'>{MENU[lang].login}</NavLink>
 
 					<button id="lang-btn" className="btn btn-default-light sm"
 					        value={lang}

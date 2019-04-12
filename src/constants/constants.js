@@ -11,6 +11,7 @@ const MENU = {
 		clients: 'Клиенти',
 		categories: 'Категории',
 		sections: 'Секциии',
+		login: 'Логин',
 		logout: 'Изход'
 	},
 	en: {
@@ -19,6 +20,7 @@ const MENU = {
 		clients: 'Clients',
 		categories: 'Categories',
 		sections: 'Sections',
+		login: 'Login',
 		logout: 'Logout'
 	}
 };

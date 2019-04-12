@@ -129,11 +129,21 @@
 #home-projects .projects-container,
 #projects-list .projects-container {
 
-  @include grid(3, 10);
+  @include flex;
+  @include flex-wrap(wrap);
 
   .project-card {
     position: relative;
-    overflow: hidden;
+    @include flex-basis(32%);
+    margin-bottom: 10px;
+
+    &:nth-child(3n - 1) {
+      margin: 0 10px 10px 10px;
+    }
+
+    .img-container {
+      height: 100%;
+    }
 
 
     .hover {
@@ -192,8 +202,8 @@
 
   // info
   #project-info {
-    @include flex-basis(35%);
-    padding-right: 100px;
+    @include flex-basis(38%);
+    padding-right: 80px;
 
     // summary
     #project-summary {
@@ -246,6 +256,12 @@
           transition: max-height 0.25s ease-out;
           overflow: hidden;
 
+          p {
+            //margin: .4em 0;
+            //line-height: 1.3em;
+            //text-align: justify;
+          }
+
           &.visible {
             max-height: 1000px;
             transition: max-height 0.25s ease-in;
@@ -273,7 +289,8 @@
             display: block;
             height: 1px;
             width: 15px;
-            background-color: $medium-to-dark-grey;
+            background-color: $dark-grey-1;
+            //background-color: $primary;
             margin: 4px auto;
 
             @include ease-in;
@@ -313,7 +330,7 @@
   // project images or videos
   .project-gallery {
 
-    @include flex-basis(65%);
+    @include flex-basis(62%);
     @include flex;
     @include flex-wrap(wrap);
     margin-bottom: 100px;
@@ -509,40 +526,138 @@
   }
 }
 
-#project-one {
+#project-test {
   @include flex;
   @include flex-wrap(wrap);
+  @include align-items(flex-start);
   position: relative;
 
-  .project-info {
+  // info
+  #project-info {
     @include flex-basis(100%);
-    padding-left: 10%;
 
-    @include transform-text;
 
-    .btn:hover {
-      background-color: $blackish-grey;
-      color: $medium-to-dark-grey;
+    // summary
+    #project-summary {
+      @include transform-text;
+
+      p {
+        margin: .2em 0;
+      }
+
+      .cliche {
+        margin-top: 1em;
+        //color: $primary;
+        padding: 10px 0;
+        border-top: 1px solid $black;
+        //border-bottom: 1px solid $black;
+      }
+
+      .field {
+        font-weight: 700;
+        display: block;
+
+        &:after {
+          //content: ": ";
+        }
+      }
+    }
+
+    #project-image {
+      height: 450px;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    // description
+    #project-description {
+
+      section {
+        &:nth-of-type(odd) {
+          background-color: #f7f1ea;
+        }
+      }
+
+      .section {
+        @include flex;
+        @include flex-wrap(wrap);
+        padding-top: 200px;
+        padding-bottom: 200px;
+
+
+        .section-header {
+          @include flex-basis(30%);
+          //margin-top: 15px;
+        }
+
+        .section-title {
+          //color: $primary;
+          font-size: 2em;
+          @include flex-grow(1);
+          margin: 0;
+          padding-right: 25px;
+          //@include transform-text;
+        }
+
+        .section-text {
+          @include flex-basis(70%);
+          transition: max-height 0.25s ease-out;
+          overflow: hidden;
+        }
+
+        .img-full {
+          @include flex-basis(100%);
+
+        }
+      }
     }
   }
 
+  // project images or videos
   .project-gallery {
-    @include flex-basis(100%);
+    width: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 30px 0 30px 100px;
+    height: 700px;
 
-    margin-bottom: 100px;
+    .image-container {
+      margin: 0 5px 0 0;
+      @include main-transition;
+      @include inline-flex;
+      @include flex-direction(column);
+      height: inherit;
+    }
+
+    .name {
+      @include transform-text;
+
+      p {
+        white-space: normal;
+      }
+    }
 
     .image {
-      //height: 100%;
-      //margin: 0 1% .5% 0;
-      @include main-transition;
+      height: 80%;
+
+      .img-fit {
+        height: 100%;
+        object-fit: contain;
+        width: auto;
+      }
 
       &:hover {
         cursor: pointer;
         opacity: .7;
       }
+
+      &.portrait {
+        @include flex-basis(49%);
+      }
     }
   }
 
+  // preview on click
   .image-preview {
     position: fixed;
     top: 0;
@@ -562,17 +677,17 @@
     &.visible {
       opacity: 1;
       visibility: visible;
-      z-index: 1;
+      z-index: 2000;
     }
 
     .close-btn {
       position: absolute;
-      top: 0;
-      right: 0;
-      padding: 25px;
-      color: $medium-to-dark-grey;
-      background-color: $dark-grey;
-      z-index: 1000;
+      top: 10px;
+      right: 10px;
+      width: 40px;
+      height: 40px;
+      padding: 5px 7px;
+      background-color: transparent;
 
       @include main-transition;
 
@@ -604,20 +719,38 @@
         @include main-transition;
 
         &:hover {
+
           cursor: pointer;
-          color: $primary;
+
+          #prevBtn,
+          #nextBtn {
+            cursor: pointer;
+            color: $white;
+            background-color: $primary;
+          }
         }
 
         &:nth-of-type(2) {
           @include justify-content(flex-end);
+        }
+
+        #prevBtn,
+        #nextBtn {
+          width: 40px;
+          height: 40px;
+          padding: 5px 7px;
+          background-color: transparent;
+
+          @include main-transition;
+
         }
       }
     }
 
     .image {
       margin: auto;
-      width: 80%;
-      height: 80vh;
+      width: 90%;
+      height: 95vh;
       text-align: center;
 
       @include flex;
@@ -628,9 +761,9 @@
 
       .img-fit {
         width: auto;
-        max-width: 80%;
+        max-width: 100%;
         height: auto;
-        max-height: 80vh;
+        max-height: 100%;
 
       }
     }
@@ -640,6 +773,7 @@
     @include flex-basis(20%);
   }
 
+  // other projects
   .projects-container {
     @include flex-basis(80%);
     @include flex;
@@ -679,7 +813,7 @@
         background-color: rgba(255, 255, 255, .5);
 
         @include flex;
-        @include ease-in;
+        @include main-transition;
         @include translate(-100%, 0);
 
         .info {

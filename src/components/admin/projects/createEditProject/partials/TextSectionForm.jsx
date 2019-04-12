@@ -7,6 +7,7 @@ import Notifications from '../../../../common/Notifications';
 
 // Partials
 import FormSelectField from '../../../../common/formComponents/FormSelectField';
+import TextEditor from './TextEditor';
 
 // Constants
 import { BUTTONS, CREATE_PROJECT_INPUTS, NOTIFICATIONS } from '../../../../../constants/constants';
@@ -104,6 +105,9 @@ class TextSectionFrom extends React.Component {
 
 		let isVisible = this.state.visible;
 
+		// To prevent mounting of text editor with empty values
+		if (!this.state.visible) return (<div className={'loader'}/> )
+
 		return (
 			<div className={isVisible ? 'visible' : ''}
 			     id="info-section-inputs">
@@ -129,15 +133,26 @@ class TextSectionFrom extends React.Component {
 
 					<div className="form-group">
 						<label>{CREATE_PROJECT_INPUTS.bg.textBG}</label>
-						<ReactQuill value={this.state.textBG}
-						            onChange={this.handleTextChangeBG}/>
+						{/*<ReactQuill value={this.state.textBG}*/}
+						{/*            onChange={this.handleTextChangeBG}/>*/}
+						{this.state.visible !== '' &&
+						<TextEditor
+							value={this.state.textBG}
+							onChange={this.handleTextChangeBG}/>
+						}
 					</div>
 
 
 					<div className="form-group">
 						<label>{CREATE_PROJECT_INPUTS.bg.textEN}</label>
-						<ReactQuill value={this.state.textEN}
-						            onChange={this.handleTextChangeEN}/>
+						{/*<ReactQuill value={this.state.textEN}*/}
+						{/*            onChange={this.handleTextChangeEN}/>*/}
+
+						{this.state.visible !== '' &&
+						<TextEditor
+							value={this.state.textEN}
+							onChange={this.handleTextChangeEN}/>
+						}
 					</div>
 
 

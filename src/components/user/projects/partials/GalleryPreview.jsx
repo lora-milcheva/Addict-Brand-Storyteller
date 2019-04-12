@@ -26,8 +26,10 @@ class GalleryPreview extends React.Component {
 
 		let currentImageIndex = 0;
 
+		console.log(this.state.image.url)
+
 		allImages.forEach((e, i) => {
-			if (e.url === this.state.image) currentImageIndex = (i);
+			if (e.url === this.state.image.url) currentImageIndex = (i);
 		});
 
 		let nextImageIndex = currentImageIndex + 1;
@@ -37,11 +39,9 @@ class GalleryPreview extends React.Component {
 
 		this.fadeOut(image);
 
-		console.log(nextImageIndex);
-		console.log(this.state.allImages[nextImageIndex]);
 
 		setTimeout(() => {
-			this.setState({image: this.state.allImages[nextImageIndex].url});
+			this.setState({image: this.state.allImages[nextImageIndex]});
 			this.fadeIn(image);
 		}, 600);
 
@@ -55,7 +55,7 @@ class GalleryPreview extends React.Component {
 		let currentImageIndex = 0;
 
 		allImages.forEach((e, i) => {
-			if (e.url === this.state.image) currentImageIndex = (i);
+			if (e.url === this.state.image.url) currentImageIndex = (i);
 		});
 
 		let prevImageIndex = currentImageIndex - 1;
@@ -66,7 +66,7 @@ class GalleryPreview extends React.Component {
 		this.fadeOut(image);
 
 		setTimeout(() => {
-			this.setState({image: this.state.allImages[prevImageIndex].url});
+			this.setState({image: this.state.allImages[prevImageIndex]});
 			this.fadeIn(image);
 		}, 600);
 	};
@@ -93,11 +93,13 @@ class GalleryPreview extends React.Component {
 			<div className={isVisible ? 'image-preview visible' : 'image-preview'}>
 
 				<figure className="image">
-					<img src={this.state.image}
+					<img src={this.state.image.url}
 					     className="img-fit"
-					     alt={this.state.image}
+					     alt={this.state.image.url}
 					     ref={this.image}/>
 				</figure>
+
+
 
 				<div className="gallery-navigation">
 					<span className="gallery-navigation-button" onClick={this.showPrevImage}>

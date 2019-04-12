@@ -30,7 +30,11 @@ p {
   width: 100%; }
 
 .container {
-  width: 80%;
+  width: 86%;
+  margin: auto; }
+
+.container-padding {
+  padding: 0 7%;
   margin: auto; }
 
 .section-padding {

@@ -41,7 +41,12 @@ p {
 }
 
 .container {
-  width: 80%;
+  width: 86%;
+  margin: auto;
+}
+
+.container-padding {
+  padding: 0 7%;
   margin: auto;
 }
 
@@ -95,7 +100,7 @@ button {
   &.btn-next {
     width: 40px;
     height: 40px;
-    padding: 5px ;
+    padding: 5px;
     background-color: $primary;
 
     &.disabled {

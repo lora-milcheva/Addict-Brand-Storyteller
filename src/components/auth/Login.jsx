@@ -49,8 +49,12 @@ class Login extends React.Component {
 	};
 
 	makeLoginRequest = () => {
+
+		console.log(this.state)
 		authService.login(this.state)
 			.then(res => {
+
+				console.log(res)
 				authService.saveSession(res);
 				this.clearForm();
 				this.notifications.showMessage('logged in as: ' + res.username);
@@ -104,7 +108,7 @@ class Login extends React.Component {
 						       onChange={this.handleChange}/>
 					</div>
 
-					<button className="btn btn-primary" type="submit"> Login</button>
+					<button className="btn btn-primary" type="submit">Login</button>
 				</form>
 			</div>
 		);

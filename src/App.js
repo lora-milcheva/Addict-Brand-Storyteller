@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 // CSS
 import './css/main.css';
 import './css/animations.css';
@@ -8,7 +7,6 @@ import './css/user.css';
 // import './css/user-2.css';
 import './css/admin.css';
 // import './css/test.css'
-
 
 // Components
 import Header from './components/common/Header';
@@ -42,10 +40,13 @@ class App extends React.Component {
 				<Header/>
 
 				<main>
+
 					<Routes/>
+
 				</main>
 
 				<Footer/>
+
 			</LanguageContext.Provider>
 
 		);
