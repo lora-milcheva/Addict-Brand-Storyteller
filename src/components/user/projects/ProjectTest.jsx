@@ -332,7 +332,9 @@ class ProjectTest extends React.Component {
 		return (
 			<div id="project-test" className="container-fluid">
 
-				<GalleryPreview image={this.state.selectedImage} allImages={project.images}
+				<GalleryPreview image={this.state.selectedImage}
+				                allImages={project.images}
+				                activeLanguage={activeLanguage}
 				                onClose={this.hidePreview}/>
 
 

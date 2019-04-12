@@ -26,7 +26,7 @@ class GalleryPreview extends React.Component {
 
 		let currentImageIndex = 0;
 
-		console.log(this.state.image.url)
+		console.log(this.state.image.url);
 
 		allImages.forEach((e, i) => {
 			if (e.url === this.state.image.url) currentImageIndex = (i);
@@ -38,7 +38,6 @@ class GalleryPreview extends React.Component {
 		}
 
 		this.fadeOut(image);
-
 
 		setTimeout(() => {
 			this.setState({image: this.state.allImages[nextImageIndex]});
@@ -89,16 +88,28 @@ class GalleryPreview extends React.Component {
 
 		let isVisible = this.state.image !== '';
 
+		if (this.state.image === '') return (<div className={'loader'}/>);
+
 		return (
 			<div className={isVisible ? 'image-preview visible' : 'image-preview'}>
 
-				<figure className="image">
-					<img src={this.state.image.url}
-					     className="img-fit"
-					     alt={this.state.image.url}
-					     ref={this.image}/>
-				</figure>
+				<div className='gallery'>
+					<figure className="image">
+						<img src={this.state.image.url}
+						     className="img-fit"
+						     alt={this.state.image.url}
+						     ref={this.image}/>
+					</figure>
 
+					{this.state.image.Headline &&
+					<div className='content'>
+						<h4 dangerouslySetInnerHTML={{__html: this.state.image.Headline[this.props.activeLanguage]}}></h4>
+						<p dangerouslySetInnerHTML={{__html: this.state.image.Content[this.props.activeLanguage]}}></p>
+					</div>
+					}
+
+
+				</div>
 
 
 				<div className="gallery-navigation">
