@@ -26,8 +26,6 @@ class GalleryPreview extends React.Component {
 
 		let currentImageIndex = 0;
 
-		console.log(this.state.image.url);
-
 		allImages.forEach((e, i) => {
 			if (e.url === this.state.image.url) currentImageIndex = (i);
 		});
@@ -86,12 +84,14 @@ class GalleryPreview extends React.Component {
 
 	render () {
 
-		let isVisible = this.state.image !== '';
-
 		if (this.state.image === '') return (<div className={'loader'}/>);
 
+		let isVisible = this.state.image !== '';
+
+		let lang = this.props.activeLanguage;
+
 		return (
-			<div className={isVisible ? 'image-preview visible' : 'image-preview'}>
+			<div id='image-preview' className={isVisible ? 'visible' : ''}>
 
 				<div className='gallery'>
 					<figure className="image">
@@ -101,14 +101,12 @@ class GalleryPreview extends React.Component {
 						     ref={this.image}/>
 					</figure>
 
-					{this.state.image.Headline &&
-					<div className='content'>
-						<h4 dangerouslySetInnerHTML={{__html: this.state.image.Headline[this.props.activeLanguage]}}></h4>
-						<p dangerouslySetInnerHTML={{__html: this.state.image.Content[this.props.activeLanguage]}}></p>
-					</div>
-					}
-
-
+					{/*{this.state.image.Headline && this.state.image.Content &&*/}
+					{/*<div className='content'>*/}
+					{/*	<h4 dangerouslySetInnerHTML={{__html: this.state.image.Headline[lang]}}/>*/}
+					{/*	<p dangerouslySetInnerHTML={{__html: this.state.image.Content[lang]}}/>*/}
+					{/*</div>*/}
+					{/*}*/}
 				</div>
 
 

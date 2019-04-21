@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import posed from 'react-pose';
+import posed from 'react-pose/lib/index';
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 // Partials
 import GalleryPreview from './partials/GalleryPreview';
 import ProjectCard from '../common/ProjectCard';
-import List from '../test/List';
+import Gallery from './partials/Gallery'
 
 // Services
 import projectsService from '../../../services/projects/projectsService';
@@ -17,24 +17,8 @@ import authService from '../../../services/auth/authService';
 // Constants
 import { USER_PAGES_TEXT } from '../../../constants/constants';
 
-const ImagesContainer = posed.div({
-	enter: {staggerChildren: 50},
-	exit: {staggerChildren: 20, staggerDirection: -1}
-});
 
-const Card = posed.figure({
-	enter: {
-		y: 0,
-		opacity: 1,
-		transition: {
-			opacity: {ease: 'easeOut', duration: 100},
-			default: {ease: 'linear', duration: 100}
-		},
-	},
-	exit: {y: 250, opacity: 0}
-});
-
-class Project extends React.Component {
+class ProjectStory extends React.Component {
 	constructor (props) {
 		super(props);
 
@@ -84,7 +68,6 @@ class Project extends React.Component {
 
 		if (this.props.match.params.id !== nextProps.match.params.id) {
 			this.setState({loading: true});
-			this.props = nextProps;
 
 			this.projectId = nextProps.match.params.id;
 
@@ -192,7 +175,8 @@ class Project extends React.Component {
 	};
 
 	showPreview = (e) => {
-		this.setState({selectedImage: e.target.name});
+		let image = JSON.parse(e.target.getAttribute('data-target'));
+		this.setState({selectedImage: image});
 	};
 
 	hidePreview = () => {
@@ -214,11 +198,13 @@ class Project extends React.Component {
 		}
 	};
 
+	moveRight = () => {
+
+	};
+
 	render () {
 
-		if (this.state.loading) {
-			return (<div className="lds-dual-ring"/> );
-		}
+		if (this.state.loading) return (<div className="lds-dual-ring"/>);
 
 		let activeLanguage = this.context.language;
 
@@ -229,125 +215,121 @@ class Project extends React.Component {
 		let info;
 
 		if (Object.keys(project.info)) {
+
 			info = Object.keys(project.info).map(e => {
 
-				let section = project.info[e];
+				let sectionText = project.info[e][activeLanguage];
 
-				let name = this.state.allSections.filter(s => s._id === e)[0].name[activeLanguage];
+				let sectionName = this.state.allSections.filter(s => s._id === e)[0].name[activeLanguage];
 
-				let style = this.state.visibleSectionIds.includes(e) ? 'section-text visible' : 'section-text';
+				let result = findImageInString(sectionText);
 
-				let buttonStyle = this.state.visibleSectionIds.includes(e) ? 'toggle-menu clicked' : 'toggle-menu';
+				let imgStyle = {
+					height: '350px',
+					backgroundImage: 'url(' + result.url + ')',
+					backgroundSize: 'cover',
+					backgroundAttachment: 'fixed',
+					WebkitTransition: 'all',    // note the capital 'W' here
+					msTransition: 'all'         // 'ms' is the only lowercase vendor prefix
+				};
 
 				return (
-					<article key={e} className="section">
-						<div className="section-header">
-							<h4 className="section-title">{name}</h4>
+					<section key={e}>
 
-							<div className={buttonStyle}>
-								<span className="toggle"/>
-								<span className="toggle"/>
-								<button className="over" name={e}
-								        onClick={this.toggleSection}/>
+						<article className="section container-padding">
+							<div className="section-header">
+								<h4 className="section-title">{sectionName}</h4>
 							</div>
+							<div className='section-text'
+							     dangerouslySetInnerHTML={{__html: result.text}}/>
+						</article>
 
-						</div>
-						<div className={style}
-						     dangerouslySetInnerHTML={{__html: section[activeLanguage]}}>
-						</div>
-					</article>
+						{result.url !== '' && <div style={imgStyle}/>}
+
+					</section>
 				);
 			});
 		}
 
-		let gallery, randomProjects;
 
-		gallery = project.images.map((e, i) => {
-
-			let name = 'img' + i;
-
-			this[name] = React.createRef();
-
-			return (
-				<figure key={name}
-				        className="image"
-				        ref={this[name]}
-				        onLoad={() => {
-					        let img = this[name].current;
-					        if (img.clientWidth < img.clientHeight) {
-						        img.classList.add('portrait');
-					        }
-				        }}>
-					<img src={e.url} className="img-fit" alt={e.url} name={e.url} onClick={this.showPreview}/>
-				</figure>
-			);
-		});
-
-		randomProjects = this.state.randomProjects.map((e, i) => {
+		let randomProjects = this.state.randomProjects.map((e, i) => {
 			return (
 				<ProjectCard key={e._id + i} project={e} activeLanguage={activeLanguage}/>
 			);
 		});
 
 		return (
-			<div id="project" className="container section-padding">
+			<div id="project-story" className="container-fluid">
 
-				<GalleryPreview image={this.state.selectedImage} allImages={project.images} onClose={this.hidePreview}/>
+				<GalleryPreview image={this.state.selectedImage}
+				                allImages={project.images}
+				                activeLanguage={activeLanguage}
+				                onClose={this.hidePreview}/>
 
 
 				<div id="project-info">
-					<section id="project-summary">
-						<p>
-							{/*<span className="field">{USER_PAGES_TEXT.project[activeLanguage].project}</span>*/}
-							{project.name[activeLanguage]}&nbsp;&nbsp;|&nbsp;&nbsp;{project.year}
-						</p>
-						<p>
-							{/*<span className="field">{USER_PAGES_TEXT.project[activeLanguage].year}</span>*/}
 
-						</p>
-						<p>
-							{/*<span className="field">{USER_PAGES_TEXT.project[activeLanguage].client}</span>*/}
-							{client}
-						</p>
+					<section id="project-summary" className='container'>
+						<p> {project.name[activeLanguage]}&nbsp;&nbsp;|&nbsp;&nbsp;{project.year} </p>
+						<p> {client} </p>
 						<p className="cliche">
 							<span className="field">{USER_PAGES_TEXT.project[activeLanguage].cliche}</span>
 							{project.description[activeLanguage]}
 						</p>
 
+						<div className="buttons-container">
+							<Link
+								to={this.state.prevProjectId !== undefined ? this.state.prevProjectId : '/projects'}
+								className={this.state.prevProjectId !== undefined ? 'btn btn-prev' : 'btn btn-prev disabled'}/>
+
+
+							<Link
+								to={this.state.nextProjectId !== undefined ? this.state.nextProjectId : '/projects'}
+								className={this.state.nextProjectId !== undefined ? 'btn btn-next' : 'btn btn-next disabled'}/>
+
+						</div>
+
 					</section>
 
-					<div className="buttons-container">
-						<Link to={this.state.prevProjectId !== undefined ? this.state.prevProjectId : '/projects'}
-						      className={this.state.prevProjectId !== undefined ? 'btn btn-prev' : 'btn btn-prev disabled'}/>
-
-
-						<Link to={this.state.nextProjectId !== undefined ? this.state.nextProjectId : '/projects'}
-						      className={this.state.nextProjectId !== undefined ? 'btn btn-next' : 'btn btn-next disabled'}/>
-
-					</div>
-
+					<section id='project-cover'
+					         style={{backgroundImage: 'url(' + this.state.project.thumbnail + ')'}}/>
 
 					<section id="project-description">
 						{info}
 					</section>
 				</div>
 
+				<Gallery data={project.images}
+				         sections={this.state.allSections}
+				         showPreview={this.showPreview}
+				         language={activeLanguage}/>
 
-				<ImagesContainer className="project-gallery">
-					{gallery}
-				</ImagesContainer>
 
-
-				{/*<h2 className="section-title">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>*/}
-				{/*<div className="projects-container">*/}
-				{/*{randomProjects}*/}
-				{/*</div>*/}
+				<h2 className="section-title">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>
+				<div id="other-projects">
+					{randomProjects}
+				</div>
 			</div>
 		);
 	}
 
 }
 
-Project.contextType = LanguageContext;
+ProjectStory.contextType = LanguageContext;
 
-export default Project;
+export default ProjectStory;
+
+function findImageInString (string) {
+
+	let imageArr = string.match(/<img([\w\W]+?)\/>/g);
+	let url = '';
+
+	if (imageArr) {
+		let img = imageArr[0].match(/<img([\w\W]+?)\/>/g)[0];
+		url = img.match(/"(.)+?"/g)[0];
+	}
+
+	let text = string.replace(/<p><img([\w\W]+?)\/><\/p>/g, '');
+
+	return {text, url};
+}

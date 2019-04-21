@@ -9,8 +9,8 @@ import PrivateRoute from './PrivateRoute';
 import Login from '../auth/Login';
 import Home from '../user/home/Home';
 import ProjectsList from '../user/projects/ProjectsList';
-import Project from '../user/projects/Project';
-import ProjectTest from '../user/projects/ProjectTest';
+import ProjectSimple from '../user/projects/ProjectSimple';
+import ProjectStory from '../user/projects/ProjectStory';
 
 // Admin Components
 import createProject from '../admin/projects/createEditProject/createEditProject';
@@ -64,8 +64,8 @@ let Routes = () => {
 				<Route exact path='/projects/:category' component={ProjectsList}/>
 				<Route exact path='/:lng/projects/:category' component={ProjectsList}/>
 
-				<Route exact path='/projects/:category/:id' component={ProjectTest}/>
-				<Route exact path='/:lng/projects/:category/:id' component={ProjectTest}/>
+				<Route exact path='/projects/:category/:id' component={ProjectStory}/>
+				<Route exact path='/:lng/projects/:category/:id' component={ProjectStory}/>
 
 
 				{/*//Admin*/}
@@ -107,7 +107,7 @@ let backup = <Route render={({location}) => (
 				<Route exact path='/:lng(en)?/projects/:category' component={ProjectsList}
 				       key="projects/category"/>
 
-				<Route exact path='/:lng(en)?/projects/:category/:id' component={Project} key="project"/>
+				<Route exact path='/:lng(en)?/projects/:category/:id' component={ProjectSimple} key="project"/>
 
 
 				{/*//Admin*/}

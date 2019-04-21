@@ -4,6 +4,17 @@ const LANGUAGES = {
 	en: 'en'
 };
 
+const RESOLUTIONS = {
+	xs: 450,
+	sm: 680,
+	md: 980,
+	bootstrapXS: 768,
+	bootstrapSM: 992,
+	bootstrapMD: 1200,
+	smTopSellers: 640,
+	mdTopSellers: 1000,
+};
+
 const MENU = {
 	bg: {
 		projects: 'Проекти',
@@ -43,7 +54,7 @@ const CREATE_PROJECT_INPUTS = {
 		videos: 'Видеа'
 	},
 	en: {
-		name: 'Project name',
+		name: 'ProjectSimple name',
 		description: 'Description',
 		info: 'Info',
 		client: 'Client',
@@ -52,7 +63,7 @@ const CREATE_PROJECT_INPUTS = {
 		textBG: 'Text BG',
 		textEN: 'Text EN',
 		webPage: 'Web Page',
-		isStar: 'Top Project',
+		isStar: 'Top ProjectSimple',
 		category: 'Category',
 		thumbnail: 'Thumbnail',
 		images: 'Images',
@@ -117,7 +128,7 @@ const BUTTONS = {
 		close: 'Close',
 		addSection: 'Add Section',
 
-		createProject: 'New Project',
+		createProject: 'New ProjectSimple',
 		createClient: 'New Client',
 		createCategory: 'New Category',
 		createSection: 'Create Section',
@@ -157,8 +168,8 @@ const NOTIFICATIONS = {
 
 	},
 	en: {
-		projectCreated: 'Project created.',
-		projectDeleted: 'Project deleted.',
+		projectCreated: 'ProjectSimple created.',
+		projectDeleted: 'ProjectSimple deleted.',
 
 		categoryCreated: 'Category created.',
 		categoryDeleted: 'Category deleted.',
@@ -189,8 +200,8 @@ const ADMIN_PAGES_TEXT = {
 			thumbnail: 'Thumbnail',
 			images: 'Images',
 			videos: 'Videos',
-			editProject: 'Edit Project',
-			createProject: 'Create New Project',
+			editProject: 'Edit ProjectSimple',
+			createProject: 'Create New ProjectSimple',
 			allProjects: 'All Projects'
 		}
 	},
@@ -330,7 +341,7 @@ const USER_PAGES_TEXT = {
 			cliche: 'Cliche',
 			year: 'Year',
 			client: 'Client',
-			project: 'Project',
+			project: 'ProjectSimple',
 			otherProjects: 'Other Projects',
 		}
 	}
@@ -340,6 +351,7 @@ const USER_PAGES_TEXT = {
 
 export {
 	LANGUAGES,
+	RESOLUTIONS,
 	MENU,
 	CREATE_PROJECT_INPUTS,
 	CATEGORY_INPUTS,

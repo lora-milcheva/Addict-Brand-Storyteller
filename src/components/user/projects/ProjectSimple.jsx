@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import posed from 'react-pose/lib/index';
+import posed from 'react-pose';
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 // Partials
@@ -34,7 +34,7 @@ const Card = posed.figure({
 	exit: {y: 250, opacity: 0}
 });
 
-class ProjectTest extends React.Component {
+class ProjectSimple extends React.Component {
 	constructor (props) {
 		super(props);
 
@@ -192,8 +192,7 @@ class ProjectTest extends React.Component {
 	};
 
 	showPreview = (e) => {
-		let image = JSON.parse(e.target.getAttribute('data-target'));
-		this.setState({selectedImage: image});
+		this.setState({selectedImage: e.target.name});
 	};
 
 	hidePreview = () => {
@@ -218,7 +217,7 @@ class ProjectTest extends React.Component {
 	render () {
 
 		if (this.state.loading) {
-			return (<div className="lds-dual-ring"/>);
+			return (<div className="lds-dual-ring"/> );
 		}
 
 		let activeLanguage = this.context.language;
@@ -234,92 +233,53 @@ class ProjectTest extends React.Component {
 
 				let section = project.info[e];
 
-				let string = section[activeLanguage];
-
 				let name = this.state.allSections.filter(s => s._id === e)[0].name[activeLanguage];
 
-				let result = findImageInString(string);
+				let style = this.state.visibleSectionIds.includes(e) ? 'section-text visible' : 'section-text';
 
-				function findImageInString (string) {
-
-					let image = string.match(/<img([\w\W]+?)\/>/g);
-					let url = '';
-
-					if (image) {
-						let img = image[0].match(/<img([\w\W]+?)\/>/g)[0];
-
-						if (img) {
-							url = img.match(/"(.)+?"/g)[0];
-						}
-					}
-
-					let text = string.replace(/<p><img([\w\W]+?)\/><\/p>/g, '');
-
-					return {text, url};
-				}
-
-				let imgStyle = {
-					height: '350px',
-					backgroundImage: 'url(' + result.url + ')',
-					backgroundSize: 'cover',
-					backgroundAttachment: 'fixed',
-					WebkitTransition: 'all', // note the capital 'W' here
-					msTransition: 'all' // 'ms' is the only lowercase vendor prefix
-				};
+				let buttonStyle = this.state.visibleSectionIds.includes(e) ? 'toggle-menu clicked' : 'toggle-menu';
 
 				return (
-					<section key={e}>
-						<article className="section container-padding">
-							<div className="section-header">
-								<h4 className="section-title">{name}</h4>
+					<article key={e} className="section">
+						<div className="section-header">
+							<h4 className="section-title">{name}</h4>
+
+							<div className={buttonStyle}>
+								<span className="toggle"/>
+								<span className="toggle"/>
+								<button className="over" name={e}
+								        onClick={this.toggleSection}/>
 							</div>
-							<div className='section-text'
-							     dangerouslySetInnerHTML={{__html: result.text}}/>
-						</article>
 
-						{result.url !== '' &&
-						<div style={imgStyle}/>
-						}
-
-					</section>
+						</div>
+						<div className={style}
+						     dangerouslySetInnerHTML={{__html: section[activeLanguage]}}>
+						</div>
+					</article>
 				);
 			});
 		}
 
 		let gallery, randomProjects;
 
-		gallery = project.images.map((image, i) => {
-
-			for (let el in image.info) {
-				let section = this.state.allSections.filter(s => s._id === el)[0];
-				image[section.name.en] = image.info[el];
-			}
+		gallery = project.images.map((e, i) => {
 
 			let name = 'img' + i;
 
 			this[name] = React.createRef();
 
 			return (
-				<div key={name} className='image-container'>
-					<figure className="image"
-					        ref={this[name]}
-					        onLoad={() => {
-						        let img = this[name].current;
-						        if (img.clientWidth < img.clientHeight) {
-							        img.classList.add('portrait');
-						        }
-					        }}>
-						<img src={image.url}
-						     className="img-fit"
-						     alt={image.url}
-						     data-target={JSON.stringify(image)}
-						     onClick={this.showPreview}/>
-					</figure>
-
-					{image.Headline &&
-					<div className='name' dangerouslySetInnerHTML={{__html: image.Headline[activeLanguage]}}/>
-					}
-				</div>
+				<figure key={name}
+				        className="image"
+				        ref={this[name]}
+				        onLoad={() => {
+					        let img = this[name].current;
+					        if (img.clientWidth < img.clientHeight) {
+						        img.classList.add('portrait');
+					        }
+				        }}>
+					<img src={e.url} className="img-fit" alt={e.url} name={e.url} onClick={this.showPreview}/>
+				</figure>
 			);
 		});
 
@@ -330,39 +290,42 @@ class ProjectTest extends React.Component {
 		});
 
 		return (
-			<div id="project-test" className="container-fluid">
+			<div id="project" className="container section-padding">
 
-				<GalleryPreview image={this.state.selectedImage}
-				                allImages={project.images}
-				                activeLanguage={activeLanguage}
-				                onClose={this.hidePreview}/>
+				<GalleryPreview image={this.state.selectedImage} allImages={project.images} onClose={this.hidePreview}/>
 
 
 				<div id="project-info">
-					<section id="project-summary" className='container'>
-						<p> {project.name[activeLanguage]}&nbsp;&nbsp;|&nbsp;&nbsp;{project.year} </p>
-						<p> {client} </p>
+					<section id="project-summary">
+						<p>
+							{/*<span className="field">{USER_PAGES_TEXT.project[activeLanguage].project}</span>*/}
+							{project.name[activeLanguage]}&nbsp;&nbsp;|&nbsp;&nbsp;{project.year}
+						</p>
+						<p>
+							{/*<span className="field">{USER_PAGES_TEXT.project[activeLanguage].year}</span>*/}
+
+						</p>
+						<p>
+							{/*<span className="field">{USER_PAGES_TEXT.project[activeLanguage].client}</span>*/}
+							{client}
+						</p>
 						<p className="cliche">
 							<span className="field">{USER_PAGES_TEXT.project[activeLanguage].cliche}</span>
 							{project.description[activeLanguage]}
 						</p>
 
-						<div className="buttons-container">
-							<Link
-								to={this.state.prevProjectId !== undefined ? this.state.prevProjectId : '/projects'}
-								className={this.state.prevProjectId !== undefined ? 'btn btn-prev' : 'btn btn-prev disabled'}/>
-
-
-							<Link
-								to={this.state.nextProjectId !== undefined ? this.state.nextProjectId : '/projects'}
-								className={this.state.nextProjectId !== undefined ? 'btn btn-next' : 'btn btn-next disabled'}/>
-
-						</div>
-
 					</section>
 
-					<section id='project-image'
-					         style={{backgroundImage: 'url(' + this.state.project.thumbnail + ')'}}/>
+					<div className="buttons-container">
+						<Link to={this.state.prevProjectId !== undefined ? this.state.prevProjectId : '/projects'}
+						      className={this.state.prevProjectId !== undefined ? 'btn btn-prev' : 'btn btn-prev disabled'}/>
+
+
+						<Link to={this.state.nextProjectId !== undefined ? this.state.nextProjectId : '/projects'}
+						      className={this.state.nextProjectId !== undefined ? 'btn btn-next' : 'btn btn-next disabled'}/>
+
+					</div>
+
 
 					<section id="project-description">
 						{info}
@@ -376,7 +339,7 @@ class ProjectTest extends React.Component {
 
 
 				{/*<h2 className="section-title">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>*/}
-				{/*<div className="projects-container">*/}
+				{/*<div id="projects-container">*/}
 				{/*{randomProjects}*/}
 				{/*</div>*/}
 			</div>
@@ -385,6 +348,6 @@ class ProjectTest extends React.Component {
 
 }
 
-ProjectTest.contextType = LanguageContext;
+ProjectSimple.contextType = LanguageContext;
 
-export default ProjectTest;
+export default ProjectSimple;
