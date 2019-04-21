@@ -54,7 +54,7 @@ class Gallery extends React.Component {
 		// Get parent width with padding
 		let currentImageWidth = this[el].current.parentNode.clientWidth;
 
-		this.setState({step: currentImageWidth},() => callback());
+		this.setState({step: currentImageWidth}, () => callback());
 	};
 
 	moveCarousel = (direction) => {
@@ -64,19 +64,35 @@ class Gallery extends React.Component {
 			let container = this.container.current;
 
 			let step = this.state.step;
-			let translateValue;
+			let translateValue = this.state.translateValue;
 			let translateMaxValue = container.scrollWidth;
 
+			let nextImageIndex;
+
+
 			if (direction === 'left') {
-				translateValue = this.state.translateValue - step;
-				if (translateValue < 0) return;
+
+				if (translateValue <= 0) return;
+
+				translateValue -= step;
+
+				if (translateValue < 0) translateValue = 0; // fix bug if value goes negative
+
+				nextImageIndex = this.state.imageIndex - 1;
 
 			} else {
+
 				translateValue = this.state.translateValue + step;
+
 				if (translateValue > translateMaxValue - step) return;
+
+				nextImageIndex = this.state.imageIndex + 1;
 			}
 
-			this.setState({translateValue}, () => {
+			this.setState({
+				translateValue,
+				imageIndex: nextImageIndex
+			}, () => {
 				window.requestAnimationFrame(function () {
 					container.style.transform = `translateX(-${translateValue}px)`;
 					container.style.transition = '.6s ease-out';
@@ -133,11 +149,17 @@ class Gallery extends React.Component {
 
 
 				<div className="gallery-navigation">
-						<span className="gallery-navigation-button" onClick={() => this.moveCarousel('left')}>
-							<img id="prevBtn" src="/images/icons/arrow-left-white.svg" alt="previous"/>
+						<span className='gallery-navigation-button'
+						      onClick={() => this.moveCarousel('left')}>
+							<img id="prevBtn"
+							     className={this.state.imageIndex === 0 ? 'disabled' : ''}
+							     src="/images/icons/arrow-left-white.svg" alt="previous"/>
 						</span>
-					<span className="gallery-navigation-button" onClick={() => this.moveCarousel('right')}>
-							<img id="nextBtn" src="/images/icons/arrow-right-white.svg" alt="next"/>
+					<span className='gallery-navigation-button'
+					      onClick={() => this.moveCarousel('right')}>
+							<img id="nextBtn"
+							     className={this.state.imageIndex === (this.props.data.length - 1) ? 'disabled' : ''}
+							     src="/images/icons/arrow-right-white.svg" alt="next"/>
 						</span>
 				</div>
 			</div>
