@@ -123,9 +123,6 @@ class MediaInfo extends React.Component {
 						</button>
 					</div>
 
-
-					<h3></h3>
-
 					<SortableContent name={'videos'}
 					                 elements={this.state.info}
 					                 allSectionIds={this.state.allSectionIds}

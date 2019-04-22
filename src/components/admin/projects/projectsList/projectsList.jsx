@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 // Partials
 import ProjectCard from './partials/ProjectCard';
+import SortableList from './partials/SortableList';
 
 // Services
 import projectsService from '../../../../services/projects/projectsService';
@@ -27,12 +28,15 @@ class projectsList extends React.Component {
 	componentDidMount () {
 
 		if (sessionStorage.length === 0) {
-			this.props.history.push('/')
+			this.props.history.push('/');
 		}
 
 		projectsService
 			.loadAllProjects()
 			.then(res => {
+
+				res.sort((a, b) =>  Number(a.orderNumber) - Number(b.orderNumber))
+
 				this.setState({
 					projects: res,
 					loading: false
@@ -42,18 +46,26 @@ class projectsList extends React.Component {
 
 	}
 
+
+	saveOrder = () => {
+		this.state.projects.forEach((p, i) => {
+			p.orderNumber = i;
+
+			projectsService
+				.editProject(p._id, p)
+				.then(res => console.log(res))
+				.catch(err => console.log(err));
+		});
+	};
+
+	handleNewOrder = (stateProp, reorderedElements) => {
+		this.setState({[stateProp]: reorderedElements});
+	};
+
 	render () {
 
-		if (this.state.loading) {
-			return (<div className="lds-dual-ring"/> );
-		}
+		if (this.state.loading) return <div className="lds-dual-ring"/>;
 
-		let projects = this.state.projects.map(e => {
-				return (
-					<ProjectCard key={e._id} project={e}/>
-				);
-			}
-		);
 
 		return (
 			<div id="admin-projects-list" className="container">
@@ -71,8 +83,18 @@ class projectsList extends React.Component {
 					<Link to="/admin/section-create" className="btn btn-primary sm">{BUTTONS.bg.createSection}</Link>
 				</div>
 
+
 				<div className="projects-container">
-					{projects}
+
+					<SortableList name={'projects'}
+					              elements={this.state.projects}
+					              onChange={this.handleNewOrder}/>
+				</div>
+
+				<div className='buttons-container'>
+					<button className='btn btn-primary sm'
+					        onClick={this.saveOrder}>Save
+					</button>
 				</div>
 
 			</div>

@@ -75,6 +75,7 @@ function createProjectInfo (state) {
 		thumbnail: state.thumbnail,
 		cover: state.cover,
 		videos: state.videos,
+		orderNumber: state.orderNumber
 	};
 }
 

@@ -110,7 +110,11 @@ class SortableVideos extends React.Component {
 				     draggable
 				     onDragStart={(e) => this.onDragStart(e, element)}>
 
-					<iframe src={element.url}/>
+					{/*<iframe src={element.url}/>*/}
+
+					<video poster={element.poster}>
+						<source src={element.url} type="video/mp4"/>
+					</video>
 
 					<div className={'draggable'}/>
 

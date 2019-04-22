@@ -19,15 +19,15 @@ const Test = posed.div({
 	enter: {
 		opacity: 1,
 		transition: {
-			opacity: { ease: 'easeOut', duration: 1000 },
-			default: { ease: 'linear', duration: 200 }
+			opacity: {ease: 'easeOut', duration: 1000},
+			default: {ease: 'linear', duration: 200}
 		},
 	},
 	exit: {
 		opacity: 0,
 		transition: {
-			opacity: { ease: 'easeOut', duration: 1000 },
-			default: { ease: 'linear', duration: 200 }
+			opacity: {ease: 'easeOut', duration: 1000},
+			default: {ease: 'linear', duration: 200}
 		}
 	}
 });
@@ -116,9 +116,10 @@ class ProjectList extends React.Component {
 			.loadAllProjects(query)
 			.then(res => {
 
-					res.forEach(p => {
-						p.clientName = this.state.sections.filter(c => c._id === p.clientId)[0].name;
-					});
+					res.sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber))
+						.forEach(p => {
+							p.clientName = this.state.sections.filter(c => c._id === p.clientId)[0].name;
+						});
 
 					this.setState({projects: res, loading: false}, () => this.saveProjectsInSession());
 				}
@@ -160,7 +161,7 @@ class ProjectList extends React.Component {
 	render () {
 
 		if (this.state.loading) {
-			return (<div className="lds-dual-ring"/> );
+			return (<div className="lds-dual-ring"/>);
 		}
 
 		let activeLanguage = this.context.language;

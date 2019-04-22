@@ -6,7 +6,8 @@ import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 // Partials
 import GalleryPreview from './partials/GalleryPreview';
 import ProjectCard from '../common/ProjectCard';
-import Gallery from './partials/Gallery'
+import Gallery from './partials/Gallery';
+import VideoGallery from './partials/VideoGallery';
 
 // Services
 import projectsService from '../../../services/projects/projectsService';
@@ -16,7 +17,6 @@ import authService from '../../../services/auth/authService';
 
 // Constants
 import { USER_PAGES_TEXT } from '../../../constants/constants';
-
 
 class ProjectStory extends React.Component {
 	constructor (props) {
@@ -198,10 +198,6 @@ class ProjectStory extends React.Component {
 		}
 	};
 
-	moveRight = () => {
-
-	};
-
 	render () {
 
 		if (this.state.loading) return (<div className="lds-dual-ring"/>);
@@ -251,11 +247,37 @@ class ProjectStory extends React.Component {
 			});
 		}
 
-
 		let randomProjects = this.state.randomProjects.map((e, i) => {
 			return (
 				<ProjectCard key={e._id + i} project={e} activeLanguage={activeLanguage}/>
 			);
+		});
+
+		let videos = this.state.project.videos.map(video => {
+
+			for (let el in video.info) {
+				let section = this.state.allSections.filter(s => s._id === el)[0];
+				video.info[el].sectionName = section.name[activeLanguage];
+			}
+
+			let info = Object.keys(video.info).map(sectionId => {
+				return (
+					<div key={video.url + sectionId}>{video.info[sectionId].sectionName}: <span
+						dangerouslySetInnerHTML={{__html: video.info[sectionId][activeLanguage]}}/>
+					</div>
+				);
+			});
+
+			return (
+				<div key={video.url}>
+					<video poster={video.poster} width={'200px'} controls>
+						<source src={video.url} type="video/mp4"/>
+					</video>
+
+					{info}
+				</div>
+			);
+
 		});
 
 		return (
@@ -292,17 +314,27 @@ class ProjectStory extends React.Component {
 					</section>
 
 					<section id='project-cover'
-					         style={{backgroundImage: 'url(' + this.state.project.thumbnail + ')'}}/>
+					         style={{backgroundImage: 'url(' + this.state.project.cover + ')'}}/>
 
 					<section id="project-description">
 						{info}
 					</section>
 				</div>
 
+
+				{this.state.project.videos.length > 0 &&
+				<VideoGallery data={project.videos}
+				              sections={this.state.allSections}
+				              language={activeLanguage}/>
+				}
+
+
+				{this.state.project.images.length > 0 &&
 				<Gallery data={project.images}
 				         sections={this.state.allSections}
 				         showPreview={this.showPreview}
 				         language={activeLanguage}/>
+				}
 
 
 				<h2 className="section-title">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>

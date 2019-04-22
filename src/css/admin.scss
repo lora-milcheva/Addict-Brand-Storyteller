@@ -170,6 +170,7 @@
     }
 
     .project-data {
+
       .container {
         @include flex-basis(100%);
         width: 100%;
@@ -189,6 +190,11 @@
           iframe {
             pointer-events: none;
           }
+
+          video {
+            width: 100%;
+          }
+
 
           .draggable {
             position: absolute;
@@ -218,6 +224,41 @@
   .projects-container {
     @include flex;
     @include flex-wrap(wrap);
+
+    .container {
+      @include flex-basis(100%);
+      width: 100%;
+      @include flex;
+      @include flex-wrap(wrap);
+
+      .image {
+        position: relative;
+        @include flex-basis(32%);
+        min-height: 38px;
+        overflow: hidden;
+        margin: 0 1% 1% 0;
+        border: 1px solid $medium-grey;
+        @include flex;
+        @include align-items(center);
+
+        iframe {
+          pointer-events: none;
+        }
+
+        .draggable {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          color: $black;
+        }
+
+        .del-btn {
+          position: absolute;
+          top: 8px;
+          right: 5px;
+        }
+      }
+    }
 
     .project-card {
       position: relative;

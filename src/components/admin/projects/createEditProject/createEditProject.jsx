@@ -5,7 +5,7 @@ import FormInput from '../../../common/formComponents/FormInput';
 import FormSelectField from '../../../common/formComponents/FormSelectField';
 import Textarea from '../../../common/formComponents/TextArea';
 import AddOnInput from '../../../common/formComponents/AddOnInput';
-import SortableList from './partials/SortableList';
+import SortableList from '../projectsList/partials/SortableList';
 import SortableImages from './partials/SortableImages';
 import SortableVideos from './partials/SortableVideos';
 import MediaInfo from './partials/MediaInfo';
@@ -50,6 +50,7 @@ class createProject extends React.Component {
 			thumbnail: '',
 			cover: '',
 			videos: [],
+			orderNumber: '',
 
 			projectLoaded: false,
 			dataLoaded: false,
@@ -92,9 +93,10 @@ class createProject extends React.Component {
 						thumbnail: res.thumbnail || '',
 						cover: res.cover || '',
 						videos: res.videos,
+						orderNumber: res.orderNumber,
 
 						projectLoaded: true
-					}, () => console.log(this.state));
+					});
 				})
 				.catch(err => console.log(err));
 		} else {
@@ -123,19 +125,13 @@ class createProject extends React.Component {
 									allInfoSectionIds: res,
 									dataLoaded: true
 								});
-							})
-
-							.catch(err => console.log(err));
-					})
-					.catch(err => console.log(err));
+							});
+					});
 			})
 			.catch(err => console.log(err));
 	};
 
 	handleInputChange = (e) => {
-
-		console.log(e.target)
-
 		this.setState({[e.target.name]: e.target.value});
 	};
 
@@ -316,10 +312,17 @@ class createProject extends React.Component {
 
 		e.preventDefault();
 
+		let stateProp = e.target.name;
+		let url = e.target.value;
+
 		let elementToAdd = {
-			url: e.target.value,
+			url: url,
 			info: {}
 		};
+
+		if (stateProp === 'videos') {
+			elementToAdd.poster = url.split('.').shift() + '.jpg';
+		}
 
 		this.setState({[e.target.name]: [...this.state[e.target.name], elementToAdd]});
 
@@ -644,7 +647,7 @@ class createProject extends React.Component {
 						<div className="project-data">
 
 							<h3 className="section-title">{ADMIN_PAGES_TEXT.project.bg.thumbnail}</h3>
-							<div  className="container">
+							<div className="container">
 								{thumbnail}
 							</div>
 

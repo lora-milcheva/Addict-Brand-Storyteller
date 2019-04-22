@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BUTTONS } from '../../../../../constants/constants';
+import ProjectCard from './ProjectCard';
 
 class SortableList extends React.Component {
 	constructor (props) {
@@ -33,7 +33,7 @@ class SortableList extends React.Component {
 		this.fadeOut(this.dataContainer.current.children[elementIndex], .1);
 
 		// Save element and its index in the array
-		e.dataTransfer.setData('element', element);
+		e.dataTransfer.setData('element', JSON.stringify(element));
 		e.dataTransfer.setData('index', this.props.elements.indexOf(element));
 	};
 
@@ -48,8 +48,10 @@ class SortableList extends React.Component {
 		let imagesOnRow = Math.floor(container.current.clientWidth / imageWidth);
 
 		// Get the image that we want to change
-		let el = e.dataTransfer.getData('element');
+		let el = JSON.parse(e.dataTransfer.getData('element'));
 		let imageIndex = Number(e.dataTransfer.getData('index'));
+
+		console.log(el, imageIndex)
 
 		// Get the image start position
 		let startX = this.state.startX;
@@ -67,14 +69,14 @@ class SortableList extends React.Component {
 
 		if (newIndex >= container.current.children.length || newIndex === imageIndex) {
 			this.fadeIn(container.current.children[imageIndex], 1);
-			return
+			return;
 		}
 
 		// Fade out new position
 		this.fadeOut(container.current.children[newIndex], .3);
 
 		// Remove image from the array and then place it in the new index position
-		let reorderedElements = this.props.elements.filter(e => e !== el);
+		let reorderedElements = this.props.elements.filter(e => e._id !== el._id);
 		reorderedElements.splice(newIndex, 0, el);
 
 		// Save new arrangement
@@ -105,19 +107,15 @@ class SortableList extends React.Component {
 
 		let elements = this.props.elements.map((element, index) => {
 			return (
-				<figure key={index}
-				        className="image"
-				        draggable
-				        onDragStart={(e) => this.onDragStart(e, element)}>
+				<div key={index}
+				     className='project-card'
+				     draggable
+				     onDragStart={(e) => this.onDragStart(e, element)}>
 
-					<img src={element} className="img-fit" alt=""/>
+					<ProjectCard project={element} />
+				</div>
 
-					<button className="btn xs btn-primary del-btn"
-					        name='images'
-					        value={element}
-					        onClick={this.props.onDelete}>{BUTTONS.en.clear}
-					</button>
-				</figure>);
+			);
 		});
 
 		return (

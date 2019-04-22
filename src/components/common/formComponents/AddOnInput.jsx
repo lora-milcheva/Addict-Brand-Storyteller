@@ -10,9 +10,6 @@ class AddOnInput extends React.Component {
 		};
 	}
 
-	componentWillReceiveProps (nextProps, nextContext) {
-		this.setState({value: nextProps.value})
-	}
 
 	handleChange = (e) => {
 		this.setState({value: e.target.value});
@@ -25,7 +22,9 @@ class AddOnInput extends React.Component {
 
 		this.props.onChange(e);
 
-		if (this.props.clearText) this.setState({value: ''});
+		if (this.props.clearText) {
+			this.setState({value: ''});
+		}
 	};
 
 	render () {
