@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// Constants
-import { RESOLUTIONS } from '../../../../constants/constants';
 
 class Gallery extends React.Component {
 	constructor (props) {
@@ -11,47 +9,22 @@ class Gallery extends React.Component {
 		this.state = {
 			translateValue: 0,
 			step: 0,
-			productsToShow: 0,
 			imageIndex: 0
 		};
 
 		this.container = React.createRef();
 	}
 
-	componentDidMount () {
-		this.handleResolutionChange();
-		window.addEventListener('resize', this.handleResolutionChange);
-		window.addEventListener('orientationchange', this.handleResolutionChange);
-	}
 
-	componentWillUnmount () {
-		window.removeEventListener('resize', this.handleResolutionChange);
-		window.removeEventListener('orientationchange', this.handleResolutionChange);
-	}
-
-	handleResolutionChange = () => {
-
-		// if (window.innerWidth < RESOLUTIONS.smTopSellers) {
-		// 	this.setState({productsToShow: 1}, () => {
-		// 		this.getCardWidth();
-		// 	});
-		// } else if (window.innerWidth < RESOLUTIONS.mdTopSellers) {
-		// 	this.setState({productsToShow: 2}, () => {
-		// 		this.getCardWidth();
-		// 	});
-		// } else {
-		// 	this.setState({productsToShow: 3}, () => {
-		// 		this.getCardWidth();
-		// 	});
-		// }
-	};
-
-	getCurrentImageWidth = (callback) => {
+	getCurrentImageWidth = (direction, callback) => {
 
 		let index = this.state.imageIndex;
+
+		if (direction === 'left' && index > 0) index -= 1;
+
 		let el = 'img' + index;
 
-		// Get parent width with padding
+		// Get parent width with included padding
 		let currentImageWidth = this[el].current.parentNode.clientWidth;
 
 		this.setState({step: currentImageWidth}, () => callback());
@@ -59,7 +32,7 @@ class Gallery extends React.Component {
 
 	moveCarousel = (direction) => {
 
-		this.getCurrentImageWidth(() => {
+		this.getCurrentImageWidth(direction, () => {
 
 			let container = this.container.current;
 
@@ -68,7 +41,6 @@ class Gallery extends React.Component {
 			let translateMaxValue = container.scrollWidth;
 
 			let nextImageIndex;
-
 
 			if (direction === 'left') {
 
@@ -84,7 +56,7 @@ class Gallery extends React.Component {
 
 				translateValue = this.state.translateValue + step;
 
-				if (translateValue > translateMaxValue - step) return;
+				if (translateValue > translateMaxValue - step + 20) return;
 
 				nextImageIndex = this.state.imageIndex + 1;
 			}
