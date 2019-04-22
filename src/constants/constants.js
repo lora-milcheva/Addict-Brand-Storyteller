@@ -105,6 +105,8 @@ const BUTTONS = {
 		saveChanges: 'Запази промените',
 		add: 'Добави',
 		delete: 'Изтриване',
+		clear: 'Изчисти',
+		info: 'Инфо',
 		cancel: 'Отказ',
 		view: 'Разгледай',
 		confirm: 'OK',
@@ -122,6 +124,8 @@ const BUTTONS = {
 		saveChanges: 'Save Changes',
 		add: 'Add',
 		delete: 'Delete',
+		clear: 'Clear',
+		info: 'Info',
 		cancel: 'Cancel',
 		view: 'View More',
 		confirm: 'OK',
@@ -190,6 +194,7 @@ const ADMIN_PAGES_TEXT = {
 	project: {
 		bg: {
 			thumbnail: 'Тъмбнейл',
+			cover: 'Корица',
 			images: 'Изображения',
 			videos: 'Видеа',
 			editProject: 'Редакция на проект',
@@ -198,6 +203,7 @@ const ADMIN_PAGES_TEXT = {
 		},
 		en: {
 			thumbnail: 'Thumbnail',
+			cover: 'Cover',
 			images: 'Images',
 			videos: 'Videos',
 			editProject: 'Edit ProjectSimple',

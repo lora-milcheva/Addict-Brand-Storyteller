@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { BUTTONS } from '../../../../../constants/constants';
 
 class SortableList extends React.Component {
 	constructor (props) {
@@ -111,8 +112,10 @@ class SortableList extends React.Component {
 
 					<img src={element} className="img-fit" alt=""/>
 
-					<button className="btn xs btn-primary del-btn" name='images' value={element}
-					        onClick={this.props.onDelete}>clear
+					<button className="btn xs btn-primary del-btn"
+					        name='images'
+					        value={element}
+					        onClick={this.props.onDelete}>{BUTTONS.en.clear}
 					</button>
 				</figure>);
 		});

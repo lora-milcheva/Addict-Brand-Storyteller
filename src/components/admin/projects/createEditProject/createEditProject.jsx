@@ -48,6 +48,7 @@ class createProject extends React.Component {
 			categoryIds: [],
 			images: [],
 			thumbnail: '',
+			cover: '',
 			videos: [],
 
 			projectLoaded: false,
@@ -88,11 +89,12 @@ class createProject extends React.Component {
 						clientId: res.clientId,
 						categoryIds: res.categoryIds,
 						images: res.images,
-						thumbnail: res.thumbnail,
+						thumbnail: res.thumbnail || '',
+						cover: res.cover || '',
 						videos: res.videos,
 
 						projectLoaded: true
-					});
+					}, () => console.log(this.state));
 				})
 				.catch(err => console.log(err));
 		} else {
@@ -131,6 +133,8 @@ class createProject extends React.Component {
 	};
 
 	handleInputChange = (e) => {
+
+		console.log(e.target)
 
 		this.setState({[e.target.name]: e.target.value});
 	};
@@ -302,6 +306,12 @@ class createProject extends React.Component {
 		}
 	};
 
+	removeCoverThumbnail = (e) => {
+		e.preventDefault();
+
+		this.setState({[e.target.name]: ''});
+	};
+
 	addImageVideo = (e) => {
 
 		e.preventDefault();
@@ -417,7 +427,22 @@ class createProject extends React.Component {
 
 		let thumbnail = this.state.thumbnail !== ''
 			? (<figure className="image">
+					<button className="btn btn-primary xs del-btn"
+					        name='thumbnail'
+					        onClick={this.removeCoverThumbnail}>{BUTTONS.en.clear}
+					</button>
 					<img src={this.state.thumbnail} alt="project thumbnail" className="img-fit"/>
+				</figure>
+			)
+			: null;
+
+		let cover = this.state.cover !== ''
+			? (<figure className="image">
+					<button className="btn btn-primary xs del-btn"
+					        name='cover'
+					        onClick={this.removeCoverThumbnail}>{BUTTONS.en.clear}
+					</button>
+					<img src={this.state.cover} alt="project cover" className="img-fit"/>
 				</figure>
 			)
 			: null;
@@ -434,14 +459,13 @@ class createProject extends React.Component {
 			);
 		});
 
-		let isStar = (
-			<button className={this.state.isStar ? 'btn category-label attention' : 'btn category-label'}
-			        name="isStar"
-			        value={this.state.isStar}
-			        onClick={this.handleCheckBoxChange}>
-				<i className="fa fa-star" aria-hidden="true"/>
-				{CREATE_PROJECT_INPUTS.bg.isStar}
-			</button>);
+		let isStar = <button className={this.state.isStar ? 'btn category-label attention' : 'btn category-label'}
+		                     name="isStar"
+		                     value={this.state.isStar}
+		                     onClick={this.handleCheckBoxChange}>
+			<i className="fa fa-star" aria-hidden="true"/>
+			{CREATE_PROJECT_INPUTS.bg.isStar}
+		</button>;
 
 		let info = Object.keys(this.state.info).map(e => {
 
@@ -601,7 +625,7 @@ class createProject extends React.Component {
 						<div className="form-group">
 							<label>{CREATE_PROJECT_INPUTS.bg.info}</label>
 
-							<button className="btn btn-default-light xs"
+							<button className="btn btn-default xs"
 							        data-state-prop={'info'}
 							        data-section-name={null}
 							        onClick={this.loadTextSectionForm}>{BUTTONS.bg.addSection}
@@ -616,10 +640,11 @@ class createProject extends React.Component {
 					{/*//PROJECT IMAGES & VIDEOS*/}
 					<aside id="project-data">
 
+						{/*Thumbnail*/}
 						<div className="project-data">
 
 							<h3 className="section-title">{ADMIN_PAGES_TEXT.project.bg.thumbnail}</h3>
-							<div className="container">
+							<div  className="container">
 								{thumbnail}
 							</div>
 
@@ -629,7 +654,27 @@ class createProject extends React.Component {
 								labelClassName="no-label"
 								buttonText='+'
 								value={this.state.thumbnail}
-								placeholder={this.state.thumbnail}
+								placeholder='/images/projects/folderName/imageName'
+								onChange={this.handleInputChange}
+								clearText={false}/>
+						</div>
+
+
+						{/*Cover*/}
+						<div className="project-data">
+
+							<h3 className="section-title">{ADMIN_PAGES_TEXT.project.bg.cover}</h3>
+							<div className="container">
+								{cover}
+							</div>
+
+							<AddOnInput
+								name="cover"
+								label={CREATE_PROJECT_INPUTS.bg.cover}
+								labelClassName="no-label"
+								buttonText='+'
+								value={this.state.cover}
+								placeholder='/images/projects/folderName/imageName'
 								onChange={this.handleInputChange}
 								clearText={false}/>
 						</div>

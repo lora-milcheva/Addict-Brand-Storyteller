@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { BUTTONS } from '../../../../../constants/constants';
 
 class SortableVideos extends React.Component {
 	constructor (props) {
@@ -25,8 +26,6 @@ class SortableVideos extends React.Component {
 			startX: e.clientX,
 			startY: e.clientY
 		});
-
-		console.log(this.props.elements)
 
 		// Fade out element
 		let elementIndex = this.props.elements.indexOf(element);
@@ -119,12 +118,12 @@ class SortableVideos extends React.Component {
 						<button className="btn xs btn-primary"
 						        name='videos'
 						        value={element.url}
-						        onClick={this.props.onDelete}>clear
+						        onClick={this.props.onDelete}>{BUTTONS.en.clear}
 						</button>
 
 						<button className="btn xs btn-success"
 						        data-state-prop={'videos'}
-						        onClick={(e) => this.props.showMediaInfo(e, element)}>info
+						        onClick={(e) => this.props.showMediaInfo(e, element)}>{BUTTONS.en.info}
 						</button>
 					</div>
 				</div>
