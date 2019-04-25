@@ -35,16 +35,20 @@ class ProjectCard extends React.Component {
 
 		return (
 			<Card className="project-card">
+				<Link to={linkPath}>
 				<div className="img-container">
 					<img className="img-fit" src={project.thumbnail} alt={project.name[activeLanguage]}/>
 				</div>
+				</Link>
 
 
 				<Link to={linkPath} className="hover">
 					<div className="info">
-						{project.clientName && <p className="project-client">{project.clientName[activeLanguage]}</p>}
-						<p className="project-name">{project.name[activeLanguage]}</p>
-						<p className="project-year">{project.year}</p>
+						{/*{project.clientName && <p className="project-client">{project.clientName[activeLanguage]}</p>}*/}
+						{/*<p className="project-name">{project.name[activeLanguage]}</p>*/}
+						{/*<p className="project-year">{project.year}</p>*/}
+
+						<p>{project.name[activeLanguage]}&nbsp;&#8212;&nbsp;{project.year}</p>
 					</div>
 				</Link>
 			</Card>

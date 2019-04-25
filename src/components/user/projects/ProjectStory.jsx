@@ -337,9 +337,12 @@ class ProjectStory extends React.Component {
 				}
 
 
-				<h2 className="section-title">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>
-				<div id="other-projects">
+
+				<div className='container-padding'>
+					<h2 className="section-title">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>
+					<div id="other-projects">
 					{randomProjects}
+					</div>
 				</div>
 			</div>
 		);

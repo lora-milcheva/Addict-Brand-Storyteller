@@ -20,6 +20,9 @@ class HeaderC extends React.Component {
 		this.state = {
 			categories: []
 		};
+
+		this.toggleMenuBtn = React.createRef();
+		this.mainNav = React.createRef();
 	}
 
 	componentDidMount () {
@@ -40,7 +43,6 @@ class HeaderC extends React.Component {
 			this.loadCategories();
 		}
 	}
-
 
 	loadCategories = () => {
 		categoriesService
@@ -91,18 +93,58 @@ class HeaderC extends React.Component {
 			.catch(err => console.log(err));
 	};
 
+	toggleMenu = () => {
+
+		let mainNav = this.mainNav.current;
+		let toggleBtn = this.toggleMenuBtn.current;
+
+		if (mainNav.classList.contains('visible')) {
+			mainNav.classList.remove('visible');
+			toggleBtn.classList.remove('clicked');
+			return;
+		}
+
+		mainNav.classList.add('visible');
+		toggleBtn.classList.add('clicked');
+	};
+
+	toggleNav = () => {
+
+		let mainNav = this.mainNav.current;
+		let toggleBtn = this.toggleMenuBtn.current;
+
+		setTimeout (() => {
+			mainNav.classList.remove('visible');
+			toggleBtn.classList.remove('clicked');
+		}, 500)
+
+	};
+
 	render () {
 
 		let admin = sessionStorage.getItem('role') !== null;
 		let lang = this.context.language;
+
+		let toggleBtn = (
+			<button id="toggle-menu-btn"
+			        className="btn btn-default sm"
+			        ref={this.toggleMenuBtn}
+			        onClick={this.toggleMenu}>
+				<span className="toggle"/>
+				<span className="toggle"/>
+				<span className="toggle"/>
+			</button>
+		);
 
 		if (admin) {
 			return (
 				<div id="header">
 
 					{/*<Link to="/home" id="brand"/>*/}
+					{toggleBtn}
 
-					<nav id="main-nav">
+					<nav id="main-nav" ref={this.mainNav} onClick={this.toggleNav}>
+
 
 						<NavLink to='/admin/projects-list'
 						         className="nav-link"
@@ -147,9 +189,13 @@ class HeaderC extends React.Component {
 		return (
 			<div id="header">
 
-				<Link to="/" id="brand"/>
 
-				<nav id="main-nav">
+
+				<Link to="/" id="brand" onClick={this.toggleNav}/>
+
+				{toggleBtn}
+
+				<nav id="main-nav" ref={this.mainNav} onClick={this.toggleNav}>
 
 					<NavLink
 						to={link}
@@ -168,11 +214,12 @@ class HeaderC extends React.Component {
 					         className="nav-link"
 					         activeClassName='active'>{MENU[lang].login}</NavLink>
 
-					<button id="lang-btn" className="btn btn-default-light sm"
-					        value={lang}
-					        onClick={this.changeRouteByLanguage}>{lang === languages.bg ? languages.en : languages.bg}</button>
-
 				</nav>
+
+				<button id="lang-btn" className="btn btn-default-light sm"
+				        value={lang}
+				        onClick={this.changeRouteByLanguage}>{lang === languages.bg ? languages.en : languages.bg}
+				</button>
 
 			</div>
 		);
@@ -182,7 +229,7 @@ class HeaderC extends React.Component {
 // To fix mistake index.js:1452 Warning: withRouter(Header): Function components do not support contextType.
 const Header = withRouter(HeaderC);
 Header.WrappedComponent.contextType = LanguageContext;
-export default Header
+export default Header;
 
 // Header.contextType = LanguageContext;
 //

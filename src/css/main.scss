@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=cyrillic');
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&subset=cyrillic,cyrillic-ext');
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+
 @import "colors";
 @import "mixins";
 
@@ -29,7 +30,7 @@ h1, h2 {
 }
 
 h2 {
-  font-size: 1.9em;
+  font-size: 1.5em;
 }
 
 p {
@@ -70,6 +71,7 @@ a {
   &:active,
   &:visited {
     color: inherit;
+    cursor: pointer;
   }
 }
 
@@ -405,15 +407,20 @@ main {
   min-height: calc(100vh - 80px); //header + footer height
 }
 
+
+
 #header {
   position: fixed;
   top: 0;
   width: 100%;
   height: 80px;
-  //padding: 0 50px;
+  padding: 0 25px;
   @include flex;
+  @include flex-wrap(none);
   @include justify-content(space-between);
   @include align-items(center);
+
+  background: $white;
 
   z-index: 1000;
 
@@ -428,9 +435,24 @@ main {
     @include main-transition;
   }
 
+  #toggle-menu-btn {
+    display: none;
+    background-color: $black;
+
+    .toggle {
+      display: block;
+      height: 1px;
+      width: 15px;
+      background-color: $medium-to-dark-grey;
+      margin: 4px auto;
+
+      @include main-transition;
+    }
+  }
+
   #main-nav {
 
-    //background: $black;
+    @include flex-basis(auto);
 
     .nav-link {
       display: inline-block;

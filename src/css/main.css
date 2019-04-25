@@ -21,7 +21,7 @@ h1, h2 {
   text-transform: uppercase; }
 
 h2 {
-  font-size: 1.9em; }
+  font-size: 1.5em; }
 
 p {
   line-height: 1.7em; }
@@ -50,7 +50,8 @@ a {
   text-decoration: none;
   color: inherit; }
   a:hover, a:active, a:visited {
-    color: inherit; }
+    color: inherit;
+    cursor: pointer; }
 
 button {
   border: none;
@@ -315,10 +316,14 @@ main {
   top: 0;
   width: 100%;
   height: 80px;
+  padding: 0 25px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-wrap: none;
+  -ms-flex-wrap: none;
+  flex-wrap: none;
   -webkit-box-pack: justify;
   -moz-box-pack: justify;
   -ms-flex-pack: justify;
@@ -329,6 +334,7 @@ main {
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
+  background: #fff;
   z-index: 1000; }
   #header #brand {
     display: inline-block;
@@ -345,21 +351,36 @@ main {
     -webkit-transition: .4s;
     -moz-transition: .4s;
     transition: .4s; }
-  #header #main-nav .nav-link {
-    display: inline-block;
-    padding: 5px 15px;
-    color: #000;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: .85em;
-    -webkit-transition: .4s;
-    -moz-transition: .4s;
-    transition: .4s; }
-    #header #main-nav .nav-link:hover, #header #main-nav .nav-link:focus {
-      color: #ccc; }
-    #header #main-nav .nav-link.active {
-      background-color: #000;
-      color: #ccc; }
+  #header #toggle-menu-btn {
+    display: none;
+    background-color: #000; }
+    #header #toggle-menu-btn .toggle {
+      display: block;
+      height: 1px;
+      width: 15px;
+      background-color: #ccc;
+      margin: 4px auto;
+      -webkit-transition: .4s;
+      -moz-transition: .4s;
+      transition: .4s; }
+  #header #main-nav {
+    -webkit-flex-basis: auto;
+    flex-basis: auto; }
+    #header #main-nav .nav-link {
+      display: inline-block;
+      padding: 5px 15px;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: .85em;
+      -webkit-transition: .4s;
+      -moz-transition: .4s;
+      transition: .4s; }
+      #header #main-nav .nav-link:hover, #header #main-nav .nav-link:focus {
+        color: #ccc; }
+      #header #main-nav .nav-link.active {
+        background-color: #000;
+        color: #ccc; }
   #header #lang-btn {
     text-transform: uppercase;
     letter-spacing: 2px;

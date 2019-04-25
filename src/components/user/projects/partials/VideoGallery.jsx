@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 class VideoGallery extends React.Component {
 	constructor (props) {
 		super(props);
@@ -9,12 +8,12 @@ class VideoGallery extends React.Component {
 		this.state = {
 			translateValue: 0,
 			step: 0,
-			imageIndex: 0
+			imageIndex: 0,
+			volume: .5
 		};
 
 		this.container = React.createRef();
 	}
-
 
 	getCurrentImageWidth = (direction, callback) => {
 
@@ -117,6 +116,7 @@ class VideoGallery extends React.Component {
 
 		return (
 			<div id="project-video-gallery">
+
 
 				<div id='video-gallery' ref={this.container}>
 					{videos}

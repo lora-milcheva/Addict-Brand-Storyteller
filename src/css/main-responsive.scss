@@ -1,0 +1,122 @@
+
+@import "colors";
+@import "animations";
+@import "mixins";
+
+
+@media screen and (max-width: 1240px) {
+
+  main {
+    padding-top: 95px; //header height
+    min-height: calc(100vh - 95px); //header + footer height
+  }
+
+  #header {
+    @include flex-wrap(wrap);
+    height: 95px;
+
+    border-bottom: 1px solid $black;
+
+    #main-nav {
+      @include flex-basis(80%);
+    }
+
+    #brand {
+      margin: 10px 0 10px 50%;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  main {
+    padding-top: 60px; //header height
+    min-height: calc(100vh - 60px); //header + footer height
+  }
+
+  #header {
+    height: 60px;
+    padding: 0 10px;
+    border-bottom: none;
+
+
+    #brand {
+      position: absolute;
+      left: 50%;
+      margin: 0;
+      width: 160px;
+    }
+
+    #toggle-menu-btn {
+      display: block;
+      position: absolute;
+      right: 10px;
+      padding: 2px 8px;
+
+      &.clicked {
+
+        .toggle:first-of-type {
+          transform: rotate(45deg);
+          position: relative;
+          top: 5px;
+        }
+
+        .toggle:nth-of-type(2) {
+          opacity: 0;
+        }
+
+        .toggle:last-of-type {
+          transform: rotate(-45deg);
+          position: relative;
+          top: -5px;
+        }
+      }
+    }
+
+
+
+    #main-nav {
+      position: absolute;
+      background: $white;
+      top: 0;
+      right: 0;
+      left:0;
+      height: 100vh;
+
+
+      @include flex-direction(column);
+      @include translate(105%);
+      @include ease-in(.25s);
+
+      z-index: -1;
+
+
+      .nav-link {
+        @include flex;
+        @include align-items(center);
+        @include justify-content(flex-end);
+
+        padding: 5px 25px;
+        font-size: 1em;
+        font-weight: 300;
+
+        &:first-of-type {
+          margin-top: 80px;
+        }
+
+        &.active,
+        &:hover,
+        &:active {
+          font-weight: 600;
+          background-color: transparent;
+          color: $black;
+          padding: 20px 25px;
+          border-bottom: 1px solid;
+        }
+      }
+
+      &.visible {
+        @include translate(0);
+      }
+    }
+  }
+}

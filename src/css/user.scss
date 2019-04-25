@@ -110,7 +110,6 @@
 
     #categories {
       @include flex-basis(100%);
-      @include grid(3, 10);
       //margin-top: 150px;
       padding: 50px 0;
 
@@ -130,22 +129,11 @@
 #projects-list .projects-container,
 #other-projects {
 
-  @include flex;
-  @include flex-wrap(wrap);
+  @include display-grid;
+  @include grid-template-columns(3, 1fr);
 
   .project-card {
     position: relative;
-    @include flex-basis(32%);
-    margin-bottom: 10px;
-
-    &:nth-child(3n - 1) {
-      margin: 0 10px 10px 10px;
-    }
-
-    .img-container {
-      height: 100%;
-    }
-
 
     .hover {
       position: absolute;
@@ -202,9 +190,10 @@
   @include flex-wrap(wrap);
   @include align-items(flex-start);
   position: relative;
+  padding-top: 25px;
 
   .section-title {
-    @include flex-basis(20%);
+    @include flex-basis(100%);
   }
 
   // info
@@ -250,7 +239,7 @@
 
       section {
         &:nth-of-type(odd) {
-          background-color: #f7f1ea;
+          background-color: $pale-salmon;
         }
       }
 
@@ -264,15 +253,12 @@
         .section-header {
           @include flex-basis(30%);
           //margin-top: 15px;
+          padding-right: 30px;
         }
 
         .section-title {
-          //color: $primary;
-          font-size: 2em;
-          @include flex-grow(1);
-          margin: 0;
-          padding-right: 25px;
-          //@include transform-text;
+          @include transform-text;
+          font-size: 1.2em;
         }
 
         .section-text {
@@ -289,17 +275,18 @@
     }
   }
 
-  // project images or videos
+  // project images
   #project-gallery {
-    position: relative;
-    //@include flex;
-    //@include flex-wrap(wrap);
-    width: auto;
-    white-space: nowrap;
     overflow: hidden;
-    margin: 30px 0 100px 100px;
+    margin: 30px 0 100px 0; // Like section padding
+
+    #test {
+      white-space: nowrap;
+      padding-left: 7%;
+    }
 
     #gallery {
+
       .image-container {
         padding: 0 15px 0 0;
         //@include flex-basis(30%);
@@ -308,22 +295,18 @@
 
         .image {
           @include main-transition;
-          height: 700px;
+          height: 50vh;
+
 
           .img-fit {
-            height: inherit;
-            object-fit: contain;
             width: auto;
+            max-width: 100%;
           }
 
           &:hover,
           &:active {
             cursor: pointer;
             opacity: .7;
-          }
-
-          &.portrait {
-            //@include flex-basis(49%);
           }
         }
 
@@ -339,8 +322,70 @@
     }
   }
 
+  // project videos
+  #project-video-gallery {
+    margin: 30px 0 100px 7%; // Like section padding
+
+    #video-gallery {
+      @include flex;
+
+      .video-container {
+        padding: 0 15px 0 0;
+
+        @include inline-flex;
+        @include flex-direction(column);
+        width: 650px;
+
+        .video {
+          @include main-transition;
+          height: auto;
+          width: 100%;
+        }
+
+        .video-info {
+          width: 100%;
+          padding: 25px;
+          border-bottom: 1px solid $primary;
+          @include flex-grow(1);
+
+          .section {
+            width: 100%;
+            padding-top: 5px;
+
+            &:first-of-type {
+              padding-top: 0;
+            }
+          }
+
+          .section-name {
+            font-weight: 600;
+            display: inline-block;
+            width: 150px;
+
+            &:after {
+              content: '';
+            }
+          }
+
+          .section-text {
+            width: calc(100% - 150px);
+          }
+
+          p {
+            vertical-align: top;
+            display: inline-block;
+            margin: 0;
+            line-height: 1.4em;
+            white-space: normal;
+          }
+        }
+      }
+    }
+  }
+
   .gallery-navigation {
     margin-top: 20px;
+    max-width: 100vw;
 
     @include flex;
     @include justify-content(center);
@@ -392,70 +437,6 @@
         &:hover,
         &:active {
           cursor: pointer;
-        }
-      }
-    }
-  }
-
-  #project-video-gallery {
-
-    position: relative;
-    //@include flex;
-    //@include flex-wrap(wrap);
-    width: auto;
-    white-space: nowrap;
-    overflow: hidden;
-    margin: 30px 0 100px 100px;
-
-    #video-gallery {
-
-      .video-container {
-        padding: 0 15px 0 0;
-        //@include flex-basis(30%);
-        @include inline-flex;
-        @include flex-direction(column);
-        width: 850px;
-
-        .video {
-          @include main-transition;
-          height: auto;
-          width: 100%;
-        }
-
-        .video-info {
-          width: 100%;
-          padding: 25px;
-          border-bottom: 1px solid $primary;
-
-          .section {
-            width: 100%;
-            padding-top: 5px;
-
-            &:first-of-type {
-              padding-top: 0;
-            }
-          }
-
-          .section-name {
-            font-weight: 600;
-            display: inline-block;
-            width: 150px;
-
-            &:after {
-              content: '';
-            }
-          }
-
-          .section-text {
-            width: calc(100% - 150px);
-          }
-
-          p {
-            vertical-align: top;
-            display: inline-block;
-            margin: 0;
-            white-space: normal;
-          }
         }
       }
     }
@@ -596,354 +577,6 @@
 
       p {
         font-size: .9em;
-      }
-    }
-  }
-
-  // other projects
-  #other-projects {
-    @include flex-basis(80%);
-    @include flex;
-
-    $margin: 12px;
-    $width: calc(33% - 50px);
-  }
-}
-
-
-// Old
-#project-simple {
-  @include flex;
-  @include flex-wrap(wrap);
-  @include align-items(flex-start);
-  position: relative;
-
-  // info
-  #project-info {
-    @include flex-basis(38%);
-    padding-right: 80px;
-
-    // summary
-    #project-summary {
-      @include transform-text;
-
-      p {
-        margin: .2em 0;
-      }
-
-      .cliche {
-        margin-top: 1em;
-        //color: $primary;
-        padding: 10px 0;
-        border-top: 1px solid $black;
-        //border-bottom: 1px solid $black;
-      }
-
-      .field {
-        font-weight: 700;
-        display: block;
-
-        &:after {
-          //content: ": ";
-        }
-      }
-    }
-
-    // description
-    #project-description {
-      .section {
-
-        .section-header {
-          @include flex;
-          @include align-items(center);
-          @include justify-content(space-between);
-          margin-top: 15px;
-        }
-
-        .section-title {
-          //color: $primary;
-          font-size: 2em;
-          @include flex-grow(1);
-          margin: 0;
-          padding-right: 25px;
-          @include transform-text;
-        }
-
-        .section-text {
-          max-height: 0;
-          transition: max-height 0.25s ease-out;
-          overflow: hidden;
-
-          p {
-            //margin: .4em 0;
-            //line-height: 1.3em;
-            //text-align: justify;
-          }
-
-          &.visible {
-            max-height: 1000px;
-            transition: max-height 0.25s ease-in;
-          }
-        }
-
-        .toggle-menu {
-          display: inline-block;
-          background-color: $white;
-          position: relative;
-
-          .over {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-
-            &:hover,
-            &:active {
-              cursor: pointer;
-            }
-          }
-
-          .toggle {
-            display: block;
-            height: 1px;
-            width: 15px;
-            background-color: $dark-grey-1;
-            //background-color: $primary;
-            margin: 4px auto;
-
-            @include ease-in;
-
-            &:first-of-type {
-              transform: rotate(90deg);
-              position: relative;
-              top: 5px;
-            }
-
-            &:last-of-type {
-              transform: rotate(0deg);
-              position: relative;
-            }
-          }
-
-          &.clicked {
-
-            .toggle {
-              background-color: $primary;
-
-              &:first-of-type {
-                transform: rotate(45deg);
-              }
-
-              &:last-of-type {
-                transform: rotate(-45deg);
-              }
-            }
-
-          }
-        }
-      }
-    }
-  }
-
-  // project images or videos
-  .project-gallery {
-
-    @include flex-basis(62%);
-    @include flex;
-    @include flex-wrap(wrap);
-    margin-bottom: 100px;
-
-    .image {
-      @include flex-basis(99%);
-      margin: 0 1% 1% 0;
-      @include main-transition;
-
-      &:hover,
-      &:active {
-        cursor: pointer;
-        opacity: .7;
-      }
-
-      &.portrait {
-        @include flex-basis(49%);
-      }
-    }
-  }
-
-  // preview on click
-  #image-preview {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, .8);
-
-    @include flex;
-    @include align-items(center);
-    @include justify-content(center);
-    opacity: 0;
-    visibility: hidden;
-
-    @include main-transition;
-
-    &.visible {
-      opacity: 1;
-      visibility: visible;
-      z-index: 2000;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 40px;
-      height: 40px;
-      padding: 5px 7px;
-      background-color: transparent;
-
-      @include main-transition;
-
-      &:hover,
-      &:active {
-        cursor: pointer;
-        color: $white;
-        background-color: $primary;
-      }
-    }
-
-    .gallery-navigation {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      height: 100%;
-
-      @include flex;
-      @include justify-content(space-between);
-      @include align-items(center);
-
-      .gallery-navigation-button {
-        @include flex-basis(50%);
-        height: 100%;
-        padding: 0 50px;
-
-        @include flex;
-        @include align-items(center);
-
-        @include main-transition;
-
-        &:hover,
-        &:active {
-
-          cursor: pointer;
-
-          #prevBtn,
-          #nextBtn {
-            cursor: pointer;
-            color: $white;
-            background-color: $primary;
-          }
-        }
-
-        &:nth-of-type(2) {
-          @include justify-content(flex-end);
-        }
-
-        #prevBtn,
-        #nextBtn {
-          width: 40px;
-          height: 40px;
-          padding: 5px 7px;
-          background-color: transparent;
-
-          @include main-transition;
-
-        }
-      }
-    }
-
-    .image {
-      margin: auto;
-      width: 90%;
-      height: 95vh;
-      text-align: center;
-
-      @include flex;
-      @include justify-content(center);
-      @include align-items(center);
-
-      @include main-transition;
-
-      .img-fit {
-        width: auto;
-        max-width: 100%;
-        height: auto;
-        max-height: 100%;
-
-      }
-    }
-  }
-
-  .section-title {
-    @include flex-basis(20%);
-  }
-
-  // other projects
-  #projects-container {
-    @include flex-basis(80%);
-    @include flex;
-
-    $margin: 12px;
-    $width: calc(33% - 50px);
-
-    .project-card {
-      position: relative;
-      margin-right: 25px;
-      height: 180px;
-      overflow: hidden;
-
-      @include flex-basis($width);
-      @include flex-grow(1);
-
-      &:last-of-type {
-        margin-right: 0;
-      }
-
-      .img-container {
-        order: 0;
-        height: 100%;
-
-        .img-fit {
-          height: 100%;
-        }
-      }
-
-      .hover {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        padding: 25px;
-        background-color: rgba(255, 255, 255, .5);
-
-        @include flex;
-        @include main-transition;
-        @include translate(-100%, 0);
-
-        .info {
-          @include transform-text;
-        }
-      }
-
-      &:hover,
-      &:active {
-        cursor: pointer;
-
-        .hover {
-          @include translate(0, 0);
-        }
       }
     }
   }

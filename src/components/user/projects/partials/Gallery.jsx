@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 class Gallery extends React.Component {
 	constructor (props) {
 		super(props);
@@ -14,7 +13,6 @@ class Gallery extends React.Component {
 
 		this.container = React.createRef();
 	}
-
 
 	getCurrentImageWidth = (direction, callback) => {
 
@@ -94,8 +92,9 @@ class Gallery extends React.Component {
 					        ref={this[name]}
 					        onLoad={() => {
 						        let img = this[name].current;
-						        if (img.clientWidth < img.clientHeight) {
-							        img.classList.add('portrait');
+						        if (img.clientWidth > img.clientHeight) {
+							        console.log(this);
+							        img.parentNode.classList.add('portrait');
 						        }
 					        }}>
 						<img src={element.url}
@@ -115,10 +114,13 @@ class Gallery extends React.Component {
 		return (
 			<div id="project-gallery">
 
-				<div id='gallery' ref={this.container}>
-					{gallery}
-				</div>
+				<div id='test'>
 
+					<div id='gallery' ref={this.container}>
+						{gallery}
+					</div>
+
+				</div>
 
 				<div className="gallery-navigation">
 						<span className='gallery-navigation-button'

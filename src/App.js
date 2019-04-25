@@ -2,11 +2,11 @@ import React from 'react';
 
 // CSS
 import './css/main.css';
-import './css/animations.css';
+import './css/main-responsive.css';
 import './css/user.css';
-// import './css/user-2.css';
 import './css/admin.css';
-// import './css/test.css'
+import './css/user-responsive.css';
+
 
 // Components
 import Header from './components/common/Header';

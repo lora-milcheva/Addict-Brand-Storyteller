@@ -6,7 +6,6 @@ import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 // Partials
 import GalleryPreview from './partials/GalleryPreview';
 import ProjectCard from '../common/ProjectCard';
-import List from '../test/List';
 
 // Services
 import projectsService from '../../../services/projects/projectsService';

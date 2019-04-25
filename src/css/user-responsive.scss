@@ -1,0 +1,258 @@
+@import "colors";
+@import "animations";
+@import "mixins";
+
+
+
+@media screen and (max-width: 768px) {
+
+  #project-story {
+
+    .section-title {
+      @include flex-basis(100%);
+    }
+
+    // info
+    #project-info {
+      @include flex-basis(100%);
+
+      // summary
+      #project-summary {
+        @include transform-text;
+
+        p {
+          margin: .2em 0;
+        }
+
+        .cliche {
+          margin-top: 1em;
+          //color: $primary;
+          padding: 10px 0;
+          border-top: 1px solid $black;
+          //border-bottom: 1px solid $black;
+        }
+
+        .field {
+          font-weight: 700;
+          display: block;
+
+          &:after {
+            //content: ": ";
+          }
+        }
+      }
+
+      // Cover image
+      #project-cover {
+        height: 450px;
+        background-size: cover;
+        background-attachment: fixed;
+        //background-position: center;
+      }
+
+      // description
+      #project-description {
+
+        section {
+          &:nth-of-type(odd) {
+            background-color: #f7f1ea;
+          }
+        }
+
+        .section {
+          padding-top: 50px;
+          padding-bottom: 50px;
+
+
+          .section-header {
+            @include flex-basis(80%);
+          }
+
+          .section-title {
+            @include transform-text;
+          }
+
+          .section-text {
+            @include flex-basis(100%);
+            transition: max-height 0.25s ease-out;
+            overflow: hidden;
+          }
+
+          .img-full {
+            @include flex-basis(100%);
+
+          }
+        }
+      }
+    }
+
+    // project images
+    #project-gallery {
+      width: 100%;
+      margin: 20px 7%;
+
+      #test {
+        padding-left: 0;
+      }
+
+      #gallery {
+        @include display-grid;
+        @include grid-template-columns(2, 1fr);
+        grid-column-gap: 5px;
+
+        .image-container {
+          padding: 0;
+
+          .image {
+            height: auto;
+
+            .img-fit {
+              width: 100%;
+              object-fit: contain;
+            }
+          }
+
+          .name {
+            display: none;
+          }
+
+          &.portrait {
+            @include flex-basis(100%);
+            margin-right: 0;
+          }
+        }
+      }
+    }
+
+    // project videos
+    #project-video-gallery {
+      margin: 30px 7%;
+
+      #video-gallery {
+        @include display-grid;
+        @include grid-template-columns(1, 1fr);
+
+        .video-container {
+          padding: 0;
+          width: 100%;
+          margin-bottom: 35px;
+
+          .video {
+            @include main-transition;
+            height: auto;
+            width: 100%;
+          }
+
+          .video-info {
+            padding: 15px;
+            font-size: .8em;
+
+            .section-name {
+              width: 120px;
+            }
+
+            .section-text {
+              width: calc(100% - 120px);
+            }
+          }
+        }
+      }
+    }
+
+
+    .gallery-navigation {
+      display: none;
+    }
+
+    // preview on click
+    #image-preview {
+
+      .close-btn {
+        width: 30px;
+        height: 30px;
+      }
+
+
+      .gallery-navigation {
+
+        .gallery-navigation-button {
+          padding: 0 10px;
+
+          #prevBtn,
+          #nextBtn {
+            width: 30px;
+            height: 30px;
+          }
+        }
+      }
+
+      .image {
+        @include flex-basis(90%);
+      }
+    }
+
+
+    // other projects
+    #other-projects {
+      @include flex-basis(100%);
+    }
+  }
+
+  #home-projects .projects-container,
+  #projects-list .projects-container,
+  #other-projects {
+
+    @include grid-template-columns(2, 1fr);
+
+    .project-card {
+      margin-bottom: 20px;
+
+      .hover {
+        position: relative;
+        opacity: 1;
+
+        @include translate(0, 0);
+        height: auto;
+
+        @include justify-content(flex-start);
+
+        .info {
+          @include translate(0, 0);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 440px){
+  #home-projects .projects-container,
+  #projects-list .projects-container,
+  #other-projects {
+
+    @include grid-template-columns(1, 1fr);
+
+  }
+}
+
+@media screen and (max-width: 420px) {
+
+  #project-story {
+
+    // project videos
+    #project-video-gallery {
+
+      #video-gallery {
+
+        .video-container {
+
+          .video-info {
+            .section-text,
+            .section-name {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
