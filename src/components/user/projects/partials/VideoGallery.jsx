@@ -72,6 +72,31 @@ class VideoGallery extends React.Component {
 		});
 	};
 
+	componentDidMount () {
+		this.setVolumeOnPlayers();
+	}
+
+
+	setVolumeOnPlayers = () => {
+		for (let i = 0; i < this.props.data.length; i++) {
+
+			let name = 'video' + i;
+			let video = this[name].current;
+			video.volume = this.state.volume;
+
+			video.onvolumechange = (event) => {
+
+				let newVolume = event.target.volume;
+
+				this.setState({volume: newVolume}, () => {
+					setTimeout(() => {
+						this.setVolumeOnPlayers();
+					}, 2000);
+				});
+			};
+		}
+	};
+
 	render () {
 
 		let lang = this.props.language;
@@ -115,7 +140,7 @@ class VideoGallery extends React.Component {
 		});
 
 		return (
-			<div id="project-video-gallery">
+			<div id="project-video-gallery" onLoad={this.videoTest}>
 
 
 				<div id='video-gallery' ref={this.container}>

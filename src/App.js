@@ -29,6 +29,11 @@ class App extends React.Component {
 		this.setState({language: language});
 	};
 
+	componentDidUpdate (prevProps, prevState, snapshot) {
+		console.log(prevProps)
+		window.scrollTo(0, 0)
+	}
+
 	render () {
 
 		let isHomePage = window.location.pathname === '/';

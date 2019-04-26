@@ -280,12 +280,10 @@
     overflow: hidden;
     margin: 30px 0 100px 0; // Like section padding
 
-    #test {
-      white-space: nowrap;
-      padding-left: 7%;
-    }
 
     #gallery {
+      white-space: nowrap;
+      padding-left: 7%;
 
       .image-container {
         padding: 0 15px 0 0;
@@ -310,7 +308,6 @@
           }
         }
 
-
         .name {
           @include transform-text;
 
@@ -324,10 +321,12 @@
 
   // project videos
   #project-video-gallery {
-    margin: 30px 0 100px 7%; // Like section padding
+    overflow: hidden;
 
     #video-gallery {
+      margin: 30px 0 100px 7%; // Like section padding
       @include flex;
+      width: max-content;
 
       .video-container {
         padding: 0 15px 0 0;

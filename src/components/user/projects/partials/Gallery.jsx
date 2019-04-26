@@ -93,7 +93,7 @@ class Gallery extends React.Component {
 					        onLoad={() => {
 						        let img = this[name].current;
 						        if (img.clientWidth > img.clientHeight) {
-							        console.log(this);
+							        console.log(333);
 							        img.parentNode.classList.add('portrait');
 						        }
 					        }}>
@@ -114,13 +114,11 @@ class Gallery extends React.Component {
 		return (
 			<div id="project-gallery">
 
-				<div id='test'>
 
-					<div id='gallery' ref={this.container}>
-						{gallery}
-					</div>
-
+				<div id='gallery' ref={this.container}>
+					{gallery}
 				</div>
+
 
 				<div className="gallery-navigation">
 						<span className='gallery-navigation-button'

@@ -6,10 +6,12 @@ import * as serviceWorker from './serviceWorker';
 
 import App from './App';
 
-
 ReactDOM.render(
-	<BrowserRouter>
-		<App />
+	<BrowserRouter onUpdate={() => {
+		window.scrollTo(0, 0);
+		// console.log(333)
+	}}>
+		<App/>
 	</BrowserRouter>,
 	document.getElementById('root')
 );
