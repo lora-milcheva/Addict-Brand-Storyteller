@@ -4,7 +4,7 @@ import posed from 'react-pose';
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 // Partials
-import GalleryPreview from './partials/GalleryPreview';
+import ImagePreview from './partials/ImagePreview';
 import ProjectCard from '../common/ProjectCard';
 
 // Services
@@ -291,7 +291,7 @@ class ProjectSimple extends React.Component {
 		return (
 			<div id="project" className="container section-padding">
 
-				<GalleryPreview image={this.state.selectedImage} allImages={project.images} onClose={this.hidePreview}/>
+				<ImagePreview image={this.state.selectedImage} allImages={project.images} onClose={this.hidePreview}/>
 
 
 				<div id="project-info">

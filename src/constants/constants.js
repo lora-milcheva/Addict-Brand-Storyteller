@@ -1,4 +1,3 @@
-
 const LANGUAGES = {
 	bg: 'bg',
 	en: 'en'
@@ -102,6 +101,7 @@ const BUTTONS = {
 	bg: {
 		create: 'Създай',
 		edit: 'Редакция',
+		send: 'Изпрати',
 		saveChanges: 'Запази промените',
 		add: 'Добави',
 		delete: 'Изтриване',
@@ -121,6 +121,7 @@ const BUTTONS = {
 	en: {
 		create: 'Create',
 		edit: 'Edit',
+		send: 'Send',
 		saveChanges: 'Save Changes',
 		add: 'Add',
 		delete: 'Delete',
@@ -350,10 +351,27 @@ const USER_PAGES_TEXT = {
 			project: 'ProjectSimple',
 			otherProjects: 'Other Projects',
 		}
+	},
+
+	contact: {
+		bg: {
+			name: 'Име',
+			lastName: 'Фамилия',
+			email: 'Имейл',
+			phone: 'Телефон',
+			subject: 'Относно',
+			message: 'Въведете Вашето съобщение тук'
+		},
+		en: {
+			name: 'First Name',
+			lastName: 'Last Name',
+			email: 'Email',
+			phone: 'Phone',
+			subject: 'Subject',
+			message: 'Enter Your Message Here'
+		}
 	}
 };
-
-
 
 export {
 	LANGUAGES,
@@ -368,4 +386,4 @@ export {
 	NOTIFICATIONS,
 	ADMIN_PAGES_TEXT,
 	USER_PAGES_TEXT
-}
+};

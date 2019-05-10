@@ -33,14 +33,14 @@ class HeaderC extends React.Component {
 				.then(res => {
 					authService.saveSession(res);
 					this.getLanguage();
-					this.loadCategories();
+					// this.loadCategories();
 				})
 				.catch(err => {
 					console.log(err);
 				});
 		} else {
 			this.getLanguage();
-			this.loadCategories();
+			// this.loadCategories();
 		}
 	}
 

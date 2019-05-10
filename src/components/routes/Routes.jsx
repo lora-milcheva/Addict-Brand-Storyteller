@@ -11,6 +11,7 @@ import Home from '../user/home/Home';
 import ProjectsList from '../user/projects/ProjectsList';
 import ProjectSimple from '../user/projects/ProjectSimple';
 import ProjectStory from '../user/projects/ProjectStory';
+import Contact from '../user/contact/Contact';
 
 // Admin Components
 import createProject from '../admin/projects/createEditProject/createEditProject';
@@ -45,50 +46,50 @@ const RouteContainer = posed.div({
 	},
 });
 
-
-
 let Routes = () => {
 
 	return (
 
+		<Switch>
 
-			<Switch>
+			{/*//User*/}
+			<Route exact path='/' component={Home}/>
+			<Route exact path='/en' component={Home}/>
 
-				{/*//User*/}
-				<Route exact path='/' component={Home}/>
-				<Route exact path='/en' component={Home}/>
+			<Route path='/login' component={Login}/>
 
-				<Route path='/login' component={Login}/>
+			<Route exact path='/projects' component={ProjectsList}/>
+			<Route exact path='/:lng/projects' component={ProjectsList}/>
 
-				<Route exact path='/projects' component={ProjectsList}/>
-				<Route exact path='/:lng/projects' component={ProjectsList}/>
+			<Route exact path='/projects/:category' component={ProjectsList}/>
+			<Route exact path='/:lng/projects/:category' component={ProjectsList}/>
 
-				<Route exact path='/projects/:category' component={ProjectsList}/>
-				<Route exact path='/:lng/projects/:category' component={ProjectsList}/>
+			<Route exact path='/projects/:category/:id' component={ProjectStory}/>
+			<Route exact path='/:lng/projects/:category/:id' component={ProjectStory}/>
 
-				<Route exact path='/projects/:category/:id' component={ProjectStory}/>
-				<Route exact path='/:lng/projects/:category/:id' component={ProjectStory}/>
+			<Route exact path='/contact' component={Contact}/>
+			<Route exact path='/:lng/contact' component={Contact}/>
 
 
-				{/*//Admin*/}
-				<PrivateRoute path='/admin/projects-list' component={adminProjectsList}/>
-				<PrivateRoute path='/admin/project-create' component={createProject}/>
-				<PrivateRoute path='/admin/project-edit/:id' component={createProject}/>
+			{/*//Admin*/}
+			<PrivateRoute path='/admin/projects-list' component={adminProjectsList}/>
+			<PrivateRoute path='/admin/project-create' component={createProject}/>
+			<PrivateRoute path='/admin/project-edit/:id' component={createProject}/>
 
-				<PrivateRoute path='/admin/category-list' component={categoriesList}/>
-				<PrivateRoute path='/admin/category-create' component={createEditCategory}/>
-				<PrivateRoute path='/admin/category-edit/:id' component={createEditCategory}/>
+			<PrivateRoute path='/admin/category-list' component={categoriesList}/>
+			<PrivateRoute path='/admin/category-create' component={createEditCategory}/>
+			<PrivateRoute path='/admin/category-edit/:id' component={createEditCategory}/>
 
-				<PrivateRoute path='/admin/clients-list' component={clientsList}/>
-				<PrivateRoute path='/admin/client-create' component={createEditClient}/>
-				<PrivateRoute path='/admin/client-edit/:id' component={createEditClient}/>
+			<PrivateRoute path='/admin/clients-list' component={clientsList}/>
+			<PrivateRoute path='/admin/client-create' component={createEditClient}/>
+			<PrivateRoute path='/admin/client-edit/:id' component={createEditClient}/>
 
-				<PrivateRoute path={'/admin/sections-list'} component={sectionsList}/>
-				<PrivateRoute path={'/admin/section-create'} component={createEditSection}/>
-				<PrivateRoute path={'/admin/section-edit/:id'} component={createEditSection}/>
+			<PrivateRoute path={'/admin/sections-list'} component={sectionsList}/>
+			<PrivateRoute path={'/admin/section-create'} component={createEditSection}/>
+			<PrivateRoute path={'/admin/section-edit/:id'} component={createEditSection}/>
 
-				<Route path='*' component={NotFound}/>
-			</Switch>
+			<Route path='*' component={NotFound}/>
+		</Switch>
 
 	);
 };

@@ -4,7 +4,7 @@ import posed from 'react-pose/lib/index';
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 // Partials
-import GalleryPreview from './partials/GalleryPreview';
+import ImagePreview from './partials/ImagePreview';
 import ProjectCard from '../common/ProjectCard';
 import Gallery from './partials/Gallery';
 import VideoGallery from './partials/VideoGallery';
@@ -26,7 +26,7 @@ class ProjectStory extends React.Component {
 			project: '',
 			clientName: '',
 
-			selectedImage: '',
+			selectedImage: {},
 
 			currentProjectIndex: 0,
 			prevProjectId: undefined,
@@ -180,7 +180,7 @@ class ProjectStory extends React.Component {
 	};
 
 	hidePreview = () => {
-		this.setState({selectedImage: ''});
+		this.setState({selectedImage: {}});
 	};
 
 	toggleSection = (e) => {
@@ -253,40 +253,28 @@ class ProjectStory extends React.Component {
 			);
 		});
 
-		let videos = this.state.project.videos.map(video => {
 
-			for (let el in video.info) {
-				let section = this.state.allSections.filter(s => s._id === el)[0];
-				video.info[el].sectionName = section.name[activeLanguage];
-			}
+		let prevNextProjectArrows = (
+			<div className="buttons-container">
+				<Link
+					to={this.state.prevProjectId !== undefined ? this.state.prevProjectId : '/projects'}
+					className={this.state.prevProjectId !== undefined ? 'btn btn-prev' : 'btn btn-prev disabled'}/>
 
-			let info = Object.keys(video.info).map(sectionId => {
-				return (
-					<div key={video.url + sectionId}>{video.info[sectionId].sectionName}: <span
-						dangerouslySetInnerHTML={{__html: video.info[sectionId][activeLanguage]}}/>
-					</div>
-				);
-			});
 
-			return (
-				<div key={video.url}>
-					<video poster={video.poster} width={'200px'} controls>
-						<source src={video.url} type="video/mp4"/>
-					</video>
+				<Link
+					to={this.state.nextProjectId !== undefined ? this.state.nextProjectId : '/projects'}
+					className={this.state.nextProjectId !== undefined ? 'btn btn-next' : 'btn btn-next disabled'}/>
 
-					{info}
-				</div>
-			);
-
-		});
+			</div>
+		);
 
 		return (
 			<div id="project-story" className="container-fluid">
 
-				<GalleryPreview image={this.state.selectedImage}
-				                allImages={project.images}
-				                activeLanguage={activeLanguage}
-				                onClose={this.hidePreview}/>
+				<ImagePreview image={this.state.selectedImage}
+				              allImages={project.images}
+				              activeLanguage={activeLanguage}
+				              onClose={this.hidePreview}/>
 
 
 				<div id="project-info">
@@ -299,17 +287,8 @@ class ProjectStory extends React.Component {
 							{project.description[activeLanguage]}
 						</p>
 
-						<div className="buttons-container">
-							<Link
-								to={this.state.prevProjectId !== undefined ? this.state.prevProjectId : '/projects'}
-								className={this.state.prevProjectId !== undefined ? 'btn btn-prev' : 'btn btn-prev disabled'}/>
+						{/*{prevNextProjectArrows}*/}
 
-
-							<Link
-								to={this.state.nextProjectId !== undefined ? this.state.nextProjectId : '/projects'}
-								className={this.state.nextProjectId !== undefined ? 'btn btn-next' : 'btn btn-next disabled'}/>
-
-						</div>
 
 					</section>
 
@@ -342,11 +321,10 @@ class ProjectStory extends React.Component {
 				</section>
 
 
-
 				<section className='container-padding'>
 					<h2 className="section-title">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>
 					<div id="other-projects">
-					{randomProjects}
+						{randomProjects}
 					</div>
 				</section>
 			</div>

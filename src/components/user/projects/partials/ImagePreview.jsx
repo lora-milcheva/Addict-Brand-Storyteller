@@ -1,22 +1,45 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import PropTypes, { object } from 'prop-types';
 
-class GalleryPreview extends React.Component {
+class ImagePreview extends React.Component {
 	constructor (props) {
 		super(props);
 
 		this.state = {
-			image: this.props.image || '',
+			image: this.props.image,
 
-			allImages: this.props.allImages || []
+			allImages: this.props.allImages
 		};
 
 		this.image = React.createRef();
 	}
 
+	componentWillUnmount () {
+		document.removeEventListener('keydown', this.handleKeyPress);
+	}
+
 	componentWillReceiveProps (nextProps) {
+
+		if (Object.keys(nextProps.image).length > 0) {
+			document.addEventListener('keydown', this.handleKeyPress);
+		}
+
 		this.setState({image: nextProps.image, allImages: nextProps.allImages});
 	}
+
+	handleKeyPress = (e) => {
+
+		console.log(e)
+
+		if (e.key === 'ArrowLeft') this.showPrevImage();
+
+		if (e.key === 'ArrowRight') this.showNextImage();
+
+		if (e.key === 'Escape') {
+			document.removeEventListener('keydown', this.handleKeyPress);
+			this.props.onClose();
+		}
+	};
 
 	showNextImage = () => {
 
@@ -84,9 +107,7 @@ class GalleryPreview extends React.Component {
 
 	render () {
 
-		if (this.state.image === '') return (<div className={'loader'}/>);
-
-		let isVisible = this.state.image !== '';
+		let isVisible = Object.keys(this.state.image).length > 0;
 
 		let lang = this.props.activeLanguage;
 
@@ -111,10 +132,13 @@ class GalleryPreview extends React.Component {
 
 
 				<div className="gallery-navigation">
-					<span className="gallery-navigation-button" onClick={this.showPrevImage}>
+					<span className="gallery-navigation-button"
+					      onClick={this.showPrevImage}>
+
 						<img id="prevBtn" src="/images/icons/arrow-left-white.svg" alt="previous"/>
 					</span>
-					<span className="gallery-navigation-button" onClick={this.showNextImage}>
+					<span className="gallery-navigation-button"
+					      onClick={this.showNextImage}>
 						<img id="nextBtn" src="/images/icons/arrow-right-white.svg" alt="next"/>
 					</span>
 				</div>
@@ -127,4 +151,11 @@ class GalleryPreview extends React.Component {
 	}
 }
 
-export default GalleryPreview;
+export default ImagePreview;
+
+ImagePreview.propTypes = {
+	image: PropTypes.object,
+	allImages: PropTypes.array,
+	activeLanguage: PropTypes.string,
+	onClose: PropTypes.func
+};

@@ -30,7 +30,7 @@ class App extends React.Component {
 	};
 
 	componentDidUpdate (prevProps, prevState, snapshot) {
-		console.log(prevProps)
+		if (prevState.language !== this.state.language) return
 		window.scrollTo(0, 0)
 	}
 

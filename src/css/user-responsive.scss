@@ -3,8 +3,44 @@
 @import "mixins";
 
 
+@media screen and (max-width: 1200px) {
+
+  #home {
+    #company {
+      .about-us {
+        width: 80%;
+      }
+    }
+  }
+
+  #project-story {
+
+    #project-info {
+
+      #project-summary {
+
+        .cliche {
+          padding-right: 30%;
+        }
+      }
+    }
+  }
+}
+
 
 @media screen and (max-width: 768px) {
+
+  #home {
+    #company {
+      .about-us {
+        width: 100%;
+      }
+
+      #categories {
+        @include grid-template-columns(1, 1fr);
+      }
+    }
+  }
 
   #project-story {
 
@@ -14,50 +50,16 @@
 
     // info
     #project-info {
-      @include flex-basis(100%);
-
-      // summary
       #project-summary {
-        @include transform-text;
-
-        p {
-          margin: .2em 0;
-        }
 
         .cliche {
-          margin-top: 1em;
-          //color: $primary;
-          padding: 10px 0;
-          border-top: 1px solid $black;
-          //border-bottom: 1px solid $black;
+          padding-right: 0;
         }
-
-        .field {
-          font-weight: 700;
-          display: block;
-
-          &:after {
-            //content: ": ";
-          }
-        }
-      }
-
-      // Cover image
-      #project-cover {
-        height: 450px;
-        background-size: cover;
-        background-attachment: fixed;
-        //background-position: center;
       }
 
       // description
       #project-description {
 
-        section {
-          &:nth-of-type(odd) {
-            background-color: #f7f1ea;
-          }
-        }
 
         .section {
           padding-top: 50px;
@@ -74,22 +76,16 @@
 
           .section-text {
             @include flex-basis(100%);
-            transition: max-height 0.25s ease-out;
-            overflow: hidden;
-          }
-
-          .img-full {
-            @include flex-basis(100%);
-
           }
         }
       }
     }
 
+
     // project images
     #project-gallery {
       width: 100%;
-      margin: 20px 7%;
+      margin: 20px $container-padding;
 
 
       #gallery {
@@ -106,7 +102,6 @@
 
             .img-fit {
               width: 100%;
-              object-fit: contain;
             }
           }
 
@@ -115,8 +110,7 @@
           }
 
           &.portrait {
-            @include flex-basis(100%);
-            margin-right: 0;
+            grid-column: 1 / span 2;
           }
         }
       }
@@ -124,7 +118,7 @@
 
     // project videos
     #project-video-gallery {
-      margin: 30px 7%;
+      margin: 30px $container-padding;
 
       #video-gallery {
         margin: 0;
@@ -224,7 +218,11 @@
   }
 }
 
-@media screen and (max-width: 440px){
+
+
+
+
+@media screen and (max-width: 440px) {
   #home-projects .projects-container,
   #projects-list .projects-container,
   #other-projects {

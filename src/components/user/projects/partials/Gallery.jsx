@@ -54,7 +54,7 @@ class Gallery extends React.Component {
 
 				translateValue = this.state.translateValue + step;
 
-				if (translateValue > translateMaxValue - step + 20) return;
+				if (translateValue > translateMaxValue - step) return;
 
 				nextImageIndex = this.state.imageIndex + 1;
 			}
@@ -93,7 +93,6 @@ class Gallery extends React.Component {
 					        onLoad={() => {
 						        let img = this[name].current;
 						        if (img.clientWidth > img.clientHeight) {
-							        console.log(333);
 							        img.parentNode.classList.add('portrait');
 						        }
 					        }}>

@@ -20,7 +20,7 @@ class Company extends React.Component {
 
 		return (
 
-			<section id="company" className="container section-padding">
+			<section id="company" className="container">
 				<h2 className="section-title ">Story - Telling & Experience</h2>
 				<section className="about-us">
 					<p>

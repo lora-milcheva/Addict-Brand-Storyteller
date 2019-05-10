@@ -6,28 +6,19 @@
 
 @media screen and (max-width: 1240px) {
 
-  main {
-    padding-top: 95px; //header height
-    min-height: calc(100vh - 95px); //header + footer height
-  }
 
   #header {
-    @include flex-wrap(wrap);
-    height: 95px;
-
-    border-bottom: 1px solid $black;
-
-    #main-nav {
-      @include flex-basis(80%);
-    }
 
     #brand {
-      margin: 10px 0 10px 50%;
+      width: 220px;
+      margin-left: 0;
+      @include translate(0, 0);
     }
   }
 }
 
 @media screen and (max-width: 768px) {
+
   main {
     padding-top: 60px; //header height
     min-height: calc(100vh - 60px); //header + footer height
@@ -38,13 +29,13 @@
     padding: 0 10px;
     border-bottom: none;
 
-
     #brand {
       position: absolute;
       left: 50%;
-      margin: 0;
-      width: 160px;
+      @include translate(-50%, 0);
+      width: 200px;
     }
+
 
     #toggle-menu-btn {
       display: block;
@@ -117,6 +108,16 @@
       &.visible {
         @include translate(0);
       }
+    }
+  }
+}
+
+@media screen and (max-width: 420px) {
+
+  #header {
+
+    #brand {
+      width: 50%;
     }
   }
 }

@@ -15,19 +15,15 @@ class VideoGallery extends React.Component {
 		this.container = React.createRef();
 	}
 
-	getCurrentImageWidth = (direction, callback) => {
+	componentDidMount () {
 
-		let index = this.state.imageIndex;
+		this.setVolumeOnPlayers();
 
-		if (direction === 'left' && index > 0) index -= 1;
+	}
 
-		let el = 'video' + index;
-
-		// Get parent width with included padding
-		let currentImageWidth = this[el].current.parentNode.clientWidth;
-
-		this.setState({step: currentImageWidth}, () => callback());
-	};
+	componentWillMount () {
+		clearTimeout(this.timeOut);
+	}
 
 	moveCarousel = (direction) => {
 
@@ -72,28 +68,45 @@ class VideoGallery extends React.Component {
 		});
 	};
 
-	componentDidMount () {
-		this.setVolumeOnPlayers();
-	}
+	getCurrentImageWidth = (direction, callback) => {
 
+		let index = this.state.imageIndex;
+
+		if (direction === 'left' && index > 0) index -= 1;
+
+		let el = 'video' + index;
+
+		// Get parent width with included padding
+		let currentImageWidth = this[el].current.parentNode.clientWidth;
+
+		this.setState({step: currentImageWidth}, () => callback());
+	};
 
 	setVolumeOnPlayers = () => {
+
 		for (let i = 0; i < this.props.data.length; i++) {
 
 			let name = 'video' + i;
 			let video = this[name].current;
 			video.volume = this.state.volume;
 
-			video.onvolumechange = (event) => {
+			video.onvolumechange = (e) => {this.saveVolumeValue(e);};
+		}
+	};
 
-				let newVolume = event.target.volume;
+	saveVolumeValue = (e) => {
+		let newVolume = e.target.volume;
+		this.setState({volume: newVolume});
 
-				this.setState({volume: newVolume}, () => {
-					setTimeout(() => {
-						this.setVolumeOnPlayers();
-					}, 2000);
-				});
-			};
+		// this.changeVolume();
+	};
+
+	changeVolume = () => {
+		for (let i = 0; i < this.props.data.length; i++) {
+
+			let name = 'video' + i;
+			let video = this[name].current;
+			video.volume = this.state.volume;
 		}
 	};
 
