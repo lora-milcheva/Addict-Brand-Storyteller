@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=cyrillic');
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&subset=cyrillic,cyrillic-ext');
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
-
 @import "colors";
 @import "mixins";
 
@@ -250,6 +249,12 @@ button {
     }
   }
 
+  .validation-text {
+    margin-left: 30%;
+    color: $primary;
+    font-size: .8em;
+  }
+
   .form-control {
     @include flex-basis(70%);
     @include flex-grow(1);
@@ -370,6 +375,10 @@ button {
   text-align: center;
 }
 
+.text-accent {
+  color: $primary;
+}
+
 //COMMON
 #messages,
 #confirm-dialog {
@@ -392,12 +401,13 @@ button {
     top: 50%;
     transform: translate(-50%, -50%);
     width: 500px;
-    //height: 20vh;
-    padding: 20px 30px;
+    padding: 10px 30px 20px 30px;
     background-color: white;
+    border-radius: 7px;
 
     .message-text {
-      font-size: 2em;
+      //font-size: 2em;
+      padding-bottom: 15px;
     }
   }
 }
@@ -406,7 +416,6 @@ main {
   padding-top: 80px; //header height
   min-height: calc(100vh - 80px); //header + footer height
 }
-
 
 
 #header {

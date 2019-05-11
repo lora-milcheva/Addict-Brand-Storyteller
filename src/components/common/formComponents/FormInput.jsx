@@ -3,25 +3,29 @@ import PropTypes from 'prop-types';
 
 function FormInput (props) {
 
-		const {type, name, value, id, placeholder, label, className, required, disabled, step, min, max, onChange} = props;
+	const {type, name, value, id, placeholder, label, className, required, disabled, step, min, max, isValid, onChange} = props;
 
-		return (
-			<div className={"form-group "+ className}>
-				<label htmlFor={id}>{label}</label>
-				<input className="form-control"
-				       type={type}
-				       value={value}
-				       name={name}
-				       id={id}
-				       placeholder={placeholder}
-				       required={required}
-				       disabled={disabled}
-				       step={step}
-				       min={min}
-				       max={max}
-				       onChange={onChange}/>
-			</div>
-		);
+	return (
+		<div className={'form-group ' + className}>
+			<label htmlFor={id}>
+				{label}
+				{required && <span className='text-accent'>&nbsp;*</span>}
+			</label>
+			<input className="form-control"
+			       type={type}
+			       value={value}
+			       name={name}
+			       id={id}
+			       placeholder={placeholder}
+			       required={required}
+			       disabled={disabled}
+			       step={step}
+			       min={min}
+			       max={max}
+			       onChange={onChange}/>
+			<p className='validation-text'>{isValid}</p>
+		</div>
+	);
 
 }
 
@@ -40,5 +44,6 @@ FormInput.propTypes = {
 	step: PropTypes.number,
 	min: PropTypes.number,
 	max: PropTypes.number,
+	isValid: PropTypes.string,
 	onChange: PropTypes.func
 };

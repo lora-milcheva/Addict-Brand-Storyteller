@@ -1,6 +1,6 @@
 import $ from 'jquery';
-const url = 'http://addict-bg.com/api';
 
+const url = 'http://addict-bg.com/api';
 
 export default {
 
@@ -8,27 +8,27 @@ export default {
 
 		let data = processData(state);
 
-		 return $.ajax(
+		return $.ajax(
 			{
-				type: 'GET',
+				type: 'POST',
 				url: url,
 				data: data,
-				crossDomain: true,
 				dataType: 'jsonp',
-				success: function(response){
-					console.log(response);
-				}
-			});
+			})
 	}
 };
 
 function processData (state) {
 
-	return "firstName=" + state.firstName
-		+ "&lastName=" + state.lastName
-		+ "&email=" + state.email
-		+ "&phone=" + state.phone
-		+ "&subject=" + state.subject
-		+ "&message=" + state.message;
+	Object.keys(state).forEach(e => {
+		state[e] = state[e].trim();
+	});
+
+	return 'firstName=' + state.firstName
+		+ '&lastName=' + state.lastName
+		+ '&email=' + state.email
+		+ '&phone=' + state.phone
+		+ '&subject=' + state.subject
+		+ '&message=' + state.message;
 }
 

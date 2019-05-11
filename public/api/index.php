@@ -2,6 +2,8 @@
 
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET');
+header('Content-type: application/json');
+echo json_encode($response_array);
 
 $to = "l.milcheva@addict-bg.com";
 $cc = "l.milcheva@addict-bg.com, p.kostadinova@addict-bg.com";
@@ -15,6 +17,8 @@ $phone = $_GET['phone'];
 $subject = $_GET['subject'];
 $messageText = $_GET['message'];
 
+if (empty($firstName) && empty($email)) die();
+
 $message = "
 <html>
 
@@ -24,10 +28,11 @@ $message = "
 
 <body STYLE=\"font-family: Calibri, sans-serif;\">
     <p STYLE='border-bottom: 1px solid red; padding: 15px; background-color: #f1f1f1'>$messageText</p>
-
-    <p><b>$firstName $lastName</b><br/>
-    $phone<br/>
-     $email</p>
+    <p>
+        <b>$firstName $lastName</b>
+        <br/>$phone
+        <br/>$email
+    </p>
 </body>
 </html>
 ";
@@ -44,4 +49,5 @@ $headers .= 'From: ' . $email . "\r\n";
 
 
 mail($to,$subject,$message,$headers);
+
 ?>

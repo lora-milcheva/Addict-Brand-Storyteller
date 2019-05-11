@@ -169,7 +169,12 @@ const NOTIFICATIONS = {
 
 		successEdit: 'Успешна редакция.',
 
-		selectSectionName: 'Моля, изберете име на секция.'
+		selectSectionName: 'Моля, изберете име на секция.',
+
+		messageSent: 'Съобшението беше изпратено.',
+		messageError: 'Грешка. Моля, опитайто отново.',
+
+		fieldsRequired: 'Моля, попълнете следните полета:',
 
 	},
 	en: {
@@ -187,7 +192,12 @@ const NOTIFICATIONS = {
 
 		successEdit: 'Successful edit.',
 
-		selectSectionName: 'Please, select section name.'
+		selectSectionName: 'Please, select section name.',
+
+		messageSent: 'Message sent.',
+		messageError: 'Error sending your message.',
+
+		fieldsRequired: 'Please, fill out these fields:',
 	}
 };
 

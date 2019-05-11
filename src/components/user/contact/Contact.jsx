@@ -9,7 +9,8 @@ import TextArea from '../../common/formComponents/TextArea';
 import contactFormService from '../../../services/contact/contactFormService';
 
 // Constants
-import { BUTTONS, USER_PAGES_TEXT } from '../../../constants/constants';
+import { BUTTONS, NOTIFICATIONS, USER_PAGES_TEXT } from '../../../constants/constants';
+import Notifications from '../../common/Notifications';
 
 class Contact extends React.Component {
 	constructor (props) {
@@ -21,8 +22,9 @@ class Contact extends React.Component {
 			email: '',
 			phone: '',
 			subject: '',
-			message: ''
+			message: '',
 		};
+
 	}
 
 	handleChange = (e) => {
@@ -32,15 +34,47 @@ class Contact extends React.Component {
 	sendMail = (e) => {
 		e.preventDefault();
 
+		let lang = this.context.language;
+		let emptyFields = [];
+
+		Object.keys(this.state).forEach(e => {
+			if (e === 'phone' || e === 'subject' || e === 'message') return;
+			if (this.state[e].trim() === '')emptyFields.push(e);
+		});
+
+		console.log(emptyFields);
+
+		if (emptyFields.length > 0) {
+			this.notifications.showMessage(NOTIFICATIONS[lang].fieldsRequired + '\r\n' + emptyFields.join(', '));
+			return;
+		}
+
 		contactFormService
 			.sendMail(this.state)
 			.then(res => {
-				console.log('Mail sent');
-				this.clearForm();
+				this.checkResponse(res);
 			})
 			.catch(err => {
-				console.log(err)
+				this.checkResponse(err);
 			});
+
+	};
+
+	validateEmail = (email) => {
+		const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		return regex.test(String(email).toLowerCase());
+	};
+
+	checkResponse = (res) => {
+
+		let lang = this.context.language;
+
+		if (res.status === 200) {
+			this.notifications.showMessage(NOTIFICATIONS[lang].messageSent);
+			this.clearForm();
+		} else {
+			this.notifications.showMessage(NOTIFICATIONS[lang].messageError);
+		}
 	};
 
 	clearForm = () => {
@@ -50,9 +84,10 @@ class Contact extends React.Component {
 			email: '',
 			phone: '',
 			subject: '',
-			message: ''
-		})
+			message: '',
+		});
 	};
+
 
 	render () {
 
@@ -60,6 +95,8 @@ class Contact extends React.Component {
 
 		return (
 			<div id="contact" className='container'>
+
+				<Notifications onRef={ref => (this.notifications = ref)} language={activeLanguage}/>
 
 
 				<h1>Contact</h1>
@@ -71,7 +108,9 @@ class Contact extends React.Component {
 					           label={USER_PAGES_TEXT.contact[activeLanguage].name}
 					           required={true}
 					           disabled={false}
+					           isValid={this.state.firstName.trim() === '' ? 'This field is required.' : ''}
 					           onChange={this.handleChange}/>
+
 
 					<FormInput type='text'
 					           name='lastName'
@@ -79,15 +118,21 @@ class Contact extends React.Component {
 					           label={USER_PAGES_TEXT.contact[activeLanguage].lastName}
 					           required={true}
 					           disabled={false}
+					           isValid={this.state.lastName.trim() === '' ? 'This field is required.' : ''}
 					           onChange={this.handleChange}/>
 
-					<FormInput type='text'
+
+
+					<FormInput type='email'
 					           name='email'
 					           value={this.state.email}
 					           label={USER_PAGES_TEXT.contact[activeLanguage].email}
 					           required={true}
 					           disabled={false}
+					           isValid={this.validateEmail(this.state.email) ? '' : 'Please, enter a valid email.'}
 					           onChange={this.handleChange}/>
+
+
 
 					<FormInput type='text'
 					           name='phone'
@@ -113,7 +158,7 @@ class Contact extends React.Component {
 
 					<div id={'submit-buttons'} className="buttons-container text-center form-group">
 						<button className="btn btn-default-light"
-						        onClick={this.cancel}>{BUTTONS[activeLanguage].clear}</button>
+						        onClick={this.clearForm}>{BUTTONS[activeLanguage].clear}</button>
 						<button className="btn btn-primary" type="submit">{BUTTONS[activeLanguage].send}</button>
 					</div>
 				</form>

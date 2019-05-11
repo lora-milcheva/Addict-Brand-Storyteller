@@ -170,6 +170,10 @@ button {
     .form-group label .text-danger {
       color: #d22a45;
       font-weight: 800; }
+  .form-group .validation-text {
+    margin-left: 30%;
+    color: #f94848;
+    font-size: .8em; }
   .form-group .form-control {
     -webkit-flex-basis: 70%;
     flex-basis: 70%;
@@ -281,6 +285,9 @@ button {
 .text-center {
   text-align: center; }
 
+.text-accent {
+  color: #f94848; }
+
 #messages,
 #confirm-dialog {
   position: fixed;
@@ -301,11 +308,12 @@ button {
     top: 50%;
     transform: translate(-50%, -50%);
     width: 500px;
-    padding: 20px 30px;
-    background-color: white; }
+    padding: 10px 30px 20px 30px;
+    background-color: white;
+    border-radius: 7px; }
     #messages .message .message-text,
     #confirm-dialog .message .message-text {
-      font-size: 2em; }
+      padding-bottom: 15px; }
 
 main {
   padding-top: 80px;
