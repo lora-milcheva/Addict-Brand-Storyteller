@@ -6,6 +6,7 @@ import Carousel from './partials/Carousel';
 import CarouselNew from './partials/CarouselNew';
 import Company from './partials/Company';
 import Projects from './partials/Projects';
+import ContactUs from '../contact/ContactUs';
 
 // Services
 import authService from '../../../services/auth/authService';
@@ -102,6 +103,8 @@ class Home extends React.Component {
 				<Company language={activeLanguage}/>
 
 				<Projects projects={this.state.projects} language={activeLanguage}/>
+
+				<ContactUs/>
 
 			</div>
 

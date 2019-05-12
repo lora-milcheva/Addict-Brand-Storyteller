@@ -11,7 +11,7 @@ import Home from '../user/home/Home';
 import ProjectsList from '../user/projects/ProjectsList';
 import ProjectSimple from '../user/projects/ProjectSimple';
 import ProjectStory from '../user/projects/ProjectStory';
-import Contact from '../user/contact/Contact';
+import ContactUs from '../user/contact/ContactUs';
 
 // Admin Components
 import createProject from '../admin/projects/createEditProject/createEditProject';
@@ -67,8 +67,8 @@ let Routes = () => {
 			<Route exact path='/projects/:category/:id' component={ProjectStory}/>
 			<Route exact path='/:lng/projects/:category/:id' component={ProjectStory}/>
 
-			<Route exact path='/contact' component={Contact}/>
-			<Route exact path='/:lng/contact' component={Contact}/>
+			<Route exact path='/contact' component={ContactUs}/>
+			<Route exact path='/:lng/contact' component={ContactUs}/>
 
 
 			{/*//Admin*/}

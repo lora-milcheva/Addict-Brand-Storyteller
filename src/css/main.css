@@ -38,7 +38,14 @@ p {
   margin: auto; }
 
 .section-padding {
-  padding: 80px 25px 0 25px; }
+  padding: 80px 25px 25px 25px; }
+
+.section-title {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: .85em;
+  text-align: center;
+  margin-bottom: 30px; }
 
 .text-danger {
   color: #d22a45; }
@@ -171,7 +178,6 @@ button {
       color: #d22a45;
       font-weight: 800; }
   .form-group .validation-text {
-    margin-left: 30%;
     color: #f94848;
     font-size: .8em; }
   .form-group .form-control {

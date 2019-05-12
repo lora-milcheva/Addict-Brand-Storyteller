@@ -51,7 +51,13 @@ p {
 }
 
 .section-padding {
-  padding: 80px 25px 0 25px;
+  padding: 80px 25px 25px 25px;
+}
+
+.section-title {
+  @include transform-text;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .text-danger {
@@ -250,7 +256,6 @@ button {
   }
 
   .validation-text {
-    margin-left: 30%;
     color: $primary;
     font-size: .8em;
   }

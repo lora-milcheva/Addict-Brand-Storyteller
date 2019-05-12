@@ -9,10 +9,10 @@ import TextArea from '../../common/formComponents/TextArea';
 import contactFormService from '../../../services/contact/contactFormService';
 
 // Constants
-import { BUTTONS, NOTIFICATIONS, USER_PAGES_TEXT } from '../../../constants/constants';
+import { BUTTONS, NOTIFICATIONS, USER_PAGES_TEXT, FORM_VALIDATION } from '../../../constants/constants';
 import Notifications from '../../common/Notifications';
 
-class Contact extends React.Component {
+class ContactUs extends React.Component {
 	constructor (props) {
 		super(props);
 
@@ -61,7 +61,7 @@ class Contact extends React.Component {
 	};
 
 	validateEmail = (email) => {
-		const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		return regex.test(String(email).toLowerCase());
 	};
 
@@ -94,21 +94,21 @@ class Contact extends React.Component {
 		let activeLanguage = this.context.language;
 
 		return (
-			<div id="contact" className='container'>
+			<div id="contact-us" className='container-fluid section-padding'>
 
 				<Notifications onRef={ref => (this.notifications = ref)} language={activeLanguage}/>
 
+				<h2 className='section-title container'>{USER_PAGES_TEXT.contact[activeLanguage].contactUs}</h2>
 
-				<h1>Contact</h1>
+				<form method="post" onSubmit={this.sendMail} id="contact-form">
 
-				<form method="post" action="" onSubmit={this.sendMail} id="contact-form">
 					<FormInput type='text'
 					           name='firstName'
 					           value={this.state.firstName}
 					           label={USER_PAGES_TEXT.contact[activeLanguage].name}
 					           required={true}
 					           disabled={false}
-					           isValid={this.state.firstName.trim() === '' ? 'This field is required.' : ''}
+					           isValid={this.state.firstName.trim() === '' ? FORM_VALIDATION[activeLanguage].requiredField : ''}
 					           onChange={this.handleChange}/>
 
 
@@ -118,9 +118,8 @@ class Contact extends React.Component {
 					           label={USER_PAGES_TEXT.contact[activeLanguage].lastName}
 					           required={true}
 					           disabled={false}
-					           isValid={this.state.lastName.trim() === '' ? 'This field is required.' : ''}
+					           isValid={this.state.lastName.trim() === '' ? FORM_VALIDATION[activeLanguage].requiredField : ''}
 					           onChange={this.handleChange}/>
-
 
 
 					<FormInput type='email'
@@ -129,9 +128,8 @@ class Contact extends React.Component {
 					           label={USER_PAGES_TEXT.contact[activeLanguage].email}
 					           required={true}
 					           disabled={false}
-					           isValid={this.validateEmail(this.state.email) ? '' : 'Please, enter a valid email.'}
+					           isValid={this.validateEmail(this.state.email) ? '' : FORM_VALIDATION[activeLanguage].validMail}
 					           onChange={this.handleChange}/>
-
 
 
 					<FormInput type='text'
@@ -151,24 +149,24 @@ class Contact extends React.Component {
 					           onChange={this.handleChange}/>
 
 					<TextArea name='message'
+					          id='message'
 					          value={this.state.message}
 					          label={USER_PAGES_TEXT.contact[activeLanguage].message}
 					          onChange={this.handleChange}
+					          rows={5}
 					          placeholder={USER_PAGES_TEXT.contact[activeLanguage].message}/>
 
-					<div id={'submit-buttons'} className="buttons-container text-center form-group">
+					<div id={'submit-buttons'} className="buttons-container text-center">
 						<button className="btn btn-default-light"
 						        onClick={this.clearForm}>{BUTTONS[activeLanguage].clear}</button>
 						<button className="btn btn-primary" type="submit">{BUTTONS[activeLanguage].send}</button>
 					</div>
 				</form>
-
-
 			</div>
 		);
 	}
 }
 
-Contact.contextType = LanguageContext;
+ContactUs.contextType = LanguageContext;
 
-export default Contact;
+export default ContactUs;

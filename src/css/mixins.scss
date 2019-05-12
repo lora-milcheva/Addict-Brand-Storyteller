@@ -10,18 +10,20 @@
   transition: 1s;
 }
 
-@mixin ease-out ($duration: .25s) {
-  -webkit-transition:  $duration ease-out;
-  -moz-transition:  $duration ease-out;
-  transition:  $duration ease-out;
+@mixin ease-out($duration: .25s) {
+  -webkit-transition: $duration ease-out;
+  -moz-transition: $duration ease-out;
+  transition: $duration ease-out;
 }
 
-@mixin ease-in ($duration: .25s) {
-  -webkit-transition:  $duration ease-in;
-  -moz-transition:  $duration ease-in;
-  transition:  $duration ease-in;
+@mixin ease-in($duration: .25s) {
+  -webkit-transition: $duration ease-in;
+  -moz-transition: $duration ease-in;
+  transition: $duration ease-in;
 }
 
+
+// Grid
 @mixin display-grid {
   display: -ms-grid;
   display: grid;
@@ -35,7 +37,17 @@
   grid-template-columns: repeat($repeat, $height);
 }
 
+@mixin grid-gap($column-gap: 0px, $row-gap: 0px) {
+  grid-gap: $column-gap $row-gap;
+}
 
+@mixin grid-span($start: 1, $end: 2) {
+  grid-column-start: $start;
+  grid-column-end: $end;
+}
+
+
+// Flex
 @mixin flex {
   display: -webkit-box;
   display: -webkit-flex;
@@ -221,7 +233,7 @@
 }
 
 @mixin shadow-top {
-  -webkit-box-shadow: 0px -1px 7px -4px rgba(0,0,0,0.44);
-  -moz-box-shadow: 0px -1px 7px -4px rgba(0,0,0,0.44);
-  box-shadow: 0px -1px 7px -4px rgba(0,0,0,0.44);
+  -webkit-box-shadow: 0px -1px 7px -4px rgba(0, 0, 0, 0.44);
+  -moz-box-shadow: 0px -1px 7px -4px rgba(0, 0, 0, 0.44);
+  box-shadow: 0px -1px 7px -4px rgba(0, 0, 0, 0.44);
 }

@@ -14,6 +14,17 @@ const RESOLUTIONS = {
 	mdTopSellers: 1000,
 };
 
+const FORM_VALIDATION = {
+	bg: {
+		requiredField: 'Това поле е задължително.',
+		validMail: 'Моля, въведете валиден имейл.',
+	},
+	en: {
+		requiredField: 'This field is required.',
+		validMail: 'Please, enter a valid email.',
+	}
+};
+
 const MENU = {
 	bg: {
 		projects: 'Проекти',
@@ -365,6 +376,7 @@ const USER_PAGES_TEXT = {
 
 	contact: {
 		bg: {
+			contactUs: 'Свържи се с нас',
 			name: 'Име',
 			lastName: 'Фамилия',
 			email: 'Имейл',
@@ -373,6 +385,7 @@ const USER_PAGES_TEXT = {
 			message: 'Въведете Вашето съобщение тук'
 		},
 		en: {
+			contactUs: 'Contact us',
 			name: 'First Name',
 			lastName: 'Last Name',
 			email: 'Email',
@@ -386,6 +399,7 @@ const USER_PAGES_TEXT = {
 export {
 	LANGUAGES,
 	RESOLUTIONS,
+	FORM_VALIDATION,
 	MENU,
 	CREATE_PROJECT_INPUTS,
 	CATEGORY_INPUTS,

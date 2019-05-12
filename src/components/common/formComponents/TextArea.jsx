@@ -4,18 +4,17 @@ import PropTypes from 'prop-types';
 class TextArea extends React.Component {
 	render () {
 
-		const {name, id, value, placeholder, label, className, required, onChange} = this.props;
+		const {name, id, value, placeholder, label, className, required, rows, onChange} = this.props;
 
 		return (
-			<div className={'form-group ' + className}>
-				<label htmlFor={id}>{label}</label>
+			<div className={'form-group ' + className} id={id}>
+				<label>{label}</label>
 				<textarea className="form-control"
 				          name={name}
-				          id={id}
 				          value={value}
 				          placeholder={placeholder}
 				          required={required}
-
+				          rows={rows}
 				          onChange={onChange}/>
 			</div>
 		);
@@ -32,5 +31,6 @@ TextArea.propTypes = {
 	label: PropTypes.string,
 	className: PropTypes.string,
 	required: PropTypes.bool,
+	rows: PropTypes.number,
 	onChange: PropTypes.func
 };
