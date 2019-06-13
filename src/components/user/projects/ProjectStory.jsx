@@ -8,6 +8,7 @@ import ImagePreview from './partials/ImagePreview';
 import ProjectCard from '../common/ProjectCard';
 import Gallery from './partials/Gallery';
 import VideoGallery from './partials/VideoGallery';
+import ContactForm from '../common/ContactForm';
 
 // Services
 import projectsService from '../../../services/projects/projectsService';
@@ -54,12 +55,12 @@ class ProjectStory extends React.Component {
 				.loginAnonymousUser()
 				.then(res => {
 					authService.saveSession(res);
-					this.setIndexes();
+					this.loadProject();
 					this.loadRandomProjects();
 				})
 				.catch(err => this.notifications.showMessage(err.responseJSON.description));
 		} else {
-			this.setIndexes();
+			this.loadProject();
 			this.loadRandomProjects();
 		}
 	}
@@ -71,37 +72,13 @@ class ProjectStory extends React.Component {
 
 			this.projectId = nextProps.match.params.id;
 
-			this.setIndexes();
-
-			this.setState({randomProjects: []}, () => this.loadRandomProjects());
+			this.setState({randomProjects: []}, () => {
+				this.loadProject();
+				this.loadRandomProjects()
+			});
 		}
 	}
 
-	componentWillUnmount () {
-		sessionStorage.removeItem('filteredProjects');
-	}
-
-	setIndexes = () => {
-
-		let filteredProjectIds = JSON.parse(sessionStorage.getItem('filteredProjects'));
-
-		if (!filteredProjectIds) {
-			this.loadProject();
-			return;
-		}
-
-		let currentProjectIndex = filteredProjectIds.indexOf(this.projectId);
-
-		let nextProjectId = filteredProjectIds[currentProjectIndex + 1];
-		let prevProjectId = filteredProjectIds[currentProjectIndex - 1];
-
-		this.setState({
-			currentProjectIndex,
-			prevProjectId,
-			nextProjectId
-		}, () => this.loadProject());
-
-	};
 
 	loadProject = () => {
 		projectsService
@@ -113,19 +90,19 @@ class ProjectStory extends React.Component {
 				});
 			})
 			.then(() => {
-					sectionsService
-						.loadAllSections()
-						.then(res => {
-
-							this.setState({allSections: res});
-
-							clientsService
-								.loadAllClients()
-								.then(res => {
-									let client = res.filter(e => e._id === this.state.project.clientId);
-									this.setState({clientName: client[0], loading: false});
-								});
-						});
+				sectionsService
+					.loadAllSections()
+					.then(res => {
+						this.setState({allSections: res});
+					})
+					.then(() => {
+						clientsService
+							.loadAllClients()
+							.then(res => {
+								let client = res.filter(e => e._id === this.state.project.clientId);
+								this.setState({clientName: client[0], loading: false});
+							});
+					});
 				}
 			)
 			.catch(err => {
@@ -215,32 +192,35 @@ class ProjectStory extends React.Component {
 			info = Object.keys(project.info).map(e => {
 
 				let sectionText = project.info[e][activeLanguage];
-
+				let image = project.info[e].image;
 				let sectionName = this.state.allSections.filter(s => s._id === e)[0].name[activeLanguage];
 
-				let result = findImageInString(sectionText);
-
-				let imgStyle = {
-					height: '350px',
-					backgroundImage: 'url(' + result.url + ')',
-					backgroundSize: 'cover',
-					backgroundAttachment: 'fixed',
-					WebkitTransition: 'all',    // note the capital 'W' here
-					msTransition: 'all'         // 'ms' is the only lowercase vendor prefix
-				};
+				// let result = findImageInString(sectionText);
+				//
+				//
+				// let imgStyle = {
+				// 	height: '350px',
+				// 	backgroundImage: 'url(' + result.url + ')',
+				// 	backgroundSize: 'cover',
+				// 	backgroundAttachment: 'fixed',
+				// 	WebkitTransition: 'all',    // note the capital 'W' here
+				// 	msTransition: 'all'         // 'ms' is the only lowercase vendor prefix
+				// };
 
 				return (
 					<section key={e}>
 
-						<article className="section container-padding">
+						{image !== '' && <img src={image} alt='project'/>}
+
+						<article className="section container">
 							<div className="section-header">
-								<h4 className="section-title">{sectionName}</h4>
+								<h2 className="section-title">{sectionName}</h2>
 							</div>
-							<div className='section-text'
-							     dangerouslySetInnerHTML={{__html: result.text}}/>
+							<div className='section-text' style={{color: 'inherit'}}
+							     dangerouslySetInnerHTML={{__html: sectionText}}/>
 						</article>
 
-						{result.url !== '' && <div style={imgStyle}/>}
+						{/*{result.url !== '' && <div style={imgStyle}/>}*/}
 
 					</section>
 				);
@@ -253,21 +233,6 @@ class ProjectStory extends React.Component {
 			);
 		});
 
-
-		let prevNextProjectArrows = (
-			<div className="buttons-container">
-				<Link
-					to={this.state.prevProjectId !== undefined ? this.state.prevProjectId : '/projects'}
-					className={this.state.prevProjectId !== undefined ? 'btn btn-prev' : 'btn btn-prev disabled'}/>
-
-
-				<Link
-					to={this.state.nextProjectId !== undefined ? this.state.nextProjectId : '/projects'}
-					className={this.state.nextProjectId !== undefined ? 'btn btn-next' : 'btn btn-next disabled'}/>
-
-			</div>
-		);
-
 		return (
 			<div id="project-story" className="container-fluid">
 
@@ -279,21 +244,21 @@ class ProjectStory extends React.Component {
 
 				<div id="project-info">
 
-					<section id="project-summary" className='container'>
-						<p> {project.name[activeLanguage]}&nbsp;&nbsp;|&nbsp;&nbsp;{project.year} </p>
-						<p> {client} </p>
-						<p className="cliche">
-							<span className="field">{USER_PAGES_TEXT.project[activeLanguage].cliche}</span>
-							{project.description[activeLanguage]}
-						</p>
-
-						{/*{prevNextProjectArrows}*/}
-
-
+					{/*<section id='project-cover' style={{backgroundImage: 'url(' + this.state.project.cover + ')'}}/>*/}
+					<section id='project-cover'>
+						<img src={this.state.project.cover} alt='page cover'/>
 					</section>
 
-					<section id='project-cover'
-					         style={{backgroundImage: 'url(' + this.state.project.cover + ')'}}/>
+					<section id="project-summary" className='container'>
+						<p className='project-name'> {project.name[activeLanguage]}&nbsp;&nbsp;&#8212;&nbsp;&nbsp;{project.year} </p>
+						<p className='client'> {client} </p>
+						<h2 className="cliche">
+							<span className="field">{USER_PAGES_TEXT.project[activeLanguage].cliche}</span>
+							{project.description[activeLanguage]}
+						</h2>
+					</section>
+
+
 
 					<section id="project-description">
 						{info}
@@ -315,18 +280,20 @@ class ProjectStory extends React.Component {
 				         language={activeLanguage}/>
 				}
 
-				<section id='like-us' className='container-padding'>
+				<section id='like-us' className='container-padding section-padding-top-bottom'>
 					<h3 className='section-title'>Like what you see?</h3>
-					<button className='btn btn-default'>Get in touch</button>
+					<a href='#contact-us' className='btn btn-default-light'>Get in touch</a>
 				</section>
 
 
-				<section className='container-padding'>
+				<section className='container-padding section-padding-top-bottom'>
 					<h2 className="section-title">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>
 					<div id="other-projects">
 						{randomProjects}
 					</div>
 				</section>
+
+				{/*<ContactForm/>*/}
 			</div>
 		);
 	}

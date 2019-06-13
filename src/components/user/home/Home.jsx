@@ -6,7 +6,7 @@ import Carousel from './partials/Carousel';
 import CarouselNew from './partials/CarouselNew';
 import Company from './partials/Company';
 import Projects from './partials/Projects';
-import ContactUs from '../contact/ContactUs';
+import ContactForm from '../common/ContactForm';
 
 // Services
 import authService from '../../../services/auth/authService';
@@ -98,13 +98,20 @@ class Home extends React.Component {
 
 				{/*<Carousel/>*/}
 
-				<CarouselNew language={activeLanguage}/>
+				{/*<CarouselNew language={activeLanguage}/>*/}
+
+				<video autoPlay={true}
+				       loop={true}
+				       className='carousel-video'
+				       controls={false}>
+					<source src='videos/home/stories_02.mp4' type="video/mp4"/>
+				</video>
 
 				<Company language={activeLanguage}/>
 
 				<Projects projects={this.state.projects} language={activeLanguage}/>
 
-				<ContactUs/>
+				<ContactForm/>
 
 			</div>
 

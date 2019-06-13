@@ -24,6 +24,29 @@
     min-height: calc(100vh - 60px); //header + footer height
   }
 
+  h1 {
+    font-size: 2.5em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  .container {
+    width: 85%;
+  }
+
+  .container-padding {
+    padding: 0 $container-padding-mobile;
+    margin: auto;
+  }
+
+
+  .section-padding-top-bottom {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
   #header {
     height: 60px;
     padding: 0 10px;
@@ -113,6 +136,10 @@
 }
 
 @media screen and (max-width: 420px) {
+
+  .btn {
+    padding: 10px 20px;
+  }
 
   #header {
 

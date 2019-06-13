@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Lora:400,700|Playfair+Display:400,700,900|Prata&display=swap&subset=cyrillic');
+
+
 @mixin main-transition {
   -webkit-transition: .4s;
   -moz-transition: .4s;
@@ -34,7 +37,7 @@
 }
 
 @mixin grid-template-rows($repeat: 1, $height: 1fr) {
-  grid-template-columns: repeat($repeat, $height);
+  grid-template-rows: repeat($repeat, $height);
 }
 
 @mixin grid-gap($column-gap: 0px, $row-gap: 0px) {
@@ -44,6 +47,54 @@
 @mixin grid-span($start: 1, $end: 2) {
   grid-column-start: $start;
   grid-column-end: $end;
+}
+
+@mixin justify-content-left {
+  justify-content: start;
+}
+
+@mixin justify-content-right {
+  justify-content: end;
+}
+
+@mixin justify-content-center {
+  justify-content: center;
+}
+
+@mixin justify-content-space-around {
+  justify-content: space-around;
+}
+
+@mixin justify-content-space-between {
+  justify-content: space-between;
+}
+
+@mixin justify-content-space-evenly {
+  justify-content: space-evenly;
+}
+
+@mixin align-content-top {
+  align-content: start;
+}
+
+@mixin align-content-bottom {
+  align-content: end;
+}
+
+@mixin align-content-center {
+  align-content: center;
+}
+
+@mixin align-content-space-around {
+  align-content: space-around;
+}
+
+@mixin align-content-space-evenly {
+  align-content: space-evenly;
+}
+
+@mixin align-content-space-between {
+  align-content: space-between;
 }
 
 
@@ -218,10 +269,18 @@
 
 }
 
+// Text
+
 @mixin transform-text {
   text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: .85em;
+  letter-spacing: 1px;
+  //font-size: .85em;
+}
+
+@mixin transform-button-text {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: .8em;
 }
 
 @mixin translate($valueX: 0, $valueY: 0) {
@@ -237,3 +296,27 @@
   -moz-box-shadow: 0px -1px 7px -4px rgba(0, 0, 0, 0.44);
   box-shadow: 0px -1px 7px -4px rgba(0, 0, 0, 0.44);
 }
+
+@mixin scale($value: 1) {
+  -webkit-transform: scale($value);
+  -moz-transform: scale($value);
+  -ms-transform: scale($value);
+  -o-transform: scale($value);
+  transform: scale($value);
+}
+
+@mixin headline-font {
+  font-family: 'Lora', serif;
+  //font-family: 'Playfair Display', serif;
+  //font-family: 'Prata', serif;
+  font-weight: 400;
+}
+
+@mixin title-text {
+  font-size: 6vw;
+  line-height: 1.1em;
+  margin: .5em 0;
+  font-weight: 400;
+  font-family: 'Prata', serif;
+}
+

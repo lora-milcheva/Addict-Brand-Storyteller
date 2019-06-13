@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import ReactQuill from 'react-quill';
 
 // Notifications
 import Notifications from '../../../../common/Notifications';
 
 // Partials
 import FormSelectField from '../../../../common/formComponents/FormSelectField';
+import FormInputField from '../../../../common/formComponents/FormInput';
 import TextEditor from './TextEditor';
 
 // Constants
@@ -41,17 +40,21 @@ class TextSectionFrom extends React.Component {
 
 		this.setState({
 			stateProp: data.stateProp,
+
 			mediaId: data.mediaId,
 			sectionId: data.sectionId,
+
 			textBG: data.textBG,
 			textEN: data.textEN,
+			image: data.image,
+
 			sections: data.sections,
 			visible: true
 		});
 	};
 
 	handleChange = (e) => {
-		this.setState({sectionId: e.target.value});
+		this.setState({[e.target.name]: e.target.value});
 	};
 
 	handleTextChangeBG = (value) => {
@@ -67,6 +70,9 @@ class TextSectionFrom extends React.Component {
 
 		let s = this.state;
 
+		// Remove image
+		if (s.image === undefined) s.image = '';
+
 		// Check info
 		if (!this.state.sectionId) {
 			this.notifications.showMessage(NOTIFICATIONS.bg.selectSectionName);
@@ -76,9 +82,12 @@ class TextSectionFrom extends React.Component {
 		let data = {
 			[s.sectionId]: {
 				bg: s.textBG,
-				en: s.textEN
+				en: s.textEN,
+				image: s.image
 			}
 		};
+
+		if (this.state.stateProp === 'info') data[s.sectionId].image = s.image;
 
 		this.state.stateProp === 'info'
 			? this.props.addTextSection(data, this.state.stateProp)
@@ -94,6 +103,7 @@ class TextSectionFrom extends React.Component {
 			sectionId: '',
 			textBG: '',
 			textEN: '',
+			image: '',
 
 			sections: [],
 
@@ -106,7 +116,7 @@ class TextSectionFrom extends React.Component {
 		let isVisible = this.state.visible;
 
 		// To prevent mounting of text editor with empty values
-		if (!this.state.visible) return (<div className={'loader'}/> )
+		if (!this.state.visible) return (<div className={'loader'}/>);
 
 		return (
 			<div className={isVisible ? 'visible' : ''}
@@ -120,6 +130,14 @@ class TextSectionFrom extends React.Component {
 							{BUTTONS.bg.createSection}
 						</a>
 					</div>
+					<img src={this.state.image} alt={''}/>
+
+					<FormInputField name='image'
+					                label='Change Image'
+					                value={this.state.image}
+					                type='text'
+					                required={false}
+					                onChange={this.handleChange}/>
 
 
 					<FormSelectField name='sectionId'

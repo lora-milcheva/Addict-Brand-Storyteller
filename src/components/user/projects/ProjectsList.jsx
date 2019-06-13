@@ -9,33 +9,10 @@ import ProjectCard from '../common/ProjectCard';
 // Services
 import projectsService from '../../../services/projects/projectsService';
 import clientsService from '../../../services/clients/clientsService';
-import categoriesService from '../../../services/categories/categoriesService';
 import authService from '../../../services/auth/authService';
 
 // Notifications
 import Notifications from '../../common/Notifications';
-
-const Test = posed.div({
-	enter: {
-		opacity: 1,
-		transition: {
-			opacity: {ease: 'easeOut', duration: 1000},
-			default: {ease: 'linear', duration: 200}
-		},
-	},
-	exit: {
-		opacity: 0,
-		transition: {
-			opacity: {ease: 'easeOut', duration: 1000},
-			default: {ease: 'linear', duration: 200}
-		}
-	}
-});
-
-const ListContainer = posed.div({
-	enter: {staggerChildren: 200},
-	exit: {staggerChildren: 20, staggerDirection: -1}
-});
 
 class ProjectList extends React.Component {
 	constructor (props) {
@@ -43,11 +20,7 @@ class ProjectList extends React.Component {
 
 		this.state = {
 			projects: [],
-
 			clients: [],
-			categories: [],
-
-			selectedCategoryId: '',
 
 			loading: true
 		};
@@ -71,91 +44,28 @@ class ProjectList extends React.Component {
 		this.loadAllData();
 	}
 
-	componentWillReceiveProps (nextProps) {
-		if (this.props.match.params.category !== nextProps.match.params.category) {
-			this.props = nextProps;
-			this.getCategoryId();
-		}
-	}
-
 	loadAllData = () => {
 		clientsService
 			.loadAllClients()
 			.then(res => {
-
-				this.setState({sections: res});
-
-				categoriesService
-					.loadAllCategories()
+				this.setState({clients: res});
+			})
+			.then(() => {
+				projectsService
+					.loadAllProjects()
 					.then(res => {
-						this.setState({categories: res},
-							() => this.getCategoryId());
-					})
-					.catch(err => {
-						this.notifications.showMessage(err.responseJSON.description);
-					});
+							res.sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber))
+								.forEach(p => {
+									p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name;
+								});
 
+							this.setState({projects: res, loading: false});
+						}
+					);
 			})
 			.catch(err => {
 				this.notifications.showMessage(err.responseJSON.description);
 			});
-
-	};
-
-	loadProjects = () => {
-
-		let query;
-
-		if (this.state.selectedCategoryId !== '') {
-			let categoryId = this.state.selectedCategoryId;
-
-			query = `?query={"categoryIds":"${categoryId}"}`;
-		}
-
-		projectsService
-			.loadAllProjects(query)
-			.then(res => {
-
-					res.sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber))
-						.forEach(p => {
-							p.clientName = this.state.sections.filter(c => c._id === p.clientId)[0].name;
-						});
-
-					this.setState({projects: res, loading: false}, () => this.saveProjectsInSession());
-				}
-			)
-			.catch(err => {
-				this.notifications.showMessage(err.responseJSON.description);
-			});
-	};
-
-	getCategoryId = () => {
-
-		this.setState({loading: true});
-
-		let categoryName = this.props.match.params.category;
-
-		if (categoryName !== undefined) {
-
-			// Get categoryId from the name coming from route
-
-			let catId = this.state.categories.filter(e => e.name.en === categoryName)[0]._id;
-
-			this.setState({selectedCategoryId: catId}, () => this.loadProjects());
-
-		} else {
-
-			this.setState({selectedCategoryId: ''}, () => this.loadProjects());
-		}
-
-	};
-
-	saveProjectsInSession = () => {
-
-		let projectIds = [];
-
-		this.state.projects.forEach(e => projectIds.push(e._id));
-		sessionStorage.setItem('filteredProjects', JSON.stringify(projectIds));
 	};
 
 	render () {
@@ -173,21 +83,28 @@ class ProjectList extends React.Component {
 				<ProjectCard key={e._id + i}
 				             project={e}
 				             category={categoryName}
-				/>
+				             activeLanguage={activeLanguage}/>
 			);
 		});
 
 		return (
 
-			<Test key={'test'} id="projects-list" className="container-fluid section-padding">
+			<div id="projects-list" className="container">
 
 				<Notifications onRef={ref => (this.notifications = ref)} language={activeLanguage}/>
 
-				<ListContainer className="projects-container">
-					{projects}
-				</ListContainer>
+				<section className='banner'>
+					<h1 className='page-title'>
+						Some text here
+					</h1>
+					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since</p>
+				</section>
 
-			</Test>
+				<section className="projects-container">
+					{projects}
+				</section>
+
+			</div>
 
 		);
 	}

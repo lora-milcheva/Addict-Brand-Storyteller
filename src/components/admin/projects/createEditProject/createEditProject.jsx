@@ -46,9 +46,10 @@ class createProject extends React.Component {
 			isStar: false,
 			clientId: '',
 			categoryIds: [],
-			images: [],
+
 			thumbnail: '',
 			cover: '',
+			images: [],
 			videos: [],
 			orderNumber: '',
 
@@ -149,38 +150,51 @@ class createProject extends React.Component {
 		let elId = e.target.getAttribute('data-el-id');
 		let sectionId = e.target.getAttribute('data-section-name');
 
+		// If adding main info
 		if (stateProp === 'info') {
+
+
 			if (!sectionId) {
+
+				// If adding new content
 				let data = {
 					stateProp: stateProp,
 					sections: this.state.allInfoSectionIds,
 					sectionId: '',
 					textBG: '',
 					textEN: '',
+					image: ''
 				};
 
 				this.textSectionForm.loadData(data);
 
 			} else {
 
-				let text = this.state[stateProp][sectionId];
+				// If editing section text
+				let info = this.state[stateProp][sectionId];
 
 				let data = {
 					stateProp: stateProp,
 					sections: this.state.allInfoSectionIds,
 					sectionId: sectionId,
-					textBG: text.bg,
-					textEN: text.en,
+					textBG: info.bg,
+					textEN: info.en,
+					image: info.image
 				};
 
 				this.textSectionForm.loadData(data);
 			}
 		} else {
 
+			// If adding info to media (video, image)
+
 			let data = {};
 			let media = this.state[stateProp].filter(e => e.url === elId)[0];
 
 			if (!sectionId) {
+
+				// If editing media text
+
 				data = {
 					stateProp: stateProp,
 					sections: this.state.allInfoSectionIds,
@@ -189,7 +203,11 @@ class createProject extends React.Component {
 					textBG: '',
 					textEN: '',
 				};
+
 			} else {
+
+				// If adding new content
+
 				data = {
 					stateProp: stateProp,
 					sections: this.state.allInfoSectionIds,
@@ -279,9 +297,13 @@ class createProject extends React.Component {
 	};
 
 	handleMultiLangChange = (e) => {
+
+		console.log(e.target)
 		let lang = e.target.id.split('-')[1];   // get the language
 		let key = e.target.name;                // get the state key
 		let value = e.target.value;             // get new value
+
+		console.log(lang, key, value)
 
 		let stateProp = Object.assign({}, this.state[key]);  // make state key copy
 
@@ -360,10 +382,12 @@ class createProject extends React.Component {
 
 		e.preventDefault();
 
+		let project = Utils.createStateCopy(this.state);
+
 		if (this.projectId) {
 
 			projectsService
-				.editProject(this.projectId, Utils.createStateCopy(this.state))
+				.editProject(this.projectId, project)
 				.then(res => {
 
 					this.notifications.showMessage(NOTIFICATIONS.bg.successEdit);
@@ -378,7 +402,7 @@ class createProject extends React.Component {
 		}
 
 		projectsService
-			.createProject(Utils.createStateCopy(this.state))
+			.createProject(project)
 			.then(res => {
 
 				this.notifications.showMessage(NOTIFICATIONS.bg.projectCreated);
@@ -473,7 +497,7 @@ class createProject extends React.Component {
 		let info = Object.keys(this.state.info).map(e => {
 
 			let section = this.state.allInfoSectionIds.filter(s => s._id === e)[0];
-			let text = this.state.info[e];
+			let data = this.state.info[e];
 
 			return (
 				<div key={e} className="info-text">
@@ -492,12 +516,14 @@ class createProject extends React.Component {
 						</button>
 					</div>
 
+					{data.image !== '' && <img src={data.image} alt={'section image'}/>}
+
 					<span className="label">BG</span>
-					<div dangerouslySetInnerHTML={{__html: text.bg}}
+					<div dangerouslySetInnerHTML={{__html: data.bg}}
 					     className="text"/>
 
 					<span className="label">EN</span>
-					<div dangerouslySetInnerHTML={{__html: text.en}}
+					<div dangerouslySetInnerHTML={{__html: data.en}}
 					     className="text"/>
 				</div>
 			);

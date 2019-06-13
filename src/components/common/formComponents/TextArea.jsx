@@ -7,10 +7,11 @@ class TextArea extends React.Component {
 		const {name, id, value, placeholder, label, className, required, rows, onChange} = this.props;
 
 		return (
-			<div className={'form-group ' + className} id={id}>
+			<div className={'form-group ' + className} >
 				<label>{label}</label>
 				<textarea className="form-control"
 				          name={name}
+				          id={id}
 				          value={value}
 				          placeholder={placeholder}
 				          required={required}

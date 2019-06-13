@@ -93,53 +93,87 @@
     }
   }
 
+  .carousel-video {
+    width: 100%;
+  }
+
   #company {
-    position: relative;
+    border-bottom: 3px solid $primary;
 
     .section-title {
-      text-transform: uppercase;
-      font-size: 5vw;
-      font-weight: 200;
+      @include title-text;
     }
 
     .about-us {
-      border-bottom: 2px solid $primary;
-      margin-top: 25px;
-      padding: 10px 10px 25px 10px;
-      //margin-left: 60%;
-      width: 50%;
+      //background-color: $primary;
+      //color: $white;
+      padding: 50px 0;
+      color: $medium-to-dark-grey;
+      font-size: 1.5em;
     }
 
 
     #categories {
       @include display-grid;
       @include grid-template-columns(3, 1fr);
-      grid-column-gap: 20px;
-      padding: 50px 0;
 
       .category {
-      }
+        @include display-grid;
+        @include slow-transition;
 
-      .category-name {
-        @include transform-text;
-        color: $primary;
-        font-weight: 400;
+        &:nth-of-type(2) {
+          .category-image {
+            grid-area: 2 / 1 / 2 / 1;
+          }
+        }
+
+        &:hover {
+          background-color: $pale-salmon;
+
+          .category-image {
+            img {
+              transform: scale(1.1);
+            }
+          }
+        }
+
+        .category-image {
+          overflow: hidden;
+
+          img {
+            @include main-transition;
+          }
+        }
+
+        .category-info {
+          padding: 30px 60px;
+          display: grid;
+          align-items: center;
+
+          .category-name {
+            @include transform-text;
+            align-self: end;
+          }
+
+          .category-text {
+            align-self: start;
+            padding-top: 15px;
+            font-size: .85em;
+          }
+        }
       }
     }
   }
 }
 
-#contact-us {
-  background-color: $pale-salmon;
-  color: $dark-grey;
+#form-container {
+  background-color: $bg-grey;
+}
 
-  #contact-form {
-    @include display-grid;
-    @include grid-template-columns(2, 1fr);
-    @include grid-gap(10px, 25px);
-    width: 60%;
-    margin: auto;
-  }
+#contact-form {
+  @include display-grid;
+  @include grid-template-columns(2, 1fr);
+  @include grid-gap(10px, 25px);
 
   .buttons-container,
   .section-title,
@@ -149,7 +183,6 @@
 
   .form-group {
     @include display-grid;
-    align-content: start;
     margin: 0;
 
     .form-control {
@@ -170,158 +203,288 @@
       &:focus {
         border-color: $salmon;
         padding-left: 25px;
+        background-color: $white;
       }
     }
 
     label {
-      display: none;
+      //display: none;
+      color: $black;
+      @include transform-text;
+      padding-left: 1px;
+      min-height: 15px;
     }
 
     .validation-text {
       display: none;
     }
   }
+
 }
 
 #home-projects .projects-container,
-#projects-list .projects-container,
+#projects-list .projects-container {
+
+  @include display-grid;
+  @include grid-gap(100px);
+
+  padding-bottom: 100px;
+
+  .project-card {
+    @include display-grid;
+    grid-template-columns: 4fr 3fr;
+
+    &:nth-of-type(even) {
+      grid-template-columns: 3fr 4fr;
+
+      .img-container {
+        grid-area: 1 / 2 / 1 / 2;
+      }
+
+      .project-info {
+        padding-left: 0;
+        padding-right: 50px;
+      }
+    }
+
+
+    &:hover {
+      cursor: pointer;
+
+      .project-info {
+        .cliche {
+          //color: $primary;
+        }
+
+        .btn {
+          border-bottom: 2px solid $primary;
+          color: $black;
+        }
+      }
+
+      .img-container .img-fit {
+        @include scale(1.05);
+      }
+    }
+
+    .img-container {
+
+      overflow: hidden;
+
+      .img-fit {
+        @include main-transition;
+      }
+    }
+
+    .project-info {
+      padding-left: 50px;
+      @include display-grid;
+      @include align-content-center;
+
+      .project-name {
+        @include transform-text;
+        color: $dark-grey-1;
+      }
+
+      .cliche {
+        font-size: 1.8em;
+        line-height: 1.5em;
+        font-weight: 500;
+        margin: 10px 0 50px 0;
+        @include headline-font;
+
+        @include ease-in(.15s);
+      }
+
+      .btn {
+        padding: 10px 0;
+        color: $medium-to-dark-grey;
+        border-bottom: 2px solid transparent;
+      }
+    }
+  }
+}
+
 #other-projects {
 
   @include display-grid;
   @include grid-template-columns(3, 1fr);
+  @include grid-gap(25px, 25px);
+
 
   .project-card {
-    position: relative;
+    @include display-grid;
+    grid-template-rows: auto 3fr;
 
-    .hover {
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      width: 100%;
-      height: 100%;
+    &:hover {
+      cursor: pointer;
 
-      background-color: rgba(255, 255, 255, 1);
-
-      @include flex;
-      @include align-items(center);
-      @include justify-content(center);
-
-      @include ease-in;
-
-      .info {
-        @include translate(0, 100%);
-        @include transform-text;
-        @include ease-in;
-
-        p {
-          margin: .2em 0;
-        }
+      .project-info {
 
         .btn {
-          @include transform-text;
+          border-bottom: 2px solid $primary;
+          color: $black;
         }
+      }
+
+      .img-container .img-fit {
+        @include scale(1.05);
       }
     }
 
-    &:hover,
-    &:active {
-      cursor: pointer;
+    .img-container {
+      overflow: hidden;
 
-      .hover {
-        opacity: 1;
+      .img-fit {
+        @include main-transition;
+      }
+    }
 
-        .info {
-          @include translate(0, 0);
-        }
+    .project-info {
+      @include display-grid;
+      @include align-content-space-between;
+      padding-top: 25px;
+
+      .project-name {
+        @include transform-text;
+        color: $dark-grey-1;
+      }
+
+      .cliche {
+        font-size: 1.5em;
+        line-height: 1.5em;
+        font-weight: 500;
+        margin: 10px 0;
+        @include headline-font;
+
+        @include ease-in(.15s);
+      }
+
+      .btn {
+        padding: 10px 0;
+        border-bottom: 2px solid transparent;
+        color: $medium-to-dark-grey;
       }
     }
   }
 }
 
-#projects-list {
+#projects-list,
+#contact-us {
+
+  .banner {
+    //background: url('/images/bgs/birds_BW.jpg') no-repeat center/cover;
+    height: auto;
+    padding: 80px 0;
+
+    @include display-grid;
+    @include align-content-center;
+    border-bottom: 3px solid $primary;
+    margin-bottom: 80px;
+
+    .page-title {
+      @include title-text;
+    }
+
+    p {
+      color: $medium-to-dark-grey;
+      font-size: 1.5em;
+    }
+  }
+
+  #form-container {
+    background-color: transparent;
+    padding-top: 0;
+  }
 }
 
 
 #project-story {
-  @include flex;
-  @include flex-wrap(wrap);
-  @include align-items(flex-start);
-  position: relative;
+  @include display-grid;
   padding-top: 25px;
 
-  .section-title {
-    @include flex-basis(100%);
-  }
 
   // info
   #project-info {
-    @include flex-basis(100%);
-
-    // summary
-    #project-summary {
-      @include transform-text;
-
-      p {
-        margin: .2em 0;
-      }
-
-      .cliche {
-        margin-top: 1em;
-        padding: 10px 40% 30px 0;
-        border-top: 1px solid $black;
-      }
-
-      .field {
-        font-weight: 700;
-        display: block;
-      }
-    }
 
     // Cover image
     #project-cover {
-      height: 450px;
-      background-size: cover;
-      background-attachment: fixed;
-      //background-position: center;
+      //height: 450px;
+      //background-size: cover;
     }
+
+    // summary
+    #project-summary {
+      padding: 45px 0;
+      text-align: center;
+      border-bottom: 3px solid $primary;
+
+      .project-name,
+      .client {
+        @include transform-text;
+        color: $dark-grey-1;
+        margin: .2em 0;
+        text-transform: uppercase;
+      }
+
+
+      .cliche {
+        margin-top: .6em;
+        font-size: 4vw;
+        line-height: 1.15em;
+        @include headline-font;
+
+        .field {
+          font-weight: 800;
+
+          &:after {
+            content: ': '
+          }
+        }
+      }
+    }
+
+
 
     // description
     #project-description {
 
       section {
         &:nth-of-type(odd) {
-          background-color: $pale-salmon;
+          //background-color: $bg-grey;
         }
       }
 
       .section {
-        @include flex;
-        @include flex-wrap(wrap);
         padding-top: 100px;
         padding-bottom: 100px;
+        @include display-grid;
+        grid-template-columns: 2fr 3fr;
 
 
         .section-header {
-          @include flex-basis(30%);
-          //margin-top: 15px;
-          padding-right: 30px;
-        }
 
-        .section-title {
-          @include transform-text;
-          font-size: 1.2em;
+          .section-title {
+            text-align: left;
+            margin-bottom: 0;
+          }
         }
 
         .section-text {
-          @include flex-basis(70%);
-          transition: max-height 0.25s ease-out;
-          overflow: hidden;
+          padding-top: 20px;
+
+          p {
+            font-size: 1.3em;
+            color: $dark-grey-1 !important;
+          }
+
+          p > span {
+            color: $dark-grey-1 !important;
+          }
+
         }
 
         .img-full {
-          @include flex-basis(100%);
-
         }
       }
     }
@@ -335,7 +498,7 @@
 
     #gallery {
       white-space: nowrap;
-      padding-left: $container-padding;
+      padding-left: $container-padding-desktop;
 
 
       .image-container {
@@ -363,6 +526,8 @@
 
         .name {
           @include transform-text;
+          margin-top: 10px;
+          font-size: .85em;
 
           p {
             white-space: normal;
@@ -379,7 +544,7 @@
 
     #video-gallery {
       @include flex;
-      margin-left: $container-padding; // Like section padding
+      margin-left: $container-padding-desktop; // Like section padding
       width: max-content;
 
       .video-container {
@@ -638,8 +803,14 @@
 
   #like-us {
     width: 100%;
-    height: 400px;
-    margin: 50px 0;
-    background: url('/images/bgs/birds_BW.jpg') no-repeat center/cover;
+    //background: url('/images/bgs/birds_BW.jpg') no-repeat center/cover;
+    background-color: $black;
+    text-align: center;
+    color: $white;
+
+    .section-title {
+      font-size: 2em;
+    }
   }
+
 }

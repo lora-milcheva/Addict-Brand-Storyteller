@@ -128,6 +128,8 @@ const BUTTONS = {
 		createClient: 'Нов клиент',
 		createCategory: 'Нова категория',
 		createSection: 'Създай секция',
+
+		more: 'Повече'
 	},
 	en: {
 		create: 'Create',
@@ -148,6 +150,8 @@ const BUTTONS = {
 		createClient: 'New Client',
 		createCategory: 'New Category',
 		createSection: 'Create Section',
+
+		more: 'More'
 	}
 };
 
