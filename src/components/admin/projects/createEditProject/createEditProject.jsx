@@ -298,12 +298,9 @@ class createProject extends React.Component {
 
 	handleMultiLangChange = (e) => {
 
-		console.log(e.target)
 		let lang = e.target.id.split('-')[1];   // get the language
 		let key = e.target.name;                // get the state key
 		let value = e.target.value;             // get new value
-
-		console.log(lang, key, value)
 
 		let stateProp = Object.assign({}, this.state[key]);  // make state key copy
 

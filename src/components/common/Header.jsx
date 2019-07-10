@@ -113,10 +113,10 @@ class HeaderC extends React.Component {
 		let mainNav = this.mainNav.current;
 		let toggleBtn = this.toggleMenuBtn.current;
 
-		setTimeout (() => {
+		setTimeout(() => {
 			mainNav.classList.remove('visible');
 			toggleBtn.classList.remove('clicked');
-		}, 500)
+		}, 500);
 
 	};
 
@@ -176,33 +176,48 @@ class HeaderC extends React.Component {
 
 		let link = lang === languages.bg ? '/projects/' : '/' + lang + '/projects/';
 
-		let categories = this.state.categories.map(e => {
-
-			return (
-				<NavLink key={e._id}
-				         to={link + e.name.en}
-				         className="nav-link"
-				         activeClassName='active'>{e.name[lang]}</NavLink>
-			);
-		});
-
 		return (
-			<div id="header">
+			<header >
 
+				<div id="header">
+					<button id="lang-btn" className="btn btn-default sm"
+					        value={lang}
+					        onClick={this.changeRouteByLanguage}>{lang === languages.bg ? languages.en : languages.bg}
+					</button>
 
+					<Link to="/" id="brand" onClick={this.toggleNav}/>
 
-				<Link to="/" id="brand" onClick={this.toggleNav}/>
+					{toggleBtn}
+				</div>
 
-				{toggleBtn}
 
 				<nav id="main-nav" ref={this.mainNav} onClick={this.toggleNav}>
+
+					<NavLink exact
+					         to="/"
+					         className="nav-link"
+					         activeClassName='active'>{MENU[lang].home}</NavLink>
+
+
+					<NavLink exact
+					         to="/about-us"
+					         className="nav-link"
+					         activeClassName='active'>{MENU[lang].aboutUs}</NavLink>
 
 					<NavLink
 						to={link}
 						className="nav-link"
 						activeClassName='active'>{MENU[lang].projects}</NavLink>
 
-					{/*{categories}*/}
+					<NavLink exact
+					         to="/services"
+					         className="nav-link"
+					         activeClassName='active'>{MENU[lang].services}</NavLink>
+
+					<NavLink exact
+					         to="/careers"
+					         className="nav-link"
+					         activeClassName='active'>{MENU[lang].careers}</NavLink>
 
 					<NavLink exact
 					         to="/contact"
@@ -216,12 +231,7 @@ class HeaderC extends React.Component {
 
 				</nav>
 
-				<button id="lang-btn" className="btn btn-default-light sm"
-				        value={lang}
-				        onClick={this.changeRouteByLanguage}>{lang === languages.bg ? languages.en : languages.bg}
-				</button>
-
-			</div>
+			</header>
 		);
 	}
 }

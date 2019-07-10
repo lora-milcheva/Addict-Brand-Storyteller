@@ -2,17 +2,21 @@ import React from 'react';
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 // Partials
-import Carousel from './partials/Carousel';
-import CarouselNew from './partials/CarouselNew';
-import Company from './partials/Company';
+import OurAim from './partials/OurAim';
+import AccentProject from './partials/AccentProject';
+import OurPhilosophy from './partials/OurPhilosophy';
+import Services from './partials/Services';
 import Projects from './partials/Projects';
-import ContactForm from '../common/ContactForm';
+import AboutUs from './partials/AboutUs';
 
 // Services
 import authService from '../../../services/auth/authService';
 import projectsService from '../../../services/projects/projectsService';
 import clientsService from '../../../services/clients/clientsService';
 import categoriesService from '../../../services/categories/categoriesService';
+
+// Constants
+import { USER_PAGES_TEXT } from '../../../constants/constants';
 
 class Home extends React.Component {
 	constructor (props) {
@@ -94,24 +98,34 @@ class Home extends React.Component {
 		let activeLanguage = this.context.language;
 
 		return (
-			<div id="home">
+			<div id="home" className='container-fluid'>
 
-				{/*<Carousel/>*/}
+				<section className='container section-padding-top-bottom'>
+					<h1 className='page-title'>
+						{USER_PAGES_TEXT.home[activeLanguage].title}
+					</h1>
+					<video autoPlay={true}
+					       loop={true}
+					       className='carousel-video'
+					       controls={false}>
+						<source src='videos/home/stories_02.mp4' type="video/mp4"/>
+					</video>
+				</section>
 
-				{/*<CarouselNew language={activeLanguage}/>*/}
 
-				<video autoPlay={true}
-				       loop={true}
-				       className='carousel-video'
-				       controls={false}>
-					<source src='videos/home/stories_02.mp4' type="video/mp4"/>
-				</video>
 
-				<Company language={activeLanguage}/>
+
+				<OurAim language={activeLanguage}/>
+
+				<AccentProject language={activeLanguage} project={this.state.projects[0]}/>
+
+				<OurPhilosophy language={activeLanguage}/>
+
+				<Services language={activeLanguage}/>
 
 				<Projects projects={this.state.projects} language={activeLanguage}/>
 
-				<ContactForm/>
+				<AboutUs language={activeLanguage}/>
 
 			</div>
 

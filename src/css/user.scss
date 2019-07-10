@@ -1,168 +1,121 @@
 @import "colors";
 @import "mixins";
 
+
+// Common
+.banner {
+  padding: 80px 0;
+
+  @include display-grid;
+  @include align-content-center;
+  border-bottom: 3px solid $primary;
+  margin-bottom: 80px;
+}
+
+.page-title {
+  @include title-text;
+}
+
+.subtitle {
+  color: $medium-to-dark-grey;
+  font-size: 1.5em;
+}
+
+.section-title {
+  @include second-title-text;
+  text-align: center;
+}
+
+.section-text {
+  margin-bottom: 45px;
+}
+
+
 #home {
-
-  #carousel-new {
-    position: relative;
-    height: calc(100vh - 80px); // header
-    background-color: $light-grey;
-    overflow: hidden;
-
-    .carousel-navigation {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-
-      .slide-preview {
-        @include inline-flex;
-        width: 40px;
-        height: 5px;
-        margin: 0 2px;
-        background-color: $medium-grey;
-        @include main-transition;
-
-        &:hover,
-        &:active,
-        &.selected {
-          background-color: $black;
-          cursor: pointer;
-        }
-      }
-    }
-
-    .slide-content {
-      position: absolute;
-      top: 5%;
-      left: 10%;
-
-      .slide-headline {
-        font-size: 2em;
-      }
-
-      .slide-text {
-        width: 40%;
-      }
-    }
-
-    .img-container {
-      height: 100%;
-
-      .img-fit {
-        width: 100%;
-        height: auto;
-        min-height: 100%;
-      }
-    }
-  }
-
-  #carousel {
-    position: relative;
-
-    .carousel-navigation {
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-
-      .slide-preview {
-        @include inline-flex;
-        width: 40px;
-        height: 5px;
-        margin: 0 2px;
-        background-color: $medium-grey;
-        @include main-transition;
-
-        &:hover,
-        &:active,
-        &.selected {
-          background-color: $black;
-          cursor: pointer;
-        }
-      }
-    }
-
-    .img-container {
-      height: 100%;
-
-      .img-fit {
-        width: 100%;
-        height: auto;
-      }
-    }
-  }
 
   .carousel-video {
     width: 100%;
   }
 
-  #company {
+  #our-aim,
+  #our-philosophy,
+  #home-services,
+  #home-about-us {
+    text-align: center;
+  }
+
+  #accent-project {
+    position: relative;
+
+    .project-info {
+      position: absolute;
+      width: 50%;
+      top: 50%;
+      left: 50%;
+      @include translate(-50%, -50%);
+      color: $white;
+      text-align: center;
+
+      .project-name {
+        @include transform-text;
+      }
+
+      .cliche {
+        font-size: 3em;
+        line-height: 1.2em;
+        font-weight: 500;
+        margin: 10px 0 50px 0;
+        @include headline-font;
+
+        @include ease-in(.15s);
+      }
+    }
+  }
+
+  #our-philosophy {
     border-bottom: 3px solid $primary;
 
-    .section-title {
-      @include title-text;
-    }
 
-    .about-us {
-      //background-color: $primary;
-      //color: $white;
-      padding: 50px 0;
-      color: $medium-to-dark-grey;
-      font-size: 1.5em;
-    }
+    #sections {
+      width: 60%;
+      margin: auto;
 
-
-    #categories {
-      @include display-grid;
-      @include grid-template-columns(3, 1fr);
-
-      .category {
+      article {
         @include display-grid;
+        grid-template-columns: 2fr 3fr;
+        text-align: left;
+        padding: 25px 0;
+
         @include slow-transition;
 
-        &:nth-of-type(2) {
-          .category-image {
-            grid-area: 2 / 1 / 2 / 1;
-          }
-        }
-
         &:hover {
-          background-color: $pale-salmon;
-
-          .category-image {
-            img {
-              transform: scale(1.1);
-            }
+          .title,
+          .text {
+            color: $primary;
           }
         }
 
-        .category-image {
-          overflow: hidden;
-
-          img {
-            @include main-transition;
-          }
+        .title {
+          font-size: 1.3em;
+          padding-right: 25px;
+          @include ease-in();
         }
 
-        .category-info {
-          padding: 30px 60px;
+        .text {
           display: grid;
           align-items: center;
-
-          .category-name {
-            @include transform-text;
-            align-self: end;
-          }
-
-          .category-text {
-            align-self: start;
-            padding-top: 15px;
-            font-size: .85em;
-          }
+          @include ease-in();
         }
       }
     }
+  }
+
+  #home-services {
+
+  }
+
+  #home-about-us {
+
   }
 }
 
@@ -369,40 +322,14 @@
   }
 }
 
-#projects-list,
-#contact-us {
-
-  .banner {
-    //background: url('/images/bgs/birds_BW.jpg') no-repeat center/cover;
-    height: auto;
-    padding: 80px 0;
-
-    @include display-grid;
-    @include align-content-center;
-    border-bottom: 3px solid $primary;
-    margin-bottom: 80px;
-
-    .page-title {
-      @include title-text;
-    }
-
-    p {
-      color: $medium-to-dark-grey;
-      font-size: 1.5em;
-    }
-  }
-
-  #form-container {
-    background-color: transparent;
-    padding-top: 0;
-  }
+#form-container {
+  background-color: transparent;
+  padding-top: 0;
 }
 
 
 #project-story {
   @include display-grid;
-  padding-top: 25px;
-
 
   // info
   #project-info {
@@ -443,7 +370,6 @@
         }
       }
     }
-
 
 
     // description
@@ -812,5 +738,4 @@
       font-size: 2em;
     }
   }
-
 }

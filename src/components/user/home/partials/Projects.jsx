@@ -3,8 +3,6 @@ import React from 'react';
 // Partials
 import ProjectCard from '../../common/ProjectCard';
 
-// Constants
-import { USER_PAGES_TEXT } from '../../../../constants/constants';
 
 function Projects (props) {
 

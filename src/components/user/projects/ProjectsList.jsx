@@ -14,6 +14,9 @@ import authService from '../../../services/auth/authService';
 // Notifications
 import Notifications from '../../common/Notifications';
 
+// Constants
+import { USER_PAGES_TEXT } from '../../../constants/constants';
+
 class ProjectList extends React.Component {
 	constructor (props) {
 		super(props);
@@ -70,10 +73,6 @@ class ProjectList extends React.Component {
 
 	render () {
 
-		if (this.state.loading) {
-			return (<div className="lds-dual-ring"/>);
-		}
-
 		let activeLanguage = this.context.language;
 
 		let categoryName = this.props.match.params.category;
@@ -95,14 +94,20 @@ class ProjectList extends React.Component {
 
 				<section className='banner'>
 					<h1 className='page-title'>
-						Some text here
+						{USER_PAGES_TEXT.projects[activeLanguage].title}
 					</h1>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since</p>
+					<p className='subtitle'>{USER_PAGES_TEXT.projects[activeLanguage].subtitle}</p>
 				</section>
 
+				{this.state.loading &&
+				<div className="lds-dual-ring"/>}
+
+				{!this.state.loading &&
 				<section className="projects-container">
 					{projects}
 				</section>
+				}
+
 
 			</div>
 

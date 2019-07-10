@@ -306,17 +306,32 @@
 }
 
 @mixin headline-font {
-  font-family: 'Lora', serif;
+  //font-family: 'Lora', serif;
+  font-family: 'Montserrat', sans-serif;
   //font-family: 'Playfair Display', serif;
   //font-family: 'Prata', serif;
   font-weight: 400;
 }
 
 @mixin title-text {
-  font-size: 6vw;
+  font-size: 5vw;
   line-height: 1.1em;
-  margin: .5em 0;
+  margin: .5em 0 1em;
+  padding: 0 10%;
   font-weight: 400;
   font-family: 'Prata', serif;
+  text-align: center;
 }
+
+@mixin second-title-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 2.5vw;
+  line-height: 1.3em;
+  margin: .5em 0 1em;
+  padding: 0 10%;
+  text-align: center;
+}
+
+
 

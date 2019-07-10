@@ -4,11 +4,13 @@
 
 
 
-
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 
 @import "colors";
 @import "mixins";
+
+
+$header-height: 80px;
 
 * {
   box-sizing: border-box;
@@ -21,9 +23,8 @@ body {
   margin: 0;
   padding: 0;
   color: $black;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 14px;
-
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -47,7 +48,7 @@ p {
 }
 
 .container {
-  width: 75%;
+  width: 87%;
   margin: auto;
 }
 
@@ -442,8 +443,13 @@ button {
   }
 }
 
+
+header {
+  z-index: 1000;
+}
+
 main {
-  padding-top: 80px; //header height
+  padding-top: $header-height;
   min-height: calc(100vh - 80px); //header + footer height
 }
 
@@ -452,30 +458,30 @@ main {
   position: fixed;
   top: 0;
   width: 100%;
-  height: 80px;
-  padding: 0 25px;
-  @include flex;
-  @include flex-wrap(none);
-  @include justify-content(space-between);
-  @include align-items(center);
-
+  height: $header-height;
+  @include display-grid;
+  grid-template-columns: 80px 8fr 80px;
   background: $white;
 
-  z-index: 1000;
+  #lang-btn {
+    @include transform-text;
+    width: calc(100%);  // without margins 2 * 10px
+    justify-content: center;
+    margin: 10px;
+  }
 
   #brand {
-    display: inline-block;
     width: 250px;
-    height: auto;
-    min-height: 50px;
-    margin-left: 50%;
-    @include translate(-50%, 0);
     background: url("/images/logo/addict_logo.svg") no-repeat left/contain;
     @include main-transition;
+    justify-self: center;
   }
 
   #toggle-menu-btn {
-    display: none;
+    display: block;
+    justify-self: end;
+    width: calc(100%);   // without margins 2 * 10px
+    margin: 10px;
     background-color: $black;
 
     .toggle {
@@ -487,37 +493,75 @@ main {
 
       @include main-transition;
     }
-  }
 
-  #main-nav {
+    &.clicked {
 
-    @include flex-basis(auto);
-
-    .nav-link {
-      display: inline-block;
-      padding: 5px 15px;
-      //margin-right: 15px;
-
-      color: $black;
-
-      @include transform-button-text;
-      @include main-transition;
-
-
-      &:hover,
-      &:focus {
-        color: $medium-to-dark-grey;
+      .toggle:first-of-type {
+        transform: rotate(45deg);
+        position: relative;
+        top: 6px;
+        height: 2px;
       }
 
-      &.active {
-        background-color: $black;
-        color: $medium-to-dark-grey;
+      .toggle:nth-of-type(2) {
+        opacity: 0;
+      }
+
+      .toggle:last-of-type {
+        transform: rotate(-45deg);
+        position: relative;
+        top: -5px;
+        height: 2px;
       }
     }
   }
+}
 
-  #lang-btn {
+#main-nav {
+  @include display-grid;
+  @include align-content-top;
+  z-index: 1000;
+
+  position: fixed;
+  top: $header-height;
+  right: 0;
+  left: 0;
+  bottom: 0;
+
+  background-color: $white;
+
+
+  @include translate(105%);
+  @include ease-in(.25s);
+
+
+  .nav-link {
+    font-size: 1em;
+    text-align: right;
+    width: 80%;
+    margin: auto;
+    padding: 25px;
+    color: $medium-to-dark-grey;
     @include transform-text;
+    border-bottom: 1px solid transparent;
+
+    @include main-transition;
+
+    &:first-of-type {
+      margin-top: 80px;
+    }
+
+    &.active,
+    &:hover,
+    &:active {
+      color: $black;
+      padding-right: 40px;
+      border-bottom: 1px solid $black;
+    }
+  }
+
+  &.visible {
+    @include translate(0);
   }
 }
 

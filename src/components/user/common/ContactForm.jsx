@@ -108,7 +108,7 @@ class ContactForm extends React.Component {
 					<FormInput type='text'
 					           name='firstName'
 					           value={this.state.firstName}
-					           label={USER_PAGES_TEXT.contact[activeLanguage].name}
+					           label={USER_PAGES_TEXT.contactForm[activeLanguage].name}
 					           required={true}
 					           disabled={false}
 					           isValid={this.state.firstName.trim() === '' ? FORM_VALIDATION[activeLanguage].requiredField : ''}
@@ -118,7 +118,7 @@ class ContactForm extends React.Component {
 					<FormInput type='text'
 					           name='lastName'
 					           value={this.state.lastName}
-					           label={USER_PAGES_TEXT.contact[activeLanguage].lastName}
+					           label={USER_PAGES_TEXT.contactForm[activeLanguage].lastName}
 					           required={true}
 					           disabled={false}
 					           isValid={this.state.lastName.trim() === '' ? FORM_VALIDATION[activeLanguage].requiredField : ''}
@@ -128,7 +128,7 @@ class ContactForm extends React.Component {
 					<FormInput type='email'
 					           name='email'
 					           value={this.state.email}
-					           label={USER_PAGES_TEXT.contact[activeLanguage].email}
+					           label={USER_PAGES_TEXT.contactForm[activeLanguage].email}
 					           required={true}
 					           disabled={false}
 					           isValid={this.validateEmail(this.state.email) ? '' : FORM_VALIDATION[activeLanguage].validMail}
@@ -138,7 +138,7 @@ class ContactForm extends React.Component {
 					<FormInput type='text'
 					           name='phone'
 					           value={this.state.phone}
-					           label={USER_PAGES_TEXT.contact[activeLanguage].phone}
+					           label={USER_PAGES_TEXT.contactForm[activeLanguage].phone}
 					           required={false}
 					           disabled={false}
 					           onChange={this.handleChange}/>
@@ -146,7 +146,7 @@ class ContactForm extends React.Component {
 					<FormInput type='text'
 					           name='subject'
 					           value={this.state.subject}
-					           label={USER_PAGES_TEXT.contact[activeLanguage].subject}
+					           label={USER_PAGES_TEXT.contactForm[activeLanguage].subject}
 					           required={false}
 					           disabled={false}
 					           onChange={this.handleChange}/>
@@ -157,7 +157,7 @@ class ContactForm extends React.Component {
 					          // label={USER_PAGES_TEXT.contact[activeLanguage].message}
 					          onChange={this.handleChange}
 					          rows={5}
-					          placeholder={USER_PAGES_TEXT.contact[activeLanguage].message}/>
+					          placeholder={USER_PAGES_TEXT.contactForm[activeLanguage].message}/>
 
 					<div id={'submit-buttons'} className="buttons-container text-center">
 						<button className="btn btn-default-light"

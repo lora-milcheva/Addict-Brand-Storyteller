@@ -30,10 +30,9 @@ class ContactUs extends React.Component {
 
 					<section className='banner'>
 						<h1 className='page-title'>
-							{USER_PAGES_TEXT.contact[activeLanguage].contactUs}
+							{USER_PAGES_TEXT.contact[activeLanguage].title}
 						</h1>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-							been the industry's standard dummy text ever since</p>
+						<p className='subtitle'>{USER_PAGES_TEXT.contact[activeLanguage].subtitle}</p>
 					</section>
 				</div>
 
