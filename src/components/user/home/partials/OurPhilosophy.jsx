@@ -1,8 +1,13 @@
 import React from 'react';
 
+// Constants
 import { USER_PAGES_TEXT } from '../../../../constants/constants';
 
+// Utils
+import UTILS from '../../../../utils/utils'
+
 class OurPhilosophy extends React.Component {
+
 
 	render () {
 
@@ -19,22 +24,26 @@ class OurPhilosophy extends React.Component {
 				<section id='sections'>
 					<article>
 						<h4 className='title'>{USER_PAGES_TEXT.home[activeLanguage].sections.ourPhilosophy.sections.creativity.name}</h4>
-						<p className='text'>{USER_PAGES_TEXT.home[activeLanguage].sections.ourPhilosophy.sections.creativity.text}</p>
+						<p className='text'
+						   dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.home[activeLanguage].sections.ourPhilosophy.sections.creativity.text)} />
 					</article>
 
 					<article>
 						<h4 className='title'>{USER_PAGES_TEXT.home[activeLanguage].sections.ourPhilosophy.sections.strategy.name}</h4>
-						<p className='text'>{USER_PAGES_TEXT.home[activeLanguage].sections.ourPhilosophy.sections.strategy.text}</p>
+						<p className='text'
+						   dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.home[activeLanguage].sections.ourPhilosophy.sections.strategy.text)} />
 					</article>
 
 					<article>
 						<h4 className='title'>{USER_PAGES_TEXT.home[activeLanguage].sections.ourPhilosophy.sections.system.name}</h4>
-						<p className='text'>{USER_PAGES_TEXT.home[activeLanguage].sections.ourPhilosophy.sections.system.text}</p>
+						<p className='text'
+						   dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.home[activeLanguage].sections.ourPhilosophy.sections.system.text)} />
 					</article>
 
 					<article>
 						<h4 className='title'>{USER_PAGES_TEXT.home[activeLanguage].sections.ourPhilosophy.sections.experience.name}</h4>
-						<p className='text'>{USER_PAGES_TEXT.home[activeLanguage].sections.ourPhilosophy.sections.experience.text}</p>
+						<p className='text'
+						   dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.home[activeLanguage].sections.ourPhilosophy.sections.experience.text)} />
 					</article>
 				</section>
 

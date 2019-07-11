@@ -21,6 +21,12 @@
   font-size: 1.5em;
 }
 
+#home .section-name {
+  display: inline-block;
+  padding: 15px 0;
+  border-bottom: 3px solid $primary;
+}
+
 .section-title {
   @include second-title-text;
   text-align: center;
@@ -28,6 +34,21 @@
 
 .section-text {
   margin-bottom: 45px;
+}
+
+.smaller {
+  display: inline-block;
+  font-size: .7em;
+  line-height: 1.4em;
+  color: $dark-grey;
+  font-weight: 400;
+  margin-top: 30px;
+}
+
+.accent {
+  color: $primary;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 
@@ -44,7 +65,8 @@
     text-align: center;
   }
 
-  #accent-project {
+  #accent-project,
+  .home-project {
     position: relative;
 
     .project-info {
@@ -75,35 +97,44 @@
   #our-philosophy {
     border-bottom: 3px solid $primary;
 
+    .section-title {
+      font-size: 5vw;
+    }
+
 
     #sections {
-      width: 60%;
+      width: 80%;
       margin: auto;
+      @include display-grid;
+      @include grid-gap(40px, 0);
+      text-align: left;
 
       article {
         @include display-grid;
-        grid-template-columns: 2fr 3fr;
-        text-align: left;
-        padding: 25px 0;
+        grid-template-columns: 4fr 3fr;
 
         @include slow-transition;
 
         &:hover {
-          .title,
-          .text {
+          .title {
             color: $primary;
+          }
+
+          .text {
+            color: $black;
           }
         }
 
         .title {
-          font-size: 1.3em;
+          font-size: 1.8em;
           padding-right: 25px;
+          color: $dark-grey;
           @include ease-in();
         }
 
         .text {
-          display: grid;
-          align-items: center;
+          font-size: 1.25em;
+          color: $medium-to-dark-grey;
           @include ease-in();
         }
       }
@@ -175,7 +206,7 @@
 
 }
 
-#home-projects .projects-container,
+
 #projects-list .projects-container {
 
   @include display-grid;

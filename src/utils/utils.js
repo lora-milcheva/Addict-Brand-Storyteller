@@ -1,4 +1,3 @@
-
 // Constants
 import { LANGUAGES } from '../constants/constants';
 
@@ -24,41 +23,41 @@ function calculatePriceAfterDiscount (price, discount) {
 	return discount > 0 ? price - discount / 100 * price : price;
 }
 
-function formatDate(inputDate) {
+function formatDate (inputDate) {
 
-    let date = new Date(inputDate);
+	let date = new Date(inputDate);
 
-    let years = date.getFullYear();
-    let months = date.getMonth() + 1;
-    let day = date.getDate();
+	let years = date.getFullYear();
+	let months = date.getMonth() + 1;
+	let day = date.getDate();
 
-    return `${('0' + day).slice(-2)}.${('0' + months).slice(-2)}.${years}`;
-
-}
-
-function formatDateYearFirst(inputDate) {
-
-    let date = new Date(inputDate);
-
-    let years = date.getFullYear();
-    let months = date.getMonth() + 1;
-    let day = date.getDate();
-
-    return `${years}-${('0' + months).slice(-2)}-${('0' + day).slice(-2)}`;
+	return `${('0' + day).slice(-2)}.${('0' + months).slice(-2)}.${years}`;
 
 }
 
-function formatDateAndTime(inputDate) {
+function formatDateYearFirst (inputDate) {
 
-    let date = new Date(inputDate);
+	let date = new Date(inputDate);
 
-    let years = date.getFullYear();
-    let months = date.getMonth() + 1;
-    let day = date.getDate();
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
+	let years = date.getFullYear();
+	let months = date.getMonth() + 1;
+	let day = date.getDate();
 
-    return `${('0' + day).slice(-2)}.${('0' + months).slice(-2)}.${years} ${('0' + hours).slice(-2)}:${('0' + minutes).slice(-2)}`;
+	return `${years}-${('0' + months).slice(-2)}-${('0' + day).slice(-2)}`;
+
+}
+
+function formatDateAndTime (inputDate) {
+
+	let date = new Date(inputDate);
+
+	let years = date.getFullYear();
+	let months = date.getMonth() + 1;
+	let day = date.getDate();
+	let hours = date.getHours();
+	let minutes = date.getMinutes();
+
+	return `${('0' + day).slice(-2)}.${('0' + months).slice(-2)}.${years} ${('0' + hours).slice(-2)}:${('0' + minutes).slice(-2)}`;
 }
 
 function getDay (inputDate) {
@@ -87,12 +86,12 @@ function getVideoDescription (input) {
 	return input.substr(indexOfDescriptionFirstLetter);
 }
 
-function getPosition(string, subString, index) {
-    return string.split(subString, index).join(subString).length;
+function getPosition (string, subString, index) {
+	return string.split(subString, index).join(subString).length;
 }
 
 function createStateCopy (state) {
-	return JSON.parse(JSON.stringify(state))
+	return JSON.parse(JSON.stringify(state));
 }
 
 function getLanguage (component) {
@@ -100,21 +99,26 @@ function getLanguage (component) {
 	let lang = component.props.match.params.lng;
 
 	if (lang === LANGUAGES.en) {
-		component.setState({activeLanguage: LANGUAGES.en })
+		component.setState({activeLanguage: LANGUAGES.en});
 	} else {
-		component.setState({activeLanguage: LANGUAGES.bg })
+		component.setState({activeLanguage: LANGUAGES.bg});
 	}
+}
+
+function createMarkup (input) {
+	return {__html: input};
 }
 
 export default {
 	calculatePriceAfterDiscount,
-    formatDate,
-    formatDateAndTime,
-    formatDateYearFirst,
-    getDay,
+	formatDate,
+	formatDateAndTime,
+	formatDateYearFirst,
+	getDay,
 	getMonth,
 	getYear,
 	getVideoDescription,
 	createStateCopy,
-	getLanguage
-}
+	getLanguage,
+	createMarkup
+};

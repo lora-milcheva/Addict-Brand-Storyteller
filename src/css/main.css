@@ -37,6 +37,12 @@ h2 {
   padding-top: 80px;
   padding-bottom: 80px; }
 
+.section-padding-bottom {
+  padding-bottom: 80px; }
+
+.section-padding-top {
+  padding-top: 80px; }
+
 .section-padding-left-right {
   padding: 0 25px; }
 

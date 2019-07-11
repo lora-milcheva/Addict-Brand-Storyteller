@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// Constants
 import { BUTTONS, USER_PAGES_TEXT } from '../../../../constants/constants';
 
+// Utils
+import UTILS from '../../../../utils/utils';
 
 class Services extends React.Component {
 
@@ -16,10 +19,10 @@ class Services extends React.Component {
 
 				<h4 className='section-name'>{USER_PAGES_TEXT.home[activeLanguage].sections.services.name}</h4>
 
-				<h2 className="section-title">{USER_PAGES_TEXT.home[activeLanguage].sections.services.title}</h2>
-				<p className='section-text'>
-					{USER_PAGES_TEXT.home[activeLanguage].sections.services.text}
-				</p>
+				<h2 className="section-title"
+				    dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.home[activeLanguage].sections.services.title)}/>
+				<p className='section-text'
+				   dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.home[activeLanguage].sections.services.text)}/>
 
 				<Link className='btn btn-default' to='/services'>{BUTTONS[activeLanguage].readMore}</Link>
 

@@ -18,6 +18,9 @@ import categoriesService from '../../../services/categories/categoriesService';
 // Constants
 import { USER_PAGES_TEXT } from '../../../constants/constants';
 
+// Utils
+import UTILS from '../../../utils/utils';
+
 class Home extends React.Component {
 	constructor (props) {
 		super(props);
@@ -97,13 +100,20 @@ class Home extends React.Component {
 
 		let activeLanguage = this.context.language;
 
+		let projects = Object.assign([], this.state.projects);
+
+		let accentProject = projects.shift();
+
+
+
 		return (
 			<div id="home" className='container-fluid'>
 
 				<section className='container section-padding-top-bottom'>
-					<h1 className='page-title'>
-						{USER_PAGES_TEXT.home[activeLanguage].title}
-					</h1>
+
+					<h1 className='page-title'
+					    dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.home[activeLanguage].title)}/>
+
 					<video autoPlay={true}
 					       loop={true}
 					       className='carousel-video'
@@ -113,17 +123,15 @@ class Home extends React.Component {
 				</section>
 
 
-
-
 				<OurAim language={activeLanguage}/>
 
-				<AccentProject language={activeLanguage} project={this.state.projects[0]}/>
+				<AccentProject language={activeLanguage} project={accentProject}/>
 
 				<OurPhilosophy language={activeLanguage}/>
 
 				<Services language={activeLanguage}/>
 
-				<Projects projects={this.state.projects} language={activeLanguage}/>
+				<Projects projects={projects} language={activeLanguage}/>
 
 				<AboutUs language={activeLanguage}/>
 

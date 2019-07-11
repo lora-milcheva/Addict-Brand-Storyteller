@@ -8,6 +8,8 @@ import ContactForm from '../common/ContactForm';
 // Constants
 import {USER_PAGES_TEXT} from '../../../constants/constants';
 
+// Utils
+import UTILS from '../../../utils/utils';
 
 class ContactUs extends React.Component {
 	constructor (props) {
@@ -29,10 +31,11 @@ class ContactUs extends React.Component {
 				<div className='container'>
 
 					<section className='banner'>
-						<h1 className='page-title'>
-							{USER_PAGES_TEXT.contact[activeLanguage].title}
-						</h1>
-						<p className='subtitle'>{USER_PAGES_TEXT.contact[activeLanguage].subtitle}</p>
+						<h1 className='page-title'
+						    dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.contact[activeLanguage].title)}/>
+
+						<p className='subtitle'
+						   dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.contact[activeLanguage].subtitle)}/>
 					</section>
 				</div>
 

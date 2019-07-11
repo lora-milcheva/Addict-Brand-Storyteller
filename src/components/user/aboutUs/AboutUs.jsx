@@ -7,18 +7,10 @@ import ContactForm from '../common/ContactForm';
 // Constants
 import { USER_PAGES_TEXT } from '../../../constants/constants';
 
+// Utils
+import UTILS from '../../../utils/utils';
+
 class AboutUs extends React.Component {
-	constructor (props) {
-		super(props);
-
-		this.state = {
-
-		};
-	}
-
-	componentDidMount () {
-	}
-
 
 
 	render () {
@@ -29,10 +21,12 @@ class AboutUs extends React.Component {
 			<div id="about-us" className='container-fluid'>
 
 				<section className='banner container'>
-					<h1 className='page-title'>
-						{USER_PAGES_TEXT.aboutUs[activeLanguage].title}
-					</h1>
-					<p className='subtitle'>{USER_PAGES_TEXT.aboutUs[activeLanguage].subtitle}</p>
+
+					<h1 className="page-title"
+					    dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.aboutUs[activeLanguage].title)}/>
+
+					<p className='subtitle'
+					   dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.aboutUs[activeLanguage].subtitle)}/>
 				</section>
 
 				<ContactForm/>

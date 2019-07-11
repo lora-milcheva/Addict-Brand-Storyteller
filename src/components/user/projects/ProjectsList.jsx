@@ -17,6 +17,9 @@ import Notifications from '../../common/Notifications';
 // Constants
 import { USER_PAGES_TEXT } from '../../../constants/constants';
 
+// Utils
+import UTILS from '../../../utils/utils';
+
 class ProjectList extends React.Component {
 	constructor (props) {
 		super(props);
@@ -93,10 +96,13 @@ class ProjectList extends React.Component {
 				<Notifications onRef={ref => (this.notifications = ref)} language={activeLanguage}/>
 
 				<section className='banner'>
-					<h1 className='page-title'>
-						{USER_PAGES_TEXT.projects[activeLanguage].title}
-					</h1>
-					<p className='subtitle'>{USER_PAGES_TEXT.projects[activeLanguage].subtitle}</p>
+
+					<h1 className='page-title'
+					    dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.projects[activeLanguage].title)}/>
+
+					<p className='subtitle'
+					   dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.projects[activeLanguage].subtitle)}/>
+
 				</section>
 
 				{this.state.loading &&
@@ -108,9 +114,7 @@ class ProjectList extends React.Component {
 				</section>
 				}
 
-
 			</div>
-
 		);
 	}
 }

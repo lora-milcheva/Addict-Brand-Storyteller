@@ -15,6 +15,9 @@ class AccentProject extends React.Component {
 			return <div className={'loader'}/>
 		}
 
+		let pathLang = activeLanguage === 'en' ? '/' + activeLanguage : '';
+		let linkPath = pathLang + '/projects/' + project._id;
+
 		return (
 
 			<section id="accent-project">
@@ -28,7 +31,7 @@ class AccentProject extends React.Component {
 						<p className='project-name'>{project.name[activeLanguage]}</p>
 						<p className='cliche'>{project.description[activeLanguage]}</p>
 					</div>
-					<Link to={'projects/' + project._id} className="btn btn-default-light lg">{BUTTONS[activeLanguage].seeProject}</Link>
+					<Link to={linkPath} className="btn btn-default-light lg">{BUTTONS[activeLanguage].seeProject}</Link>
 				</div>
 			</section>
 		);
