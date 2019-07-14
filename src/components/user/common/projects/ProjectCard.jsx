@@ -3,18 +3,20 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // Constants
-import {BUTTONS} from '../../../constants/constants'
+import {BUTTONS} from '../../../../constants/constants'
 
-function HomeProjectCard (props) {
+function ProjectCard (props) {
 
-	let {project, activeLanguage} = props;
+	let {project, category, activeLanguage} = props;
+
 
 	let pathLang = activeLanguage === 'en' ? '/' + activeLanguage : '';
-	let linkPath = pathLang + '/projects/' + project._id;
-
+	let linkPath = category
+		? pathLang + '/projects/' + project._id
+		: pathLang + '/projects/' + project._id;
 
 	return (
-		<section className='home-project'>
+		<Link to={linkPath} className="project-card">
 
 			<figure className="img-container">
 				<img className="img-fit" src={project.thumbnail} alt={project.name[activeLanguage]}/>
@@ -25,16 +27,18 @@ function HomeProjectCard (props) {
 					<p className='project-name'>{project.name[activeLanguage]}</p>
 					<p className='cliche'>{project.description[activeLanguage]}</p>
 				</div>
-				<Link to={linkPath} className="btn btn-default-light lg">{BUTTONS[activeLanguage].seeProject}</Link>
+				<button className="btn">{BUTTONS[activeLanguage].more}</button>
 			</div>
-		</section>
+
+		</Link>
 	);
 
 }
 
-export default HomeProjectCard;
+export default ProjectCard;
 
-HomeProjectCard.propTypes = {
+ProjectCard.propTypes = {
 	project: PropTypes.object,
 	activeLanguage: PropTypes.string,
+	category: PropTypes.string
 };

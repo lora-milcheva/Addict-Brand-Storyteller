@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Partials
-import HomeProjectCard from '../../common/HomeProjectCard';
+import HomeProjectCard from '../../common/projects/HomeProjectCard';
 
 function Projects (props) {
 

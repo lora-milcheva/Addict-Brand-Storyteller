@@ -4,7 +4,8 @@ import posed from 'react-pose';
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 // Partials
-import ProjectCard from '../common/ProjectCard';
+import PageHeader from '../common/headers/PageHeader';
+import ProjectCard from '../common/projects/ProjectCard';
 
 // Services
 import projectsService from '../../../services/projects/projectsService';
@@ -14,11 +15,7 @@ import authService from '../../../services/auth/authService';
 // Notifications
 import Notifications from '../../common/Notifications';
 
-// Constants
-import { USER_PAGES_TEXT } from '../../../constants/constants';
 
-// Utils
-import UTILS from '../../../utils/utils';
 
 class ProjectList extends React.Component {
 	constructor (props) {
@@ -91,25 +88,17 @@ class ProjectList extends React.Component {
 
 		return (
 
-			<div id="projects-list" className="container">
+			<div id="projects-list" >
 
 				<Notifications onRef={ref => (this.notifications = ref)} language={activeLanguage}/>
 
-				<section className='banner'>
-
-					<h1 className='page-title'
-					    dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.projects[activeLanguage].title)}/>
-
-					<p className='subtitle'
-					   dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.projects[activeLanguage].subtitle)}/>
-
-				</section>
+				<PageHeader language={activeLanguage} pageName='projects' />
 
 				{this.state.loading &&
 				<div className="lds-dual-ring"/>}
 
 				{!this.state.loading &&
-				<section className="projects-container">
+				<section className="projects-container container">
 					{projects}
 				</section>
 				}

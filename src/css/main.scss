@@ -48,7 +48,7 @@ p {
 }
 
 .container {
-  width: 87%;
+  width: 80%;
   margin: auto;
 }
 
@@ -62,17 +62,20 @@ p {
   padding-bottom: 80px;
 }
 
+.section-padding-top {
+  padding-top: 80px;
+}
+
+.section-padding-bottom {
+  padding-bottom: 80px;
+}
+
 .section-padding-left-right {
   padding: 0 25px;
 }
 
 .section-padding-all {
   padding: 80px 25px;
-}
-
-.section-title {
-  text-align: center;
-  margin-bottom: 30px;
 }
 
 .text-danger {
@@ -444,10 +447,6 @@ button {
 }
 
 
-header {
-  z-index: 1000;
-}
-
 main {
   padding-top: $header-height;
   min-height: calc(100vh - 80px); //header + footer height
@@ -462,6 +461,8 @@ main {
   @include display-grid;
   grid-template-columns: 80px 8fr 80px;
   background: $white;
+
+  z-index: 1000;
 
   #lang-btn {
     @include transform-text;

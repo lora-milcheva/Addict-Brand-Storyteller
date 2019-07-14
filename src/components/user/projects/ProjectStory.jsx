@@ -5,10 +5,10 @@ import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 // Partials
 import ImagePreview from './partials/ImagePreview';
-import ProjectCard from '../common/ProjectCard';
+import ProjectCard from '../common/projects/ProjectCard';
 import Gallery from './partials/Gallery';
 import VideoGallery from './partials/VideoGallery';
-import ContactForm from '../common/ContactForm';
+import ContactForm from '../common/contact/ContactForm';
 
 // Services
 import projectsService from '../../../services/projects/projectsService';
@@ -18,6 +18,7 @@ import authService from '../../../services/auth/authService';
 
 // Constants
 import { USER_PAGES_TEXT } from '../../../constants/constants';
+import RandomProjects from '../common/projects/RandomProjects';
 
 class ProjectStory extends React.Component {
 	constructor (props) {
@@ -29,15 +30,7 @@ class ProjectStory extends React.Component {
 
 			selectedImage: {},
 
-			currentProjectIndex: 0,
-			prevProjectId: undefined,
-			nextProjectId: undefined,
-
-			randomProjects: [],
-
-			allSections: [],
-
-			visibleSectionIds: [],
+			allSections: '',
 
 			loading: true
 		};
@@ -56,99 +49,50 @@ class ProjectStory extends React.Component {
 				.then(res => {
 					authService.saveSession(res);
 					this.loadProject();
-					this.loadRandomProjects();
 				})
 				.catch(err => this.notifications.showMessage(err.responseJSON.description));
 		} else {
 			this.loadProject();
-			this.loadRandomProjects();
 		}
 	}
 
 	componentWillReceiveProps (nextProps) {
+
+		// To reload page when select different project
 
 		if (this.props.match.params.id !== nextProps.match.params.id) {
 			this.setState({loading: true});
 
 			this.projectId = nextProps.match.params.id;
 
-			this.setState({randomProjects: []}, () => {
-				this.loadProject();
-				this.loadRandomProjects()
-			});
+			this.loadProject();
+
 		}
 	}
 
-
 	loadProject = () => {
+
 		projectsService
 			.loadProjectData(this.projectId)
 			.then(res => {
-				this.setState({
-					project: res,
-					visibleSectionIds: [Object.keys(res.info)[0]]
-				});
-			})
-			.then(() => {
+				this.setState({project: res});
+
 				sectionsService
 					.loadAllSections()
 					.then(res => {
-						this.setState({allSections: res});
-					})
-					.then(() => {
+						this.setState({ allSections: res });
+
 						clientsService
 							.loadAllClients()
 							.then(res => {
 								let client = res.filter(e => e._id === this.state.project.clientId);
-								this.setState({clientName: client[0], loading: false});
+								this.setState({ clientName: client[0], loading: false});
 							});
 					});
-				}
-			)
+			})
 			.catch(err => {
 				this.notifications.showMessage(err.responseJSON.description);
 			});
-	};
-
-	loadRandomProjects = () => {
-
-		let query = '?query={}&fields=_id';
-
-		projectsService
-			.loadAllProjects(query)
-			.then(res => {
-
-				const projects = res.filter(e => e._id !== this.projectId);
-
-				let numberOfProjectsToLoad = projects.length;
-
-				if (numberOfProjectsToLoad > 3) {
-					numberOfProjectsToLoad = 3;
-				}
-
-				// Get random ids
-				let projectIds = [];
-
-				while (projectIds.length < numberOfProjectsToLoad) {
-
-					let randomNumber = Math.floor((Math.random() * projects.length));
-
-					if (!projectIds.includes(projects[randomNumber]._id)) {
-						projectIds.push(projects[randomNumber]._id);
-					}
-				}
-
-				// Load random projects by id
-				for (let i = 0; i < projectIds.length; i++) {
-					projectsService
-						.loadProjectData(projectIds[i])
-						.then(res => {
-							this.setState({randomProjects: [...this.state.randomProjects, res]});
-						})
-						.catch(err => this.notifications.showMessage(err.responseJSON.description));
-				}
-			})
-			.catch(err => this.notifications.showMessage(err.responseJSON.description));
 	};
 
 	showPreview = (e) => {
@@ -158,21 +102,6 @@ class ProjectStory extends React.Component {
 
 	hidePreview = () => {
 		this.setState({selectedImage: {}});
-	};
-
-	toggleSection = (e) => {
-
-		let sectionId = e.target.name;
-
-		if (this.state.visibleSectionIds.includes(sectionId)) {
-			this.setState({
-				visibleSectionIds: this.state.visibleSectionIds.filter(el => el !== sectionId)
-			});
-		} else {
-			this.setState({
-				visibleSectionIds: [...this.state.visibleSectionIds, sectionId]
-			});
-		}
 	};
 
 	render () {
@@ -195,18 +124,6 @@ class ProjectStory extends React.Component {
 				let image = project.info[e].image;
 				let sectionName = this.state.allSections.filter(s => s._id === e)[0].name[activeLanguage];
 
-				// let result = findImageInString(sectionText);
-				//
-				//
-				// let imgStyle = {
-				// 	height: '350px',
-				// 	backgroundImage: 'url(' + result.url + ')',
-				// 	backgroundSize: 'cover',
-				// 	backgroundAttachment: 'fixed',
-				// 	WebkitTransition: 'all',    // note the capital 'W' here
-				// 	msTransition: 'all'         // 'ms' is the only lowercase vendor prefix
-				// };
-
 				return (
 					<section key={e}>
 
@@ -226,12 +143,6 @@ class ProjectStory extends React.Component {
 				);
 			});
 		}
-
-		let randomProjects = this.state.randomProjects.map((e, i) => {
-			return (
-				<ProjectCard key={e._id + i} project={e} activeLanguage={activeLanguage}/>
-			);
-		});
 
 		return (
 			<div id="project-story" className="container-fluid">
@@ -257,7 +168,6 @@ class ProjectStory extends React.Component {
 							{project.description[activeLanguage]}
 						</h2>
 					</section>
-
 
 
 					<section id="project-description">
@@ -286,14 +196,11 @@ class ProjectStory extends React.Component {
 				</section>
 
 
-				<section className='container-padding section-padding-top-bottom'>
-					<h2 className="section-title">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>
-					<div id="other-projects">
-						{randomProjects}
-					</div>
+				<section className='section-padding-top-bottom'>
+					<h2 className="section-title text-center">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>
+					<RandomProjects language={activeLanguage} currentProjectId={this.projectId}/>
 				</section>
 
-				{/*<ContactForm/>*/}
 			</div>
 		);
 	}

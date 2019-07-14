@@ -2,6 +2,7 @@ import React from 'react';
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 // Partials
+import PageHeader from '../common/headers/PageHeader';
 import OurAim from './partials/OurAim';
 import AccentProject from './partials/AccentProject';
 import OurPhilosophy from './partials/OurPhilosophy';
@@ -15,11 +16,7 @@ import projectsService from '../../../services/projects/projectsService';
 import clientsService from '../../../services/clients/clientsService';
 import categoriesService from '../../../services/categories/categoriesService';
 
-// Constants
-import { USER_PAGES_TEXT } from '../../../constants/constants';
 
-// Utils
-import UTILS from '../../../utils/utils';
 
 class Home extends React.Component {
 	constructor (props) {
@@ -109,10 +106,9 @@ class Home extends React.Component {
 		return (
 			<div id="home" className='container-fluid'>
 
-				<section className='container section-padding-top-bottom'>
+				<PageHeader language={activeLanguage} pageName='home' />
 
-					<h1 className='page-title'
-					    dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.home[activeLanguage].title)}/>
+				<section className='container section-padding-bottom'>
 
 					<video autoPlay={true}
 					       loop={true}

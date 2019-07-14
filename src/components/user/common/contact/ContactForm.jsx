@@ -1,16 +1,16 @@
 import React from 'react';
-import { LanguageContext } from '../../common/languagesContext/LanguageContext';
+import { LanguageContext } from '../../../common/languagesContext/LanguageContext';
 
 // Partials
-import FormInput from '../../common/formComponents/FormInput';
-import TextArea from '../../common/formComponents/TextArea';
+import FormInput from '../../../common/formComponents/FormInput';
+import TextArea from '../../../common/formComponents/TextArea';
 
 // Services
-import contactFormService from '../../../services/contact/contactFormService';
+import contactFormService from '../../../../services/contact/contactFormService';
 
 // Constants
-import { BUTTONS, NOTIFICATIONS, USER_PAGES_TEXT, FORM_VALIDATION } from '../../../constants/constants';
-import Notifications from '../../common/Notifications';
+import { BUTTONS, NOTIFICATIONS, USER_PAGES_TEXT, FORM_VALIDATION } from '../../../../constants/constants';
+import Notifications from '../../../common/Notifications';
 
 class ContactForm extends React.Component {
 	constructor (props) {

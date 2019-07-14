@@ -7,10 +7,10 @@ import { LanguageContext, languages } from './languagesContext/LanguageContext';
 
 // Services
 import authService from '../../services/auth/authService';
-import categoriesService from '../../services/categories/categoriesService';
 
 // Constants
 import { MENU } from '../../constants/constants';
+
 
 class HeaderC extends React.Component {
 
@@ -33,27 +33,15 @@ class HeaderC extends React.Component {
 				.then(res => {
 					authService.saveSession(res);
 					this.getLanguage();
-					// this.loadCategories();
 				})
 				.catch(err => {
 					console.log(err);
 				});
 		} else {
 			this.getLanguage();
-			// this.loadCategories();
 		}
 	}
 
-	loadCategories = () => {
-		categoriesService
-			.loadAllCategories()
-			.then(res => {
-				this.setState({categories: res});
-			})
-			.catch(err => {
-				console.log(err);
-			});
-	};
 
 	getLanguage = () => {
 
@@ -123,7 +111,7 @@ class HeaderC extends React.Component {
 	render () {
 
 		let admin = sessionStorage.getItem('role') !== null;
-		let lang = this.context.language;
+		let activeLanguage = this.context.language;
 
 		let toggleBtn = (
 			<button id="toggle-menu-btn"
@@ -148,24 +136,24 @@ class HeaderC extends React.Component {
 
 						<NavLink to='/admin/projects-list'
 						         className="nav-link"
-						         activeClassName='active'>{MENU[lang].projects}</NavLink>
+						         activeClassName='active'>{MENU[activeLanguage].projects}</NavLink>
 
 						<NavLink to='/admin/category-list'
 						         className="nav-link"
-						         activeClassName='active'>{MENU[lang].categories}</NavLink>
+						         activeClassName='active'>{MENU[activeLanguage].categories}</NavLink>
 
 						<NavLink to='/admin/clients-list'
 						         className="nav-link"
-						         activeClassName='active'>{MENU[lang].clients}</NavLink>
+						         activeClassName='active'>{MENU[activeLanguage].clients}</NavLink>
 
 						<NavLink to='/admin/sections-list'
 						         className="nav-link"
-						         activeClassName='active'>{MENU[lang].sections}</NavLink>
+						         activeClassName='active'>{MENU[activeLanguage].sections}</NavLink>
 
 						<NavLink exact to='/'
 						         className="nav-link"
 						         activeClassName='active'
-						         onClick={this.logout}>{MENU[lang].logout}</NavLink>
+						         onClick={this.logout}>{MENU[activeLanguage].logout}</NavLink>
 
 					</nav>
 
@@ -174,15 +162,16 @@ class HeaderC extends React.Component {
 			);
 		}
 
-		let link = lang === languages.bg ? '/projects/' : '/' + lang + '/projects/';
+
+		let language = activeLanguage === languages.bg ? '' : '/' + activeLanguage;
 
 		return (
 			<header >
 
 				<div id="header">
 					<button id="lang-btn" className="btn btn-default sm"
-					        value={lang}
-					        onClick={this.changeRouteByLanguage}>{lang === languages.bg ? languages.en : languages.bg}
+					        value={activeLanguage}
+					        onClick={this.changeRouteByLanguage}>{activeLanguage === languages.bg ? languages.en : languages.bg}
 					</button>
 
 					<Link to="/" id="brand" onClick={this.toggleNav}/>
@@ -194,40 +183,40 @@ class HeaderC extends React.Component {
 				<nav id="main-nav" ref={this.mainNav} onClick={this.toggleNav}>
 
 					<NavLink exact
-					         to="/"
+					         to={language + '/'}
 					         className="nav-link"
-					         activeClassName='active'>{MENU[lang].home}</NavLink>
+					         activeClassName='active'>{MENU[activeLanguage].home}</NavLink>
 
 
 					<NavLink exact
-					         to="/about-us"
+					         to={language + '/about-us'}
 					         className="nav-link"
-					         activeClassName='active'>{MENU[lang].aboutUs}</NavLink>
+					         activeClassName='active'>{MENU[activeLanguage].aboutUs}</NavLink>
 
 					<NavLink
-						to={link}
+						to={language + '/projects'}
 						className="nav-link"
-						activeClassName='active'>{MENU[lang].projects}</NavLink>
+						activeClassName='active'>{MENU[activeLanguage].projects}</NavLink>
 
 					<NavLink exact
-					         to="/services"
+					         to={language + '/services'}
 					         className="nav-link"
-					         activeClassName='active'>{MENU[lang].services}</NavLink>
+					         activeClassName='active'>{MENU[activeLanguage].services}</NavLink>
 
 					<NavLink exact
 					         to="/careers"
 					         className="nav-link"
-					         activeClassName='active'>{MENU[lang].careers}</NavLink>
+					         activeClassName='active'>{MENU[activeLanguage].careers}</NavLink>
 
 					<NavLink exact
-					         to="/contact"
+					         to={language + '/contact'}
 					         className="nav-link"
-					         activeClassName='active'>{MENU[lang].contact}</NavLink>
+					         activeClassName='active'>{MENU[activeLanguage].contact}</NavLink>
 
 					<NavLink exact
 					         to="/login"
 					         className="nav-link"
-					         activeClassName='active'>{MENU[lang].login}</NavLink>
+					         activeClassName='active'>{MENU[activeLanguage].login}</NavLink>
 
 				</nav>
 

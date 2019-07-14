@@ -2,14 +2,9 @@ import React from 'react';
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 // Partials
-import ContactForm from '../common/ContactForm';
+import PageHeader from '../common/headers/PageHeader';
+import ContactForm from '../common/contact/ContactForm';
 
-
-// Constants
-import {USER_PAGES_TEXT} from '../../../constants/constants';
-
-// Utils
-import UTILS from '../../../utils/utils';
 
 class ContactUs extends React.Component {
 	constructor (props) {
@@ -28,16 +23,7 @@ class ContactUs extends React.Component {
 		return (
 			<div id="contact-us" className='container-fluid'>
 
-				<div className='container'>
-
-					<section className='banner'>
-						<h1 className='page-title'
-						    dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.contact[activeLanguage].title)}/>
-
-						<p className='subtitle'
-						   dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.contact[activeLanguage].subtitle)}/>
-					</section>
-				</div>
+				<PageHeader language={activeLanguage} pageName='contact' />
 
 				<ContactForm />
 

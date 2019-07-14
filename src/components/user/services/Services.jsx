@@ -1,14 +1,15 @@
 import React from 'react';
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
-// Constants
-import { USER_PAGES_TEXT } from '../../../constants/constants';
-
-// Utils
-import UTILS from '../../../utils/utils';
+// Partials
+import PageHeader from '../common/headers/PageHeader';
+import ServicesMain from './partials/ServicesMain';
+import ServicesDescription from './partials/ServicesDescription';
+import ServicesSkills from './partials/ServicesSkills';
+import ServicesWork from './partials/ServicesWork';
+import ServicesContact from './partials/ServicesContact';
 
 class Services extends React.Component {
-
 
 	render () {
 
@@ -17,15 +18,17 @@ class Services extends React.Component {
 		return (
 			<div id="services" className='container-fluid'>
 
-				<section className='banner container'>
+				<PageHeader language={activeLanguage} pageName='services'/>
 
-					<h1 className='page-title'
-					    dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].title)}/>
+				<ServicesMain language={activeLanguage}/>
 
-					<p className='subtitle'
-					   dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].subtitle)}/>
+				<ServicesDescription language={activeLanguage}/>
 
-				</section>
+				<ServicesSkills language={activeLanguage}/>
+
+				<ServicesWork language={activeLanguage}/>
+
+				<ServicesContact language={activeLanguage}/>
 
 			</div>
 

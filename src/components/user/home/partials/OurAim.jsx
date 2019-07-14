@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// Constants
-import { BUTTONS, USER_PAGES_TEXT } from '../../../../constants/constants';
+// Partials
+import SectionHeader from '../../common/headers/SectionHeader';
 
-// Utils
-import UTILS from '../../../../utils/utils';
+// Constants
+import { BUTTONS } from '../../../../constants/constants';
 
 
 class OurAim extends React.Component {
@@ -18,13 +18,7 @@ class OurAim extends React.Component {
 
 			<section id="our-aim" className="container section-padding-bottom">
 
-				{/*<h4 className='section-name'>{USER_PAGES_TEXT.home[activeLanguage].sections.ourAim.name}</h4>*/}
-
-				<h2 className="section-title"
-				    dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.home[activeLanguage].sections.ourAim.title)}/>
-
-				<p className='section-text'
-				   dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.home[activeLanguage].sections.ourAim.text)}/>
+				<SectionHeader pageName='home' language={activeLanguage} sectionName='ourAim'/>
 
 				<Link className='btn btn-default' to='projects'>{BUTTONS[activeLanguage].seeWhatWeDo}</Link>
 

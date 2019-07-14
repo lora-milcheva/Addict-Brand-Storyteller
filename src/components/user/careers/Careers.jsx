@@ -1,11 +1,9 @@
 import React from 'react';
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
-// Constants
-import { USER_PAGES_TEXT } from '../../../constants/constants';
 
-// Utils
-import UTILS from '../../../utils/utils';
+// Partials
+import PageHeader from '../common/headers/PageHeader';
 
 
 class Careers extends React.Component {
@@ -17,14 +15,7 @@ class Careers extends React.Component {
 		return (
 			<div id="careers" className='container-fluid'>
 
-				<section className='banner container'>
-
-					<h1 className='page-title'
-					    dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.careers[activeLanguage].title)}/>
-
-					<p className='subtitle'
-					   dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.careers[activeLanguage].subtitle)}/>
-				</section>
+				<PageHeader language={activeLanguage} pageName='careers' />
 
 			</div>
 
