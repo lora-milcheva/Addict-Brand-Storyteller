@@ -101,7 +101,12 @@
     color: $dark-grey;
     margin-top: 0;
     font-size: 1.15em;
-    line-height: 1.8em;
+    line-height: 1.7em;
+
+    li {
+      margin-top: 10px;
+      line-height: 1.4em;
+    }
   }
 }
 
@@ -174,7 +179,7 @@
     #sections {
       @include display-grid;
       //@include grid-template-columns(4, 1fr);
-      @include grid-gap(50px, 0);
+      @include grid-gap($grid-gap, 0);
 
 
       text-align: left;
@@ -184,7 +189,7 @@
         margin: auto;
         @include display-grid;
         grid-template-columns: 1.5fr 3fr;
-        @include grid-gap(0, 50px);
+        @include grid-gap(0, $grid-gap);
 
         @include slow-transition;
 
@@ -224,7 +229,7 @@
 #projects-list .projects-container {
 
   @include display-grid;
-  @include grid-gap(100px);
+  @include grid-gap($grid-gap);
 
   padding-bottom: 100px;
 
@@ -252,7 +257,7 @@
 
       .project-info {
         .cliche {
-          //color: $primary;
+          color: $primary;
         }
 
         .btn {
@@ -262,7 +267,7 @@
       }
 
       .img-container .img-fit {
-        @include scale(1.05);
+        @include scale(1.1);
       }
     }
 
@@ -308,7 +313,7 @@
 
   @include display-grid;
   @include grid-template-columns(3, 1fr);
-  @include grid-gap(25px, 25px);
+  @include grid-gap($grid-gap-small, $grid-gap-small);
   margin: 0 25px;
 
 
@@ -390,9 +395,8 @@
       .project-name,
       .client {
         @include transform-text;
-        color: $dark-grey-1;
+        color: $dark-grey;
         margin: .2em 0;
-        text-transform: uppercase;
       }
 
 
@@ -801,13 +805,13 @@
         @include display-grid;
         @include justify-content-center;
         @include align-content-center;
-        padding: 10px;
+        padding: 10px 20px;
         background-color: $bg-grey;
         text-align: center;
         font-size: 1.3em;
         color: $dark-grey;
         font-weight: 600;
-        height: 18vh;
+        height: 22vh;
 
 
         &.left {
@@ -824,6 +828,12 @@
         &.right {
           clip-path: polygon(90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%, 0% 0%);
         }
+      }
+
+      .small {
+        font-size: .5em;
+        font-weight: 400;
+        margin-top: 10px;
       }
     }
 
@@ -845,20 +855,31 @@
     }
   }
 
-  #services-description {
+  #services-description #articles {
     @include display-grid;
     @include grid-template-columns(2, 1fr);
-    @include grid-gap(50px, 50px);
+
 
     .section-title {
       margin: 0;
     }
 
     .article-box {
-      margin-top: 50px;
+      padding: 10px 45px;
+      text-align: center;
 
-      &:first-of-type {
-        margin-top: 12px;
+      &:nth-of-type(2) {
+        grid-area: 2 / 1 / 2 / 1;
+      }
+
+      &:nth-of-type(2),
+      &:nth-of-type(1) {
+        border-right: 2px solid $primary;
+      }
+
+      &:nth-of-type(2),
+      &:nth-of-type(4) {
+        padding-top: 45px;
       }
     }
   }
@@ -866,7 +887,7 @@
   #services-skills #skills-description {
     @include display-grid;
     @include grid-template-columns(4, 1fr);
-    @include grid-gap(50px, 50px)
+    @include grid-gap($grid-gap, $grid-gap)
   }
 }
 
@@ -877,7 +898,7 @@
 #contact-form {
   @include display-grid;
   @include grid-template-columns(2, 1fr);
-  @include grid-gap(10px, 25px);
+  @include grid-gap($grid-gap-small, $grid-gap-small);
 
   .buttons-container,
   .section-title,

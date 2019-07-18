@@ -353,9 +353,14 @@ button {
   }
 }
 
+.img-container {
+  overflow: hidden;
+}
+
 .img-fit {
   object-fit: cover;
   height: 100%;
+  @include fit-img;
 }
 
 .page-header {
@@ -585,7 +590,6 @@ footer {
       padding: 3px 10px;
       color: $black;
 
-      @include transform-text;
       @include main-transition;
 
       &:hover,
@@ -597,9 +601,6 @@ footer {
       &.active {
         background-color: $black;
         color: $medium-to-dark-grey;
-
-        //font-weight: 600;
-        //border-bottom: 1px solid $medium-to-dark-grey;
       }
     }
   }

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 // Partials
 import SectionHeader from '../../common/headers/SectionHeader';
 
@@ -10,9 +9,6 @@ import { USER_PAGES_TEXT } from '../../../../constants/constants';
 
 // Utils
 import UTILS from '../../../../utils/utils';
-
-
-
 
 class ServicesMain extends React.Component {
 
@@ -34,8 +30,10 @@ class ServicesMain extends React.Component {
 					<span className='scheme left'
 					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.brandStory)}/>
 
-					<span className='scheme center'
-					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.brandConcept)}/>
+					<div className='scheme center'>
+						<span dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.brandConcept)}/>
+						<span className='small' dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.brandConcept.text)}/>
+					</div>
 
 					<span className='scheme right'
 					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.integratedCampaigns)}/>

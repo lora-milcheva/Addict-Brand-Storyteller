@@ -248,9 +248,13 @@ button {
     padding: 25px;
     border: 1px solid #eaeaea; }
 
+.img-container {
+  overflow: hidden; }
+
 .img-fit {
   object-fit: cover;
-  height: 100%; }
+  height: 100%;
+  transform: scale(1.04); }
 
 .page-header {
   -webkit-flex-basis: 100%;
@@ -350,6 +354,8 @@ main {
   background: #fff;
   z-index: 1000; }
   #header #lang-btn {
+    text-transform: uppercase;
+    letter-spacing: 1px;
     width: calc(100%);
     justify-content: center;
     margin: 10px; }

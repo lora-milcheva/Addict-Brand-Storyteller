@@ -269,11 +269,17 @@
 
 }
 
+// Images
+
+@mixin fit-img {
+  transform: scale(1.04);
+}
+
 // Text
 
 @mixin transform-text {
-  //text-transform: uppercase;
-  //letter-spacing: 1px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   //font-size: .85em;
 }
 
