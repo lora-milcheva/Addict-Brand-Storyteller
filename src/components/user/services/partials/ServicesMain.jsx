@@ -22,30 +22,38 @@ class ServicesMain extends React.Component {
 
 		return (
 
-			<section id='services-main' className='container'>
+			<section id='services-main' className='container section-padding-bottom'>
 
 				<SectionHeader pageName='services' language={activeLanguage} sectionName='main'/>
 
 				<section id='services-scheme'>
 
-						<span className='scheme'
-						      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.tailorMadeProduction.title)}/>
+					<span className='scheme left'
+					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.tailorMadeProduction)}/>
 
-					<span className='scheme'
-					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.brandStory.title)}/>
+					<span className='scheme left'
+					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.brandStory)}/>
 
-					<span className='scheme'
-					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.brandConcept.title)}/>
+					<span className='scheme center'
+					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.brandConcept)}/>
 
-					<span className='scheme'
-					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.integratedCampaigns.title)}/>
+					<span className='scheme right'
+					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.integratedCampaigns)}/>
 
-					<span className='scheme'
-					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.brandAchievements.title)}/>
+					<span className='scheme right'
+					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.brandAchievements)}/>
 				</section>
 
-				<h2 className="section-title text-center"
-				    dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.brandConcept.text)}/>
+				<section id='scheme-description'>
+					<span className='scheme-description'
+					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.architecture)}/>
+
+					<span className='scheme-description'
+					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.startPoint)}/>
+
+					<span className='scheme-description'
+					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.marketingCommunications)}/>
+				</section>
 
 			</section>
 		);

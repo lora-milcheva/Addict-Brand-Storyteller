@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 
 // Partials
 import SectionHeader from '../../common/headers/SectionHeader';
 
 // Constants
 import { BUTTONS } from '../../../../constants/constants';
-
-
 
 class AboutUs extends React.Component {
 
@@ -19,7 +19,10 @@ class AboutUs extends React.Component {
 
 			<section id="home-about-us" className="container section-padding-top-bottom">
 
-				<SectionHeader pageName='home' language={activeLanguage} sectionName='aboutUs'/>
+				<SectionHeader language={activeLanguage}
+				               pageName='home'
+				               sectionName='aboutUs'
+				               showSectionName={true}/>
 
 				<Link className='btn btn-default' to='/about-us'>{BUTTONS[activeLanguage].readMore}</Link>
 
@@ -29,3 +32,7 @@ class AboutUs extends React.Component {
 }
 
 export default AboutUs;
+
+AboutUs.propTypes = {
+	language: PropTypes.string,
+};

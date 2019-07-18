@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // Partials
 import SectionHeader from '../../common/headers/SectionHeader';
@@ -18,9 +19,12 @@ class OurAim extends React.Component {
 
 			<section id="our-aim" className="container section-padding-bottom">
 
-				<SectionHeader pageName='home' language={activeLanguage} sectionName='ourAim'/>
+				<SectionHeader language={activeLanguage}
+				               pageName='home'
+				               sectionName='ourAim'
+				               showSectionName={false}/>
 
-				<Link className='btn btn-default' to='projects'>{BUTTONS[activeLanguage].seeWhatWeDo}</Link>
+				<Link className='btn btn-default' to='/projects'>{BUTTONS[activeLanguage].seeWhatWeDo}</Link>
 
 			</section>
 		);
@@ -28,3 +32,8 @@ class OurAim extends React.Component {
 }
 
 export default OurAim;
+
+
+OurAim.propTypes = {
+	language: PropTypes.string,
+};

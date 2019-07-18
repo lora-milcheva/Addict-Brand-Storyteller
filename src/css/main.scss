@@ -1,11 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=cyrillic');
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&subset=cyrillic,cyrillic-ext');
 @import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:100,300,400,500,700,800,900&display=swap&subset=cyrillic,cyrillic-ext');
-
-
-
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
-
 @import "colors";
 @import "mixins";
 
@@ -16,6 +12,10 @@ $header-height: 80px;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -40,7 +40,7 @@ h2 {
 }
 
 p {
-
+  //margin: .4em 0;
 }
 
 .container-fluid {
@@ -58,24 +58,24 @@ p {
 }
 
 .section-padding-top-bottom {
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: $section-padding-top;
+  padding-bottom: $section-padding-bottom;
 }
 
 .section-padding-top {
-  padding-top: 80px;
+  padding-top: $section-padding-top;
 }
 
 .section-padding-bottom {
-  padding-bottom: 80px;
+  padding-bottom: $section-padding-bottom;
 }
 
 .section-padding-left-right {
-  padding: 0 25px;
+  padding: 0 $section-padding-left-right;
 }
 
 .section-padding-all {
-  padding: 80px 25px;
+  padding: $section-padding-top $section-padding-left-right $section-padding-bottom;
 }
 
 .text-danger {
@@ -466,7 +466,7 @@ main {
 
   #lang-btn {
     @include transform-text;
-    width: calc(100%);  // without margins 2 * 10px
+    width: calc(100%); // without margins 2 * 10px
     justify-content: center;
     margin: 10px;
   }
@@ -481,16 +481,15 @@ main {
   #toggle-menu-btn {
     display: block;
     justify-self: end;
-    width: calc(100%);   // without margins 2 * 10px
+    width: calc(100%); // without margins 2 * 10px
     margin: 10px;
-    background-color: $black;
 
     .toggle {
       display: block;
-      height: 1px;
-      width: 15px;
-      background-color: $medium-to-dark-grey;
-      margin: 4px auto;
+      height: 3px;
+      width: 35px;
+      background-color: $black;
+      margin: 6px auto;
 
       @include main-transition;
     }
@@ -500,8 +499,8 @@ main {
       .toggle:first-of-type {
         transform: rotate(45deg);
         position: relative;
-        top: 6px;
-        height: 2px;
+        top: 5px;
+        height: 3px;
       }
 
       .toggle:nth-of-type(2) {
@@ -511,8 +510,8 @@ main {
       .toggle:last-of-type {
         transform: rotate(-45deg);
         position: relative;
-        top: -5px;
-        height: 2px;
+        top: -12px;
+        height: 3px;
       }
     }
   }
@@ -525,11 +524,13 @@ main {
 
   position: fixed;
   top: $header-height;
+  min-width: 300px;
   right: 0;
-  left: 0;
   bottom: 0;
 
+
   background-color: $white;
+  border-left: 1px solid $medium-grey;
 
 
   @include translate(105%);
@@ -537,14 +538,13 @@ main {
 
 
   .nav-link {
-    font-size: 1em;
+    font-size: 1.5em;
+    font-weight: 600;
     text-align: right;
     width: 80%;
     margin: auto;
-    padding: 25px;
-    color: $medium-to-dark-grey;
-    @include transform-text;
-    border-bottom: 1px solid transparent;
+    padding: 20px;
+    border-bottom: 3px solid transparent;
 
     @include main-transition;
 
@@ -555,9 +555,7 @@ main {
     &.active,
     &:hover,
     &:active {
-      color: $black;
-      padding-right: 40px;
-      border-bottom: 1px solid $black;
+      border-bottom: 3px solid $primary;
     }
   }
 

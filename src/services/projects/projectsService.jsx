@@ -73,6 +73,7 @@ function createProjectInfo (state) {
 		categoryIds: state.categoryIds,
 		images: state.images,
 		thumbnail: state.thumbnail,
+		largeThumbnail: state.largeThumbnail,
 		cover: state.cover,
 		videos: state.videos,
 		orderNumber: state.orderNumber

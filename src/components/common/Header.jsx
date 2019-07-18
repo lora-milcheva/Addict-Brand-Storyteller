@@ -115,7 +115,7 @@ class HeaderC extends React.Component {
 
 		let toggleBtn = (
 			<button id="toggle-menu-btn"
-			        className="btn btn-default sm"
+			        className="btn sm"
 			        ref={this.toggleMenuBtn}
 			        onClick={this.toggleMenu}>
 				<span className="toggle"/>

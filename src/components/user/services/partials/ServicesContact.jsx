@@ -16,7 +16,7 @@ class ServicesContact extends React.Component {
 		return (
 			<section id='services-contact'>
 
-				<SectionHeader pageName='services' language={activeLanguage} sectionName='contact'/>
+				<SectionHeader pageName='services' language={activeLanguage} sectionName='contact' />
 
 				<ContactForm />
 

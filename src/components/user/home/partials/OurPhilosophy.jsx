@@ -15,7 +15,10 @@ class OurPhilosophy extends React.Component {
 
 			<section id="our-philosophy" className="container section-padding-top-bottom">
 
-				<SectionHeader pageName='home' language={activeLanguage} sectionName='ourPhilosophy'/>
+				<SectionHeader language={activeLanguage}
+				               pageName='home'
+				               sectionName='ourPhilosophy'
+				               showSectionName={true}/>
 
 				<section id='sections'>
 

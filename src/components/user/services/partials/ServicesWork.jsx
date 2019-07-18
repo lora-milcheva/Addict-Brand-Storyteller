@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 // Partials
 import SectionHeader from '../../common/headers/SectionHeader';
 import RandomProjects from '../../common/projects/RandomProjects';
-
 
 class ServicesWork extends React.Component {
 
@@ -15,8 +13,11 @@ class ServicesWork extends React.Component {
 
 		return (
 
-			<section id='services-work' className=''>
-				<SectionHeader pageName='services' language={activeLanguage} sectionName='work'/>
+			<section id='services-work' className='section-padding-top-bottom'>
+				<SectionHeader language={activeLanguage}
+				               pageName='services'
+				               sectionName='work'
+				               showSectionName={false}/>
 				<RandomProjects language={activeLanguage}/>
 			</section>
 		);

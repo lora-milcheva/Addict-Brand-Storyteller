@@ -15,9 +15,9 @@ class ServicesSkills extends React.Component {
 
 		return (
 
-			<section id='services-skills' className='container'>
+			<section id='services-skills' className='container section-padding-top-bottom'>
 
-				<SectionHeader pageName='services' language={activeLanguage} sectionName='skills'/>
+				<SectionHeader language={activeLanguage} pageName='services' sectionName='skills' showSectionName={true}/>
 
 				<section id='skills-description'>
 

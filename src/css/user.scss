@@ -2,11 +2,29 @@
 @import "mixins";
 
 
+#go-to-top-btn {
+  position: fixed;
+  bottom: -25px;
+  right: 25px;
+  z-index: 10000;
+
+  opacity: 0;
+  visibility: hidden;
+
+  @include main-transition;
+
+  &.visible {
+    opacity: 1;
+    bottom: 25px;
+    visibility: visible;
+  }
+}
+
 // Common
 .banner {
-  padding: 80px 0;
+  padding: 40px 0;
   border-bottom: 3px solid $primary;
-  margin-bottom: 80px;
+  margin-bottom: 50px;
 }
 
 .page-header {
@@ -20,27 +38,32 @@
 .subtitle {
   font-size: 1.5em;
   width: 75%;
-  margin: auto;
+  margin: 25px auto 10px auto;
   line-height: 1.5em;
 }
 
 .section-header {
   text-align: center;
+  margin-bottom: 1em;
 }
 
 .section-name {
   display: inline-block;
-  padding: 15px 0;
+  padding-bottom: 10px;
   border-bottom: 3px solid $primary;
+  margin-bottom: 20px;
+  @include transform-button-text;
 }
 
 .section-title {
   @include second-title-text;
-  margin-bottom: 30px;
 }
 
 .section-text {
-  margin-bottom: 45px;
+  margin: $text-margin 0 $section-padding-top 0;
+  font-weight: 500;
+  color: #5d5d5d;
+  line-height: 1.8em;
 }
 
 .smaller {
@@ -52,6 +75,12 @@
   margin-top: 30px;
 }
 
+.accent-text {
+  font-size: 1.8em;
+  line-height: 1.5em;
+  margin-top: 1em;
+}
+
 .accent {
   color: $primary;
   text-transform: uppercase;
@@ -61,7 +90,7 @@
 .article-box {
 
   .article-headline {
-    font-size: 1.7em;
+    font-size: 1.8em;
     //color: $primary;
     margin-bottom: 20px;
   }
@@ -70,6 +99,8 @@
     list-style-type: none;
     font-weight: 500;
     color: $dark-grey;
+    margin-top: 0;
+    font-size: 1.15em;
     line-height: 1.8em;
   }
 }
@@ -77,20 +108,18 @@
 
 #home {
 
+  text-align: center;
+
   .carousel-video {
     width: 100%;
   }
 
-  #our-aim,
-  #our-philosophy,
-  #home-services,
-  #home-about-us {
-    text-align: center;
-  }
-
-  #accent-project,
   .home-project {
     position: relative;
+
+    .img-container {
+      //background-color: $black;
+    }
 
 
     .project-info {
@@ -99,8 +128,24 @@
       top: 50%;
       left: 50%;
       @include translate(-50%, -50%);
+
       color: $white;
       text-align: center;
+
+
+      &.left {
+        text-align: left;
+        left: 10%;
+        @include translate(0, -50%);
+      }
+
+      &.right {
+        text-align: right;
+        right: 10%;
+        left: auto;
+        @include translate(0, -50%);
+      }
+
 
       .project-name {
         @include transform-text;
@@ -119,7 +164,7 @@
   }
 
   #our-philosophy {
-    border-bottom: 3px solid $primary;
+    //border-bottom: 3px solid $primary;
 
     .section-title {
       font-size: 5vw;
@@ -127,40 +172,22 @@
 
 
     #sections {
-      width: 80%;
-      margin: auto;
       @include display-grid;
-      @include grid-gap(40px, 0);
+      //@include grid-template-columns(4, 1fr);
+      @include grid-gap(50px, 0);
+
+
       text-align: left;
 
-      article {
+      .article-box {
+        width: 80%;
+        margin: auto;
         @include display-grid;
-        grid-template-columns: 4fr 3fr;
+        grid-template-columns: 1.5fr 3fr;
+        @include grid-gap(0, 50px);
 
         @include slow-transition;
 
-        &:hover {
-          .title {
-            color: $primary;
-          }
-
-          .text {
-            color: $black;
-          }
-        }
-
-        .title {
-          font-size: 1.8em;
-          padding-right: 25px;
-          color: $dark-grey;
-          @include ease-in();
-        }
-
-        .text {
-          font-size: 1.25em;
-          color: $medium-to-dark-grey;
-          @include ease-in();
-        }
       }
     }
   }
@@ -171,6 +198,22 @@
 
   #home-about-us {
 
+  }
+}
+
+#block-quote {
+
+  background-color: $pale-salmon;
+
+  .quote {
+    @include quotation-text;
+    text-align: left;
+  }
+
+  .author {
+    @include author;
+    color: $dark-grey;
+    text-align: right;
   }
 }
 
@@ -746,18 +789,58 @@
 
   #services-main {
 
+    .section-title {
+      font-size: 3.5vw;
+    }
+
     #services-scheme {
       @include display-grid;
       @include grid-template-columns(5, 1fr);
-      @include grid-gap(0, 20px);
 
       .scheme {
         @include display-grid;
-        padding: 25px;
-        background-color: $primary;
         @include justify-content-center;
         @include align-content-center;
-        height: 100%;
+        padding: 10px;
+        background-color: $bg-grey;
+        text-align: center;
+        font-size: 1.3em;
+        color: $dark-grey;
+        font-weight: 600;
+        height: 18vh;
+
+
+        &.left {
+          clip-path: polygon(100% 0%, 90% 50%, 100% 100%, 10% 100%, 0% 50%, 10% 0%);
+        }
+
+        &.center {
+          font-size: 1.7em;
+          clip-path: polygon(90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%, 10% 0%);
+          background-color: $primary;
+          color: $white;
+        }
+
+        &.right {
+          clip-path: polygon(90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%, 0% 0%);
+        }
+      }
+    }
+
+    #scheme-description {
+      @include display-grid;
+      grid-template-columns: 2fr 1fr 2fr;
+      margin-top: 30px;
+
+      text-align: center;
+      color: $dark-grey-1;
+      //text-transform: uppercase;
+      //@include transform-text;
+      font-weight: 600;
+      font-size: .85em;
+
+      .scheme-description {
+
       }
     }
   }
@@ -765,11 +848,18 @@
   #services-description {
     @include display-grid;
     @include grid-template-columns(2, 1fr);
-    @include grid-template-rows(2, 1fr);
     @include grid-gap(50px, 50px);
 
+    .section-title {
+      margin: 0;
+    }
+
     .article-box {
-      //text-align: center;
+      margin-top: 50px;
+
+      &:first-of-type {
+        margin-top: 12px;
+      }
     }
   }
 
@@ -840,3 +930,6 @@
   background-color: transparent;
   padding-top: 0;
 }
+
+
+

@@ -57,7 +57,7 @@ class ProjectList extends React.Component {
 				projectsService
 					.loadAllProjects()
 					.then(res => {
-							res.sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber))
+						res.sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber))
 								.forEach(p => {
 									p.clientName = this.state.clients.filter(c => c._id === p.clientId)[0].name;
 								});

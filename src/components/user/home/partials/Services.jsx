@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 
 // Partials
@@ -7,6 +8,7 @@ import SectionHeader from '../../common/headers/SectionHeader';
 
 // Constants
 import { BUTTONS } from '../../../../constants/constants';
+
 
 class Services extends React.Component {
 
@@ -18,7 +20,10 @@ class Services extends React.Component {
 
 			<section id="home-services" className="container section-padding-top-bottom">
 
-				<SectionHeader pageName='home' language={activeLanguage} sectionName='services'/>
+				<SectionHeader language={activeLanguage}
+				               pageName='home'
+				               sectionName='services'
+				               showSectionName={true}/>
 
 				<Link className='btn btn-default' to='/services'>{BUTTONS[activeLanguage].readMore}</Link>
 
@@ -28,3 +33,7 @@ class Services extends React.Component {
 }
 
 export default Services;
+
+Services.propTypes = {
+	language: PropTypes.string,
+};

@@ -48,6 +48,7 @@ class createProject extends React.Component {
 			categoryIds: [],
 
 			thumbnail: '',
+			largeThumbnail: '',
 			cover: '',
 			images: [],
 			videos: [],
@@ -92,6 +93,7 @@ class createProject extends React.Component {
 						categoryIds: res.categoryIds,
 						images: res.images,
 						thumbnail: res.thumbnail || '',
+						largeThumbnail: res.largeThumbnail || '',
 						cover: res.cover || '',
 						videos: res.videos,
 						orderNumber: res.orderNumber,
@@ -460,6 +462,17 @@ class createProject extends React.Component {
 			)
 			: null;
 
+		let largeThumbnail = this.state.largeThumbnail !== ''
+			? (<figure className="image">
+					<button className="btn btn-primary xs del-btn"
+					        name='thumbnail'
+					        onClick={this.removeCoverThumbnail}>{BUTTONS.en.clear}
+					</button>
+					<img src={this.state.largeThumbnail} alt="project thumbnail" className="img-fit"/>
+				</figure>
+			)
+			: null;
+
 		let cover = this.state.cover !== ''
 			? (<figure className="image">
 					<button className="btn btn-primary xs del-btn"
@@ -680,6 +693,25 @@ class createProject extends React.Component {
 								labelClassName="no-label"
 								buttonText='+'
 								value={this.state.thumbnail}
+								placeholder='/images/projects/folderName/imageName'
+								onChange={this.handleInputChange}
+								clearText={false}/>
+						</div>
+
+						{/*Large Thumbnail*/}
+						<div className="project-data">
+
+							<h3 className="section-title">{ADMIN_PAGES_TEXT.project.bg.largeThumbnail}</h3>
+							<div className="container">
+								{largeThumbnail}
+							</div>
+
+							<AddOnInput
+								name="largeThumbnail"
+								label={CREATE_PROJECT_INPUTS.bg.largeThumbnail}
+								labelClassName="no-label"
+								buttonText='+'
+								value={this.state.largeThumbnail}
 								placeholder='/images/projects/folderName/imageName'
 								onChange={this.handleInputChange}
 								clearText={false}/>

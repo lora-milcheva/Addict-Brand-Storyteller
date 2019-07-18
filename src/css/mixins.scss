@@ -272,15 +272,17 @@
 // Text
 
 @mixin transform-text {
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  //text-transform: uppercase;
+  //letter-spacing: 1px;
   //font-size: .85em;
 }
 
 @mixin transform-button-text {
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: .8em;
+  font-weight: 600;
+  font-size: 1.1em;
+  //text-transform: uppercase;
+  letter-spacing: .05px;
+  //font-size: .8em;
 }
 
 @mixin translate($valueX: 0, $valueY: 0) {
@@ -314,12 +316,27 @@
 }
 
 @mixin title-text {
-  font-size: 5vw;
+  font-size: 5.5vw;
+  line-height: 1.1em;
+  margin: 0;
+  font-weight: 800;
+}
+
+@mixin quotation-text {
+  font-size: 3.8vw;
   line-height: 1.1em;
   margin: .5em 0 1em;
   padding: 0 10%;
   font-weight: 400;
-  font-family: 'Prata', serif;
+  font-family: 'Prata Italic', serif;
+  font-style: italic;
+}
+
+@mixin author {
+  font-family: 'Prata Italic Italic', serif;
+  font-style: italic;
+  font-size: 1.8vw;
+  padding: 0 10%;
 }
 
 @mixin second-title-text {
@@ -327,8 +344,7 @@
   font-weight: 700;
   font-size: 2.5vw;
   line-height: 1.3em;
-  margin: .5em 0 1em;
-  padding: 0 10%;
+  padding: 0;
 }
 
 

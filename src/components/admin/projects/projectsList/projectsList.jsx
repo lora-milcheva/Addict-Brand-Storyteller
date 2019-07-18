@@ -12,7 +12,7 @@ import projectsService from '../../../../services/projects/projectsService';
 import Notifications from '../../../common/Notifications';
 
 // Constants
-import { BUTTONS, ADMIN_PAGES_TEXT } from '../../../../constants/constants';
+import { BUTTONS, ADMIN_PAGES_TEXT, NOTIFICATIONS } from '../../../../constants/constants';
 
 class projectsList extends React.Component {
 	constructor (props) {
@@ -53,8 +53,13 @@ class projectsList extends React.Component {
 
 			projectsService
 				.editProject(p._id, p)
-				.then(res => console.log(res))
-				.catch(err => console.log(err));
+				.then(res => {
+					this.notifications.showMessage(NOTIFICATIONS.bg.successEdit);
+				})
+				.catch(err => {
+					console.log(err);
+					this.notifications.showMessage(NOTIFICATIONS.bg.messageError)
+				});
 		});
 	};
 

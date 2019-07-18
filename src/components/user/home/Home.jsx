@@ -4,19 +4,18 @@ import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 // Partials
 import PageHeader from '../common/headers/PageHeader';
 import OurAim from './partials/OurAim';
-import AccentProject from './partials/AccentProject';
 import OurPhilosophy from './partials/OurPhilosophy';
 import Services from './partials/Services';
 import Projects from './partials/Projects';
 import AboutUs from './partials/AboutUs';
+import BlockQuote from '../common/articlePartials/BlockQuote';
 
 // Services
 import authService from '../../../services/auth/authService';
 import projectsService from '../../../services/projects/projectsService';
 import clientsService from '../../../services/clients/clientsService';
 import categoriesService from '../../../services/categories/categoriesService';
-
-
+import HomeProjectCard from '../common/projects/HomeProjectCard';
 
 class Home extends React.Component {
 	constructor (props) {
@@ -28,11 +27,16 @@ class Home extends React.Component {
 			clients: [],
 			categories: [],
 
+			btnVisible: false,
+
 			loading: true
 		};
+
 	}
 
 	componentDidMount () {
+
+		document.addEventListener('scroll', this.showHideBtn);
 
 		// Clear filtered by category projects
 		sessionStorage.removeItem('filteredProjects');
@@ -53,6 +57,23 @@ class Home extends React.Component {
 		this.loadStarProjects();
 	}
 
+	componentWillUnmount () {
+		document.removeEventListener('scroll', this.showHideBtn);
+	}
+
+	showHideBtn = () => {
+
+		if (!this.state.btnVisible) {
+			if (window.scrollY > window.innerHeight - 500) {
+				this.setState({btnVisible: true});
+			}
+		} else {
+			if (window.scrollY < window.innerHeight - 500) {
+				this.setState({btnVisible: false});
+			}
+		}
+	};
+
 	loadStarProjects = () => {
 
 		let query = '?query={"isStar":true}';
@@ -60,6 +81,8 @@ class Home extends React.Component {
 		projectsService
 			.loadAllProjects(query)
 			.then(res => {
+
+				res.sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber));
 
 				this.setState({projects: res});
 
@@ -93,6 +116,10 @@ class Home extends React.Component {
 			});
 	};
 
+	scrollTop = () => {
+		window.scroll(0, 0);
+	};
+
 	render () {
 
 		let activeLanguage = this.context.language;
@@ -101,15 +128,19 @@ class Home extends React.Component {
 
 		let accentProject = projects.shift();
 
-
+		let btnStyle = this.state.btnVisible ? 'btn btn-default visible' : 'btn btn-default';
 
 		return (
 			<div id="home" className='container-fluid'>
 
-				<PageHeader language={activeLanguage} pageName='home' />
+				<button id='go-to-top-btn'
+				        className={btnStyle}
+				        onClick={this.scrollTop}>Top
+				</button>
+
+				<PageHeader language={activeLanguage} pageName='home'/>
 
 				<section className='container section-padding-bottom'>
-
 					<video autoPlay={true}
 					       loop={true}
 					       className='carousel-video'
@@ -118,16 +149,19 @@ class Home extends React.Component {
 					</video>
 				</section>
 
-
 				<OurAim language={activeLanguage}/>
 
-				<AccentProject language={activeLanguage} project={accentProject}/>
+				<HomeProjectCard activeLanguage={activeLanguage} project={accentProject}/>
 
 				<OurPhilosophy language={activeLanguage}/>
 
+				<Projects projects={projects} language={activeLanguage}/>
+
 				<Services language={activeLanguage}/>
 
-				<Projects projects={projects} language={activeLanguage}/>
+				<BlockQuote language={activeLanguage}
+				            pageName='home'
+				            sectionName='quote'/>
 
 				<AboutUs language={activeLanguage}/>
 

@@ -51,8 +51,6 @@ class SortableList extends React.Component {
 		let el = JSON.parse(e.dataTransfer.getData('element'));
 		let imageIndex = Number(e.dataTransfer.getData('index'));
 
-		console.log(el, imageIndex)
-
 		// Get the image start position
 		let startX = this.state.startX;
 		let startY = this.state.startY;

@@ -10,6 +10,12 @@ function ProjectCard (props) {
 
 	return (
 		<article className="project-card">
+
+			{project.isStar &&
+			<span className='star'>
+				<i className="fa fa-star" aria-hidden="true"/>
+			</span>}
+
 			<figure className="img-container">
 				<img className="img-fit" src={project.thumbnail}/>
 			</figure>
@@ -17,7 +23,8 @@ function ProjectCard (props) {
 
 			<Link to={'project-edit/' + project._id} className="hover">
 				<div className="edit-btn">
-					<i className="fa fa-edit" aria-hidden="true"/>{BUTTONS.bg.edit}
+					{/*<i className="fa fa-edit" aria-hidden="true"/>*/}
+					{BUTTONS.bg.edit}
 				</div>
 			</Link>
 		</article>
