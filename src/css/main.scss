@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&subset=cyrillic,cyrillic-ext');
 @import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:100,300,400,500,700,800,900&display=swap&subset=cyrillic,cyrillic-ext');
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
-@import "colors";
+@import "constants";
 @import "mixins";
 
 
@@ -50,6 +50,10 @@ p {
 .container {
   width: 80%;
   margin: auto;
+}
+
+.bg-light {
+  background-color: $bg-grey;
 }
 
 .container-padding {
@@ -215,7 +219,7 @@ button {
   }
 
   &.btn-danger {
-    color: $white;
+    color: $black;
     background-color: $attention;
 
     &:hover,
@@ -263,13 +267,10 @@ button {
 
 .form-group {
   $input-height: 40px;
-  @include flex-basis(100%);
-  @include flex;
-  @include flex-wrap(wrap);
+  @include display-grid;
   margin: 10px 0;
 
   label {
-    @include flex-basis(30%);
     margin-bottom: 5px;
     color: $medium-to-dark-grey;
     padding-right: 2%;
@@ -290,9 +291,6 @@ button {
   }
 
   .form-control {
-    @include flex-basis(70%);
-    @include flex-grow(1);
-
     font-family: Montserrat, sans-serif;
 
     min-height: $input-height;
@@ -394,8 +392,8 @@ button {
   }
 
   &.attention {
-    background-color: $info-hover;
-    color: $white;
+    background-color: $attention;
+    color: $black;
   }
 
   &:hover {

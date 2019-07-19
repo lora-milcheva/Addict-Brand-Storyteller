@@ -97,7 +97,7 @@ class ContactForm extends React.Component {
 		let activeLanguage = this.context.language;
 
 		return (
-			<div id='form-container' className='container-fluid section-padding-top-bottom'>
+			<div id='form-container' className='container-fluid'>
 
 				<Notifications onRef={ref => (this.notifications = ref)} language={activeLanguage}/>
 
@@ -153,6 +153,7 @@ class ContactForm extends React.Component {
 
 					<TextArea name='message'
 					          id='message'
+					          className='message'
 					          value={this.state.message}
 					          // label={USER_PAGES_TEXT.contact[activeLanguage].message}
 					          onChange={this.handleChange}

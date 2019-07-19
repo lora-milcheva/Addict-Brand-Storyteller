@@ -1,4 +1,4 @@
-@import "colors";
+@import "constants";
 @import "mixins";
 
 
@@ -22,9 +22,8 @@
 
 // Common
 .banner {
-  padding: 40px 0;
-  border-bottom: 3px solid $primary;
-  margin-bottom: 50px;
+  padding: $section-padding-top 0;
+  //border-bottom: 3px solid $primary;
 }
 
 .page-header {
@@ -63,6 +62,7 @@
   margin: $text-margin 0 $section-padding-top 0;
   font-weight: 500;
   color: #5d5d5d;
+  font-size: 1.4em;
   line-height: 1.8em;
 }
 
@@ -111,12 +111,49 @@
 }
 
 
+.blockquote {
+
+  .quote {
+    @include quotation-text;
+    text-align: left;
+  }
+
+  .author {
+    @include author;
+    color: $dark-grey;
+    text-align: right;
+  }
+}
+
+.img-section {
+  position: relative;
+
+  .section-title,
+  .page-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @include translate(-50%, -50%);
+    text-align: center;
+    color: $white;
+    width: 100%;
+
+    text-shadow: 1px 1px 2px rgba(80,80,80,0.8);
+
+  }
+}
+
+
 #home {
 
   text-align: center;
 
   .carousel-video {
     width: 100%;
+  }
+
+  .blockquote {
+    background-color: $pale-salmon;
   }
 
   .home-project {
@@ -206,24 +243,42 @@
   }
 }
 
-#block-quote {
 
-  background-color: $pale-salmon;
-
-  .quote {
-    @include quotation-text;
-    text-align: left;
+#about-us,
+#careers {
+  .article-section {
+    @include display-grid;
+    grid-template-columns: 2fr 3fr;
+    margin: $grid-gap 0;
   }
 
-  .author {
-    @include author;
-    color: $dark-grey;
-    text-align: right;
+  .article-box {
+    @include display-grid;
+    align-self: center;
+    justify-self: center;
+    border-left: 3px solid $primary;
+    padding: $grid-gap-small $grid-gap;
+  }
+
+  .blockquote {
+
+    @include display-grid;
+    align-self: center;
+    justify-self: center;
+
+    .quote {
+      color: $dark-grey;
+      padding: $grid-gap;
+      line-height: 1em;
+      text-align: right;
+    }
   }
 }
 
-#about-us {
-
+#careers {
+  .article-section {
+    grid-template-columns: 2fr 2.5fr;
+  }
 }
 
 #projects-list .projects-container {
@@ -256,13 +311,12 @@
       cursor: pointer;
 
       .project-info {
-        .cliche {
-          color: $primary;
-        }
 
         .btn {
-          border-bottom: 2px solid $primary;
-          color: $black;
+          background: $primary;
+          //border-bottom: 2px solid $primary;
+          padding: 10px 20px;
+          color: $white;
         }
       }
 
@@ -314,7 +368,7 @@
   @include display-grid;
   @include grid-template-columns(3, 1fr);
   @include grid-gap($grid-gap-small, $grid-gap-small);
-  margin: 0 25px;
+  padding: $grid-gap-small $grid-gap-small;
 
 
   .project-card {
@@ -327,13 +381,14 @@
       .project-info {
 
         .btn {
-          border-bottom: 2px solid $primary;
-          color: $black;
+          background: $primary;
+          padding: 10px 20px;
+          color: $white;
         }
       }
 
       .img-container .img-fit {
-        @include scale(1.05);
+        @include scale(1.1);
       }
     }
 
@@ -487,6 +542,7 @@
           .img-fit {
             width: auto;
             max-width: 100%;
+            transform: scale(1);
           }
 
           &:hover,
@@ -775,18 +831,6 @@
       }
     }
   }
-
-  #like-us {
-    width: 100%;
-    //background: url('/images/bgs/birds_BW.jpg') no-repeat center/cover;
-    background-color: $black;
-    text-align: center;
-    color: $white;
-
-    .section-title {
-      font-size: 2em;
-    }
-  }
 }
 
 #services {
@@ -896,28 +940,30 @@
 }
 
 #contact-form {
+  width: 60%;
   @include display-grid;
   @include grid-template-columns(2, 1fr);
-  @include grid-gap($grid-gap-small, $grid-gap-small);
+  @include grid-gap(0, $grid-gap-small);
 
   .buttons-container,
   .section-title,
-  #message {
+  .message {
     @include grid-span(1, 3);
+  }
+
+  #message {
+    border: 1px solid $dark-grey;
   }
 
   .form-group {
     @include display-grid;
-    margin: 0;
 
     .form-control {
       border-radius: 0;
-      min-height: 60px;
-      padding: 15px;
-      border: 1px solid $dark-grey;
-      font-size: 1.1em;
-      color: $dark-grey;
-      background-color: transparent;
+      padding: 5px 15px;
+      border: none;
+      border-bottom: 1px solid $dark-grey;
+      //background-color: $bg-grey;
 
       &::placeholder {
         font-family: Montserrat, sans-serif;
@@ -926,7 +972,7 @@
       }
 
       &:focus {
-        border-color: $salmon;
+        border-color: $primary;
         padding-left: 25px;
         background-color: $white;
       }
@@ -935,7 +981,7 @@
     label {
       //display: none;
       color: $black;
-      @include transform-text;
+      @include transform-button-text;
       padding-left: 1px;
       min-height: 15px;
     }
@@ -947,10 +993,7 @@
 
 }
 
-#form-container {
-  background-color: transparent;
-  padding-top: 0;
-}
+
 
 
 

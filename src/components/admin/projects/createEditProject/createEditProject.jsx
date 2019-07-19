@@ -560,7 +560,7 @@ class createProject extends React.Component {
 					<h1 className="page-title">{title}</h1>
 
 					{this.projectId &&
-					<button className="btn btn-danger xs"
+					<button className="btn btn-danger sm"
 					        onClick={this.confirmDeleteProject}>
 						<i className="fa fa-trash" aria-hidden="true"/>
 						{BUTTONS.bg.delete}
@@ -574,6 +574,7 @@ class createProject extends React.Component {
 
 					{/*//PROJECT Info*/}
 					<div id="project-info">
+						<h3 className="section-title">{CREATE_PROJECT_INPUTS.bg.info}</h3>
 
 						{/*//NAME BG*/}
 						<FormInput type='text'
@@ -603,7 +604,7 @@ class createProject extends React.Component {
 							{isStar}
 						</div>
 
-						<div className="form-group">
+						<div>
 							{categories}
 						</div>
 
@@ -661,15 +662,14 @@ class createProject extends React.Component {
 						           disabled={false}
 						           onChange={this.handleInputChange}/>
 
-						<div className="form-group">
-							<label>{CREATE_PROJECT_INPUTS.bg.info}</label>
 
+						<div>
+							<h3 className="section-title">{CREATE_PROJECT_INPUTS.bg.infoSections}</h3>
 							<button className="btn btn-default xs"
 							        data-state-prop={'info'}
 							        data-section-name={null}
 							        onClick={this.loadTextSectionForm}>{BUTTONS.bg.addSection}
 							</button>
-
 							{info}
 						</div>
 
@@ -784,7 +784,7 @@ class createProject extends React.Component {
 				</form>
 
 				{/*//SUBMIT*/}
-				<div id={'submit-buttons'} className="buttons-container text-center form-group">
+				<div id={'submit-buttons'} className="buttons-container">
 					<button className="btn btn-default-light" onClick={this.cancel}>{BUTTONS.bg.cancel}</button>
 					<button className="btn btn-primary" onClick={this.saveProject} type="submit">{buttonText}</button>
 				</div>

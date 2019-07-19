@@ -1,21 +1,28 @@
-@import "colors";
+@import "constants";
 @import "mixins";
 
 #project-create {
 
-  @include flex;
-  @include flex-wrap(wrap);
-
-  .languages {
-    flex-basis: 100%;
-    margin-bottom: 15px;
+  #create-project-form {
+    @include display-grid;
+    @include grid-template-columns(2, 1fr);
+    @include grid-gap($grid-gap, $grid-gap);
   }
 
-  #create-project-form {
-    @include flex;
-    @include flex-wrap(wrap);
-    @include align-items(flex-start);
-    padding-bottom: 50px;
+  .form-group {
+    @include display-grid;
+    grid-template-columns: 1.5fr 4fr;
+
+    &.add-on {
+      @include grid-template-columns(2, auto)
+    }
+  }
+
+  .section-title {
+    margin: 15px 0;
+    font-size: 1.5em;
+    border-bottom: 1px solid $medium-grey;
+    padding-bottom: 15px;
   }
 
   #submit-buttons {
@@ -24,14 +31,12 @@
     left: 0;
     margin: 0;
     width: 100%;
-    @include justify-content(center);
     background-color: $white;
+    text-align: center;
     @include shadow-top;
   }
 
   #info-section-inputs {
-    //background-color: $light-grey;
-
     display: none;
 
     position: fixed;
@@ -67,8 +72,6 @@
   }
 
   #media-info {
-    //background-color: $light-grey;
-
     display: none;
 
     position: fixed;
@@ -103,33 +106,16 @@
     }
   }
 
-  #project-info {
-    @include flex-basis(45%);
-    @include flex-grow(1);
-    @include align-items(flex-start);
-    margin-right: 5%;
-
-    @include flex;
-    @include flex-wrap(wrap);
-
-    .inputs-holder {
-      @include flex-basis(100%);
-    }
-
-
-  }
-
   .info-text {
-    @include flex-basis(100%);
     font-size: .85em;
     padding: 10px 0;
     border-bottom: 1px solid $medium-grey;
 
     .section-header {
-      margin-bottom: 5px;
+      margin: 10px 0;
+      text-align: left;
 
       .title {
-        //border-bottom: 1px solid $black;
         display: inline-block;
         margin-right: 10px;
         padding-bottom: 5px;
@@ -153,39 +139,21 @@
   }
 
   #project-data {
-    @include flex-basis(50%);
-    @include flex-grow(1);
-
-    .section-title {
-      @include flex-basis(100%);
-      margin: 15px 0;
-      font-weight: 400;
-    }
-
-    .project-pictures,
-    .project-videos {
-      @include flex-basis(100%);
-      @include flex;
-      @include flex-wrap(wrap);
-    }
 
     .project-data {
 
       .container {
-        @include flex-basis(100%);
         width: 100%;
-        @include flex;
-        @include flex-wrap(wrap);
+        @include display-grid;
+        @include grid-template-columns(3, 1fr);
+
 
         .image {
           position: relative;
-          @include flex-basis(32%);
           min-height: 38px;
           overflow: hidden;
           margin: 0 1% 1% 0;
           border: 1px solid $medium-grey;
-          @include flex;
-          @include align-items(center);
 
           iframe {
             pointer-events: none;

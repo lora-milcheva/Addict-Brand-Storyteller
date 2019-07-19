@@ -15,7 +15,7 @@ class BlockQuote extends React.Component {
 
 		return (
 
-			<section id='block-quote' className='section-padding-all'>
+			<section className='blockquote section-padding-all'>
 
 				<h3 className="quote"
 				    dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT[pageName][language].sections[sectionName].quoteText)}/>

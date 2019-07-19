@@ -4,6 +4,8 @@ import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 // Partials
 import PageHeader from '../common/headers/PageHeader';
 import SectionHeader from '../common/headers/SectionHeader';
+import ImageSection from '../common/headers/ImageSection';
+import ArticleSection from '../common/articlePartials/ArticleSection';
 
 
 class Careers extends React.Component {
@@ -15,12 +17,20 @@ class Careers extends React.Component {
 		return (
 			<div id="careers" className='container-fluid'>
 
-				<PageHeader language={activeLanguage} pageName='careers'/>
+				{/*<PageHeader language={activeLanguage} pageName='careers'/>*/}
 
-				<section className='container'>
-					<SectionHeader pageName='careers' language={activeLanguage} sectionName='content'/>
+				<ImageSection language={activeLanguage}
+				              pageName='careers'
+				              sectionName='content'
+				              imgUrl='images/bgs/team.jpg'/>
+
+				<div className='container'>
+					<ArticleSection language={activeLanguage}
+					                pageName='careers'
+					                sectionName='content'/>
+
 					<SectionHeader pageName='careers' language={activeLanguage} sectionName='callToAction'/>
-				</section>
+				</div>
 
 			</div>
 

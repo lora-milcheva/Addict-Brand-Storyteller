@@ -10,7 +10,6 @@ class AddOnInput extends React.Component {
 		};
 	}
 
-
 	handleChange = (e) => {
 		this.setState({value: e.target.value});
 	};
@@ -29,11 +28,12 @@ class AddOnInput extends React.Component {
 
 	render () {
 
-		const { placeholder, label, buttonText, name, labelClassName } = this.props;
+		const {placeholder, label, buttonText, name, labelClassName} = this.props;
 
 		return (
 			<div className={'form-group add-on'}>
 				<label className={labelClassName}>{label}</label>
+
 				<input className="form-control add-on"
 				       type="text"
 				       placeholder={placeholder}

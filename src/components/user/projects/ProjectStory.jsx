@@ -190,11 +190,6 @@ class ProjectStory extends React.Component {
 				         language={activeLanguage}/>
 				}
 
-				<section id='like-us' className='container-padding section-padding-top-bottom'>
-					<h3 className='section-title'>Like what you see?</h3>
-					<a href='#contact-us' className='btn btn-default-light'>Get in touch</a>
-				</section>
-
 
 				<section className='section-padding-top-bottom'>
 					<h2 className="section-title text-center">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>

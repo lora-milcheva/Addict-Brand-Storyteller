@@ -9,25 +9,44 @@ import UTILS from '../../../../utils/utils';
 
 class ArticleSection extends React.Component {
 
+
 	generateMarkup = (type) => {
+
 		let {language, pageName, sectionName, subSectionName, subSubSectionName} = this.props;
 
-		if (subSubSectionName) {
+		if (sectionName && subSectionName && subSubSectionName) {
 			return UTILS.createMarkup(USER_PAGES_TEXT[pageName][language].sections[sectionName][subSectionName][subSubSectionName][type]);
 		}
 
-		return UTILS.createMarkup(USER_PAGES_TEXT[pageName][language].sections[sectionName][subSectionName][type]);
+		if (sectionName && subSectionName) {
+			return UTILS.createMarkup(USER_PAGES_TEXT[pageName][language].sections[sectionName][subSectionName][type]);
+		}
+
+		return UTILS.createMarkup(USER_PAGES_TEXT[pageName][language].sections[sectionName][type]);
 	};
 
 	render () {
 
+		let quote = this.generateMarkup('accent');
+
 		return (
 
 			<section className='article-section'>
-				<h4 className='section-headline'
-				    dangerouslySetInnerHTML={this.generateMarkup('title')}/>
-				<p className='section-text'
-				   dangerouslySetInnerHTML={this.generateMarkup('text')}/>
+
+				<div className='blockquote'>
+					{quote.__html !== '' &&
+					<h2 className='quote text-center'
+					    dangerouslySetInnerHTML={quote}/>
+					}
+				</div>
+
+
+				<div className='article-box'>
+					<h4 className='article-headline'
+					    dangerouslySetInnerHTML={this.generateMarkup('title')}/>
+					<p className='article-text'
+					   dangerouslySetInnerHTML={this.generateMarkup('text')}/>
+				</div>
 			</section>
 
 		);
