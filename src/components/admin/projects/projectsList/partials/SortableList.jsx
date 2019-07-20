@@ -117,7 +117,7 @@ class SortableList extends React.Component {
 		});
 
 		return (
-			<div className="droppable container"
+			<div id="projects" className="droppable"
 			     ref={this.dataContainer}
 			     onDragOver={this.onDragOver}
 			     onDrop={(e) => this.onDrop(e)}>

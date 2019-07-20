@@ -138,7 +138,7 @@
     color: $white;
     width: 100%;
 
-    text-shadow: 1px 1px 2px rgba(80,80,80,0.8);
+    text-shadow: 1px 1px 2px rgba(80, 80, 80, 0.8);
 
   }
 }
@@ -430,230 +430,83 @@
 }
 
 #project-story {
-  @include display-grid;
 
-  // info
-  #project-info {
+  // summary
+  #project-header {
+    text-align: center;
+    margin: $section-padding-top auto;
 
-    // Cover image
-    #project-cover {
-      //height: 450px;
-      //background-size: cover;
+    .project-name,
+    .client {
+      @include transform-text;
     }
 
-    // summary
-    #project-summary {
-      padding: 45px 0;
-      text-align: center;
-      border-bottom: 3px solid $primary;
+    .cliche {
+      font-size: 4vw;
+      line-height: 1.15em;
+      //@include headline-font;
 
-      .project-name,
-      .client {
-        @include transform-text;
-        color: $dark-grey;
-        margin: .2em 0;
-      }
-
-
-      .cliche {
-        margin-top: .6em;
-        font-size: 4vw;
-        line-height: 1.15em;
-        @include headline-font;
-
-        .field {
-          font-weight: 800;
-
-          &:after {
-            content: ': '
-          }
-        }
-      }
-    }
-
-
-    // description
-    #project-description {
-
-      section {
-        &:nth-of-type(odd) {
-          //background-color: $bg-grey;
-        }
-      }
-
-      .section {
-        padding-top: 100px;
-        padding-bottom: 100px;
-        @include display-grid;
-        grid-template-columns: 2fr 3fr;
-
-
-        .section-header {
-
-          .section-title {
-            text-align: left;
-            margin-bottom: 0;
-          }
-        }
-
-        .section-text {
-          padding-top: 20px;
-          text-align: left;
-
-          p {
-            font-size: 1.3em;
-            color: $dark-grey-1 !important;
-          }
-
-          p > span {
-            color: $dark-grey-1 !important;
-          }
-
-        }
-
-        .img-full {
+      .field {
+        &:after {
+          content: ': '
         }
       }
     }
   }
+
+
+  // description
+  #project-info {
+    @include display-grid;
+    @include grid-gap($grid-gap-small, $grid-gap-small);
+    margin: $section-padding-top 0;
+
+    .section-text {
+      margin: 0;
+
+      p {
+        color: $dark-grey-1 !important;
+      }
+
+      p > span {
+        color: $dark-grey-1 !important;
+      }
+    }
+  }
+
 
   // project images
-  #project-gallery {
-    overflow: hidden;
-    margin: 30px 0 100px 0; // Like section padding
-
-
-    #gallery {
-      white-space: nowrap;
-      padding-left: $container-padding-desktop;
-
-
-      .image-container {
-        padding: 0 15px 0 0;
-        //@include flex-basis(30%);
-        @include inline-flex;
-        @include flex-direction(column);
-
-        .image {
-          @include main-transition;
-          height: 50vh;
-
-
-          .img-fit {
-            width: auto;
-            max-width: 100%;
-            transform: scale(1);
-          }
-
-          &:hover,
-          &:active {
-            cursor: pointer;
-            opacity: .7;
-          }
-        }
-
-        .name {
-          @include transform-text;
-          margin-top: 10px;
-          font-size: .85em;
-
-          p {
-            white-space: normal;
-          }
-        }
-      }
-    }
-  }
-
-  // project videos
+  #project-gallery,
   #project-video-gallery {
     overflow: hidden;
-    margin: 30px 0 100px 0; // Like section padding
+  }
 
-    #video-gallery {
-      @include flex;
-      margin-left: $container-padding-desktop; // Like section padding
-      width: max-content;
+  #gallery,
+  #video-gallery {
+    @include flex;
+    white-space: nowrap;
+    padding-left: $container-padding-desktop;
+  }
 
-      .video-container {
-        padding: 0 15px 0 0;
-
-        @include inline-flex;
-        @include flex-direction(column);
-        width: 650px;
-
-        .video {
-          @include main-transition;
-          height: auto;
-          width: 100%;
-        }
-
-        .video-info {
-          width: 100%;
-          padding: 25px;
-          border-bottom: 1px solid $primary;
-          @include flex-grow(1);
-
-          .section {
-            width: 100%;
-            padding-top: 5px;
-
-            &:first-of-type {
-              padding-top: 0;
-            }
-          }
-
-          .section-name {
-            font-weight: 600;
-            display: inline-block;
-            width: 150px;
-            padding: 0;
-            border-bottom: none;
-
-            &:after {
-              content: '';
-            }
-          }
-
-          .section-text {
-            width: calc(100% - 150px);
-            text-align: left;
-          }
-
-          p {
-            vertical-align: top;
-            display: inline-block;
-            margin: 0;
-            line-height: 1.4em;
-            white-space: normal;
-          }
-        }
-      }
-    }
+  .image-container,
+  .video-container {
+    margin-right: 15px;
+    @include display-grid;
   }
 
   .gallery-navigation {
-    margin-top: 50px;
+    margin-top: $grid-gap-small;
     max-width: 100vw;
+    text-align: center;
 
-    @include flex;
-    @include justify-content(center);
-    @include align-items(center);
 
     .gallery-navigation-button {
-      //@include flex-basis(10%);
-      height: 100%;
-      padding: 0;
-
-      @include flex;
-      @include align-items(center);
-
       @include main-transition;
+
 
       &:hover,
       &:active {
         cursor: pointer;
-
 
         #prevBtn,
         #nextBtn {
@@ -661,11 +514,6 @@
           color: $white;
           background-color: $black;
         }
-      }
-
-
-      &:nth-of-type(2) {
-        @include justify-content(flex-end);
       }
 
       #prevBtn,
@@ -693,6 +541,87 @@
     }
   }
 
+  // project images
+  #gallery {
+
+    .image-container {
+
+
+      .image {
+        @include main-transition;
+        height: 50vh;
+
+        .img-fit {
+          width: auto;
+          transform: scale(1);
+        }
+
+        &:hover,
+        &:active {
+          cursor: pointer;
+          opacity: .7;
+        }
+      }
+
+      .name {
+        @include transform-text;
+        margin-top: 10px;
+        font-size: .85em;
+
+        p {
+          white-space: normal;
+        }
+      }
+    }
+  }
+
+
+  // project videos
+  #video-gallery {
+
+    .video-container {
+
+      .video {
+        width: 550px;
+        height: auto;
+      }
+
+      .video-info {
+        @include display-grid;
+        @include align-content-top;
+        border-bottom: 1px solid $primary;
+
+        .section {
+          @include display-grid;
+          grid-template-columns: 1fr 3fr;
+
+          &:first-of-type {
+            padding-top: 0;
+          }
+        }
+
+        .section-name {
+          font-weight: 600;
+          padding: 0;
+          border-bottom: none;
+        }
+
+        .section-text {
+          font-size: 1.0em;
+        }
+
+        p {
+          vertical-align: top;
+          display: inline-block;
+          margin: 0;
+          line-height: 1.4em;
+          white-space: normal;
+        }
+      }
+    }
+  }
+
+
   // preview on click
   #image-preview {
     position: fixed;
@@ -702,9 +631,6 @@
     height: 100vh;
     background-color: rgba(0, 0, 0, .9);
 
-    @include flex;
-    @include align-items(center);
-    @include justify-content(center);
     opacity: 0;
     visibility: hidden;
 
@@ -741,17 +667,12 @@
       width: 100%;
       height: 100%;
 
-      @include flex;
-      @include justify-content(space-between);
-      @include align-items(center);
 
       .gallery-navigation-button {
-        @include flex-basis(50%);
+
         height: 100%;
         padding: 0 50px;
 
-        @include flex;
-        @include align-items(center);
 
         @include main-transition;
 
@@ -769,7 +690,7 @@
         }
 
         &:nth-of-type(2) {
-          @include justify-content(flex-end);
+
         }
 
         #prevBtn,
@@ -789,15 +710,10 @@
       margin: auto;
       width: 90%;
       height: 95vh;
-
-      @include flex;
-      //@include flex-direction(column);
-      @include justify-content(center);
-      @include align-items(center);
     }
 
     .image {
-      @include flex-basis(65%);
+
       @include main-transition;
       text-align: center;
 
@@ -810,10 +726,6 @@
     }
 
     .content {
-      @include flex-basis(35%);
-
-      @include flex;
-      @include flex-direction(column);
 
       height: 100%;
       padding: 25px 0 25px 25px;
@@ -832,6 +744,7 @@
     }
   }
 }
+
 
 #services {
 

@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 // Partials
-import ProjectCard from './partials/ProjectCard';
+import Buttons from '../../common/Buttons';
 import SortableList from './partials/SortableList';
 
 // Services
@@ -12,7 +11,7 @@ import projectsService from '../../../../services/projects/projectsService';
 import Notifications from '../../../common/Notifications';
 
 // Constants
-import { BUTTONS, ADMIN_PAGES_TEXT, NOTIFICATIONS } from '../../../../constants/constants';
+import { ADMIN_PAGES_TEXT, NOTIFICATIONS } from '../../../../constants/constants';
 
 class projectsList extends React.Component {
 	constructor (props) {
@@ -35,7 +34,7 @@ class projectsList extends React.Component {
 			.loadAllProjects()
 			.then(res => {
 
-				res.sort((a, b) =>  Number(a.orderNumber) - Number(b.orderNumber))
+				res.sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber));
 
 				this.setState({
 					projects: res,
@@ -45,7 +44,6 @@ class projectsList extends React.Component {
 			.catch(err => console.log(err));
 
 	}
-
 
 	saveOrder = () => {
 		this.state.projects.forEach((p, i) => {
@@ -58,7 +56,7 @@ class projectsList extends React.Component {
 				})
 				.catch(err => {
 					console.log(err);
-					this.notifications.showMessage(NOTIFICATIONS.bg.messageError)
+					this.notifications.showMessage(NOTIFICATIONS.bg.messageError);
 				});
 		});
 	};
@@ -71,7 +69,6 @@ class projectsList extends React.Component {
 
 		if (this.state.loading) return <div className="lds-dual-ring"/>;
 
-
 		return (
 			<div id="admin-projects-list" className="container">
 
@@ -81,20 +78,11 @@ class projectsList extends React.Component {
 					<h1 className="page-title">{ADMIN_PAGES_TEXT.project.bg.allProjects}</h1>
 				</div>
 
-				<div className="buttons-container">
-					<Link to="/admin/project-create" className="btn btn-primary sm">{BUTTONS.bg.createProject}</Link>
-					<Link to="/admin/client-create" className="btn btn-primary sm">{BUTTONS.bg.createClient}</Link>
-					<Link to="/admin/category-create" className="btn btn-primary sm">{BUTTONS.bg.createCategory}</Link>
-					<Link to="/admin/section-create" className="btn btn-primary sm">{BUTTONS.bg.createSection}</Link>
-				</div>
+				<Buttons />
 
-
-				<div className="projects-container">
-
-					<SortableList name={'projects'}
-					              elements={this.state.projects}
-					              onChange={this.handleNewOrder}/>
-				</div>
+				<SortableList name={'projects'}
+				              elements={this.state.projects}
+				              onChange={this.handleNewOrder}/>
 
 				<div className='buttons-container'>
 					<button className='btn btn-primary sm'

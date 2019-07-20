@@ -26,8 +26,8 @@ import categoriesList from '../admin/categories/categoriesList';
 import createEditClient from '../admin/clients/createEditClient';
 import clientsList from '../admin/clients/clientsList';
 
-import createEditSection from '../admin/projects/sections/createEditSection';
-import sectionsList from '../admin/projects/sections/sectionsList';
+import createEditSection from '../admin/sections/createEditSection';
+import sectionsList from '../admin/sections/sectionsList';
 
 // ERRORS and CONFIRMATIONS
 import NotFound from '../errors/NotFound';

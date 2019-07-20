@@ -2,13 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // Services
-import sectionsService from '../../../../services/projects/sectionsService';
+import sectionsService from '../../../services/projects/sectionsService';
 
 // Notifications
-import Notifications from '../../../common/Notifications';
+import Notifications from '../../common/Notifications';
 
 // Constants
-import { ADMIN_PAGES_TEXT } from '../../../../constants/constants';
+import { ADMIN_PAGES_TEXT } from '../../../constants/constants';
+import Buttons from '../common/Buttons';
 
 
 class sectionsList extends React.Component {
@@ -65,6 +66,8 @@ class sectionsList extends React.Component {
 				<div className="page-header">
 					<h1 className="page-title">{ADMIN_PAGES_TEXT.section.bg.sections}</h1>
 				</div>
+
+				<Buttons />
 
 				<div className="clients-container">
 					{sections}

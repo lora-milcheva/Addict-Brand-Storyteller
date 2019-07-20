@@ -1,20 +1,20 @@
 import React from 'react';
 
 // Partials
-import FormInput from '../../../common/formComponents/FormInput';
+import FormInput from '../../common/formComponents/FormInput';
 
 // Services
-import sectionsService from '../../../../services/projects/sectionsService';
+import sectionsService from '../../../services/projects/sectionsService';
 
 // Notifications
-import Notifications from '../../../common/Notifications';
-import ConfirmDialog from '../../../common/ConfirmDialog';
+import Notifications from '../../common/Notifications';
+import ConfirmDialog from '../../common/ConfirmDialog';
 
 // Utils
-import Utils from '../../../../utils/utils';
+import Utils from '../../../utils/utils';
 
 // Constants
-import { SECTION_INPUTS, BUTTONS, NOTIFICATIONS, ADMIN_PAGES_TEXT } from '../../../../constants/constants';
+import { SECTION_INPUTS, BUTTONS, NOTIFICATIONS, ADMIN_PAGES_TEXT } from '../../../constants/constants';
 
 class createEditSection extends React.Component {
 	constructor (props) {

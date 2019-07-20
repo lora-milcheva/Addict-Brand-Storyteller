@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// Partials
+import Buttons from '../common/Buttons'
+
 // Services
 import clientsService from '../../../services/clients/clientsService';
 
@@ -65,6 +68,8 @@ class categoriesList extends React.Component {
 				<div className="page-header">
 					<h1 className="page-title">{ADMIN_PAGES_TEXT.client.bg.clients}</h1>
 				</div>
+
+				<Buttons />
 
 				<div className="clients-container">
 					{clients}

@@ -1,14 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import posed from 'react-pose/lib/index';
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 // Partials
 import ImagePreview from './partials/ImagePreview';
-import ProjectCard from '../common/projects/ProjectCard';
 import Gallery from './partials/Gallery';
 import VideoGallery from './partials/VideoGallery';
-import ContactForm from '../common/contact/ContactForm';
 
 // Services
 import projectsService from '../../../services/projects/projectsService';
@@ -19,6 +15,10 @@ import authService from '../../../services/auth/authService';
 // Constants
 import { USER_PAGES_TEXT } from '../../../constants/constants';
 import RandomProjects from '../common/projects/RandomProjects';
+import Article from '../common/articlePartials/Article';
+import InfoSection from './partials/partials/InfoSection';
+import ProjectHeader from './partials/ProjectHeader';
+import ProjectInfo from './partials/ProjectInfo';
 
 class ProjectStory extends React.Component {
 	constructor (props) {
@@ -80,13 +80,13 @@ class ProjectStory extends React.Component {
 				sectionsService
 					.loadAllSections()
 					.then(res => {
-						this.setState({ allSections: res });
+						this.setState({allSections: res});
 
 						clientsService
 							.loadAllClients()
 							.then(res => {
 								let client = res.filter(e => e._id === this.state.project.clientId);
-								this.setState({ clientName: client[0], loading: false});
+								this.setState({clientName: client[0], loading: false});
 							});
 					});
 			})
@@ -114,35 +114,6 @@ class ProjectStory extends React.Component {
 
 		let client = this.state.clientName.name[activeLanguage];
 
-		let info;
-
-		if (Object.keys(project.info)) {
-
-			info = Object.keys(project.info).map(e => {
-
-				let sectionText = project.info[e][activeLanguage];
-				let image = project.info[e].image;
-				let sectionName = this.state.allSections.filter(s => s._id === e)[0].name[activeLanguage];
-
-				return (
-					<section key={e}>
-
-						{image !== '' && <img src={image} alt='project'/>}
-
-						<article className="section container">
-							<div className="section-header">
-								<h2 className="section-title">{sectionName}</h2>
-							</div>
-							<div className='section-text' style={{color: 'inherit'}}
-							     dangerouslySetInnerHTML={{__html: sectionText}}/>
-						</article>
-
-						{/*{result.url !== '' && <div style={imgStyle}/>}*/}
-
-					</section>
-				);
-			});
-		}
 
 		return (
 			<div id="project-story" className="container-fluid">
@@ -153,28 +124,13 @@ class ProjectStory extends React.Component {
 				              onClose={this.hidePreview}/>
 
 
-				<div id="project-info">
+				<section id='project-cover'>
+					<img src={this.state.project.cover} alt='page cover'/>
+				</section>
 
-					{/*<section id='project-cover' style={{backgroundImage: 'url(' + this.state.project.cover + ')'}}/>*/}
-					<section id='project-cover'>
-						<img src={this.state.project.cover} alt='page cover'/>
-					</section>
+				<ProjectHeader activeLanguage={activeLanguage} project={project} client={client}/>
 
-					<section id="project-summary" className='container'>
-						<p className='project-name'> {project.name[activeLanguage]}&nbsp;&nbsp;&#8212;&nbsp;&nbsp;{project.year} </p>
-						<p className='client'> {client} </p>
-						<h2 className="cliche">
-							<span className="field">{USER_PAGES_TEXT.project[activeLanguage].cliche}</span>
-							{project.description[activeLanguage]}
-						</h2>
-					</section>
-
-
-					<section id="project-description">
-						{info}
-					</section>
-				</div>
-
+				<ProjectInfo activeLanguage={activeLanguage} project={project} sections={this.state.allSections}/>
 
 				{this.state.project.videos.length > 0 &&
 				<VideoGallery data={project.videos}
@@ -206,17 +162,3 @@ ProjectStory.contextType = LanguageContext;
 
 export default ProjectStory;
 
-function findImageInString (string) {
-
-	let imageArr = string.match(/<img([\w\W]+?)\/>/g);
-	let url = '';
-
-	if (imageArr) {
-		let img = imageArr[0].match(/<img([\w\W]+?)\/>/g)[0];
-		url = img.match(/"(.)+?"/g)[0];
-	}
-
-	let text = string.replace(/<p><img([\w\W]+?)\/><\/p>/g, '');
-
-	return {text, url};
-}

@@ -15,8 +15,6 @@ class PageHeader extends React.Component {
 
 		let sectionText = UTILS.createMarkup(USER_PAGES_TEXT[pageName][language].sections[sectionName].text);
 
-		console.log(sectionText.__html)
-
 		return (
 
 			<div className='section-header'>

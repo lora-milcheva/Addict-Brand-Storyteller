@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// Partials
+import Buttons from '../common/Buttons';
+
 // Services
 import categoriesService from '../../../services/categories/categoriesService';
 
@@ -9,7 +12,6 @@ import Notifications from '../../common/Notifications';
 
 // Constants
 import { ADMIN_PAGES_TEXT } from '../../../constants/constants';
-
 
 
 class categoriesList extends React.Component {
@@ -66,6 +68,8 @@ class categoriesList extends React.Component {
 				<div className="page-header">
 					<h1 className="page-title">{ADMIN_PAGES_TEXT.category.bg.categories}</h1>
 				</div>
+
+				<Buttons />
 
 				<div className="categories-container">
 					{categories}

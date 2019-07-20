@@ -11,7 +11,6 @@ import authService from '../../services/auth/authService';
 // Constants
 import { MENU } from '../../constants/constants';
 
-
 class HeaderC extends React.Component {
 
 	constructor (props) {
@@ -41,7 +40,6 @@ class HeaderC extends React.Component {
 			this.getLanguage();
 		}
 	}
-
 
 	getLanguage = () => {
 
@@ -126,13 +124,9 @@ class HeaderC extends React.Component {
 
 		if (admin) {
 			return (
-				<div id="header">
+				<div id="admin-header">
 
-					{/*<Link to="/home" id="brand"/>*/}
-					{toggleBtn}
-
-					<nav id="main-nav" ref={this.mainNav} onClick={this.toggleNav}>
-
+					<nav id="admin-main-nav">
 
 						<NavLink to='/admin/projects-list'
 						         className="nav-link"
@@ -149,24 +143,23 @@ class HeaderC extends React.Component {
 						<NavLink to='/admin/sections-list'
 						         className="nav-link"
 						         activeClassName='active'>{MENU[activeLanguage].sections}</NavLink>
-
-						<NavLink exact to='/'
-						         className="nav-link"
-						         activeClassName='active'
-						         onClick={this.logout}>{MENU[activeLanguage].logout}</NavLink>
-
 					</nav>
 
-					<span>Logged in as: {sessionStorage.getItem('username')}</span>
+
+					<span className='username'>Потребител<span className='name'> {sessionStorage.getItem('username')}</span></span>
+					<NavLink exact to='/'
+					         className="nav-link logout"
+					         activeClassName='active'
+					         onClick={this.logout}>{MENU[activeLanguage].logout}</NavLink>
+
 				</div>
 			);
 		}
 
-
 		let language = activeLanguage === languages.bg ? '' : '/' + activeLanguage;
 
 		return (
-			<header >
+			<header>
 
 				<div id="header">
 					<button id="lang-btn" className="btn btn-default sm"

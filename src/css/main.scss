@@ -110,7 +110,6 @@ button {
 }
 
 .btn {
-  @include inline-flex;
   width: max-content;
   margin-right: 5px;
   padding: 15px 30px;
@@ -335,8 +334,6 @@ button {
       line-height: 1.5em;
       border: 1px solid $medium-grey;
       height: auto;
-      @include flex-basis(60%);
-      @include flex-grow(1);
     }
   }
 
@@ -362,12 +359,6 @@ button {
 }
 
 .page-header {
-  @include flex-basis(100%);
-  @include flex;
-  @include justify-content(space-between);
-  @include flex-wrap(wrap);
-  @include align-items(center);
-
   margin-bottom: 20px;
 }
 
@@ -456,7 +447,7 @@ main {
 }
 
 
-#header {
+#header  {
   position: fixed;
   top: 0;
   width: 100%;
@@ -520,6 +511,8 @@ main {
   }
 }
 
+
+
 #main-nav {
   @include display-grid;
   @include align-content-top;
@@ -531,14 +524,11 @@ main {
   right: 0;
   bottom: 0;
 
-
   background-color: $white;
   border-left: 1px solid $medium-grey;
 
-
   @include translate(105%);
   @include ease-in(.25s);
-
 
   .nav-link {
     font-size: 1.5em;
@@ -567,21 +557,56 @@ main {
   }
 }
 
+#admin-header {
+  @include display-grid;
+  grid-template-columns: 5fr 1fr 1fr;
+  padding: 10px;
+
+  .nav-link {
+    display: inline-block;
+    text-align: center;
+    padding: 10px 20px;
+    @include main-transition;
+
+    &.active,
+    &:hover,
+    &:active {
+      background-color: $primary;
+      color: $white;
+    }
+
+    &.logout {
+      background: $medium-grey;
+    }
+  }
+
+  .username {
+    display: inline-block;
+    text-align: center;
+    padding: 8px 20px;
+
+
+    .name {
+      background-color: $light-grey;
+      padding: 2px 10px;
+      display: inline-block;
+      margin-left: 10px;
+    }
+  }
+}
+
+#admin-main-nav {
+
+
+}
+
+
 footer {
-  @include flex;
-  @include justify-content(space-between);
-  @include align-items(center);
-
   height: 80px;
-
   background-color: $light-grey;
-  padding: 15px 25px;
-
   font-size: .85em;
 
   #footer-nav {
-
-    //background: $black;
 
     .nav-link {
       display: inline-block;
@@ -604,13 +629,3 @@ footer {
   }
 }
 
-.quill {
-  width: 100%;
-
-  .ql-toolbar {
-  }
-
-  .ql-container {
-    height: auto;
-  }
-}

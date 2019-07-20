@@ -180,112 +180,37 @@
       }
     }
   }
-
-  .drop-field {
-    height: 200px;
-    margin: 10px 0;
-    border: 1px solid $medium-grey;
-  }
 }
 
 #admin-projects-list {
-  .projects-container {
-    @include flex;
-    @include flex-wrap(wrap);
 
-    .container {
-      @include flex-basis(100%);
-      width: 100%;
-      @include flex;
-      @include flex-wrap(wrap);
-
-      .image {
-        position: relative;
-        @include flex-basis(32%);
-        min-height: 38px;
-        overflow: hidden;
-        margin: 0 1% 1% 0;
-        border: 1px solid $medium-grey;
-        @include flex;
-        @include align-items(center);
-
-        iframe {
-          pointer-events: none;
-        }
-
-        .draggable {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          color: $black;
-        }
-
-        .del-btn {
-          position: absolute;
-          top: 8px;
-          right: 5px;
-        }
-      }
-    }
+  #projects {
+    @include display-grid;
+    @include grid-template-columns(4, 1fr);
+    @include grid-gap(10px, 10px);
 
     .project-card {
       position: relative;
-      @include flex-basis(24%);
-      margin: 2% 1% 0 0;
+
+      .img-fit {
+        @include main-transition;
+      }
 
       .star {
         display: inline-block;
-
         position: absolute;
         top: 10px;
         left: 10px;
-
         padding: 5px 10px;
         background-color: $primary;
         color: $white;
       }
 
-      .hover {
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        width: 100%;
-        height: 100%;
-
-        background-color: rgba(255, 255, 255, 1);
-
-        @include flex;
-        @include align-items(center);
-        @include justify-content(center);
-
-        @include ease-in;
-
-        .edit-btn {
-          @include translate(0, 100%);
-          @include transform-text;
-          @include ease-in;
-
-          p {
-            margin: .2em 0;
-          }
-
-          .btn {
-            @include transform-text;
-          }
-        }
-      }
-
       &:hover {
         cursor: pointer;
 
-        .hover {
-          opacity: 1;
-          background-color: $bg-grey;
-
-          .edit-btn {
-            @include translate(0, 0);
-          }
+        .img-fit {
+          transform: scale(1.1);
         }
       }
     }
