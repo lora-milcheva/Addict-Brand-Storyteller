@@ -6,7 +6,7 @@
 @import "mixins";
 
 
-$header-height: 80px;
+$header-height: 90px;
 
 * {
   box-sizing: border-box;
@@ -446,21 +446,20 @@ main {
   min-height: calc(100vh - 80px); //header + footer height
 }
 
-
 #header  {
   position: fixed;
   top: 0;
   width: 100%;
   height: $header-height;
   @include display-grid;
-  grid-template-columns: 80px 8fr 80px;
+  grid-template-columns: 8fr 80px 80px;
   background: $white;
 
   z-index: 1000;
 
   #lang-btn {
-    @include transform-text;
-    width: calc(100%); // without margins 2 * 10px
+    @include transform-button-text;
+    text-transform: uppercase;
     justify-content: center;
     margin: 10px;
   }
@@ -470,6 +469,7 @@ main {
     background: url("/images/logo/addict_logo.svg") no-repeat left/contain;
     @include main-transition;
     justify-self: center;
+    @include translate(80px, 0);
   }
 
   #toggle-menu-btn {
@@ -511,8 +511,6 @@ main {
   }
 }
 
-
-
 #main-nav {
   @include display-grid;
   @include align-content-top;
@@ -520,7 +518,7 @@ main {
 
   position: fixed;
   top: $header-height;
-  min-width: 300px;
+  min-width: 280px;
   right: 0;
   bottom: 0;
 
@@ -533,8 +531,8 @@ main {
   .nav-link {
     font-size: 1.5em;
     font-weight: 600;
-    text-align: right;
-    width: 80%;
+    //text-align: right;
+    width: 70%;
     margin: auto;
     padding: 20px;
     border-bottom: 3px solid transparent;
@@ -595,20 +593,22 @@ main {
   }
 }
 
-#admin-main-nav {
-
-
-}
-
-
 footer {
-  height: 80px;
+  @include display-grid;
+  grid-template-columns: 7fr 1fr 1fr;
+  @include align-content-center;
+  padding: 0 20px;
+  height: 60px;
+  margin-top: $grid-gap;
   background-color: $light-grey;
   font-size: .85em;
 
+
   #footer-nav {
+    text-align: right;
 
     .nav-link {
+
       display: inline-block;
       padding: 3px 10px;
       color: $black;
@@ -617,12 +617,6 @@ footer {
 
       &:hover,
       &:focus {
-        color: $medium-to-dark-grey;
-        //border-bottom: 1px solid $medium-to-dark-grey;
-      }
-
-      &.active {
-        background-color: $black;
         color: $medium-to-dark-grey;
       }
     }

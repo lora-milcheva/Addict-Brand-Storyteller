@@ -297,23 +297,24 @@ button {
       padding-bottom: 15px; }
 
 main {
-  padding-top: 80px;
+  padding-top: 90px;
   min-height: calc(100vh - 80px); }
 
 #header {
   position: fixed;
   top: 0;
   width: 100%;
-  height: 80px;
+  height: 90px;
   display: -ms-grid;
   display: grid;
-  grid-template-columns: 80px 8fr 80px;
+  grid-template-columns: 8fr 80px 80px;
   background: #fff;
   z-index: 1000; }
   #header #lang-btn {
+    font-weight: 600;
+    font-size: 1.1em;
+    letter-spacing: .05px;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    width: calc(100%);
     justify-content: center;
     margin: 10px; }
   #header #brand {
@@ -322,7 +323,12 @@ main {
     -webkit-transition: .4s;
     -moz-transition: .4s;
     transition: .4s;
-    justify-self: center; }
+    justify-self: center;
+    -webkit-transform: translate(80px, 0);
+    -moz-transform: translate(80px, 0);
+    -ms-transform: translate(80px, 0);
+    -o-transform: translate(80px, 0);
+    transform: translate(80px, 0); }
   #header #toggle-menu-btn {
     display: block;
     justify-self: end;
@@ -356,8 +362,8 @@ main {
   align-content: start;
   z-index: 1000;
   position: fixed;
-  top: 80px;
-  min-width: 300px;
+  top: 90px;
+  min-width: 280px;
   right: 0;
   bottom: 0;
   background-color: #fff;
@@ -373,8 +379,7 @@ main {
   #main-nav .nav-link {
     font-size: 1.5em;
     font-weight: 600;
-    text-align: right;
-    width: 80%;
+    width: 70%;
     margin: auto;
     padding: 20px;
     border-bottom: 3px solid transparent;
@@ -420,20 +425,25 @@ main {
       margin-left: 10px; }
 
 footer {
-  height: 80px;
+  display: -ms-grid;
+  display: grid;
+  grid-template-columns: 7fr 1fr 1fr;
+  align-content: center;
+  padding: 0 20px;
+  height: 60px;
+  margin-top: 50px;
   background-color: #fafafa;
   font-size: .85em; }
-  footer #footer-nav .nav-link {
-    display: inline-block;
-    padding: 3px 10px;
-    color: #000;
-    -webkit-transition: .4s;
-    -moz-transition: .4s;
-    transition: .4s; }
-    footer #footer-nav .nav-link:hover, footer #footer-nav .nav-link:focus {
-      color: #ccc; }
-    footer #footer-nav .nav-link.active {
-      background-color: #000;
-      color: #ccc; }
+  footer #footer-nav {
+    text-align: right; }
+    footer #footer-nav .nav-link {
+      display: inline-block;
+      padding: 3px 10px;
+      color: #000;
+      -webkit-transition: .4s;
+      -moz-transition: .4s;
+      transition: .4s; }
+      footer #footer-nav .nav-link:hover, footer #footer-nav .nav-link:focus {
+        color: #ccc; }
 
 /*# sourceMappingURL=main.css.map */

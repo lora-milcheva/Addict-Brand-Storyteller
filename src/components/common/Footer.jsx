@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { LanguageContext, languages } from './languagesContext/LanguageContext';
 
@@ -8,35 +8,27 @@ import { MENU } from '../../constants/constants';
 
 class Footer extends React.Component {
 
-	constructor (props) {
-		super(props);
-	}
-
 	render () {
 
-		let lang = this.context.language;
+		let activeLanguage = this.context.language;
 
-		let link = lang === languages.bg ? '/projects/' : '/' + lang + '/projects/';
+		let language = activeLanguage === languages.bg ? '' : '/' + activeLanguage;
 
 		return (
 			<footer>
 
-				<nav id="footer-nav">
-					<NavLink
-						to={link}
-						className="nav-link"
-						activeClassName='active'>{MENU[lang].projects}
-					</NavLink>
+				<p> &copy; 2019 Addict. All rights reserved. </p>
 
-					<NavLink to="/contact"
-					         className="nav-link"
-					         activeClassName='active'>{MENU[lang].contact}
-					</NavLink>
+				<section id='social-media'>
+					Facebook
+				</section>
+
+				<nav id="footer-nav">
+					<Link to={language + '/contact'}
+					      className="nav-link">{MENU[activeLanguage].contact}
+					</Link>
 				</nav>
 
-				<section>
-					<p> &copy; 2019 Addict. All rights reserved. </p>
-				</section>
 			</footer>
 		);
 	}

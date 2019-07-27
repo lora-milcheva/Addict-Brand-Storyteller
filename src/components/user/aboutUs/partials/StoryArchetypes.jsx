@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 // Partials
 import ArticleSection from '../../common/articlePartials/ArticleSection';
 import SectionHeader from '../../common/headers/SectionHeader';
+import BlockQuote from '../../common/articlePartials/BlockQuote';
 
 class StoryArchetypes extends React.Component {
 
@@ -16,6 +17,7 @@ class StoryArchetypes extends React.Component {
 				<div className='container'>
 
 					<SectionHeader pageName='aboutUs' language={activeLanguage} sectionName='storyArchetypes'/>
+
 
 					<ArticleSection language={activeLanguage}
 					                pageName='aboutUs'

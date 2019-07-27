@@ -27,7 +27,7 @@ class PageHeader extends React.Component {
 				<h2 className="section-title"
 				    dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT[pageName][language].sections[sectionName].headline)}/>
 
-				{sectionText.__html !== '' &&
+				{sectionText.__html &&
 				<p className="section-text"
 				   dangerouslySetInnerHTML={sectionText}/>
 				}

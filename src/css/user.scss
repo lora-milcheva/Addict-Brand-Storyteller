@@ -6,7 +6,7 @@
   position: fixed;
   bottom: -25px;
   right: 25px;
-  z-index: 10000;
+  z-index: 999;
 
   opacity: 0;
   visibility: hidden;
@@ -36,14 +36,20 @@
 
 .subtitle {
   font-size: 1.5em;
+  font-weight: 500;
   width: 75%;
   margin: 25px auto 10px auto;
   line-height: 1.5em;
 }
 
+.subtitle-light {
+  color: $dark-grey-1;
+  margin-top: 1em;
+}
+
 .section-header {
   text-align: center;
-  margin-bottom: 1em;
+  margin-bottom: 2em;
 }
 
 .section-name {
@@ -51,7 +57,7 @@
   padding-bottom: 10px;
   border-bottom: 3px solid $primary;
   margin-bottom: 20px;
-  @include transform-button-text;
+  @include transform-button-text-bigger;
 }
 
 .section-title {
@@ -61,7 +67,7 @@
 .section-text {
   margin: $text-margin 0 $section-padding-top 0;
   font-weight: 500;
-  color: #5d5d5d;
+  color: $dark-grey;
   font-size: 1.4em;
   line-height: 1.8em;
 }
@@ -112,16 +118,18 @@
 
 
 .blockquote {
+  background-color: $pale-salmon;
 
   .quote {
     @include quotation-text;
     text-align: left;
+    color: $dark-grey;
   }
 
   .author {
     @include author;
-    color: $dark-grey;
     text-align: right;
+    color: $dark-grey;
   }
 }
 
@@ -150,10 +158,6 @@
 
   .carousel-video {
     width: 100%;
-  }
-
-  .blockquote {
-    background-color: $pale-salmon;
   }
 
   .home-project {
@@ -243,36 +247,37 @@
   }
 }
 
-
 #about-us,
 #careers {
+
   .article-section {
     @include display-grid;
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: 40% 60%;
     margin: $grid-gap 0;
-  }
 
-  .article-box {
-    @include display-grid;
-    align-self: center;
-    justify-self: center;
-    border-left: 3px solid $primary;
-    padding: $grid-gap-small $grid-gap;
-  }
 
-  .blockquote {
+    .article-box {
+      @include display-grid;
+      align-self: center;
+      padding: $grid-gap-small $grid-gap;
+      border-left: 3px solid $primary;
 
-    @include display-grid;
-    align-self: center;
-    justify-self: center;
+    }
 
-    .quote {
-      color: $dark-grey;
-      padding: $grid-gap;
-      line-height: 1em;
-      text-align: right;
+    .blockquote {
+      align-self: center;
+      background-color: transparent;
+
+      .quote {
+        color: $dark-grey;
+        line-height: 1em;
+        text-align: right;
+        font-size: 3.3vw;
+      }
     }
   }
+
+
 }
 
 #careers {
@@ -313,8 +318,7 @@
       .project-info {
 
         .btn {
-          background: $primary;
-          //border-bottom: 2px solid $primary;
+          background: $black;
           padding: 10px 20px;
           color: $white;
         }
@@ -355,9 +359,8 @@
       }
 
       .btn {
-        padding: 10px 0;
         color: $medium-to-dark-grey;
-        border-bottom: 2px solid transparent;
+        padding: 10px 0;
       }
     }
   }
@@ -381,7 +384,7 @@
       .project-info {
 
         .btn {
-          background: $primary;
+          background: $black;
           padding: 10px 20px;
           color: $white;
         }
@@ -421,9 +424,8 @@
       }
 
       .btn {
-        padding: 10px 0;
-        border-bottom: 2px solid transparent;
         color: $medium-to-dark-grey;
+        padding: 10px 0;
       }
     }
   }
@@ -745,7 +747,6 @@
   }
 }
 
-
 #services {
 
   #services-main {
@@ -762,14 +763,12 @@
         @include display-grid;
         @include justify-content-center;
         @include align-content-center;
-        padding: 10px 20px;
+        padding: 30px;
         background-color: $bg-grey;
         text-align: center;
         font-size: 1.3em;
         color: $dark-grey;
         font-weight: 600;
-        height: 22vh;
-
 
         &.left {
           clip-path: polygon(100% 0%, 90% 50%, 100% 100%, 10% 100%, 0% 50%, 10% 0%);
@@ -797,14 +796,11 @@
     #scheme-description {
       @include display-grid;
       grid-template-columns: 2fr 1fr 2fr;
-      margin-top: 30px;
+      margin-top: $grid-gap-small;
 
       text-align: center;
       color: $dark-grey-1;
-      //text-transform: uppercase;
-      //@include transform-text;
       font-weight: 600;
-      font-size: .85em;
 
       .scheme-description {
 

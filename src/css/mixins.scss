@@ -136,9 +136,12 @@
 @mixin transform-button-text {
   font-weight: 600;
   font-size: 1.1em;
-  //text-transform: uppercase;
   letter-spacing: .05px;
-  //font-size: .8em;
+}
+
+@mixin transform-button-text-bigger {
+  @include transform-button-text;
+  font-size: 1.3em;
 }
 
 @mixin translate($valueX: 0, $valueY: 0) {
@@ -178,10 +181,10 @@
   font-weight: 800;
 }
 
+
 @mixin quotation-text {
   font-size: 3.8vw;
   line-height: 1.1em;
-  //margin: .5em 0 1em;
   padding: 0 10%;
   font-weight: 400;
   font-family: 'Prata Italic', serif;
@@ -192,6 +195,7 @@
   font-family: 'Prata Italic Italic', serif;
   font-style: italic;
   font-size: 1.8vw;
+  margin-top: 1em;
   padding: 0 10%;
 }
 
@@ -200,7 +204,7 @@
   font-weight: 700;
   font-size: 2.5vw;
   line-height: 1.3em;
-  padding: 0;
+  padding-bottom: $grid-gap-small ;
 }
 
 

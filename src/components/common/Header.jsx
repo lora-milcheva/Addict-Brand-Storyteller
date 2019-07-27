@@ -162,12 +162,13 @@ class HeaderC extends React.Component {
 			<header>
 
 				<div id="header">
-					<button id="lang-btn" className="btn btn-default sm"
+
+					<Link to="/" id="brand" onClick={this.toggleNav}/>
+
+					<button id="lang-btn" className="btn sm"
 					        value={activeLanguage}
 					        onClick={this.changeRouteByLanguage}>{activeLanguage === languages.bg ? languages.en : languages.bg}
 					</button>
-
-					<Link to="/" id="brand" onClick={this.toggleNav}/>
 
 					{toggleBtn}
 				</div>
@@ -180,12 +181,6 @@ class HeaderC extends React.Component {
 					         className="nav-link"
 					         activeClassName='active'>{MENU[activeLanguage].home}</NavLink>
 
-
-					<NavLink exact
-					         to={language + '/about-us'}
-					         className="nav-link"
-					         activeClassName='active'>{MENU[activeLanguage].aboutUs}</NavLink>
-
 					<NavLink
 						to={language + '/projects'}
 						className="nav-link"
@@ -195,6 +190,11 @@ class HeaderC extends React.Component {
 					         to={language + '/services'}
 					         className="nav-link"
 					         activeClassName='active'>{MENU[activeLanguage].services}</NavLink>
+
+					<NavLink exact
+					         to={language + '/about-us'}
+					         className="nav-link"
+					         activeClassName='active'>{MENU[activeLanguage].aboutUs}</NavLink>
 
 					<NavLink exact
 					         to="/careers"

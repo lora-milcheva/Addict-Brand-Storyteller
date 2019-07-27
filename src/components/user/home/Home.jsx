@@ -144,8 +144,8 @@ class Home extends React.Component {
 					<video autoPlay={true}
 					       loop={true}
 					       className='carousel-video'
-					       controls={false}>
-						<source src='videos/home/stories_02.mp4' type="video/mp4"/>
+					       controls={true}>
+						<source src='videos/home/video.mp4' type="video/mp4"/>
 					</video>
 				</section>
 

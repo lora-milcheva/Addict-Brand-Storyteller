@@ -16,15 +16,16 @@ class ServicesDescription extends React.Component {
 
 
 				<div id='articles'>
-					<Article language={activeLanguage}
-					         pageName='services'
-					         sectionName='main'
-					         subSectionName='tailorMadeProduction'/>
 
 					<Article language={activeLanguage}
 					         pageName='services'
 					         sectionName='main'
 					         subSectionName='brandStory'/>
+
+					<Article language={activeLanguage}
+					         pageName='services'
+					         sectionName='main'
+					         subSectionName='tailorMadeProduction'/>
 
 					<Article language={activeLanguage}
 					         pageName='services'

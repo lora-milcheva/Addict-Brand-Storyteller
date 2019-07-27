@@ -31,7 +31,7 @@ function HomeProjectCard (props) {
 					<p className='project-name'>{project.name[activeLanguage]}</p>
 					<p className='cliche'>{project.description[activeLanguage]}</p>
 				</div>
-				<Link to={linkPath} className="btn btn-default-light lg">{BUTTONS[activeLanguage].seeProject}</Link>
+				<Link to={linkPath} className="btn btn-default-light">{BUTTONS[activeLanguage].seeProject}</Link>
 			</div>
 		</section>
 	);

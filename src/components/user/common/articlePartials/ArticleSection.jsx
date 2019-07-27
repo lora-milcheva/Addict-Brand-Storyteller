@@ -35,7 +35,7 @@ class ArticleSection extends React.Component {
 
 				<div className='blockquote'>
 					{quote.__html !== '' &&
-					<h2 className='quote text-center'
+					<h2 className='quote'
 					    dangerouslySetInnerHTML={quote}/>
 					}
 				</div>
