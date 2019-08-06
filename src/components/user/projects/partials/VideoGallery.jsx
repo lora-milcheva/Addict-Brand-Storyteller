@@ -16,9 +16,7 @@ class VideoGallery extends React.Component {
 	}
 
 	componentDidMount () {
-
 		this.setVolumeOnPlayers();
-
 	}
 
 	componentWillMount () {
@@ -84,7 +82,7 @@ class VideoGallery extends React.Component {
 
 	setVolumeOnPlayers = () => {
 
-		for (let i = 0; i < this.props.data.length; i++) {
+		for (let i = 0; i < this.props.videos.length; i++) {
 
 			let name = 'video' + i;
 			let video = this[name].current;
@@ -98,11 +96,11 @@ class VideoGallery extends React.Component {
 		let newVolume = e.target.volume;
 		this.setState({volume: newVolume});
 
-		// this.changeVolume();
+		this.changeVolume();
 	};
 
 	changeVolume = () => {
-		for (let i = 0; i < this.props.data.length; i++) {
+		for (let i = 0; i < this.props.videos.length; i++) {
 
 			let name = 'video' + i;
 			let video = this[name].current;
@@ -110,11 +108,27 @@ class VideoGallery extends React.Component {
 		}
 	};
 
+	stopOtherVideos = (e) => {
+
+		let videoName = e.target.getAttribute('data-target-name');
+
+		for (let i = 0; i < this.props.videos.length; i++) {
+
+			let name = 'video' + i;
+
+			if (name === videoName) continue;
+
+			let video = this[name].current;
+
+			if (!video.paused) video.pause();
+		}
+	};
+
 	render () {
 
 		let lang = this.props.language;
 
-		let videos = this.props.data.map((video, i) => {
+		let videos = this.props.videos.map((video, i) => {
 
 			for (let el in video.info) {
 				let section = this.props.sections.filter(s => s._id === el)[0];
@@ -138,8 +152,10 @@ class VideoGallery extends React.Component {
 				<div key={video.url} className='video-container'>
 
 					<video poster={video.poster}
+					       data-target-name={name}
 					       className='video'
 					       controls
+					       onPlay={this.stopOtherVideos}
 					       ref={this[name]}>
 						<source src={video.url} type="video/mp4"/>
 					</video>
@@ -162,18 +178,18 @@ class VideoGallery extends React.Component {
 
 
 				<div className="gallery-navigation">
-						<span className='gallery-navigation-button'
-						      onClick={() => this.moveCarousel('left')}>
-							<img id="prevBtn"
-							     className={this.state.imageIndex === 0 ? 'disabled' : ''}
-							     src="/images/icons/arrow-left-white.svg" alt="previous"/>
-						</span>
-					<span className='gallery-navigation-button'
-					      onClick={() => this.moveCarousel('right')}>
-							<img id="nextBtn"
-							     className={this.state.imageIndex === (this.props.data.length - 1) ? 'disabled' : ''}
-							     src="/images/icons/arrow-right-white.svg" alt="next"/>
-						</span>
+					<div className="gallery-navigation">
+						<button
+							className={this.state.imageIndex === 0 ? 'btn btn-default md disabled' : 'btn btn-default md'}
+							onClick={() => this.moveCarousel('left')}>
+							<i className="fa fa-arrow-left" aria-hidden="true"/>
+						</button>
+						<button
+							className={this.state.imageIndex === (this.props.videos.length - 1) ? 'btn btn-default md disabled' : 'btn btn-default md'}
+							onClick={() => this.moveCarousel('right')}>
+							<i className="fa fa-arrow-right" aria-hidden="true"/>
+						</button>
+					</div>
 				</div>
 			</div>
 		);
@@ -183,7 +199,7 @@ class VideoGallery extends React.Component {
 export default VideoGallery;
 
 VideoGallery.propTypes = {
-	data: PropTypes.array,
+	videos: PropTypes.array,
 	language: PropTypes.string,
 	sections: PropTypes.array,
 	showPreview: PropTypes.func

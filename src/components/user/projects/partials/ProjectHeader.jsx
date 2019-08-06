@@ -13,8 +13,8 @@ class ProjectHeader extends React.Component {
 		return (
 
 			<section id="project-header" className='container'>
-				<p className='project-name'> {project.name[activeLanguage]}</p>
-				<p className='client'> {client} </p>
+				<p className='project-name'>Проектът: {project.name[activeLanguage]}</p>
+				{client !== '' && <p className='client'>Възложителят: {client} </p>}
 				<h2 className="cliche">
 					<span className="field">{USER_PAGES_TEXT.project[activeLanguage].cliche}</span>
 					{project.description[activeLanguage]}

@@ -14,7 +14,7 @@ import ConfirmDialog from '../../common/ConfirmDialog';
 import Utils from '../../../utils/utils';
 
 // Constants
-import { SECTION_INPUTS, BUTTONS, NOTIFICATIONS, ADMIN_PAGES_TEXT } from '../../../constants/constants';
+import { SECTION_INPUTS, BUTTONS, NOTIFICATIONS, ADMIN_PAGES_TEXT, CONFIRM_DIALOG_MESSAGES } from '../../../constants/constants';
 
 class createEditSection extends React.Component {
 	constructor (props) {
@@ -100,11 +100,12 @@ class createEditSection extends React.Component {
 	};
 
 	confirm = () => {
-		this.confirmDialog.showMessage('test', this.deleteSection);
+		this.notifications.showMessage(NOTIFICATIONS.bg.deleteForbidden);
+		// this.confirmDialog.showMessage(CONFIRM_DIALOG_MESSAGES.bg.confirmDelete, this.deleteSection);
 	};
 
 	deleteSection = () => {
-		console.log('from delete');
+		this.notifications.showMessage(NOTIFICATIONS.bg.deleteForbidden);
 		// Delete from all projects categories list
 	};
 

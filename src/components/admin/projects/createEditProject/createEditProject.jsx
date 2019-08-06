@@ -384,7 +384,6 @@ class createProject extends React.Component {
 		let project = Utils.createStateCopy(this.state);
 
 		if (this.projectId) {
-
 			projectsService
 				.editProject(this.projectId, project)
 				.then(res => {

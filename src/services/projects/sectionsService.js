@@ -9,10 +9,10 @@ export default {
 
 	createSection: (state) => {
 
-		let project = createSectionInfo(state);
+		let section = createSectionInfo(state);
 
 		return requester
-			.post(sessionAuth, module, endPoint, project);
+			.post(sessionAuth, module, endPoint, section);
 	},
 
 
@@ -35,10 +35,10 @@ export default {
 
 		let endPointId = endPoint + '/' + id;
 
-		let project = createSectionInfo(state);
+		let section = createSectionInfo(state);
 
 		return requester
-			.put(sessionAuth, module, endPointId, project);
+			.put(sessionAuth, module, endPointId, section);
 	}
 };
 

@@ -39,10 +39,8 @@ class ContactForm extends React.Component {
 
 		Object.keys(this.state).forEach(e => {
 			if (e === 'phone' || e === 'subject' || e === 'message') return;
-			if (this.state[e].trim() === '')emptyFields.push(e);
+			if (this.state[e].trim() === '') emptyFields.push(e);
 		});
-
-		console.log(emptyFields);
 
 		if (emptyFields.length > 0) {
 			this.notifications.showMessage(NOTIFICATIONS[lang].fieldsRequired + '\r\n' + emptyFields.join(', '));
@@ -69,6 +67,7 @@ class ContactForm extends React.Component {
 
 		let lang = this.context.language;
 
+		console.log(res.status);
 		if (res.status === 200) {
 			this.notifications.showMessage(NOTIFICATIONS[lang].messageSent);
 			this.clearForm();
@@ -79,7 +78,7 @@ class ContactForm extends React.Component {
 
 	clearForm = (e) => {
 
-		e.preventDefault();
+		if (e !== undefined) e.preventDefault();
 
 		this.setState({
 			firstName: '',
@@ -90,7 +89,6 @@ class ContactForm extends React.Component {
 			message: '',
 		});
 	};
-
 
 	render () {
 
@@ -103,7 +101,7 @@ class ContactForm extends React.Component {
 
 				{/*<h2 className='section-title container'>{USER_PAGES_TEXT.contact[activeLanguage].contactUs}</h2>*/}
 
-				<form id="contact-form" method="post" onSubmit={this.sendMail}  className='container'>
+				<form id="contact-form" method="post" onSubmit={this.sendMail} className='container'>
 
 					<FormInput type='text'
 					           name='firstName'
@@ -155,10 +153,10 @@ class ContactForm extends React.Component {
 					          id='message'
 					          className='message'
 					          value={this.state.message}
-					          // label={USER_PAGES_TEXT.contact[activeLanguage].message}
-					          onChange={this.handleChange}
-					          rows={5}
-					          placeholder={USER_PAGES_TEXT.contactForm[activeLanguage].message}/>
+						// label={USER_PAGES_TEXT.contact[activeLanguage].message}
+						      onChange={this.handleChange}
+						      rows={5}
+						      placeholder={USER_PAGES_TEXT.contactForm[activeLanguage].message}/>
 
 					<div id={'submit-buttons'} className="buttons-container text-center">
 						<button className="btn btn-default-light"

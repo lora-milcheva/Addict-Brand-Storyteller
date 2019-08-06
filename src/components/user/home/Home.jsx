@@ -13,9 +13,10 @@ import BlockQuote from '../common/articlePartials/BlockQuote';
 // Services
 import authService from '../../../services/auth/authService';
 import projectsService from '../../../services/projects/projectsService';
-import clientsService from '../../../services/clients/clientsService';
-import categoriesService from '../../../services/categories/categoriesService';
 import HomeProjectCard from '../common/projects/HomeProjectCard';
+
+//Constants
+import { BUTTONS } from '../../../constants/constants';
 
 class Home extends React.Component {
 	constructor (props) {
@@ -27,19 +28,16 @@ class Home extends React.Component {
 			clients: [],
 			categories: [],
 
-			btnVisible: false,
+			loading: true,
 
-			loading: true
+			videoMuted: true
 		};
+
+		this.video = React.createRef();
 
 	}
 
 	componentDidMount () {
-
-		document.addEventListener('scroll', this.showHideBtn);
-
-		// Clear filtered by category projects
-		sessionStorage.removeItem('filteredProjects');
 
 		// Log anonymous user if storage is empty
 		if (sessionStorage.getItem('authtoken') === null) {
@@ -57,23 +55,6 @@ class Home extends React.Component {
 		this.loadStarProjects();
 	}
 
-	componentWillUnmount () {
-		document.removeEventListener('scroll', this.showHideBtn);
-	}
-
-	showHideBtn = () => {
-
-		if (!this.state.btnVisible) {
-			if (window.scrollY > window.innerHeight - 500) {
-				this.setState({btnVisible: true});
-			}
-		} else {
-			if (window.scrollY < window.innerHeight - 500) {
-				this.setState({btnVisible: false});
-			}
-		}
-	};
-
 	loadStarProjects = () => {
 
 		let query = '?query={"isStar":true}';
@@ -81,43 +62,20 @@ class Home extends React.Component {
 		projectsService
 			.loadAllProjects(query)
 			.then(res => {
-
 				res.sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber));
-
 				this.setState({projects: res});
-
-				clientsService
-					.loadAllClients()
-					.then(res => {
-
-						this.setState({sections: res});
-
-						this.state.projects.forEach(p => {
-							p.clientName = this.state.sections.filter(c => c._id === p.clientId)[0].name;
-						});
-
-						categoriesService
-							.loadAllCategories()
-							.then(res => {
-								this.setState({categories: res, loading: false});
-							})
-							.catch(err => {
-								this.notifications.showMessage(err.responseJSON.description);
-							});
-
-					})
-					.catch(err => {
-						this.notifications.showMessage(err.responseJSON.description);
-					});
-
 			})
 			.catch(err => {
 				this.notifications.showMessage(err.responseJSON.description);
 			});
 	};
 
-	scrollTop = () => {
-		window.scroll(0, 0);
+	toggleVideoControls = () => {
+		let video = this.video.current;
+
+		video.controls = true;
+
+		this.setState({videoMuted: !this.state.videoMuted});
 	};
 
 	render () {
@@ -128,25 +86,29 @@ class Home extends React.Component {
 
 		let accentProject = projects.shift();
 
-		let btnStyle = this.state.btnVisible ? 'btn btn-default visible' : 'btn btn-default';
-
 		return (
 			<div id="home" className='container-fluid'>
 
-				<button id='go-to-top-btn'
-				        className={btnStyle}
-				        onClick={this.scrollTop}>Top
-				</button>
-
 				<PageHeader language={activeLanguage} pageName='home'/>
 
-				<section className='container section-padding-bottom'>
-					<video autoPlay={true}
-					       loop={true}
+				<section id='video' className='container section-padding-bottom'>
+
+					<video loop
+					       autoPlay
+					       muted={this.state.videoMuted}
+					       controls={false}
+					       controlsList="nodownload"
 					       className='carousel-video'
-					       controls={true}>
+					       ref={this.video}>
 						<source src='videos/home/video.mp4' type="video/mp4"/>
 					</video>
+
+					<button id='unmute-btn' className='btn btn-default-light'
+					        onClick={this.toggleVideoControls}>
+						{this.state.videoMuted && <i className="fa fa-volume-up" aria-hidden="true"/>}
+						{!this.state.videoMuted && <i className="fa fa-volume-off" aria-hidden="true"/>}
+						{/*{BUTTONS[activeLanguage].playWithAudio}*/}
+					</button>
 				</section>
 
 				<OurAim language={activeLanguage}/>

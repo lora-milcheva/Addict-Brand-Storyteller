@@ -55,13 +55,13 @@ class Notifications extends React.Component {
 		let language = this.props.language;
 
 		return (
-			<div id="messages"
+			<div id="notifications"
 			     className={isVisible ? 'visible' : ''}
 			     onClick={this.hideMessage}>
-				<div className="message">
-					<p className="message-text">{this.state.message}</p>
+				<div className="notification">
+					<p className="notification-text">{this.state.message}</p>
 
-					<button className="btn btn-primary" onClick={this.hideMessage}>{BUTTONS[language].close}</button>
+					<button className="btn btn-default md" onClick={this.hideMessage}>{BUTTONS[language].close}</button>
 				</div>
 
 			</div>

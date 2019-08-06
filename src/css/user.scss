@@ -1,7 +1,6 @@
 @import "constants";
 @import "mixins";
 
-
 #go-to-top-btn {
   position: fixed;
   bottom: -25px;
@@ -17,6 +16,14 @@
     opacity: 1;
     bottom: 25px;
     visibility: visible;
+  }
+
+  &.bottom {
+    bottom: 80px;
+  }
+
+  .fa {
+    margin: 0;
   }
 }
 
@@ -44,7 +51,7 @@
 
 .subtitle-light {
   color: $dark-grey-1;
-  margin-top: 1em;
+  margin-top: 2em;
 }
 
 .section-header {
@@ -65,7 +72,7 @@
 }
 
 .section-text {
-  margin: $text-margin 0 $section-padding-top 0;
+  margin-bottom: $section-padding-bottom;
   font-weight: 500;
   color: $dark-grey;
   font-size: 1.4em;
@@ -74,7 +81,7 @@
 
 .smaller {
   display: inline-block;
-  font-size: .7em;
+  font-size: 1.85vw;
   line-height: 1.4em;
   color: $dark-grey;
   font-weight: 400;
@@ -156,6 +163,16 @@
 
   text-align: center;
 
+  #video {
+    position: relative;
+
+    #unmute-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+  }
+
   .carousel-video {
     width: 100%;
   }
@@ -198,7 +215,7 @@
       }
 
       .cliche {
-        font-size: 3em;
+        font-size: 2.8vw;
         line-height: 1.2em;
         font-weight: 500;
         margin: 10px 0 50px 0;
@@ -210,7 +227,6 @@
   }
 
   #our-philosophy {
-    //border-bottom: 3px solid $primary;
 
     .section-title {
       font-size: 5vw;
@@ -222,7 +238,6 @@
       //@include grid-template-columns(4, 1fr);
       @include grid-gap($grid-gap, 0);
 
-
       text-align: left;
 
       .article-box {
@@ -233,17 +248,8 @@
         @include grid-gap(0, $grid-gap);
 
         @include slow-transition;
-
       }
     }
-  }
-
-  #home-services {
-
-  }
-
-  #home-about-us {
-
   }
 }
 
@@ -262,6 +268,13 @@
       padding: $grid-gap-small $grid-gap;
       border-left: 3px solid $primary;
 
+      p {
+        margin-top: .75em;
+
+        &:first-of-type {
+          margin-top: 0;
+        }
+      }
     }
 
     .blockquote {
@@ -273,6 +286,29 @@
         line-height: 1em;
         text-align: right;
         font-size: 3.3vw;
+      }
+    }
+  }
+}
+
+#about-us {
+
+  .container {
+    &:nth-of-type(2) {
+      .article-section {
+        grid-template-columns: 60% 40%;
+
+        .article-box {
+          grid-area: 1 / 1 / 2 / 2;
+          border-right: 3px solid $primary;
+          border-left: none;
+        }
+
+        .blockquote {
+          .quote {
+            //text-align: left;
+          }
+        }
       }
     }
   }
@@ -345,7 +381,7 @@
 
       .project-name {
         @include transform-text;
-        color: $dark-grey-1;
+        //color: $dark-grey-1;
       }
 
       .cliche {
@@ -443,10 +479,17 @@
       @include transform-text;
     }
 
+    .project-name {
+      //font-weight: 600;
+      //font-size: 1.8em;
+      //margin-bottom: .3em;
+    }
+
     .cliche {
       font-size: 4vw;
       line-height: 1.15em;
       //@include headline-font;
+      margin-top: $grid-gap-small;
 
       .field {
         &:after {
@@ -460,18 +503,30 @@
   // description
   #project-info {
     @include display-grid;
-    @include grid-gap($grid-gap-small, $grid-gap-small);
-    margin: $section-padding-top 0;
 
-    .section-text {
-      margin: 0;
+    .section-image {
+      padding-top: $section-padding-top;
+    }
 
-      p {
-        color: $dark-grey-1 !important;
+    .info-section {
+      padding-top: $section-padding-top;
+      //@include display-grid;
+      //grid-template-columns: 2fr 5fr;
+
+      .section-header {
+        margin: 0;
+
+        .section-title {
+          text-align: left;
+        }
       }
 
-      p > span {
-        color: $dark-grey-1 !important;
+      .section-text {
+        font-size: 1.5em;
+        font-weight: 500;
+        line-height: 1.5em;
+        margin: 0;
+        text-align: justify;
       }
     }
   }
@@ -481,6 +536,7 @@
   #project-gallery,
   #project-video-gallery {
     overflow: hidden;
+    margin-top: $section-padding-top;
   }
 
   #gallery,
@@ -501,45 +557,8 @@
     max-width: 100vw;
     text-align: center;
 
-
-    .gallery-navigation-button {
-      @include main-transition;
-
-
-      &:hover,
-      &:active {
-        cursor: pointer;
-
-        #prevBtn,
-        #nextBtn {
-          cursor: pointer;
-          color: $white;
-          background-color: $black;
-        }
-      }
-
-      #prevBtn,
-      #nextBtn {
-        width: 40px;
-        height: 40px;
-        padding: 5px 7px;
-        margin: 0 2px;
-        background-color: $primary;
-        color: $white;
-
-        @include main-transition;
-
-        &.disabled {
-          cursor: default;
-          background-color: $medium-grey;
-          color: $white;
-        }
-
-        &:hover,
-        &:active {
-          cursor: pointer;
-        }
-      }
+    .btn .fa {
+      margin: 0;
     }
   }
 
@@ -592,6 +611,7 @@
         @include display-grid;
         @include align-content-top;
         border-bottom: 1px solid $primary;
+        padding: 10px 0;
 
         .section {
           @include display-grid;
@@ -606,6 +626,7 @@
           font-weight: 600;
           padding: 0;
           border-bottom: none;
+          font-size: .95em;
         }
 
         .section-text {
@@ -629,8 +650,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100vh;
+    right: 0;
+    bottom: 0;
     background-color: rgba(0, 0, 0, .9);
 
     opacity: 0;
@@ -644,77 +665,39 @@
       z-index: 2000;
     }
 
-    .close-btn {
+    #close-btn {
       position: absolute;
       top: 10px;
       right: 10px;
-      width: 40px;
-      height: 40px;
-      padding: 5px 7px;
-      background-color: transparent;
 
-      @include main-transition;
-
-      &:hover,
-      &:active {
-        cursor: pointer;
-        color: $white;
-        background-color: $primary;
+      .fa {
+        margin: 0;
       }
     }
 
     .gallery-navigation {
       position: absolute;
-      top: 0;
+      left: 0;
+      top: 50%;
+      @include translate(0, -50%);
+
       width: 100%;
-      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
 
+      padding: $grid-gap-small;
 
-      .gallery-navigation-button {
-
-        height: 100%;
-        padding: 0 50px;
-
-
-        @include main-transition;
-
-        &:hover,
-        &:active {
-
-          cursor: pointer;
-
-          #prevBtn,
-          #nextBtn {
-            cursor: pointer;
-            color: $white;
-            background-color: $primary;
-          }
-        }
-
-        &:nth-of-type(2) {
-
-        }
-
-        #prevBtn,
-        #nextBtn {
-          width: 40px;
-          height: 40px;
-          padding: 5px 7px;
-          background-color: transparent;
-
-          @include main-transition;
-
-        }
+      .btn:nth-child(2) {
+        justify-self: end
       }
+
     }
 
-    .gallery {
-      margin: auto;
-      width: 90%;
-      height: 95vh;
-    }
 
     .image {
+      height: 90vh;
+      @include translate(0, 5vh);
+
 
       @include main-transition;
       text-align: center;
@@ -723,25 +706,7 @@
         width: auto;
         max-width: 100%;
         height: auto;
-        max-height: 95vh;
-      }
-    }
-
-    .content {
-
-      height: 100%;
-      padding: 25px 0 25px 25px;
-      color: $white;
-
-      h4 {
-        //@include flex-basis(100%);
-        @include transform-text;
-        font-weight: 600;
-        font-size: 1em;
-      }
-
-      p {
-        font-size: .9em;
+        max-height: 100%;
       }
     }
   }

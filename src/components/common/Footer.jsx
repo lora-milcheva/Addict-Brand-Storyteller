@@ -20,7 +20,13 @@ class Footer extends React.Component {
 				<p> &copy; 2019 Addict. All rights reserved. </p>
 
 				<section id='social-media'>
-					Facebook
+					<Link to='#'>
+						<i className="fa fa-facebook-official" aria-hidden="true"/>
+					</Link>
+
+					<Link to='#'>
+						<i className="fa fa-instagram" aria-hidden="true"/>
+					</Link>
 				</section>
 
 				<nav id="footer-nav">

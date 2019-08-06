@@ -104,6 +104,10 @@ class HeaderC extends React.Component {
 			toggleBtn.classList.remove('clicked');
 		}, 500);
 
+		// if (this.props.location.pathname === '/') {
+		// 	console.log(222)
+		// 	window.location.reload();
+		// }
 	};
 
 	render () {
@@ -146,7 +150,8 @@ class HeaderC extends React.Component {
 					</nav>
 
 
-					<span className='username'>Потребител<span className='name'> {sessionStorage.getItem('username')}</span></span>
+					<span className='username'>Потребител<span
+						className='name'> {sessionStorage.getItem('username')}</span></span>
 					<NavLink exact to='/'
 					         className="nav-link logout"
 					         activeClassName='active'
@@ -197,8 +202,7 @@ class HeaderC extends React.Component {
 					         activeClassName='active'>{MENU[activeLanguage].aboutUs}</NavLink>
 
 					<NavLink exact
-					         to="/careers"
-					         className="nav-link"
+					         to={language + '/careers'} className="nav-link"
 					         activeClassName='active'>{MENU[activeLanguage].careers}</NavLink>
 
 					<NavLink exact
@@ -223,6 +227,3 @@ const Header = withRouter(HeaderC);
 Header.WrappedComponent.contextType = LanguageContext;
 export default Header;
 
-// Header.contextType = LanguageContext;
-//
-// export default withRouter(Header);

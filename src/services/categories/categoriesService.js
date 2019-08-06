@@ -9,10 +9,10 @@ export default {
 
 	createCategory: (state) => {
 
-		let project = createCategoryInfo(state);
+		let category = createCategoryInfo(state);
 
 		return requester
-			.post(sessionAuth, module, endPoint, project);
+			.post(sessionAuth, module, endPoint, category);
 	},
 
 
@@ -35,10 +35,10 @@ export default {
 
 		let endPointId = endPoint + '/' + id;
 
-		let project = createCategoryInfo(state);
+		let category = createCategoryInfo(state);
 
 		return requester
-			.put(sessionAuth, module, endPointId, project);
+			.put(sessionAuth, module, endPointId, category);
 	}
 };
 

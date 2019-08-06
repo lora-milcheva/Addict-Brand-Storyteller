@@ -14,10 +14,10 @@ class InfoSection extends React.Component {
 			<section>
 
 				{image !== '' &&
-				<img src={image} alt='section image'/>
+				<img src={image} className='section-image' alt='section image'/>
 				}
 
-				<article className="container">
+				<article className="info-section container section-padding-top">
 					<div className="section-header">
 						<h2 className="section-title">{sectionName}</h2>
 					</div>

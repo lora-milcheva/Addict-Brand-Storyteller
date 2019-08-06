@@ -14,7 +14,13 @@ import ConfirmDialog from '../../common/ConfirmDialog';
 import Utils from '../../../utils/utils';
 
 // Constants
-import { CATEGORY_INPUTS, BUTTONS, NOTIFICATIONS, ADMIN_PAGES_TEXT } from '../../../constants/constants';
+import {
+	CATEGORY_INPUTS,
+	BUTTONS,
+	NOTIFICATIONS,
+	ADMIN_PAGES_TEXT,
+	CONFIRM_DIALOG_MESSAGES
+} from '../../../constants/constants';
 
 class createEditCategory extends React.Component {
 	constructor (props) {
@@ -100,12 +106,12 @@ class createEditCategory extends React.Component {
 	};
 
 	confirm = () => {
-		this.confirmDialog.showMessage('test', this.deleteCategory);
+		this.notifications.showMessage(NOTIFICATIONS.bg.deleteForbidden);
+		// this.confirmDialog.showMessage(CONFIRM_DIALOG_MESSAGES.bg.confirmDelete, this.deleteCategory);
 	};
 
 	deleteCategory = () => {
-		console.log('from delete');
-		// Delete from all projects categories list
+		this.notifications.showMessage(NOTIFICATIONS.bg.deleteForbidden);
 	};
 
 	cancel = (e) => {

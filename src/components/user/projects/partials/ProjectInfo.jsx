@@ -45,5 +45,5 @@ export default ProjectInfo;
 ProjectInfo.propTypes = {
 	activeLanguage: PropTypes.string,
 	project: PropTypes.object,
-	sections: PropTypes.object
+	sections: PropTypes.array
 };

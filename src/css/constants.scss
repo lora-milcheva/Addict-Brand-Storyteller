@@ -45,3 +45,9 @@ $text-margin: 25px;
 $grid-gap: 50px;
 $grid-gap-small: 25px;
 
+
+@media screen and (max-width: 1200px){
+  $section-padding-top: 20px;
+  $section-padding-bottom: 20px;
+  $section-padding-left-right: 5px;
+}

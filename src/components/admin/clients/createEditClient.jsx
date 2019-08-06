@@ -14,7 +14,7 @@ import ConfirmDialog from '../../common/ConfirmDialog';
 import Utils from '../../../utils/utils';
 
 // Constants
-import { CLIENT_INPUTS, BUTTONS, NOTIFICATIONS, ADMIN_PAGES_TEXT } from '../../../constants/constants';
+import { CLIENT_INPUTS, BUTTONS, NOTIFICATIONS, ADMIN_PAGES_TEXT, CONFIRM_DIALOG_MESSAGES } from '../../../constants/constants';
 
 class createEditCategory extends React.Component {
 	constructor (props) {
@@ -99,11 +99,23 @@ class createEditCategory extends React.Component {
 	};
 
 	confirm = () => {
-		this.confirmDialog.showMessage('test', this.deleteClient);
+		this.notifications.showMessage(NOTIFICATIONS.bg.deleteForbidden);
+		// this.confirmDialog.showMessage(CONFIRM_DIALOG_MESSAGES.bg.confirmDelete, this.deleteClient);
 	};
 
 	deleteClient = () => {
-		console.log('from delete');
+
+		this.notifications.showMessage(NOTIFICATIONS.bg.deleteForbidden);
+
+		// clientsService
+		// 	.deleteClient(this.clientId)
+		// 	.then(res => {
+		// 		this.notifications.showMessage(NOTIFICATIONS.bg.clientDeleted);
+		// 		setTimeout(() => this.props.history.go('/admin/clients-list'), 2000);
+		// 	})
+		// 	.catch(err => {
+		// 		this.notifications.showMessage(err.responseJSON.description);
+		// 	});
 	};
 
 	cancel = (e) => {

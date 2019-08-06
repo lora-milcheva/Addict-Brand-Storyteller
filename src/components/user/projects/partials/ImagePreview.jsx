@@ -29,7 +29,7 @@ class ImagePreview extends React.Component {
 
 	handleKeyPress = (e) => {
 
-		console.log(e)
+		console.log(e);
 
 		if (e.key === 'ArrowLeft') this.showPrevImage();
 
@@ -109,42 +109,29 @@ class ImagePreview extends React.Component {
 
 		let isVisible = Object.keys(this.state.image).length > 0;
 
-		let lang = this.props.activeLanguage;
-
 		return (
 			<div id='image-preview' className={isVisible ? 'visible' : ''}>
 
-				<div className='gallery'>
-					<figure className="image">
-						<img src={this.state.image.url}
-						     className="img-fit"
-						     alt={this.state.image.url}
-						     ref={this.image}/>
-					</figure>
 
-					{/*{this.state.image.Headline && this.state.image.Content &&*/}
-					{/*<div className='content'>*/}
-					{/*	<h4 dangerouslySetInnerHTML={{__html: this.state.image.Headline[lang]}}/>*/}
-					{/*	<p dangerouslySetInnerHTML={{__html: this.state.image.Content[lang]}}/>*/}
-					{/*</div>*/}
-					{/*}*/}
-				</div>
+				<figure className="image">
+					<img src={this.state.image.url}
+					     className="img-fit"
+					     alt={this.state.image.url}
+					     ref={this.image}/>
+				</figure>
 
 
 				<div className="gallery-navigation">
-					<span className="gallery-navigation-button"
-					      onClick={this.showPrevImage}>
-
-						<img id="prevBtn" src="/images/icons/arrow-left-white.svg" alt="previous"/>
-					</span>
-					<span className="gallery-navigation-button"
-					      onClick={this.showNextImage}>
-						<img id="nextBtn" src="/images/icons/arrow-right-white.svg" alt="next"/>
-					</span>
+					<button className={'btn btn-default-light md'} onClick={this.showPrevImage}>
+						<i className="fa fa-arrow-left" aria-hidden="true"/>
+					</button>
+					<button className={'btn btn-default-light md'} onClick={this.showNextImage}>
+						<i className="fa fa-arrow-right" aria-hidden="true"/>
+					</button>
 				</div>
 
-				<button className="close-btn" onClick={this.props.onClose}>
-					<img src="/images/icons/close-btn-white.svg" alt="close preview"/>
+				<button id='close-btn' className="btn btn-default-light md" onClick={this.props.onClose}>
+					<i className="fa fa-times" aria-hidden="true"/>
 				</button>
 			</div>
 		);

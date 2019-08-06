@@ -31,7 +31,7 @@ class StoryArchetypes extends React.Component {
 				</div>
 
 				<figure className="img-container">
-					<img className="img-fit" src='/images/bgs/birds_BW.jpg' alt=''/>
+					<img className="img-fit" src='/images/bgs/about-us-1.jpg' alt=''/>
 				</figure>
 
 				<div className='container'>
@@ -48,7 +48,7 @@ class StoryArchetypes extends React.Component {
 				</div>
 
 				<figure className="img-container">
-					<img className="img-fit" src='/images/bgs/birds_BW.jpg' alt=''/>
+					<img className="img-fit" src='/images/bgs/about-us-2.jpg' alt=''/>
 				</figure>
 
 				<div className='container'>

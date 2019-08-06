@@ -7,16 +7,12 @@ import {BUTTONS} from '../../../../constants/constants'
 
 function ProjectCard (props) {
 
-	let {project, category, activeLanguage} = props;
-
+	let {project, activeLanguage} = props;
 
 	let pathLang = activeLanguage === 'en' ? '/' + activeLanguage : '';
-	let linkPath = category
-		? pathLang + '/projects/' + project._id
-		: pathLang + '/projects/' + project._id;
 
 	return (
-		<Link to={linkPath} className="project-card">
+		<Link to={pathLang + '/projects/' + project._id} className="project-card">
 
 			<figure className="img-container">
 				<img className="img-fit" src={project.thumbnail} alt={project.name[activeLanguage]}/>
@@ -40,5 +36,4 @@ export default ProjectCard;
 ProjectCard.propTypes = {
 	project: PropTypes.object,
 	activeLanguage: PropTypes.string,
-	category: PropTypes.string
 };

@@ -82,12 +82,16 @@ class ProjectStory extends React.Component {
 					.then(res => {
 						this.setState({allSections: res});
 
-						clientsService
-							.loadAllClients()
-							.then(res => {
-								let client = res.filter(e => e._id === this.state.project.clientId);
-								this.setState({clientName: client[0], loading: false});
-							});
+						if (this.state.project.clientId) {
+							clientsService
+								.loadAllClients()
+								.then(res => {
+									let client = res.filter(e => e._id === this.state.project.clientId);
+									this.setState({clientName: client[0], loading: false});
+								});
+						} else {
+							this.setState({loading: false});
+						}
 					});
 			})
 			.catch(err => {
@@ -112,8 +116,7 @@ class ProjectStory extends React.Component {
 
 		let project = this.state.project;
 
-		let client = this.state.clientName.name[activeLanguage];
-
+		let client = this.state.clientName !== '' ? this.state.clientName.name[activeLanguage] : '';
 
 		return (
 			<div id="project-story" className="container-fluid">
@@ -133,7 +136,7 @@ class ProjectStory extends React.Component {
 				<ProjectInfo activeLanguage={activeLanguage} project={project} sections={this.state.allSections}/>
 
 				{this.state.project.videos.length > 0 &&
-				<VideoGallery data={project.videos}
+				<VideoGallery videos={project.videos}
 				              sections={this.state.allSections}
 				              language={activeLanguage}/>
 				}

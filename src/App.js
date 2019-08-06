@@ -1,6 +1,7 @@
 import React from 'react';
 
 // CSS
+import './css/constants.css'
 import './css/main.css';
 import './css/main-responsive.css';
 import './css/user.css';
@@ -21,22 +22,49 @@ class App extends React.Component {
 		super(props);
 
 		this.state = {
-			language: languages.bg
+			language: languages.bg,
 		};
+
+		this.scrollTopBtn = React.createRef();
+		this.main = React.createRef();
 	}
 
 	updateLanguage = (language) => {
 		this.setState({language: language});
 	};
 
-	componentDidUpdate (prevProps, prevState, snapshot) {
-		if (prevState.language !== this.state.language) return
-		window.scrollTo(0, 0)
+	componentDidMount () {
+		document.addEventListener('scroll', this.showHideBtn);
 	}
 
-	render () {
+	componentWillUnmount () {
+		document.removeEventListener('scroll', this.showHideBtn);
+	}
 
-		let isHomePage = window.location.pathname === '/';
+	componentWillUpdate (nextProps, nextState, nextContext) {
+		this.scrollTop()
+	}
+
+	showHideBtn = () => {
+		if (window.scrollY > window.innerHeight - 500) {
+			this.scrollTopBtn.current.classList.add('visible');
+
+			// Add more distance from bottom of page because of footer
+			if (window.scrollY + window.innerHeight >= this.main.current.clientHeight) {
+				this.scrollTopBtn.current.classList.add('bottom');
+			} else {
+				this.scrollTopBtn.current.classList.remove('bottom');
+			}
+		} else {
+			this.scrollTopBtn.current.classList.remove('visible');
+		}
+	};
+
+	scrollTop = () => {
+		window.scroll(0, 0);
+	};
+
+	render () {
 
 		return (
 
@@ -44,7 +72,14 @@ class App extends React.Component {
 
 				<Header/>
 
-				<main>
+				<main ref={this.main}>
+
+					<button id='go-to-top-btn'
+					        ref={this.scrollTopBtn}
+					        className='btn btn-default sm'
+					        onClick={this.scrollTop}>
+						<i className="fa fa-arrow-up" aria-hidden="true"/>
+					</button>
 
 					<Routes/>
 

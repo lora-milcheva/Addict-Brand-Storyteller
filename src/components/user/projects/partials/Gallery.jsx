@@ -120,18 +120,15 @@ class Gallery extends React.Component {
 
 
 				<div className="gallery-navigation">
-						<span className='gallery-navigation-button'
-						      onClick={() => this.moveCarousel('left')}>
-							<img id="prevBtn"
-							     className={this.state.imageIndex === 0 ? 'disabled' : ''}
-							     src="/images/icons/arrow-left-white.svg" alt="previous"/>
-						</span>
-					<span className='gallery-navigation-button'
-					      onClick={() => this.moveCarousel('right')}>
-							<img id="nextBtn"
-							     className={this.state.imageIndex === (this.props.data.length - 1) ? 'disabled' : ''}
-							     src="/images/icons/arrow-right-white.svg" alt="next"/>
-						</span>
+					<button className={this.state.imageIndex === 0 ? 'btn btn-default md disabled' : 'btn btn-default md'}
+					        onClick={() => this.moveCarousel('left')}>
+						<i className="fa fa-arrow-left" aria-hidden="true"/>
+					</button>
+					<button
+						className={this.state.imageIndex === (this.props.data.length - 1) ? 'btn btn-default md disabled' : 'btn btn-default md'}
+						onClick={() => this.moveCarousel('right')}>
+						<i className="fa fa-arrow-right" aria-hidden="true"/>
+					</button>
 				</div>
 			</div>
 		);

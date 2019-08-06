@@ -98,6 +98,10 @@ button {
       background-color: #eaeaea;
       pointer-events: none;
       cursor: none; }
+  .btn.disabled {
+    cursor: default;
+    background-color: #eaeaea !important;
+    color: #fff !important; }
   .btn.btn-prev {
     background: url("/images/icons/arrow-left-white.svg") no-repeat center;
     background-size: 80%;
@@ -164,7 +168,7 @@ button {
     padding: 8px 15px;
     font-size: .8em; }
   .btn.md {
-    padding: 15px 20px; }
+    padding: 12px 18px; }
   .btn.lg {
     padding: 20px 25px; }
 
@@ -269,7 +273,7 @@ button {
 .text-accent {
   color: #f94848; }
 
-#messages,
+#notifications,
 #confirm-dialog {
   position: fixed;
   top: 0;
@@ -279,22 +283,25 @@ button {
   background-color: rgba(0, 0, 0, 0.2);
   display: none;
   z-index: 1000; }
-  #messages.visible,
+  #notifications.visible,
   #confirm-dialog.visible {
     display: block; }
-  #messages .message,
-  #confirm-dialog .message {
+  #notifications .notification,
+  #confirm-dialog .notification {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
-    padding: 10px 30px 20px 30px;
+    width: auto;
+    max-width: 750px;
+    padding: 40px 30px 30px 30px;
     background-color: white;
-    border-radius: 7px; }
-    #messages .message .message-text,
-    #confirm-dialog .message .message-text {
-      padding-bottom: 15px; }
+    border-radius: 7px;
+    text-align: center; }
+    #notifications .notification .notification-text,
+    #confirm-dialog .notification .notification-text {
+      font-size: 2em;
+      margin-bottom: 30px; }
 
 main {
   padding-top: 90px;
@@ -330,31 +337,26 @@ main {
     -o-transform: translate(80px, 0);
     transform: translate(80px, 0); }
   #header #toggle-menu-btn {
-    display: block;
-    justify-self: end;
-    width: calc(100%);
-    margin: 10px; }
+    justify-self: end; }
     #header #toggle-menu-btn .toggle {
       display: block;
       height: 3px;
       width: 35px;
       background-color: #000;
-      margin: 6px auto;
+      margin: 5px auto;
       -webkit-transition: .4s;
       -moz-transition: .4s;
       transition: .4s; }
     #header #toggle-menu-btn.clicked .toggle:first-of-type {
       transform: rotate(45deg);
       position: relative;
-      top: 5px;
-      height: 3px; }
+      top: 8px; }
     #header #toggle-menu-btn.clicked .toggle:nth-of-type(2) {
       opacity: 0; }
     #header #toggle-menu-btn.clicked .toggle:last-of-type {
       transform: rotate(-45deg);
       position: relative;
-      top: -12px;
-      height: 3px; }
+      top: -8px; }
 
 #main-nav {
   display: -ms-grid;
@@ -434,16 +436,29 @@ footer {
   margin-top: 50px;
   background-color: #fafafa;
   font-size: .85em; }
+  footer #social-media i {
+    font-size: 2em;
+    margin-right: 10px;
+    color: #757575;
+    -webkit-transition: .4s;
+    -moz-transition: .4s;
+    transition: .4s; }
+    footer #social-media i:hover {
+      color: #000; }
   footer #footer-nav {
     text-align: right; }
     footer #footer-nav .nav-link {
+      font-size: 1.2em;
+      font-weight: 600;
       display: inline-block;
       padding: 3px 10px;
       color: #000;
       -webkit-transition: .4s;
       -moz-transition: .4s;
       transition: .4s; }
-      footer #footer-nav .nav-link:hover, footer #footer-nav .nav-link:focus {
+      footer #footer-nav .nav-link:hover {
         color: #ccc; }
+      footer #footer-nav .nav-link:active {
+        color: #000; }
 
 /*# sourceMappingURL=main.css.map */

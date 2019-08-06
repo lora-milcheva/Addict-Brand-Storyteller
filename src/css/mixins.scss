@@ -131,6 +131,7 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   //font-size: .85em;
+  font-weight: 600;
 }
 
 @mixin transform-button-text {
@@ -194,7 +195,7 @@
 @mixin author {
   font-family: 'Prata Italic Italic', serif;
   font-style: italic;
-  font-size: 1.8vw;
+  font-size: 2vw;
   margin-top: 1em;
   padding: 0 10%;
 }

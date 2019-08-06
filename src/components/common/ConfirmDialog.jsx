@@ -52,8 +52,8 @@ class ConfirmDialog extends React.Component {
 			<div id="confirm-dialog"
 			     className={isVisible ? 'visible' : ''}
 			     onClick={this.hideMessage}>
-				<div className="message">
-					<p className="message-text">{this.state.message}</p>
+				<div className="notification">
+					<p className="notification-text">{this.state.message}</p>
 
 					<button className="btn btn-primary" onClick={this.hideMessage}>{BUTTONS[language].cancel}</button>
 					<button className="btn btn-danger" onClick={this.confirm}>{BUTTONS[language].confirm}</button>

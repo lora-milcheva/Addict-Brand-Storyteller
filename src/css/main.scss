@@ -8,6 +8,8 @@
 
 $header-height: 90px;
 
+
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -139,6 +141,12 @@ button {
     }
   }
 
+  &.disabled {
+    cursor: default;
+    background-color: $medium-grey !important;
+    color: $white !important;
+  }
+
   &.btn-prev {
     background: url("/images/icons/arrow-left-white.svg") no-repeat center;
     background-size: 80%;
@@ -256,7 +264,7 @@ button {
   }
 
   &.md {
-    padding: 15px 20px; //default
+    padding: 12px 18px; //default
   }
 
   &.lg {
@@ -408,7 +416,7 @@ button {
 }
 
 //COMMON
-#messages,
+#notifications,
 #confirm-dialog {
   position: fixed;
   top: 0;
@@ -423,19 +431,21 @@ button {
     display: block;
   }
 
-  .message {
+  .notification {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
-    padding: 10px 30px 20px 30px;
+    width: auto;
+    max-width: 750px;
+    padding: 40px 30px 30px 30px;
     background-color: white;
     border-radius: 7px;
+    text-align: center;
 
-    .message-text {
-      //font-size: 2em;
-      padding-bottom: 15px;
+    .notification-text {
+      font-size: 2em;
+      margin-bottom: 30px;
     }
   }
 }
@@ -473,17 +483,14 @@ main {
   }
 
   #toggle-menu-btn {
-    display: block;
     justify-self: end;
-    width: calc(100%); // without margins 2 * 10px
-    margin: 10px;
 
     .toggle {
       display: block;
       height: 3px;
       width: 35px;
       background-color: $black;
-      margin: 6px auto;
+      margin: 5px auto;
 
       @include main-transition;
     }
@@ -493,8 +500,8 @@ main {
       .toggle:first-of-type {
         transform: rotate(45deg);
         position: relative;
-        top: 5px;
-        height: 3px;
+        top: 8px;
+
       }
 
       .toggle:nth-of-type(2) {
@@ -504,8 +511,7 @@ main {
       .toggle:last-of-type {
         transform: rotate(-45deg);
         position: relative;
-        top: -12px;
-        height: 3px;
+        top: -8px;
       }
     }
   }
@@ -603,21 +609,38 @@ footer {
   background-color: $light-grey;
   font-size: .85em;
 
+  #social-media {
+    i {
+      font-size: 2em;
+      margin-right: 10px;
+      color: $dark-grey-1;
+      @include main-transition;
+
+      &:hover {
+        color: $black;
+      }
+    }
+  }
+
 
   #footer-nav {
     text-align: right;
 
     .nav-link {
-
+      font-size: 1.2em;
+      font-weight: 600;
       display: inline-block;
       padding: 3px 10px;
       color: $black;
 
       @include main-transition;
 
-      &:hover,
-      &:focus {
+      &:hover {
         color: $medium-to-dark-grey;
+      }
+
+      &:active {
+        color: $black;
       }
     }
   }

@@ -9,10 +9,10 @@ export default {
 
 	createClient: (state) => {
 
-		let project = createCategoryInfo(state);
+		let client = createClientInfo(state);
 
 		return requester
-			.post(sessionAuth, module, endPoint, project);
+			.post(sessionAuth, module, endPoint, client);
 	},
 
 
@@ -35,14 +35,23 @@ export default {
 
 		let endPointId = endPoint + '/' + id;
 
-		let project = createCategoryInfo(state);
+		let client = createClientInfo(state);
 
 		return requester
-			.put(sessionAuth, module, endPointId, project);
+			.put(sessionAuth, module, endPointId, client);
+	},
+
+	deleteClient: (id) => {
+
+		let endPointId = endPoint + '/' + id;
+
+		return requester
+			.remove(sessionAuth, module, endPointId);
+
 	}
 };
 
-function createCategoryInfo (state) {
+function createClientInfo (state) {
 
 	return {
 		name: state.name
