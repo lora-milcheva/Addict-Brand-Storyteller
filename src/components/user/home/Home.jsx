@@ -34,6 +34,7 @@ class Home extends React.Component {
 		};
 
 		this.video = React.createRef();
+		this.unmuteBtn = React.createRef();
 
 	}
 
@@ -74,6 +75,7 @@ class Home extends React.Component {
 		let video = this.video.current;
 
 		video.controls = true;
+		this.unmuteBtn.current.classList.add('invisible');
 
 		this.setState({videoMuted: !this.state.videoMuted});
 	};
@@ -103,11 +105,14 @@ class Home extends React.Component {
 						<source src='videos/home/video.mp4' type="video/mp4"/>
 					</video>
 
-					<button id='unmute-btn' className='btn btn-default-light'
+					<button id='unmute-btn'
+					        ref={this.unmuteBtn}
 					        onClick={this.toggleVideoControls}>
-						{this.state.videoMuted && <i className="fa fa-volume-up" aria-hidden="true"/>}
-						{!this.state.videoMuted && <i className="fa fa-volume-off" aria-hidden="true"/>}
-						{/*{BUTTONS[activeLanguage].playWithAudio}*/}
+						{/*{this.state.videoMuted && <i className="fa fa-volume-up" aria-hidden="true"/>}*/}
+						{/*{!this.state.videoMuted && <i className="fa fa-volume-off" aria-hidden="true"/>}*/}
+						{BUTTONS[activeLanguage].playWithAudio}
+						<span className="slider"/>
+
 					</button>
 				</section>
 

@@ -17,11 +17,19 @@ class VideoGallery extends React.Component {
 
 	componentDidMount () {
 		this.setVolumeOnPlayers();
+		document.addEventListener('keydown', this.handleKeyPress);
 	}
 
 	componentWillMount () {
-		clearTimeout(this.timeOut);
+		document.removeEventListener('keydown', this.handleKeyPress);
 	}
+
+	handleKeyPress = (e) => {
+
+		if (e.key === 'ArrowLeft') this.moveCarousel('left');
+
+		if (e.key === 'ArrowRight') this.moveCarousel('right');
+	};
 
 	moveCarousel = (direction) => {
 
@@ -155,6 +163,7 @@ class VideoGallery extends React.Component {
 					       data-target-name={name}
 					       className='video'
 					       controls
+					       controlsList="nodownload"
 					       onPlay={this.stopOtherVideos}
 					       ref={this[name]}>
 						<source src={video.url} type="video/mp4"/>

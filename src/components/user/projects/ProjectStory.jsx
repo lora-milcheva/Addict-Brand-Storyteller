@@ -28,9 +28,11 @@ class ProjectStory extends React.Component {
 			project: '',
 			clientName: '',
 
-			selectedImage: {},
+			selectedImage: '',
 
 			allSections: '',
+
+			galleryPreview: false,
 
 			loading: true
 		};
@@ -105,7 +107,7 @@ class ProjectStory extends React.Component {
 	};
 
 	hidePreview = () => {
-		this.setState({selectedImage: {}});
+		this.setState({selectedImage: ''});
 	};
 
 	render () {
@@ -121,11 +123,12 @@ class ProjectStory extends React.Component {
 		return (
 			<div id="project-story" className="container-fluid">
 
+				{this.state.selectedImage !== '' &&
 				<ImagePreview image={this.state.selectedImage}
 				              allImages={project.images}
 				              activeLanguage={activeLanguage}
 				              onClose={this.hidePreview}/>
-
+				}
 
 				<section id='project-cover'>
 					<img src={this.state.project.cover} alt='page cover'/>
@@ -143,7 +146,7 @@ class ProjectStory extends React.Component {
 
 
 				{this.state.project.images.length > 0 &&
-				<Gallery data={project.images}
+				<Gallery images={project.images}
 				         sections={this.state.allSections}
 				         showPreview={this.showPreview}
 				         language={activeLanguage}/>

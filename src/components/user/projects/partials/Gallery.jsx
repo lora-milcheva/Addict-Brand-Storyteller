@@ -14,6 +14,21 @@ class Gallery extends React.Component {
 		this.container = React.createRef();
 	}
 
+	componentWillMount () {
+		document.addEventListener('keydown', this.handleKeyPress);
+	}
+
+	componentWillUnmount () {
+		document.removeEventListener('keydown', this.handleKeyPress);
+	}
+
+	handleKeyPress = (e) => {
+
+		if (e.key === 'ArrowLeft') this.moveCarousel('left');
+
+		if (e.key === 'ArrowRight') this.moveCarousel('right');
+	};
+
 	getCurrentImageWidth = (direction, callback) => {
 
 		let index = this.state.imageIndex;
@@ -75,7 +90,7 @@ class Gallery extends React.Component {
 
 		let lang = this.props.language;
 
-		let gallery = this.props.data.map((element, i) => {
+		let gallery = this.props.images.map((element, i) => {
 
 			for (let el in element.info) {
 				let section = this.props.sections.filter(s => s._id === el)[0];
@@ -103,6 +118,12 @@ class Gallery extends React.Component {
 						     onClick={this.props.showPreview}/>
 					</figure>
 
+					<span className='btn md'
+					      data-target={JSON.stringify(element)}
+					      onClick={this.props.showPreview}>
+						View
+					</span>
+
 					{element.Headline &&
 					<div className='name' dangerouslySetInnerHTML={{__html: element.Headline[lang]}}/>
 					}
@@ -125,7 +146,7 @@ class Gallery extends React.Component {
 						<i className="fa fa-arrow-left" aria-hidden="true"/>
 					</button>
 					<button
-						className={this.state.imageIndex === (this.props.data.length - 1) ? 'btn btn-default md disabled' : 'btn btn-default md'}
+						className={this.state.imageIndex === (this.props.images.length - 1) ? 'btn btn-default md disabled' : 'btn btn-default md'}
 						onClick={() => this.moveCarousel('right')}>
 						<i className="fa fa-arrow-right" aria-hidden="true"/>
 					</button>
@@ -138,7 +159,7 @@ class Gallery extends React.Component {
 export default Gallery;
 
 Gallery.propTypes = {
-	data: PropTypes.array,
+	images: PropTypes.array,
 	language: PropTypes.string,
 	sections: PropTypes.array,
 	showPreview: PropTypes.func

@@ -215,6 +215,17 @@ button {
     }
   }
 
+  &.btn-transparent-white {
+    color: $white;
+    background-color: transparent;
+
+    &:hover,
+    &:active {
+      color: $default;
+      background-color: $white;
+    }
+  }
+
   &.btn-success {
     color: $white;
     background-color: $success;

@@ -140,12 +140,12 @@ const BUTTONS = {
 		seeWhatWeDo: 'Вижте какво правим',
 		readMore: 'Прочетете повече',
 		seeProject: 'Към проекта',
+		playWithAudio: 'Пусни със звук',
 
 		createProject: 'Нов проект',
 		createClient: 'Нов клиент',
 		createCategory: 'Нова категория',
 		createSection: 'Създай секция',
-		playWithAudio: 'Включи звука',
 
 		more: 'Повече'
 	},
@@ -174,6 +174,7 @@ const BUTTONS = {
 		createClient: 'New Client',
 		createCategory: 'New Category',
 		createSection: 'Create Section',
+
 
 		more: 'More'
 	}

@@ -14,11 +14,17 @@ class ImagePreview extends React.Component {
 		this.image = React.createRef();
 	}
 
+	componentWillMount () {
+		document.addEventListener('keydown', this.handleKeyPress);
+	}
+
 	componentWillUnmount () {
 		document.removeEventListener('keydown', this.handleKeyPress);
 	}
 
 	componentWillReceiveProps (nextProps) {
+
+		console.log(nextProps);
 
 		if (Object.keys(nextProps.image).length > 0) {
 			document.addEventListener('keydown', this.handleKeyPress);
@@ -28,8 +34,6 @@ class ImagePreview extends React.Component {
 	}
 
 	handleKeyPress = (e) => {
-
-		console.log(e);
 
 		if (e.key === 'ArrowLeft') this.showPrevImage();
 
@@ -55,7 +59,9 @@ class ImagePreview extends React.Component {
 
 		let nextImageIndex = currentImageIndex + 1;
 		if (nextImageIndex === allImages.length) {
-			nextImageIndex = 0;
+			// nextImageIndex = 0;
+			this.props.onClose();
+			return;
 		}
 
 		this.fadeOut(image);
@@ -80,7 +86,9 @@ class ImagePreview extends React.Component {
 
 		let prevImageIndex = currentImageIndex - 1;
 		if (prevImageIndex < 0) {
-			prevImageIndex = allImages.length - 1;
+			// prevImageIndex = allImages.length - 1;
+			this.props.onClose();
+			return;
 		}
 
 		this.fadeOut(image);

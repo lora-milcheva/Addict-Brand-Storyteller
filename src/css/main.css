@@ -141,6 +141,12 @@ button {
     .btn.btn-transparent:hover, .btn.btn-transparent:active {
       color: #000;
       background-color: #fff; }
+  .btn.btn-transparent-white {
+    color: #fff;
+    background-color: transparent; }
+    .btn.btn-transparent-white:hover, .btn.btn-transparent-white:active {
+      color: #000;
+      background-color: #fff; }
   .btn.btn-success {
     color: #fff;
     background-color: #239797; }
