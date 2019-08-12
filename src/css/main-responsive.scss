@@ -5,11 +5,17 @@
 
 
 @media screen and (max-width: 1200px) {
-
+  body {
+    font-size: 13px;
+  }
 }
 
 
 @media screen and (max-width: 768px) {
+
+  body {
+    font-size: 12px;
+  }
 
   main {
     min-height: calc(100vh - 60px); //header + footer height
@@ -21,6 +27,17 @@
 
   h2 {
     font-size: 1.5em;
+  }
+
+  .btn {
+    padding: 13px 23px;
+  }
+
+  #header {
+
+    #brand {
+     width: 220px;
+    }
   }
 
   .container {
@@ -40,16 +57,77 @@
 
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 530px) {
+
+  $header-height: 78px;
 
   .btn {
     padding: 10px 20px;
   }
 
   #header {
+    height: $header-height;
+
+    .btn {
+      padding: 0;
+    }
+
+    #toggle-menu-btn,
+    #lang-btn {
+
+      justify-self: center;
+
+      .toggle {
+        width: 28px;
+      }
+    }
 
     #brand {
-      width: 50%;
+      width: 180px;
+      justify-self: start;
+      @include translate(30px, 0)
+    }
+  }
+
+  #main-nav {
+    top: $header-height;
+
+    .nav-link {
+      &:first-of-type {
+        margin-top: 25px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 370px) {
+
+
+  .btn {
+    padding: 10px 20px;
+  }
+
+  #header {
+    grid-template-columns: 8fr 40px 40px;
+
+    .btn {
+      padding: 0;
+    }
+
+    #toggle-menu-btn,
+    #lang-btn {
+
+      justify-self: center;
+
+      .toggle {
+        width: 28px;
+      }
+    }
+
+    #brand {
+      width: 180px;
+      justify-self: start;
+      @include translate(30px, 0)
     }
   }
 }

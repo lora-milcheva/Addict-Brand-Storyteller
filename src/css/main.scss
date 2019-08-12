@@ -473,12 +473,13 @@ main {
   width: 100%;
   height: $header-height;
   @include display-grid;
-  grid-template-columns: 8fr 80px 80px;
+  grid-template-columns: 8fr 60px 60px;
   background: $white;
 
   z-index: 1000;
 
   #lang-btn {
+    justify-self: center;
     @include transform-button-text;
     text-transform: uppercase;
     justify-content: center;
@@ -494,7 +495,8 @@ main {
   }
 
   #toggle-menu-btn {
-    justify-self: end;
+    justify-self: center;
+    margin: 0;
 
     .toggle {
       display: block;

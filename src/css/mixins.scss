@@ -130,6 +130,7 @@
 @mixin transform-text {
   text-transform: uppercase;
   letter-spacing: 1px;
+  font-size: .9em;
   //font-size: .85em;
   //font-weight: 600;
 }
@@ -197,7 +198,7 @@
   font-family: 'Prata Italic Italic', serif;
   font-style: italic;
   font-size: 1.5em;
-  margin-top: 1em;
+  margin-top: 2em;
   padding: 0 10%;
 }
 

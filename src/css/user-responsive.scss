@@ -2,6 +2,29 @@
 @import "animations";
 @import "mixins";
 
+@media screen and (max-width: 1100px) {
+
+  #home {
+    .home-project {
+      .project-info {
+        width: 60%;
+
+        .cliche {
+          font-size: 2.5em;
+        }
+      }
+    }
+
+    #our-philosophy {
+      #sections {
+        .article-box {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
 
 @media screen and (max-width: 768px) {
 
@@ -12,22 +35,38 @@
     font-size: 2em
   }
 
+  .blockquote {
+    background-color: $pale-salmon;
+
+    .quote,
+    .author {
+      padding: 0 3%;
+    }
+  }
+
   #home {
     .home-project {
+
+      .img-container {
+
+      }
+
       .project-info {
-        width: 70%;
+        width: 90%;
 
         .cliche {
-          font-size: 1.4em;
+          font-size: 2.0em;
         }
       }
     }
 
     #our-philosophy {
 
+      .section-title {
+        font-size: 3.8em;
+      }
+
       #sections {
-
-
         text-align: left;
 
         .article-box {
@@ -89,21 +128,8 @@
     }
   }
 
-  #projects-list,
-  #contact-us {
-
-    .banner {
-      padding: 50px 0;
-      margin-bottom: 50px;
-
-      p {
-        font-size: 1.2em;
-      }
-    }
-  }
 
   #contact-us {
-
     .buttons-container,
     .form-group {
 
@@ -121,7 +147,7 @@
     // summary
     #project-header {
       text-align: left;
-      margin: $section-padding-top auto;
+      border-bottom: 1px solid $medium-to-dark-grey;
 
       .project-name,
       .client {
@@ -335,8 +361,13 @@
 }
 
 
-@media screen and (max-width: 440px) {
+@media screen and (max-width: 500px) {
 
+  .blockquote {
+    .quote {
+      font-size: 2.5em;
+    }
+  }
 }
 
 @media screen and (max-width: 420px) {

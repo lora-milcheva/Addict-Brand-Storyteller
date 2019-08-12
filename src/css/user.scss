@@ -233,11 +233,13 @@
     }
 
     .img-container {
-
+      height: auto;
+      min-height: 400px;
       background-color: $black;
 
       .img-fit {
         @include main-transition;
+        min-height: inherit;
       }
     }
 
@@ -272,7 +274,6 @@
 
       .project-name {
         @include transform-text;
-        font-size: .9em;
       }
 
       .cliche {
@@ -288,7 +289,7 @@
   #our-philosophy {
 
     .section-title {
-      font-size: 5vw;
+      font-size: 5em;
     }
 
 
@@ -531,7 +532,7 @@
   // summary
   #project-header {
     text-align: center;
-    margin: $section-padding-top auto;
+    padding: $section-padding-top 0;
 
     .project-name,
     .client {
