@@ -3,7 +3,7 @@ import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 // Partials
 import ImagePreview from './partials/ImagePreview';
-import Gallery from './partials/Gallery';
+import ImageGallery from './partials/ImageGallery';
 import VideoGallery from './partials/VideoGallery';
 
 // Services
@@ -32,7 +32,7 @@ class ProjectStory extends React.Component {
 
 			allSections: '',
 
-			galleryPreview: false,
+			direction: '',
 
 			loading: true
 		};
@@ -43,6 +43,8 @@ class ProjectStory extends React.Component {
 	projectId = this.props.match.params.id;
 
 	componentDidMount () {
+
+		document.addEventListener('keydown', this.handleKeyPress);
 
 		// Log anonymous user if storage is empty
 		if (sessionStorage.getItem('authtoken') === null) {
@@ -58,7 +60,7 @@ class ProjectStory extends React.Component {
 		}
 	}
 
-	componentWillReceiveProps (nextProps) {
+	componentWillReceiveProps (nextProps, nextContext) {
 
 		// To reload page when select different project
 
@@ -68,9 +70,25 @@ class ProjectStory extends React.Component {
 			this.projectId = nextProps.match.params.id;
 
 			this.loadProject();
-
 		}
 	}
+
+	componentWillUnmount () {
+		document.removeEventListener('keydown', this.handleKeyPress);
+	}
+
+	handleKeyPress = (e) => {
+
+		if (e.key === 'ArrowLeft') this.changeState('left');
+
+		if (e.key === 'ArrowRight') this.changeState('right');
+
+		if (e.key === 'Escape') this.changeState('');
+	};
+
+	changeState = (direction) => {
+		this.setState({direction});
+	};
 
 	loadProject = () => {
 
@@ -104,10 +122,15 @@ class ProjectStory extends React.Component {
 	showPreview = (e) => {
 		let image = JSON.parse(e.target.getAttribute('data-target'));
 		this.setState({selectedImage: image});
+		document.removeEventListener('keydown', this.handleKeyPress);
 	};
 
 	hidePreview = () => {
-		this.setState({selectedImage: ''});
+		this.setState({
+			selectedImage: '',
+			direction: ''
+		});
+		document.addEventListener('keydown', this.handleKeyPress);
 	};
 
 	render () {
@@ -141,15 +164,17 @@ class ProjectStory extends React.Component {
 				{this.state.project.videos.length > 0 &&
 				<VideoGallery videos={project.videos}
 				              sections={this.state.allSections}
+				              direction={this.state.direction}
 				              language={activeLanguage}/>
 				}
 
 
 				{this.state.project.images.length > 0 &&
-				<Gallery images={project.images}
-				         sections={this.state.allSections}
-				         showPreview={this.showPreview}
-				         language={activeLanguage}/>
+				<ImageGallery images={project.images}
+				              sections={this.state.allSections}
+				              showPreview={this.showPreview}
+				              direction={this.state.direction}
+				              language={activeLanguage}/>
 				}
 
 

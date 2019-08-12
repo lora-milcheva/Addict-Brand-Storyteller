@@ -14,23 +14,13 @@ class ImagePreview extends React.Component {
 		this.image = React.createRef();
 	}
 
-	componentWillMount () {
+	componentDidMount () {
+
 		document.addEventListener('keydown', this.handleKeyPress);
 	}
 
 	componentWillUnmount () {
 		document.removeEventListener('keydown', this.handleKeyPress);
-	}
-
-	componentWillReceiveProps (nextProps) {
-
-		console.log(nextProps);
-
-		if (Object.keys(nextProps.image).length > 0) {
-			document.addEventListener('keydown', this.handleKeyPress);
-		}
-
-		this.setState({image: nextProps.image, allImages: nextProps.allImages});
 	}
 
 	handleKeyPress = (e) => {
@@ -39,11 +29,21 @@ class ImagePreview extends React.Component {
 
 		if (e.key === 'ArrowRight') this.showNextImage();
 
-		if (e.key === 'Escape') {
-			document.removeEventListener('keydown', this.handleKeyPress);
-			this.props.onClose();
-		}
+		if (e.key === 'Escape') this.props.onClose();
 	};
+
+
+
+	// componentWillReceiveProps (nextProps, nextContext) {
+	//
+	// 	let direction = nextProps.direction;
+	//
+	// 	if (direction === 'left') this.showPrevImage();
+	//
+	// 	if (direction === 'right') this.showNextImage();
+	//
+	// 	if (direction === '') this.props.onClose();
+	// }
 
 	showNextImage = () => {
 
@@ -115,11 +115,8 @@ class ImagePreview extends React.Component {
 
 	render () {
 
-		let isVisible = Object.keys(this.state.image).length > 0;
-
 		return (
-			<div id='image-preview' className={isVisible ? 'visible' : ''}>
-
+			<div id='image-preview'>
 
 				<figure className="image">
 					<img src={this.state.image.url}
@@ -127,7 +124,6 @@ class ImagePreview extends React.Component {
 					     alt={this.state.image.url}
 					     ref={this.image}/>
 				</figure>
-
 
 				<div className="gallery-navigation">
 					<button className={'btn btn-default-light md'} onClick={this.showPrevImage}>
@@ -152,5 +148,6 @@ ImagePreview.propTypes = {
 	image: PropTypes.object,
 	allImages: PropTypes.array,
 	activeLanguage: PropTypes.string,
-	onClose: PropTypes.func
+	onClose: PropTypes.func,
+	// direction: PropTypes.string
 };

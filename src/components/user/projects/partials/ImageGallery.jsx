@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class Gallery extends React.Component {
+class ImageGallery extends React.Component {
 	constructor (props) {
 		super(props);
 
@@ -14,20 +14,13 @@ class Gallery extends React.Component {
 		this.container = React.createRef();
 	}
 
-	componentWillMount () {
-		document.addEventListener('keydown', this.handleKeyPress);
+
+	componentWillReceiveProps (nextProps, nextContext) {
+
+		let direction = nextProps.direction;
+
+		this.moveCarousel(direction);
 	}
-
-	componentWillUnmount () {
-		document.removeEventListener('keydown', this.handleKeyPress);
-	}
-
-	handleKeyPress = (e) => {
-
-		if (e.key === 'ArrowLeft') this.moveCarousel('left');
-
-		if (e.key === 'ArrowRight') this.moveCarousel('right');
-	};
 
 	getCurrentImageWidth = (direction, callback) => {
 
@@ -44,6 +37,8 @@ class Gallery extends React.Component {
 	};
 
 	moveCarousel = (direction) => {
+
+		if (direction === '') return
 
 		this.getCurrentImageWidth(direction, () => {
 
@@ -141,8 +136,9 @@ class Gallery extends React.Component {
 
 
 				<div className="gallery-navigation">
-					<button className={this.state.imageIndex === 0 ? 'btn btn-default md disabled' : 'btn btn-default md'}
-					        onClick={() => this.moveCarousel('left')}>
+					<button
+						className={this.state.imageIndex === 0 ? 'btn btn-default md disabled' : 'btn btn-default md'}
+						onClick={() => this.moveCarousel('left')}>
 						<i className="fa fa-arrow-left" aria-hidden="true"/>
 					</button>
 					<button
@@ -156,11 +152,12 @@ class Gallery extends React.Component {
 	}
 }
 
-export default Gallery;
+export default ImageGallery;
 
-Gallery.propTypes = {
+ImageGallery.propTypes = {
 	images: PropTypes.array,
 	language: PropTypes.string,
 	sections: PropTypes.array,
-	showPreview: PropTypes.func
+	showPreview: PropTypes.func,
+	direction: PropTypes.string
 };

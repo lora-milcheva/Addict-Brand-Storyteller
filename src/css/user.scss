@@ -737,18 +737,9 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, .9);
 
-    opacity: 0;
-    visibility: hidden;
-    display: none;
+    z-index: 2000;
 
     @include main-transition;
-
-    &.visible {
-      display: block;
-      opacity: 1;
-      visibility: visible;
-      z-index: 2000;
-    }
 
     #close-btn {
       position: absolute;
@@ -781,6 +772,7 @@
 
     .image {
       height: 100vh;
+      width: 100%;
       display: grid;
       align-items: center;
       justify-content: center;
