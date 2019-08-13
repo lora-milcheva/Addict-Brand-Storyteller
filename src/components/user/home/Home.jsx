@@ -58,7 +58,7 @@ class Home extends React.Component {
 
 	loadStarProjects = () => {
 
-		let query = '?query={"isStar":true}';
+		let query = '?query={"isStar":true,"isBlocked":false}';
 
 		projectsService
 			.loadAllProjects(query)
@@ -93,7 +93,7 @@ class Home extends React.Component {
 
 				<PageHeader language={activeLanguage} pageName='home'/>
 
-				<section id='video' className='container section-padding-bottom'>
+				<section id='video' className='container'>
 
 					<video loop
 					       autoPlay

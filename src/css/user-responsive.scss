@@ -4,6 +4,10 @@
 
 @media screen and (max-width: 1100px) {
 
+  .subtitle {
+    width: 100%;
+  }
+
   #home {
     .home-project {
       .project-info {
@@ -23,16 +27,128 @@
       }
     }
   }
+
+  .article-box .article-text li {
+    line-height: 1.2em;
+  }
+
+  #services {
+
+    #services-main {
+
+      #services-scheme {
+        @include display-grid;
+        @include grid-template-columns(5, 1fr);
+
+        .scheme {
+          @include display-grid;
+          @include justify-content-center;
+          @include align-content-center;
+          padding: 30px;
+          background-color: $bg-grey;
+          text-align: center;
+          font-size: 1.3em;
+          color: $dark-grey;
+          font-weight: 600;
+
+          &.left {
+            clip-path: polygon(100% 0%, 90% 50%, 100% 100%, 10% 100%, 0% 50%, 10% 0%);
+          }
+
+          &.center {
+            font-size: 1.7em;
+            clip-path: polygon(90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%, 10% 0%);
+            background-color: $primary;
+            color: $white;
+          }
+
+          &.right {
+            clip-path: polygon(90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%, 0% 0%);
+          }
+        }
+
+        .small {
+          font-size: .5em;
+          font-weight: 400;
+          margin-top: 10px;
+        }
+      }
+
+      #scheme-description {
+        @include display-grid;
+        grid-template-columns: 2fr 1fr 2fr;
+        margin-top: $grid-gap-small;
+
+        text-align: center;
+        color: $dark-grey-1;
+        font-weight: 600;
+
+        .scheme-description {
+
+        }
+      }
+    }
+
+    #services-description #articles {
+      @include grid-template-columns(1, 1fr);
+      @include grid-gap($grid-gap, $grid-gap-small);
+
+
+
+      .article-box {
+        padding: 0;
+
+        &:nth-of-type(2),
+        &:nth-of-type(1) {
+          border-right: none;
+        }
+
+        &:nth-of-type(2),
+        &:nth-of-type(4) {
+          padding-top: inherit;
+        }
+      }
+    }
+
+    #services-skills #skills-description {
+      @include grid-template-columns(2, 1fr);
+    }
+  }
+
+  #contact-form {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 900px)  {
+
+  #projects-list .projects-container {
+
+    .project-card {
+
+      &:nth-of-type(even) {
+        .project-info {
+          padding-right: $grid-gap-small;
+        }
+      }
+
+      .project-info {
+        padding-left: $grid-gap-small;
+
+        .cliche {
+          font-size: 1.5em;
+        }
+      }
+    }
+  }
 }
 
 
 @media screen and (max-width: 768px) {
 
-  .page-title {
-    font-size: 7.5vw;
-  }
+
   .section-title {
-    font-size: 2em
+    font-size: 1.8em
   }
 
   .blockquote {
@@ -47,12 +163,8 @@
   #home {
     .home-project {
 
-      .img-container {
-
-      }
-
       .project-info {
-        width: 90%;
+        width: 80%;
 
         .cliche {
           font-size: 2.0em;
@@ -77,57 +189,18 @@
     }
   }
 
-  #home-projects .projects-container,
-  #projects-list .projects-container {
-
-    padding-bottom: 50px;
-
-    .project-card {
-
-      &:nth-of-type(even) {
-        .project-info {
-          padding-right: 20px;
-        }
-      }
-
-      .project-info {
-        padding-left: 20px;
-
-        .cliche {
-          margin: 10px 0 20px 0;
-        }
-
-        .btn {
-          padding: 10px 0;
-          border-bottom: 2px solid transparent;
-        }
-      }
-    }
-  }
 
   #other-projects {
 
-    @include grid-gap(50px, 25px);
+    @include grid-gap($grid-gap, $grid-gap-small);
 
     .project-card {
 
       .project-info {
-
         padding-top: 10px;
-
-        .cliche {
-          font-size: 1.2em;
-          line-height: 1.2em;
-        }
-
-        .btn {
-          padding: 5px 0;
-          border-bottom: 2px solid $primary;
-        }
       }
     }
   }
-
 
   #contact-us {
     .buttons-container,
@@ -147,11 +220,6 @@
     // summary
     #project-header {
       text-align: left;
-      border-bottom: 1px solid $medium-to-dark-grey;
-
-      .project-name,
-      .client {
-      }
 
       .cliche {
         font-size: 3em;
@@ -167,11 +235,11 @@
         .section-header {
           .section-title {
             font-size: 2.2em;
+            margin-bottom: .5em;
           }
         }
 
         .section-text {
-          margin-top: 0;
           font-size: 1.3em;
         }
       }
@@ -181,14 +249,11 @@
     // project images
     #project-gallery {
       width: 100%;
-      padding: 50px $container-padding-mobile;
-
 
       #gallery {
         @include display-grid;
         @include grid-template-columns(2, 1fr);
         grid-column-gap: 5px;
-        padding-left: 0;
 
         .image-container {
           padding: 0;
@@ -215,7 +280,7 @@
 
     // project videos
     #project-video-gallery {
-      margin: 30px $container-padding-mobile;
+
     }
 
 
@@ -275,6 +340,7 @@
     }
 
   }
+
 }
 
 
@@ -302,18 +368,16 @@
 
       .project-info {
         padding-left: 0;
-        padding-top: 20px;
+        padding-top: $grid-gap-small;
 
         .cliche {
-          font-size: 1.2em;
-          line-height: 1.3em;
+          margin-bottom: 15px;
         }
 
         .btn {
-          padding: 15px 0;
-          border-bottom: 2px solid $primary;
-          justify-content: center;
-          width: 100%;
+          background: $black;
+          padding: 10px 20px;
+          color: $white;
         }
       }
     }
@@ -334,28 +398,9 @@
         padding-top: 20px;
 
         .cliche {
-          font-size: 1.2em;
-          line-height: 1.3em;
           margin: 10px 0;
         }
-
-        .btn {
-          padding: 15px 0;
-          border-bottom: 2px solid $primary;
-          justify-content: center;
-          width: 100%;
-        }
       }
-    }
-  }
-
-  #contact-form {
-    @include grid-template-columns(1, 1fr);
-
-    .buttons-container,
-    .section-title,
-    #message {
-      @include grid-span(1, 2);
     }
   }
 }
@@ -366,6 +411,22 @@
   .blockquote {
     .quote {
       font-size: 2.5em;
+    }
+  }
+
+  #services {
+    #services-skills #skills-description {
+      @include grid-template-columns(1, 1fr);
+    }
+  }
+
+  #contact-form {
+    display: block;
+
+    .buttons-container,
+    .section-title,
+    #message {
+      @include grid-span(1, 2);
     }
   }
 }

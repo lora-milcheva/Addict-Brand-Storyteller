@@ -17,7 +17,7 @@ class OurAim extends React.Component {
 
 		return (
 
-			<section id="our-aim" className="container section-padding-bottom">
+			<section id="our-aim" className="container section-padding-top-bottom">
 
 				<SectionHeader language={activeLanguage}
 				               pageName='home'

@@ -67,6 +67,7 @@ const CREATE_PROJECT_INPUTS = {
 		textEN: 'Текст EN',
 		webPage: 'Уеб страница',
 		isStar: 'Топ проект',
+		isBlocked: 'Блокиран',
 		category: 'Категория',
 		thumbnail: 'Тъмбнейл',
 		largeThumbnail: 'Голям тъмбнейл',
@@ -85,6 +86,7 @@ const CREATE_PROJECT_INPUTS = {
 		textEN: 'Text EN',
 		webPage: 'Web Page',
 		isStar: 'Top ProjectSimple',
+		isBlocked: 'Blocked',
 		category: 'Category',
 		thumbnail: 'Thumbnail',
 		largeThumbnail: 'Large Thumbnail',
@@ -865,14 +867,28 @@ const USER_PAGES_TEXT = {
 			year: 'Година',
 			client: 'Клиент',
 			project: 'Проектът',
-			otherProjects: 'Други проекти',
+
+			sections: {
+				otherProjects: {
+					name: 'Други проекти',
+					headline: 'Други проекти',
+					text: ''
+				}
+			}
 		},
 		en: {
 			cliche: 'Cliche',
 			year: 'Year',
 			client: 'Client',
 			project: 'ProjectSimple',
-			otherProjects: 'Other Projects',
+
+			sections: {
+				otherProjects: {
+					name: 'Other Projects',
+					headline: 'Other Projects',
+					text: ''
+				}
+			}
 		}
 	},
 

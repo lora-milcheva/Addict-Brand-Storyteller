@@ -41,8 +41,11 @@ class ProjectList extends React.Component {
 	}
 
 	loadProjects = () => {
+
+		let query = '?query={"isBlocked":false}';
+
 		projectsService
-			.loadAllProjects()
+			.loadAllProjects(query)
 			.then(res => {
 					res.sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber))
 					this.setState({projects: res, loading: false});
@@ -77,7 +80,7 @@ class ProjectList extends React.Component {
 				<div className="lds-dual-ring"/>}
 
 				{!this.state.loading &&
-				<section className="projects-container container">
+				<section className="projects-container container section-padding-bottom">
 					{projects}
 				</section>
 				}

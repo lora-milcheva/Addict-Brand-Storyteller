@@ -44,6 +44,7 @@ class createProject extends React.Component {
 			year: '',
 			webPage: '',
 			isStar: false,
+			isBlocked: false,
 			clientId: '',
 			categoryIds: [],
 
@@ -89,6 +90,7 @@ class createProject extends React.Component {
 						year: res.year,
 						webPage: res.webPage,
 						isStar: res.isStar,
+						isBlocked: res.isBlocked,
 						clientId: res.clientId,
 						categoryIds: res.categoryIds,
 						images: res.images,
@@ -495,13 +497,22 @@ class createProject extends React.Component {
 			);
 		});
 
-		let isStar = <button className={this.state.isStar ? 'btn category-label attention' : 'btn category-label'}
+		let isStar = <button className={this.state.isStar ? 'btn xs category-label info' : 'btn xs category-label'}
 		                     name="isStar"
 		                     value={this.state.isStar}
 		                     onClick={this.handleCheckBoxChange}>
 			<i className="fa fa-star" aria-hidden="true"/>
 			{CREATE_PROJECT_INPUTS.bg.isStar}
 		</button>;
+
+		let isBlocked = <button className={this.state.isBlocked ? 'btn xs category-label danger' : 'btn xs category-label'}
+		                     name="isBlocked"
+		                     value={this.state.isBlocked}
+		                     onClick={this.handleCheckBoxChange}>
+			<i className="fa fa-ban" aria-hidden="true"/>
+			{CREATE_PROJECT_INPUTS.bg.isBlocked}
+		</button>;
+
 
 		let info = Object.keys(this.state.info).map(e => {
 
@@ -573,7 +584,10 @@ class createProject extends React.Component {
 
 					{/*//PROJECT Info*/}
 					<div id="project-info">
-						<h3 className="section-title">{CREATE_PROJECT_INPUTS.bg.info}</h3>
+						<h3 className="section-title">
+							{CREATE_PROJECT_INPUTS.bg.info}
+							<span>{isStar} {isBlocked}</span>
+						</h3>
 
 						{/*//NAME BG*/}
 						<FormInput type='text'
@@ -598,10 +612,6 @@ class createProject extends React.Component {
 						           required={true}
 						           disabled={false}
 						           onChange={this.handleMultiLangChange}/>
-
-						<div className="form-group">
-							{isStar}
-						</div>
 
 						<div>
 							{categories}

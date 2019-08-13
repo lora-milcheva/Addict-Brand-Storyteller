@@ -38,25 +38,50 @@ h2 {
 .container-padding {
   padding: 0 10%;
   margin: auto; }
+  @media only screen and (max-width: 768px) {
+    .container-padding {
+      padding: 0 5%; } }
 
 .section-padding-top-bottom {
-  padding-top: 60px;
-  padding-bottom: 80px; }
+  padding-top: 5em;
+  padding-bottom: 6em; }
+  @media only screen and (max-width: 768px) {
+    .section-padding-top-bottom {
+      padding-top: 3em; } }
+  @media only screen and (max-width: 768px) {
+    .section-padding-top-bottom {
+      padding-bottom: 4em; } }
 
 .section-padding-top {
-  padding-top: 60px; }
+  padding-top: 5em; }
+  @media only screen and (max-width: 768px) {
+    .section-padding-top {
+      padding-top: 3em; } }
 
 .section-padding-bottom {
-  padding-bottom: 80px; }
-
-.section-padding-left-right {
-  padding: 0 25px; }
+  padding-bottom: 6em; }
+  @media only screen and (max-width: 768px) {
+    .section-padding-bottom {
+      padding-bottom: 4em; } }
 
 .section-padding-all {
-  padding: 60px 25px 80px; }
+  padding-bottom: 6em;
+  padding-top: 5em;
+  padding-left: 25px;
+  padding-right: 25px; }
+  @media only screen and (max-width: 768px) {
+    .section-padding-all {
+      padding-bottom: 4em; } }
+  @media only screen and (max-width: 768px) {
+    .section-padding-all {
+      padding-top: 3em; } }
+  @media only screen and (max-width: 768px) {
+    .section-padding-all {
+      padding-left: 25px;
+      padding-right: 25px; } }
 
 .text-danger {
-  color: #FFEB3B; }
+  color: #ff6968; }
 
 img {
   width: 100%;
@@ -76,6 +101,7 @@ button {
 
 .btn {
   width: max-content;
+  display: inline-block;
   margin-right: 5px;
   padding: 15px 30px;
   -webkit-transition: .4s;
@@ -154,9 +180,9 @@ button {
       background-color: #2bb9b9; }
   .btn.btn-danger {
     color: #000;
-    background-color: #FFEB3B; }
+    background-color: #ff6968; }
     .btn.btn-danger:hover, .btn.btn-danger:active {
-      background-color: #ff8d19; }
+      background-color: #d35756; }
   .btn.btn-light {
     border: 1px solid #eaeaea;
     border-radius: 2px; }
@@ -166,7 +192,7 @@ button {
     .btn.btn-light:hover {
       cursor: pointer; }
     .btn.btn-light.active {
-      background-color: #FFEB3B; }
+      background-color: #ff6968; }
   .btn.xs {
     padding: 5px 7px;
     font-size: .7em; }
@@ -189,7 +215,7 @@ button {
     .form-group label.no-label {
       display: none; }
     .form-group label .text-danger {
-      color: #FFEB3B;
+      color: #ff6968;
       font-weight: 800; }
   .form-group .validation-text {
     color: #f94848;
@@ -242,9 +268,6 @@ button {
   height: 100%;
   transform: scale(1.04); }
 
-.page-header {
-  margin-bottom: 20px; }
-
 .buttons-container {
   margin: 15px 0 20px;
   padding: 10px 0; }
@@ -261,9 +284,12 @@ button {
   .category-label.selected {
     background-color: #000;
     color: #fff; }
-  .category-label.attention {
-    background-color: #FFEB3B;
-    color: #000; }
+  .category-label.info {
+    background-color: #00CEF0;
+    color: #fff; }
+  .category-label.danger {
+    background-color: #ff6968;
+    color: #fff; }
   .category-label:hover {
     cursor: pointer; }
 
@@ -323,6 +349,9 @@ main {
   grid-template-columns: 8fr 60px 60px;
   background: #fff;
   z-index: 1000; }
+  @media only screen and (max-width: 768px) {
+    #header {
+      height: 78px; } }
   #header #lang-btn {
     justify-self: center;
     font-weight: 600;
@@ -441,7 +470,7 @@ footer {
   align-content: center;
   padding: 0 20px;
   height: 60px;
-  margin-top: 50px;
+  margin-top: 3em;
   background-color: #fafafa;
   font-size: .85em; }
   footer #social-media i {

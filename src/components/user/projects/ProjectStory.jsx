@@ -19,6 +19,7 @@ import Article from '../common/articlePartials/Article';
 import InfoSection from './partials/partials/InfoSection';
 import ProjectHeader from './partials/ProjectHeader';
 import ProjectInfo from './partials/ProjectInfo';
+import SectionHeader from '../common/headers/SectionHeader';
 
 class ProjectStory extends React.Component {
 	constructor (props) {
@@ -179,7 +180,8 @@ class ProjectStory extends React.Component {
 
 
 				<section className='section-padding-top-bottom'>
-					<h2 className="section-title text-center">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>
+					<SectionHeader pageName='project' language={activeLanguage} sectionName='otherProjects' />
+					{/*<h2 className="section-title text-center">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>*/}
 					<RandomProjects language={activeLanguage} currentProjectId={this.projectId}/>
 				</section>
 

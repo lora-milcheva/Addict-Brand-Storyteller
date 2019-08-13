@@ -7,6 +7,7 @@
     @include display-grid;
     @include grid-template-columns(2, 1fr);
     @include grid-gap($grid-gap, $grid-gap);
+    margin-top: $grid-gap-small;
   }
 
   .form-group {
@@ -23,6 +24,18 @@
     font-size: 1.5em;
     border-bottom: 1px solid $medium-grey;
     padding-bottom: 15px;
+    display: grid;
+    justify-items: stretch;
+    grid-template-columns: (2fr 2fr);
+
+    span {
+      display: block;
+      text-align: right;
+    }
+
+    .btn {
+      display: inline-block;
+    }
   }
 
   #submit-buttons {
@@ -122,6 +135,10 @@
       }
     }
 
+    img {
+      margin-bottom: 10px;
+    }
+
     .label {
       float: left;
       margin-right: 8px;
@@ -196,14 +213,23 @@
         @include main-transition;
       }
 
-      .star {
+      .labels {
         display: inline-block;
         position: absolute;
         top: 10px;
         left: 10px;
+      }
+
+      .star,
+      .blocked {
         padding: 5px 10px;
-        background-color: $primary;
+        background-color: $info;
         color: $white;
+        margin-right: 5px;
+      }
+
+      .blocked {
+        background-color: $primary;
       }
 
       &:hover {

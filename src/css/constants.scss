@@ -1,8 +1,8 @@
 $primary: #f94848;
 $primary-hover: #ff6968;
 
-$attention: #FFEB3B;
-$attention-hover: #ff8d19;
+$attention: #ff6968;
+$attention-hover: #d35756;
 
 $default: #000;
 $default-hover: #414141;
@@ -32,22 +32,58 @@ $ultra-marin: #00bcd4;
 $pig-pink: #e4838f;
 $black-two: #171717;
 
+$header-height: 90px;
 
-$container-padding-desktop: 10%;
-$container-padding-mobile: 5%;
+$grid-gap: 3em;
+$grid-gap-small: 1.5em;
 
-$section-padding-top: 60px;
-$section-padding-bottom: 80px;
-$section-padding-left-right: 25px;
+@mixin header {
+  $header-height: 90px;
 
-$text-margin: 25px;
+  @media only screen and (max-width: 768px) {
+    $header-height: 78px;
+  }
+}
 
-$grid-gap: 50px;
-$grid-gap-small: 25px;
+@mixin header-height {
+  height: 90px;
+
+  @media only screen and (max-width: 768px) {
+    height: 78px;
+  }
+}
+
+@mixin container-padding {
+  padding: 0 10%;
+
+  @media only screen and (max-width: 768px) {
+    padding: 0 5%;
+  }
+}
 
 
-@media screen and (max-width: 1200px){
-  $section-padding-top: 20px;
-  $section-padding-bottom: 20px;
-  $section-padding-left-right: 5px;
+@mixin section-padding-top() {
+  padding-top: 5em;
+
+  @media only screen and (max-width: 768px) {
+    padding-top: 3em;
+  }
+}
+
+@mixin section-padding-bottom() {
+  padding-bottom: 6em;
+
+  @media only screen and (max-width: 768px) {
+    padding-bottom: 4em;
+  }
+}
+
+@mixin section-padding-left-right() {
+  padding-left: 25px;
+  padding-right: 25px;
+
+  @media only screen and (max-width: 768px) {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
 }

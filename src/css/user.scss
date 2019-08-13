@@ -29,8 +29,8 @@
 
 // Common
 .banner {
-  padding: $section-padding-top 0;
-  //border-bottom: 3px solid $primary;
+  @include section-padding-top;
+  @include section-padding-bottom;
 }
 
 .page-header {
@@ -44,8 +44,8 @@
 .subtitle {
   font-size: 1.5em;
   font-weight: 500;
-  width: 75%;
-  margin: 25px auto 10px auto;
+  width: 80%;
+  margin: $grid-gap auto $grid-gap-small auto;
   line-height: 1.5em;
 }
 
@@ -56,7 +56,7 @@
 
 .section-header {
   text-align: center;
-  margin-bottom: 2em;
+  margin-bottom: 3.5em;
 }
 
 .section-name {
@@ -72,7 +72,7 @@
 }
 
 .section-text {
-  margin-bottom: $section-padding-bottom;
+  //@include section-padding-bottom;
   font-weight: 500;
   color: $dark-grey;
   font-size: 1.4em;
@@ -80,12 +80,12 @@
 }
 
 .smaller {
-  display: inline-block;
+  display: block;
   font-size: .75em;
   line-height: 1.4em;
   color: $dark-grey;
   font-weight: 400;
-  margin-top: 30px;
+  margin-top: $grid-gap-small;
 }
 
 .accent-text {
@@ -382,12 +382,10 @@
   }
 }
 
-#projects-list .projects-container {
 
+#projects-list .projects-container {
   @include display-grid;
   @include grid-gap($grid-gap);
-
-  padding-bottom: 100px;
 
 
   .project-card {
@@ -403,7 +401,7 @@
 
       .project-info {
         padding-left: 0;
-        padding-right: 50px;
+        padding-right: $grid-gap;
       }
     }
 
@@ -448,7 +446,7 @@
         font-size: 1.8em;
         line-height: 1.5em;
         font-weight: 500;
-        margin: 10px 0 50px 0;
+        margin: 10px 0 30px 0;
         @include headline-font;
 
         @include ease-in(.15s);
@@ -468,7 +466,6 @@
   @include grid-template-columns(3, 1fr);
   @include grid-gap($grid-gap-small, $grid-gap-small);
   padding: $grid-gap-small $grid-gap-small;
-
 
   .project-card {
     @include display-grid;
@@ -532,7 +529,8 @@
   // summary
   #project-header {
     text-align: center;
-    padding: $section-padding-top 0;
+    @include section-padding-top;
+    @include section-padding-bottom;
 
     .project-name,
     .client {
@@ -541,16 +539,13 @@
     }
 
     .project-name {
-      //font-weight: 600;
-      //font-size: 1.8em;
       margin-bottom: .5em;
     }
 
     .cliche {
       font-size: 4em;
       line-height: 1.15em;
-      //@include headline-font;
-      margin-top: $grid-gap-small;
+      margin-top: .4em;
 
       .field {
         &:after {
@@ -566,17 +561,17 @@
     @include display-grid;
 
     .section-image {
-      padding-top: $section-padding-top;
+      @include section-padding-top;
     }
 
     .info-section {
-      padding-top: $section-padding-top;
+      @include section-padding-top;
       @include display-grid;
       grid-template-columns: 2.5fr 6fr;
 
       .section-header {
         margin: 0;
-        padding-right: $grid-gap-small;
+        padding-right: $grid-gap;
 
         .section-title {
           text-align: left;
@@ -586,9 +581,9 @@
       .section-text {
         font-size: 1.4em;
         font-weight: 500;
-        line-height: 1.5em;
+        line-height: 1.7em;
         margin-top: 5px;
-        margin-bottom: 0;
+        padding-bottom: 0;
         //text-align: justify;
       }
     }
@@ -600,14 +595,14 @@
   #project-video-gallery {
     position: relative;
     overflow: hidden;
-    margin-top: $section-padding-top;
+    @include section-padding-top;
   }
 
   #gallery,
   #video-gallery {
     @include flex;
     white-space: nowrap;
-    padding-left: $container-padding-desktop;
+    @include container-padding;
   }
 
   .image-container,
@@ -644,13 +639,11 @@
   #gallery {
 
     .image-container {
-
       &:hover {
         .btn {
           opacity: 1;
         }
       }
-
 
       .image {
         @include main-transition;
@@ -683,9 +676,7 @@
 
   // project videos
   #video-gallery {
-
     .video-container {
-
       .video {
         width: 550px;
         height: auto;
@@ -734,8 +725,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, .9);
 
     z-index: 2000;
@@ -772,20 +763,24 @@
 
 
     .image {
-      height: 100vh;
-      width: 100%;
-      display: grid;
+display: grid;
       align-items: center;
-      justify-content: center;
+      justify-items: center;
+      width: 100%;
+      height: 100%;
       @include main-transition;
 
       .img-fit {
         width: auto;
-        max-width: 100%;
+        max-width: 90%;
         height: auto;
-        max-height: 100%;
+        max-height: 90%;
       }
     }
+  }
+
+  .section-header {
+    margin-bottom: .7em;
   }
 }
 

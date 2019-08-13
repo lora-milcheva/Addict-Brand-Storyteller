@@ -6,9 +6,6 @@
 @import "mixins";
 
 
-$header-height: 90px;
-
-
 
 * {
   box-sizing: border-box;
@@ -59,29 +56,27 @@ p {
 }
 
 .container-padding {
-  padding: 0 $container-padding-desktop;
+  @include container-padding;
   margin: auto;
 }
 
 .section-padding-top-bottom {
-  padding-top: $section-padding-top;
-  padding-bottom: $section-padding-bottom;
+  @include section-padding-top;
+  @include section-padding-bottom;
 }
 
 .section-padding-top {
-  padding-top: $section-padding-top;
+  @include section-padding-top;
 }
 
 .section-padding-bottom {
-  padding-bottom: $section-padding-bottom;
-}
-
-.section-padding-left-right {
-  padding: 0 $section-padding-left-right;
+  @include section-padding-bottom;
 }
 
 .section-padding-all {
-  padding: $section-padding-top $section-padding-left-right $section-padding-bottom;
+  @include section-padding-bottom;
+  @include section-padding-top;
+  @include section-padding-left-right;
 }
 
 .text-danger {
@@ -113,6 +108,7 @@ button {
 
 .btn {
   width: max-content;
+  display: inline-block;
   margin-right: 5px;
   padding: 15px 30px;
   @include main-transition;
@@ -377,10 +373,6 @@ button {
   @include fit-img;
 }
 
-.page-header {
-  margin-bottom: 20px;
-}
-
 .buttons-container {
   margin: 15px 0 20px;
   padding: 10px 0;
@@ -401,9 +393,14 @@ button {
     color: $white;
   }
 
-  &.attention {
+  &.info {
+    background-color: $info;
+    color: $white;
+  }
+
+  &.danger {
     background-color: $attention;
-    color: $black;
+    color: $white;
   }
 
   &:hover {
@@ -467,11 +464,11 @@ main {
   min-height: calc(100vh - 80px); //header + footer height
 }
 
-#header  {
+#header {
   position: fixed;
   top: 0;
   width: 100%;
-  height: $header-height;
+  @include header-height;
   @include display-grid;
   grid-template-columns: 8fr 60px 60px;
   background: $white;

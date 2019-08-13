@@ -13,7 +13,7 @@ class ServicesWork extends React.Component {
 
 		return (
 
-			<section id='services-work' className='section-padding-top-bottom'>
+			<section id='services-work' className='section-padding-top-bottom bg-light'>
 				<SectionHeader language={activeLanguage}
 				               pageName='services'
 				               sectionName='work'

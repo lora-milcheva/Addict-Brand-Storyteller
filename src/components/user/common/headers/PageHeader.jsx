@@ -15,6 +15,8 @@ class PageHeader extends React.Component {
 
 		let { language, pageName } = this.props;
 
+		let subtitle = UTILS.createMarkup(USER_PAGES_TEXT[pageName][language].subtitle);
+
 		return (
 
 			<section className='banner container page-header'>
@@ -22,8 +24,10 @@ class PageHeader extends React.Component {
 				<h1 className='page-title'
 				    dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT[pageName][language].title)}/>
 
-				<p className='subtitle'
-				   dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT[pageName][language].subtitle)}/>
+				{subtitle.__html &&
+				<p className="subtitle"
+				   dangerouslySetInnerHTML={subtitle}/>
+				}
 
 			</section>
 		);

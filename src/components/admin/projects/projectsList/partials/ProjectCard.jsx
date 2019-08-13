@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-
 function ProjectCard (props) {
 
 	let project = props.project;
@@ -11,15 +10,23 @@ function ProjectCard (props) {
 			<article className="project-card">
 
 				<figure className="img-container">
-					<img className="img-fit" src={project.thumbnail}/>
+					<img className="img-fit" src={project.thumbnail} alt={project.name.bg}/>
 				</figure>
 				<p className="project-name">{project.name.bg}</p>
 
+				<div className='labels'>
 				{project.isStar &&
 				<span className='star'>
-				<i className="fa fa-star" aria-hidden="true"/>
-			</span>}
+					<i className="fa fa-star" aria-hidden="true"/>
+				</span>
+				}
 
+				{project.isBlocked &&
+				<span className='blocked'>
+					<i className="fa fa-ban" aria-hidden="true"/>
+				</span>
+				}
+				</div>
 
 			</article>
 		</Link>

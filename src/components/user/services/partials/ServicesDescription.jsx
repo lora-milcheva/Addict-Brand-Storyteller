@@ -12,7 +12,7 @@ class ServicesDescription extends React.Component {
 
 		return (
 
-			<section id='services-description' className='container section-padding-top-bottom'>
+			<section id='services-description' className='container section-padding-bottom'>
 
 
 				<div id='articles'>

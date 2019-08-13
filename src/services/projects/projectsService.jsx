@@ -69,6 +69,7 @@ function createProjectInfo (state) {
 		year: state.year,
 		webPage: state.webPage,
 		isStar: state.isStar,
+		isBlocked: state.isBlocked,
 		clientId: state.clientId,
 		categoryIds: state.categoryIds,
 		images: state.images,

@@ -14,7 +14,7 @@ class ServicesContact extends React.Component {
 		let activeLanguage = this.props.language;
 
 		return (
-			<section id='services-contact'>
+			<section id='services-contact' className='section-padding-top'>
 
 				<SectionHeader pageName='services' language={activeLanguage} sectionName='contact' />
 

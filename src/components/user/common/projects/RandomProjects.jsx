@@ -24,7 +24,7 @@ class RandomProjects extends React.Component {
 
 	loadRandomProjects = () => {
 
-		let query = '?query={}&fields=_id';
+		let query = '?query={"isBlocked":false}&fields=_id';
 
 		projectsService
 			.loadAllProjects(query)
