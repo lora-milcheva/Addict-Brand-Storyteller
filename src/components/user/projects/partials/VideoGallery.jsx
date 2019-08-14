@@ -17,18 +17,34 @@ class VideoGallery extends React.Component {
 
 	componentDidMount () {
 		this.setVolumeOnPlayers();
-		document.addEventListener('keydown', this.handleKeyPress);
+		window.addEventListener('resize', this.moveGalleryToStart);
 	}
 
-	componentWillMount () {
-		document.removeEventListener('keydown', this.handleKeyPress);
+	componentWillReceiveProps (nextProps, nextContext) {
+		let direction = nextProps.direction;
+		this.moveCarousel(direction);
 	}
 
-	handleKeyPress = (e) => {
+	componentWillUnmount () {
+		window.removeEventListener('resize', this.moveGalleryToStart);
+	}
 
-		if (e.key === 'ArrowLeft') this.moveCarousel('left');
+	moveGalleryToStart = () => {
 
-		if (e.key === 'ArrowRight') this.moveCarousel('right');
+		if (window.innerWidth <= 768 && this.state.imageIndex > 0) {
+
+			let container = this.container.current;
+
+			this.setState({
+				translateValue: 0,
+				imageIndex: 0
+			}, () => {
+				window.requestAnimationFrame(function () {
+					container.style.transform = `translateX(-${0}px)`;
+					container.style.transition = '.6s ease-out';
+				});
+			});
+		}
 	};
 
 	moveCarousel = (direction) => {
@@ -211,5 +227,6 @@ VideoGallery.propTypes = {
 	videos: PropTypes.array,
 	language: PropTypes.string,
 	sections: PropTypes.array,
-	showPreview: PropTypes.func
+	showPreview: PropTypes.func,
+	deviceWidth: PropTypes.number
 };

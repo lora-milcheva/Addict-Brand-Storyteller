@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { USER_PAGES_TEXT } from '../../../../constants/constants';
 
-
-
 class ProjectHeader extends React.Component {
 
 	render () {
@@ -13,12 +11,20 @@ class ProjectHeader extends React.Component {
 		return (
 
 			<section id="project-header" className='container'>
-				<p className='project-name'>Проектът: {project.name[activeLanguage]}</p>
-				{client !== '' && <p className='client'>Възложителят: {client} </p>}
+
+				<p className='project-name'>
+					{USER_PAGES_TEXT.project[activeLanguage].project}{project.name[activeLanguage]}
+				</p>
+
+				{client !== '' &&
+					<p className='client'>{USER_PAGES_TEXT.project[activeLanguage].client}{client} </p>
+				}
+
 				<h2 className="cliche">
 					<span className="field">{USER_PAGES_TEXT.project[activeLanguage].cliche}</span>
 					{project.description[activeLanguage]}
 				</h2>
+
 			</section>
 
 		);

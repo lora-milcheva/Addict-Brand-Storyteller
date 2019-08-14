@@ -99,8 +99,6 @@ class ContactForm extends React.Component {
 
 				<Notifications onRef={ref => (this.notifications = ref)} language={activeLanguage}/>
 
-				{/*<h2 className='section-title container'>{USER_PAGES_TEXT.contact[activeLanguage].contactUs}</h2>*/}
-
 				<form id="contact-form" method="post" onSubmit={this.sendMail} className='container'>
 
 					<FormInput type='text'

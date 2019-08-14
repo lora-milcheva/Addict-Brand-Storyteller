@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Lora:400,700|Playfair+Display:400,700,900|Prata&display=swap&subset=cyrillic');
-
+@import "constants";
 
 @mixin main-transition {
   -webkit-transition: .4s;
@@ -168,15 +168,29 @@
   transform: scale($value);
 }
 
-@mixin headline-font {
-  //font-family: 'Lora', serif;
-  font-family: 'Montserrat', sans-serif;
-  //font-family: 'Playfair Display', serif;
-  //font-family: 'Prata', serif;
-  font-weight: 400;
+@mixin cliche-home {
+  font-size: 3em;
+  line-height: 1.2em;
 }
 
-@mixin title-text {
+@mixin cliche-project {
+  font-size: 4em;
+  line-height: 1.15em;
+}
+
+@mixin cliche-project-card {
+  font-size: 1.8em;
+  line-height: 1.5em;
+  font-weight: 500;
+}
+
+@mixin cliche-other-projects-card {
+  font-size: 1.5em;
+  line-height: 1.5em;
+  font-weight: 500;
+}
+
+@mixin page-title-text {
   font-size: 5.5em;
   line-height: 1.1em;
   margin: 0;
@@ -192,6 +206,22 @@
 }
 
 
+//
+@mixin page-subtitle-text {
+  font-size: 1.5em;
+  font-weight: 500;
+  line-height: 1.5em;
+}
+
+@mixin article-text {
+  list-style-type: none;
+  font-weight: 500;
+  font-size: 1.15em;
+  line-height: 1.7em;
+  color: $dark-grey;
+}
+
+// Quotations
 @mixin quotation-text {
   //font-size: 3.8vw;
   font-size: 3.0em;
@@ -210,12 +240,21 @@
   padding: 0 10%;
 }
 
-@mixin second-title-text {
+
+// Sections
+@mixin section-title-text {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   //font-size: 2.5vw;
   font-size: 2.5em;
   line-height: 1.3em;
+}
+
+@mixin section-text {
+  font-weight: 500;
+  color: $dark-grey;
+  font-size: 1.4em;
+  line-height: 1.8em;
 }
 
 

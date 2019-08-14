@@ -4,7 +4,7 @@ import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 // Partials
 import PageHeader from '../common/headers/PageHeader';
 import SectionHeader from '../common/headers/SectionHeader';
-import ImageSection from '../common/headers/ImageSection';
+import ImagePageHeader from '../common/headers/ImagePageHeader';
 import ArticleSection from '../common/articlePartials/ArticleSection';
 
 
@@ -19,10 +19,10 @@ class Careers extends React.Component {
 
 				{/*<PageHeader language={activeLanguage} pageName='careers'/>*/}
 
-				<ImageSection language={activeLanguage}
-				              pageName='careers'
-				              sectionName='content'
-				              imgUrl='images/bgs/team.jpg'/>
+				<ImagePageHeader language={activeLanguage}
+				                 pageName='careers'
+				                 sectionName='content'
+				                 imgUrl='images/bgs/team.jpg'/>
 
 				<div className='container'>
 					<ArticleSection language={activeLanguage}

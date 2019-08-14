@@ -35,35 +35,35 @@
   #services {
 
     #services-main {
+      position: relative;
+
+      .section-header {
+        margin-bottom: 10px;
+      }
+
 
       #services-scheme {
-        @include display-grid;
-        @include grid-template-columns(5, 1fr);
+        @include grid-template-columns(1, 1fr);
+        width: 270px;
+        margin: auto;
+        padding: 10px;
+
 
         .scheme {
-          @include display-grid;
-          @include justify-content-center;
-          @include align-content-center;
-          padding: 30px;
-          background-color: $bg-grey;
-          text-align: center;
-          font-size: 1.3em;
-          color: $dark-grey;
-          font-weight: 600;
+          height: 100px;
 
           &.left {
-            clip-path: polygon(100% 0%, 90% 50%, 100% 100%, 10% 100%, 0% 50%, 10% 0%);
+            clip-path: polygon(50% 0, 100% 20px, 100% 100%, 50% 80px, 0 100%, 0 20px);
           }
 
           &.center {
-            font-size: 1.7em;
-            clip-path: polygon(90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%, 10% 0%);
-            background-color: $primary;
-            color: $white;
+            clip-path: polygon(50% 0, 100% 20px, 100% 150px, 50% 100%, 0 150px, 0 20px);
+
+            height: 170px;
           }
 
           &.right {
-            clip-path: polygon(90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%, 0% 0%);
+            clip-path: polygon(50% 20px, 100% 0, 100% 80px, 50% 100%, 0 80px, 0 0);
           }
         }
 
@@ -75,13 +75,14 @@
       }
 
       #scheme-description {
-        @include display-grid;
-        grid-template-columns: 2fr 1fr 2fr;
-        margin-top: $grid-gap-small;
+        position: absolute;
+        top: 10%;
+        margin: 0;
+        transform-origin: left;
+        transform: translate(0, -50%) rotate(90deg);
+        width: 570px;
+        grid-template-columns: 200px 170px 200px;
 
-        text-align: center;
-        color: $dark-grey-1;
-        font-weight: 600;
 
         .scheme-description {
 
@@ -92,7 +93,6 @@
     #services-description #articles {
       @include grid-template-columns(1, 1fr);
       @include grid-gap($grid-gap, $grid-gap-small);
-
 
 
       .article-box {
@@ -120,7 +120,79 @@
   }
 }
 
-@media screen and (max-width: 900px)  {
+@media screen and (max-width: 900px) {
+
+  #home {
+    #video {
+
+      #unmute-btn {
+        font-size: 1.5em;
+      }
+
+      .slider {
+        display: block;
+        margin-top: -20px;
+        height: 20px;
+        background-color: $primary;
+        width: 0;
+        transition: width .5s ease;
+      }
+    }
+  }
+
+  #about-us,
+  #careers {
+
+    .article-section {
+      @include display-grid;
+      grid-template-columns: none;
+      margin: 0 0;
+
+
+      .article-box {
+        border-left: none;
+        padding: $grid-gap $grid-gap-small;
+
+        p {
+          margin-top: .75em;
+
+          &:first-of-type {
+            margin-top: 0;
+          }
+        }
+      }
+
+      .blockquote {
+        align-self: center;
+        background-color: transparent;
+        text-align: right;
+
+
+        .quote {
+          border-bottom: 3px solid $primary;
+          padding: 1em .75em 1em 2em;
+          font-size: 2.5em;
+        }
+      }
+    }
+  }
+
+  #about-us {
+
+    .container {
+      &:nth-of-type(2) {
+        .article-section {
+          grid-template-columns: none;
+
+          .article-box {
+            grid-area: 1 / 1 / 2 / 2;
+            border-right: none;
+            padding: $grid-gap $grid-gap-small;
+          }
+        }
+      }
+    }
+  }
 
   #projects-list .projects-container {
 
@@ -158,6 +230,20 @@
     .author {
       padding: 0 3%;
     }
+  }
+
+  .article-box {
+
+    .article-headline {
+      font-size: 1.4em;
+      margin-bottom: 10px;
+    }
+
+    .article-text li {
+      margin-top: 7px;
+      line-height: 1.2em;
+    }
+
   }
 
   #home {
@@ -289,7 +375,7 @@
       @include display-grid;
       @include grid-template-columns(1, 1fr);
       width: auto;
-      padding: 0;
+
 
 
       .video-container {
@@ -400,6 +486,12 @@
         .cliche {
           margin: 10px 0;
         }
+
+        .btn {
+          background: $black;
+          padding: 10px 20px;
+          color: $white;
+        }
       }
     }
   }
@@ -410,7 +502,7 @@
 
   .blockquote {
     .quote {
-      font-size: 2.5em;
+      font-size: 2.2em;
     }
   }
 

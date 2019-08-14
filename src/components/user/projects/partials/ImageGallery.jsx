@@ -8,19 +8,42 @@ class ImageGallery extends React.Component {
 		this.state = {
 			translateValue: 0,
 			step: 0,
-			imageIndex: 0
+			imageIndex: 0,
 		};
 
 		this.container = React.createRef();
 	}
 
+	componentDidMount () {
+		window.addEventListener('resize', this.moveGalleryToStart);
+	}
 
 	componentWillReceiveProps (nextProps, nextContext) {
-
 		let direction = nextProps.direction;
-
 		this.moveCarousel(direction);
 	}
+
+	componentWillUnmount () {
+		window.removeEventListener('resize', this.moveGalleryToStart);
+	}
+
+	moveGalleryToStart = () => {
+
+		if (window.innerWidth <= 768 && this.state.imageIndex > 0) {
+
+			let container = this.container.current;
+
+			this.setState({
+				translateValue: 0,
+				imageIndex: 0
+			}, () => {
+				window.requestAnimationFrame(function () {
+					container.style.transform = `translateX(-${0}px)`;
+					container.style.transition = '.6s ease-out';
+				});
+			});
+		}
+	};
 
 	getCurrentImageWidth = (direction, callback) => {
 
@@ -37,8 +60,6 @@ class ImageGallery extends React.Component {
 	};
 
 	moveCarousel = (direction) => {
-
-		if (direction === '') return
 
 		this.getCurrentImageWidth(direction, () => {
 

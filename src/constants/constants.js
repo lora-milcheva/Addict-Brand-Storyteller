@@ -863,10 +863,10 @@ const USER_PAGES_TEXT = {
 
 	project: {
 		bg: {
-			cliche: 'Клишето',
-			year: 'Година',
-			client: 'Клиент',
-			project: 'Проектът',
+			cliche: 'Клишето: ',
+			year: 'Година: ',
+			client: 'Възложителят: ',
+			project: 'Проектът: ',
 
 			sections: {
 				otherProjects: {
@@ -877,10 +877,10 @@ const USER_PAGES_TEXT = {
 			}
 		},
 		en: {
-			cliche: 'Cliche',
-			year: 'Year',
-			client: 'Client',
-			project: 'ProjectSimple',
+			cliche: 'Cliche: ',
+			year: 'Year: ',
+			client: 'Client: ',
+			project: 'Project: ',
 
 			sections: {
 				otherProjects: {

@@ -1,14 +1,12 @@
 import React from 'react';
 
 // CSS
-import './css/constants.css'
+import './css/constants.css';
 import './css/main.css';
 import './css/main-responsive.css';
 import './css/user.css';
 import './css/user-responsive.css';
 import './css/admin.css';
-
-
 
 // Components
 import Header from './components/common/Header';
@@ -43,7 +41,7 @@ class App extends React.Component {
 	}
 
 	componentWillUpdate (nextProps, nextState, nextContext) {
-		this.scrollTop()
+		this.goToTop();
 	}
 
 	showHideBtn = () => {
@@ -61,8 +59,12 @@ class App extends React.Component {
 		}
 	};
 
+	goToTop = () => {
+		window.scroll({top: 0, left: 0});
+	};
+
 	scrollTop = () => {
-		window.scroll(0, 0);
+		window.scroll({top: 0, left: 0, behavior: 'smooth'});
 	};
 
 	render () {

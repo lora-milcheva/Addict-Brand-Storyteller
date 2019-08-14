@@ -45,6 +45,10 @@
   .container-padding {
     margin: auto;
   }
+
+  #main-nav {
+    top: 78px;  // header in smaller devices
+  }
 }
 
 @media screen and (max-width: 530px) {
@@ -77,8 +81,6 @@
   }
 
   #main-nav {
-    top: $header-height;
-
     .nav-link {
       &:first-of-type {
         margin-top: 25px;

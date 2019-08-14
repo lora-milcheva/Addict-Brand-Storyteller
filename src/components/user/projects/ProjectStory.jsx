@@ -78,6 +78,7 @@ class ProjectStory extends React.Component {
 		document.removeEventListener('keydown', this.handleKeyPress);
 	}
 
+
 	handleKeyPress = (e) => {
 
 		if (e.key === 'ArrowLeft') this.changeState('left');
@@ -155,7 +156,9 @@ class ProjectStory extends React.Component {
 				}
 
 				<section id='project-cover'>
-					<img src={this.state.project.cover} alt='page cover'/>
+					<figure className="img-container">
+						<img src={this.state.project.cover} className='img-fit' alt='page cover'/>
+					</figure>
 				</section>
 
 				<ProjectHeader activeLanguage={activeLanguage} project={project} client={client}/>
@@ -180,8 +183,8 @@ class ProjectStory extends React.Component {
 
 
 				<section className='section-padding-top-bottom'>
-					<SectionHeader pageName='project' language={activeLanguage} sectionName='otherProjects' />
-					{/*<h2 className="section-title text-center">{USER_PAGES_TEXT.project[activeLanguage].otherProjects}</h2>*/}
+					<SectionHeader pageName='project' language={activeLanguage} sectionName='otherProjects'/>
+
 					<RandomProjects language={activeLanguage} currentProjectId={this.projectId}/>
 				</section>
 
