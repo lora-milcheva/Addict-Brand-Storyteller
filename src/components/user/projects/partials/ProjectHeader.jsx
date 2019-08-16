@@ -7,7 +7,8 @@ import { USER_PAGES_TEXT } from '../../../../constants/constants';
 
 const ListContainer = posed.ul({
 	enter: {staggerChildren: 50},
-	exit: {staggerChildren: 20, staggerDirection: -1}
+	exit: {staggerChildren: 20, staggerDirection: -1},
+
 });
 
 const Item = posed.li({

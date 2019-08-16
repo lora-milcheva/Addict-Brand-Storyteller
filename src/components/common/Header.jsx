@@ -1,9 +1,12 @@
 import React from 'react';
-import posed from 'react-pose';
 import { NavLink, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
 import { LanguageContext, languages } from './languagesContext/LanguageContext';
+
+// Partials
+import UserMenuAnimated from './UserMenuAnimated';
+import UserMenu from './navigation/UserMenu';
 
 // Services
 import authService from '../../services/auth/authService';
@@ -17,7 +20,7 @@ class HeaderC extends React.Component {
 		super(props);
 
 		this.state = {
-			categories: []
+			isOpen: false
 		};
 
 		this.toggleMenuBtn = React.createRef();
@@ -79,35 +82,22 @@ class HeaderC extends React.Component {
 			.catch(err => console.log(err));
 	};
 
-	toggleMenu = () => {
 
-		let mainNav = this.mainNav.current;
+	toggleNav = () => {
 		let toggleBtn = this.toggleMenuBtn.current;
 
-		if (mainNav.classList.contains('visible')) {
-			mainNav.classList.remove('visible');
+		this.test();
+
+		if (toggleBtn.classList.contains('clicked')){
 			toggleBtn.classList.remove('clicked');
 			return;
 		}
 
-		mainNav.classList.add('visible');
 		toggleBtn.classList.add('clicked');
 	};
 
-	toggleNav = () => {
-
-		let mainNav = this.mainNav.current;
-		let toggleBtn = this.toggleMenuBtn.current;
-
-		setTimeout(() => {
-			mainNav.classList.remove('visible');
-			toggleBtn.classList.remove('clicked');
-		}, 500);
-
-		// if (this.props.location.pathname === '/') {
-		// 	console.log(222)
-		// 	window.location.reload();
-		// }
+	test = () => {
+		this.setState({isOpen: !this.state.isOpen});
 	};
 
 	render () {
@@ -119,7 +109,7 @@ class HeaderC extends React.Component {
 			<button id="toggle-menu-btn"
 			        className="btn sm"
 			        ref={this.toggleMenuBtn}
-			        onClick={this.toggleMenu}>
+			        onClick={this.toggleNav}>
 				<span className="toggle"/>
 				<span className="toggle"/>
 				<span className="toggle"/>
@@ -168,7 +158,7 @@ class HeaderC extends React.Component {
 
 				<div id="header">
 
-					<Link to="/" id="brand" onClick={this.toggleNav}/>
+					<Link to="/" id="brand" />
 
 					<button id="lang-btn" className="btn sm"
 					        value={activeLanguage}
@@ -179,43 +169,15 @@ class HeaderC extends React.Component {
 				</div>
 
 
-				<nav id="main-nav" ref={this.mainNav} onClick={this.toggleNav}>
+				<UserMenuAnimated activeLanguage={activeLanguage}
+				      language={language}
+				      isOpen={this.state.isOpen}
+				      toggleNav={this.toggleNav}/>
 
-					<NavLink exact
-					         to={language + '/'}
-					         className="nav-link"
-					         activeClassName='active'>{MENU[activeLanguage].home}</NavLink>
-
-					<NavLink
-						to={language + '/projects'}
-						className="nav-link"
-						activeClassName='active'>{MENU[activeLanguage].projects}</NavLink>
-
-					<NavLink exact
-					         to={language + '/services'}
-					         className="nav-link"
-					         activeClassName='active'>{MENU[activeLanguage].services}</NavLink>
-
-					<NavLink exact
-					         to={language + '/about-us'}
-					         className="nav-link"
-					         activeClassName='active'>{MENU[activeLanguage].aboutUs}</NavLink>
-
-					<NavLink exact
-					         to={language + '/careers'} className="nav-link"
-					         activeClassName='active'>{MENU[activeLanguage].careers}</NavLink>
-
-					<NavLink exact
-					         to={language + '/contact'}
-					         className="nav-link"
-					         activeClassName='active'>{MENU[activeLanguage].contact}</NavLink>
-
-					<NavLink exact
-					         to="/login"
-					         className="nav-link"
-					         activeClassName='active'>{MENU[activeLanguage].login}</NavLink>
-
-				</nav>
+				{/*<UserMenu activeLanguage={activeLanguage}*/}
+				{/*          language={language}*/}
+				{/*          toggleNav={this.toggleNav}*/}
+				{/*          isOpen={this.state.isOpen}/>*/}
 
 			</header>
 		);

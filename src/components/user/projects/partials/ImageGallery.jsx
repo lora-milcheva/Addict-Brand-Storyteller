@@ -22,13 +22,9 @@ class ImageGallery extends React.Component {
 
 		let direction = nextProps.direction;
 
-		console.log(direction)
 		if (direction) {
-			console.log(222)
-
 			this.moveCarousel(direction);
 		}
-
 	}
 
 	componentWillUnmount () {

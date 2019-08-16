@@ -3,6 +3,43 @@
 @import "animations";
 @import "typography";
 
+.sidebar {
+  @include display-grid;
+  @include align-content-top;
+  z-index: 1000;
+
+  position: fixed;
+  top: $header-height;
+  min-width: 280px;
+  right: 0;
+  bottom: 0;
+
+  background-color: $white;
+  border-left: 1px solid $medium-grey;
+
+}
+
+.item {
+  font-size: 1.5em;
+  font-weight: 600;
+  width: 70%;
+  margin: auto;
+  padding: 20px;
+  border-bottom: 3px solid transparent;
+
+  @include main-transition;
+
+  &:first-of-type {
+    margin-top: 80px;
+  }
+
+  &.active,
+  &:hover,
+  &:active {
+    border-bottom: 3px solid $primary;
+  }
+}
+
 #go-to-top-btn {
   position: fixed;
   bottom: -25px;

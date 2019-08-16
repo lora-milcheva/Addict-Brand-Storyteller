@@ -487,4 +487,15 @@
       }
     }
   }
+
+  #about-us,
+  #careers {
+    .article-section {
+      .blockquote {
+        .quote {
+          padding: 1em .75em;
+        }
+      }
+    }
+  }
 }

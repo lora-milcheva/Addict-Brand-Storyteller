@@ -21,6 +21,7 @@ class VideoGallery extends React.Component {
 	}
 
 	componentWillReceiveProps (nextProps, nextContext) {
+
 		let direction = nextProps.direction;
 
 		if (direction) {
