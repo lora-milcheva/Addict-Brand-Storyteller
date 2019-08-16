@@ -21,7 +21,6 @@ class Careers extends React.Component {
 
 				<ImagePageHeader language={activeLanguage}
 				                 pageName='careers'
-				                 sectionName='content'
 				                 imgUrl='images/bgs/team.jpg'/>
 
 				<div className='container'>

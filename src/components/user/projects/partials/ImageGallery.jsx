@@ -19,8 +19,16 @@ class ImageGallery extends React.Component {
 	}
 
 	componentWillReceiveProps (nextProps, nextContext) {
+
 		let direction = nextProps.direction;
-		this.moveCarousel(direction);
+
+		console.log(direction)
+		if (direction) {
+			console.log(222)
+
+			this.moveCarousel(direction);
+		}
+
 	}
 
 	componentWillUnmount () {
@@ -43,6 +51,8 @@ class ImageGallery extends React.Component {
 				});
 			});
 		}
+
+		this.props.changeState('');
 	};
 
 	getCurrentImageWidth = (direction, callback) => {
@@ -148,8 +158,7 @@ class ImageGallery extends React.Component {
 		});
 
 		return (
-			<div id="project-gallery">
-
+			<div id="project-gallery" className='section-padding-top-bottom'>
 
 				<div id='gallery' ref={this.container}>
 					{gallery}
@@ -180,5 +189,6 @@ ImageGallery.propTypes = {
 	language: PropTypes.string,
 	sections: PropTypes.array,
 	showPreview: PropTypes.func,
-	direction: PropTypes.string
+	direction: PropTypes.string,
+	changeState: PropTypes.func
 };

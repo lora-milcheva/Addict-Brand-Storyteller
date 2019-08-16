@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css?family=Lora:400,700|Playfair+Display:400,700,900|Prata&display=swap&subset=cyrillic');
+
+@import "constants";
+
+
+// Cliche
+@mixin cliche-home-project {
+  font-size: 3em;
+  line-height: 1.2em;
+
+  @media screen and (max-width: 1100px) {
+    font-size: 2.5em;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 2.0em;
+  }
+}
+
+@mixin cliche-project {
+  font-size: 4em;
+  line-height: 1.15em;
+
+  @media screen and (max-width: 768px) {
+    font-size: 3em;
+  }
+}
+
+@mixin cliche-project-card {
+  font-size: 1.8em;
+  line-height: 1.5em;
+  font-weight: 500;
+
+  @media screen and (max-width: 900px) {
+    font-size: 1.5em;
+  }
+}
+
+@mixin cliche-random-projects-card {
+  font-size: 1.5em;
+  line-height: 1.5em;
+  font-weight: 500;
+}
+
+
+// Page header
+@mixin page-title-text {
+  font-size: 5.5em;
+  line-height: 1.1em;
+  margin: 0;
+  font-weight: 800;
+
+  @media only screen and (max-width: 1200px) {
+    font-size: 4em;
+  }
+
+  @media only screen and (max-width: 768px) {
+    font-size: 3em;
+  }
+}
+
+@mixin page-subtitle-text {
+  font-size: 1.4em;
+  font-weight: 500;
+  line-height: 1.5em;
+  width: 80%;
+  margin: $grid-gap-small auto;
+
+
+  @media only screen and (max-width: 1100px) {
+    width: 100%;
+  }
+}
+
+
+// Page Section Headers
+@mixin section-title-text {
+  font-weight: 700;
+  font-size: 2.5em;
+  line-height: 1.3em;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 1.8em;
+  }
+}
+
+@mixin section-text {
+  font-weight: 500;
+  color: $dark-grey;
+  font-size: 1.3em;
+  line-height: 1.8em;
+  margin-top: .8em;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 1.2em;
+  }
+}
+
+
+// Articles
+@mixin article-headline {
+  font-size: 1.8em;
+  margin-bottom: .7em;
+}
+
+@mixin article-text {
+  list-style-type: none;
+  font-weight: 500;
+  font-size: 1.15em;
+  line-height: 1.7em;
+  color: $dark-grey;
+
+  li {
+    margin-top: 10px;
+    line-height: 1.4em;
+  }
+
+  @media only screen and (max-width: 1100px) {
+    li {
+      line-height: 1.2em;
+    }
+  }
+}
+
+
+// Quotations
+@mixin quotation-text {
+  font-size: 3.0em;
+  line-height: 1.1em;
+  padding: 0 10%;
+  font-weight: 400;
+  font-family: 'Prata Italic', serif;
+  font-style: italic;
+  color: $dark-grey;
+  text-align: left;
+
+  @media only screen and (max-width: 900px) {
+    font-size: 2.65em;
+  }
+}
+
+@mixin author {
+  font-family: 'Prata Italic Italic', serif;
+  font-style: italic;
+  font-size: 1.5em;
+  margin-top: 2em;
+  padding: 0 10%;
+  color: $dark-grey;
+  text-align: right;
+}
+
+
+
+// Text
+@mixin text-uppercase {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: .9em;
+}
+
+@mixin transform-button-text {
+  font-weight: 600;
+  font-size: 1.1em;
+  letter-spacing: .05px;
+}
+
+@mixin transform-button-text-bigger {
+  @include transform-button-text;
+  font-size: 1.3em;
+}

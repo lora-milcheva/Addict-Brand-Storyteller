@@ -95,7 +95,7 @@ class ContactForm extends React.Component {
 		let activeLanguage = this.context.language;
 
 		return (
-			<div id='form-container' className='container-fluid'>
+			<div id='form-container' className='container-fluid section-padding-bottom'>
 
 				<Notifications onRef={ref => (this.notifications = ref)} language={activeLanguage}/>
 

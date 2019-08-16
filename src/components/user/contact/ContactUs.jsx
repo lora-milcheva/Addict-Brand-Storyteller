@@ -4,17 +4,10 @@ import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 // Partials
 import PageHeader from '../common/headers/PageHeader';
 import ContactForm from '../common/contact/ContactForm';
+import ImagePageHeader from '../common/headers/ImagePageHeader';
 
 
 class ContactUs extends React.Component {
-	constructor (props) {
-		super(props);
-
-		this.state = {
-		};
-
-	}
-
 
 	render () {
 
@@ -23,7 +16,12 @@ class ContactUs extends React.Component {
 		return (
 			<div id="contact-us" className='container-fluid'>
 
-				<PageHeader language={activeLanguage} pageName='contact' />
+				{/*<PageHeader language={activeLanguage} pageName='contact' />*/}
+
+				<ImagePageHeader language={activeLanguage}
+				                 pageName='contact'
+				                 sectionName='content'
+				                 imgUrl='images/bgs/contact-us.jpg'/>
 
 				<ContactForm />
 

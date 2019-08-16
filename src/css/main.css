@@ -3,6 +3,28 @@
 @import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:100,300,400,500,700,800,900&display=swap&subset=cyrillic,cyrillic-ext");
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 @import url("https://fonts.googleapis.com/css?family=Lora:400,700|Playfair+Display:400,700,900|Prata&display=swap&subset=cyrillic");
+.lds-dual-ring {
+  margin: auto;
+  display: block;
+  width: 64px;
+  height: 64px; }
+
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  border-color: #ddd transparent #ddd transparent;
+  animation: lds-dual-ring 1.2s linear infinite; }
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
 * {
   box-sizing: border-box;
   margin: 0;
@@ -470,7 +492,6 @@ footer {
   align-content: center;
   padding: 0 20px;
   height: 60px;
-  margin-top: 3em;
   background-color: #fafafa;
   font-size: .85em; }
   footer #social-media i {

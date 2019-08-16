@@ -79,7 +79,7 @@ class RandomProjects extends React.Component {
 		});
 
 		return (
-			<div id="other-projects">
+			<div id="random-projects">
 				{randomProjects}
 			</div>
 		);

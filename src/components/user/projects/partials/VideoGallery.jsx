@@ -22,7 +22,10 @@ class VideoGallery extends React.Component {
 
 	componentWillReceiveProps (nextProps, nextContext) {
 		let direction = nextProps.direction;
-		this.moveCarousel(direction);
+
+		if (direction) {
+			this.moveCarousel(direction);
+		}
 	}
 
 	componentWillUnmount () {
@@ -45,6 +48,8 @@ class VideoGallery extends React.Component {
 				});
 			});
 		}
+
+		this.props.changeState('');
 	};
 
 	moveCarousel = (direction) => {
@@ -194,7 +199,7 @@ class VideoGallery extends React.Component {
 		});
 
 		return (
-			<div id="project-video-gallery" onLoad={this.videoTest}>
+				<div id="project-video-gallery" className='section-padding-top-bottom'>
 
 
 				<div id='video-gallery' ref={this.container}>
@@ -228,5 +233,6 @@ VideoGallery.propTypes = {
 	language: PropTypes.string,
 	sections: PropTypes.array,
 	showPreview: PropTypes.func,
-	deviceWidth: PropTypes.number
+	deviceWidth: PropTypes.number,
+	changeState: PropTypes.func
 };

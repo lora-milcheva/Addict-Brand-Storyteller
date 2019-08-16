@@ -1,0 +1,93 @@
+@import "constants";
+
+
+// Grid
+@mixin display-grid {
+  display: -ms-grid;
+  display: grid;
+}
+
+@mixin grid-template-columns($repeat: 1, $width: 1fr) {
+  grid-template-columns: repeat($repeat, $width);
+}
+
+@mixin grid-template-rows($repeat: 1, $height: 1fr) {
+  grid-template-rows: repeat($repeat, $height);
+}
+
+@mixin grid-gap($column-gap: 0px, $row-gap: 0px) {
+  grid-gap: $column-gap $row-gap;
+}
+
+@mixin grid-span($start: 1, $end: 2) {
+  grid-column-start: $start;
+  grid-column-end: $end;
+}
+
+@mixin justify-content-left {
+  justify-content: start;
+}
+
+@mixin justify-content-right {
+  justify-content: end;
+}
+
+@mixin justify-content-center {
+  justify-content: center;
+}
+
+@mixin justify-content-space-around {
+  justify-content: space-around;
+}
+
+@mixin justify-content-space-between {
+  justify-content: space-between;
+}
+
+@mixin justify-content-space-evenly {
+  justify-content: space-evenly;
+}
+
+@mixin align-content-top {
+  align-content: start;
+}
+
+@mixin align-content-bottom {
+  align-content: end;
+}
+
+@mixin align-content-center {
+  align-content: center;
+}
+
+@mixin align-content-space-around {
+  align-content: space-around;
+}
+
+@mixin align-content-space-evenly {
+  align-content: space-evenly;
+}
+
+@mixin align-content-space-between {
+  align-content: space-between;
+}
+
+
+// Flex
+@mixin flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+
+
+
+
+
+
+
+
+
+

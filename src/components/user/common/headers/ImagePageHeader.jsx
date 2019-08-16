@@ -24,6 +24,8 @@ class ImagePageHeader extends React.Component {
 
 		let {language, pageName, imgUrl} = this.props;
 
+		let subtitle = UTILS.createMarkup(USER_PAGES_TEXT[pageName][language].subtitle);
+
 		return (
 
 			<section className='img-section'>
@@ -38,6 +40,13 @@ class ImagePageHeader extends React.Component {
 						<Item>
 							<h2 className="page-title"
 							    dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT[pageName][language].title)}/>
+						</Item>
+
+						<Item>
+							{subtitle.__html &&
+							<p className="subtitle"
+							   dangerouslySetInnerHTML={subtitle}/>
+							}
 						</Item>
 					</ListContainer>
 				</div>

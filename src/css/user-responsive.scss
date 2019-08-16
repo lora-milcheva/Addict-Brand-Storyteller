@@ -1,21 +1,15 @@
 @import "constants";
+@import "grid";
 @import "animations";
-@import "mixins";
+@import "typography";
 
 @media screen and (max-width: 1100px) {
 
-  .subtitle {
-    width: 100%;
-  }
 
   #home {
     .home-project {
       .project-info {
         width: 60%;
-
-        .cliche {
-          font-size: 2.5em;
-        }
       }
     }
 
@@ -26,10 +20,6 @@
         }
       }
     }
-  }
-
-  .article-box .article-text li {
-    line-height: 1.2em;
   }
 
   #services {
@@ -171,7 +161,6 @@
         .quote {
           border-bottom: 3px solid $primary;
           padding: 1em .75em 1em 2em;
-          font-size: 2.5em;
         }
       }
     }
@@ -206,10 +195,6 @@
 
       .project-info {
         padding-left: $grid-gap-small;
-
-        .cliche {
-          font-size: 1.5em;
-        }
       }
     }
   }
@@ -218,43 +203,17 @@
 
 @media screen and (max-width: 768px) {
 
-
-  .section-title {
-    font-size: 1.8em
-  }
-
   .blockquote {
-    background-color: $pale-salmon;
-
     .quote,
     .author {
       padding: 0 3%;
     }
   }
 
-  .article-box {
-
-    .article-headline {
-      font-size: 1.4em;
-      margin-bottom: 10px;
-    }
-
-    .article-text li {
-      margin-top: 7px;
-      line-height: 1.2em;
-    }
-
-  }
-
   #home {
     .home-project {
-
       .project-info {
         width: 80%;
-
-        .cliche {
-          font-size: 2.0em;
-        }
       }
     }
 
@@ -275,8 +234,7 @@
     }
   }
 
-
-  #other-projects {
+  #random-projects {
 
     @include grid-gap($grid-gap, $grid-gap-small);
 
@@ -306,10 +264,6 @@
     // summary
     #project-header {
       text-align: left;
-
-      .cliche {
-        font-size: 3em;
-      }
     }
 
     // description
@@ -320,13 +274,8 @@
 
         .section-header {
           .section-title {
-            font-size: 2.2em;
             margin-bottom: .5em;
           }
-        }
-
-        .section-text {
-          font-size: 1.3em;
         }
       }
     }
@@ -469,7 +418,7 @@
     }
   }
 
-  #other-projects {
+  #random-projects {
     @include grid-template-columns(1);
 
     @include grid-gap(50px);
@@ -499,12 +448,6 @@
 
 
 @media screen and (max-width: 500px) {
-
-  .blockquote {
-    .quote {
-      font-size: 2.2em;
-    }
-  }
 
   #services {
     #services-skills #skills-description {
