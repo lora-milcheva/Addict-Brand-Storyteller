@@ -8,7 +8,7 @@ import Buttons from '../common/Buttons'
 import clientsService from '../../../services/clients/clientsService';
 
 // Notifications
-import Notifications from '../../common/Notifications';
+import Notifications from '../../common/notifications/Notifications';
 
 // Constants
 import { ADMIN_PAGES_TEXT } from '../../../constants/constants';

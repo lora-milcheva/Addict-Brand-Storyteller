@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Constants
-import { BUTTONS } from '../../constants/constants';
+import { BUTTONS } from '../../../constants/constants';
 
 class ConfirmDialog extends React.Component {
 	constructor (props) {

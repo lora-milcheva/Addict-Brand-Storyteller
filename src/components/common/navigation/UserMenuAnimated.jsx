@@ -4,15 +4,15 @@ import posed from 'react-pose';
 import { NavLink } from 'react-router-dom';
 
 // Constants
-import { MENU } from '../../constants/constants';
+import { MENU } from '../../../constants/constants';
 
 const Sidebar = posed.ul({
 	open: {
 		right: '0%',
 		delayChildren: 200,
-		staggerChildren: 70
+		staggerChildren: 50
 	},
-	closed: {right: '-100%', delay: 500}
+	closed: {right: '-100%', delay: 300}
 });
 
 const Item = posed.li({

@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+// HOC
+import AnimateOnScroll from '../../HOC/AnimateOnScroll'
 
 // Partials
 import SectionHeader from '../../common/headers/SectionHeader';
@@ -31,7 +33,9 @@ class AboutUs extends React.Component {
 	}
 }
 
-export default AboutUs;
+const WrappedComponent = AnimateOnScroll(AboutUs);
+
+export default WrappedComponent;
 
 AboutUs.propTypes = {
 	language: PropTypes.string,

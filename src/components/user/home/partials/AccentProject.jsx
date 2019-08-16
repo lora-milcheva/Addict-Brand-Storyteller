@@ -1,10 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
-import { BUTTONS } from '../../../../constants/constants';
-import HomeProjectCard from '../../common/projects/HomeProjectCard';
 import PropTypes from 'prop-types';
-import Article from '../../common/articlePartials/Article';
+
+// Partials
+import HomeProjectCard from '../../common/projects/HomeProjectCard';
 
 
 class AccentProject extends React.Component {
@@ -18,11 +16,7 @@ class AccentProject extends React.Component {
 			return <div className={'loader'}/>
 		}
 
-		let pathLang = activeLanguage === 'en' ? '/' + activeLanguage : '';
-		let linkPath = pathLang + '/projects/' + project._id;
-
 		return (
-
 			<HomeProjectCard project={project} activeLanguage={activeLanguage}/>
 		);
 	}

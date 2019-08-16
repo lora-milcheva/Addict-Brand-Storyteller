@@ -8,7 +8,7 @@ import SortableList from './partials/SortableList';
 import projectsService from '../../../../services/projects/projectsService';
 
 // Notifications
-import Notifications from '../../../common/Notifications';
+import Notifications from '../../../common/notifications/Notifications';
 
 // Constants
 import { ADMIN_PAGES_TEXT, NOTIFICATIONS } from '../../../../constants/constants';

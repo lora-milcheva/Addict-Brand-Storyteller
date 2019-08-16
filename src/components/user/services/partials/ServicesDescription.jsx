@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// HOC
+import AnimateOnScroll from '../../HOC/AnimateOnScroll';
+
 // Partials
 import Article from '../../common/articlePartials/Article';
+
 
 class ServicesDescription extends React.Component {
 
@@ -44,7 +48,9 @@ class ServicesDescription extends React.Component {
 	}
 }
 
-export default ServicesDescription;
+const WrappedComponent = AnimateOnScroll(ServicesDescription);
+
+export default WrappedComponent;
 
 ServicesDescription.propTypes = {
 	language: PropTypes.string

@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Notifications
-import Notifications from '../../../../common/Notifications';
+import Notifications from '../../../../common/notifications/Notifications';
 
 // Partials
 import FormSelectField from '../../../../common/formComponents/FormSelectField';

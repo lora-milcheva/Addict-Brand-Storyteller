@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 // Partials
 import ArticleSection from '../../common/articlePartials/ArticleSection';
 import SectionHeader from '../../common/headers/SectionHeader';
-import BlockQuote from '../../common/articlePartials/BlockQuote';
 
 class StoryArchetypes extends React.Component {
 

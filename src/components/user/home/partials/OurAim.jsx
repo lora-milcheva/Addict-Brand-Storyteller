@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+// HOC
+import AnimateOnScroll from '../../HOC/AnimateOnScroll'
+
 // Partials
 import SectionHeader from '../../common/headers/SectionHeader';
 
@@ -31,7 +34,9 @@ class OurAim extends React.Component {
 	}
 }
 
-export default OurAim;
+const WrappedComponent = AnimateOnScroll(OurAim, ['fadeIn', 200]);
+
+export default WrappedComponent;
 
 
 OurAim.propTypes = {

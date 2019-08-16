@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// HOC
+import AnimateOnScroll from '../../HOC/AnimateOnScroll';
 
 // Partials
 import SectionHeader from '../../common/headers/SectionHeader';
@@ -25,7 +27,9 @@ class ServicesContact extends React.Component {
 	}
 }
 
-export default ServicesContact;
+const WrappedComponent = AnimateOnScroll(ServicesContact);
+
+export default WrappedComponent;
 
 ServicesContact.propTypes = {
 	language: PropTypes.string

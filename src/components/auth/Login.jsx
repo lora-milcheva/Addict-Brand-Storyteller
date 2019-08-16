@@ -2,7 +2,7 @@ import React from 'react';
 
 import authService from '../../services/auth/authService';
 
-import Notifications from '../common/Notifications';
+import Notifications from '../common/notifications/Notifications';
 
 class Login extends React.Component {
 	constructor (props) {

@@ -10,7 +10,7 @@ import contactFormService from '../../../../services/contact/contactFormService'
 
 // Constants
 import { BUTTONS, NOTIFICATIONS, USER_PAGES_TEXT, FORM_VALIDATION } from '../../../../constants/constants';
-import Notifications from '../../../common/Notifications';
+import Notifications from '../../../common/notifications/Notifications';
 
 class ContactForm extends React.Component {
 	constructor (props) {

@@ -10,7 +10,7 @@ import projectsService from '../../../services/projects/projectsService';
 import authService from '../../../services/auth/authService';
 
 // Notifications
-import Notifications from '../../common/Notifications';
+import Notifications from '../../common/notifications/Notifications';
 
 class ProjectList extends React.Component {
 	constructor (props) {

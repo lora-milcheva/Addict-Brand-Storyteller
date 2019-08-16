@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// HOC
+import AnimateOnScroll from '../../HOC/AnimateOnScroll';
+
 // Constants
 import { USER_PAGES_TEXT } from '../../../../constants/constants';
 
 // Utils
 import UTILS from '../../../../utils/utils';
+
 
 class Article extends React.Component {
 
@@ -33,6 +37,8 @@ class Article extends React.Component {
 		);
 	}
 }
+
+const WrappedComponent = AnimateOnScroll(Article);
 
 export default Article;
 

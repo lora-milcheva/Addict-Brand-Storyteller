@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// HOC
+import AnimateOnScroll from '../../HOC/AnimateOnScroll';
+
 // Constants
 import { USER_PAGES_TEXT } from '../../../../constants/constants';
 
@@ -27,7 +30,9 @@ class BlockQuote extends React.Component {
 	}
 }
 
-export default BlockQuote;
+const WrappedComponent = AnimateOnScroll(BlockQuote);
+
+export default WrappedComponent;
 
 BlockQuote.propTypes = {
 	language: PropTypes.string,

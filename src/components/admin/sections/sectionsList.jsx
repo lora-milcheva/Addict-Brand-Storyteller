@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import sectionsService from '../../../services/projects/sectionsService';
 
 // Notifications
-import Notifications from '../../common/Notifications';
+import Notifications from '../../common/notifications/Notifications';
 
 // Constants
 import { ADMIN_PAGES_TEXT } from '../../../constants/constants';

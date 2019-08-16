@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// HOC
+import AnimateOnScroll from '../../HOC/AnimateOnScroll';
+
 // Partials
 import SectionHeader from '../../common/headers/SectionHeader';
 
@@ -9,6 +12,7 @@ import { USER_PAGES_TEXT } from '../../../../constants/constants';
 
 // Utils
 import UTILS from '../../../../utils/utils';
+
 
 class ServicesMain extends React.Component {
 
@@ -58,7 +62,9 @@ class ServicesMain extends React.Component {
 	}
 }
 
-export default ServicesMain;
+const WrappedComponent = AnimateOnScroll(ServicesMain);
+
+export default WrappedComponent;
 
 ServicesMain.propTypes = {
 	language: PropTypes.string

@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// HOC
+import AnimateOnScroll from '../../HOC/AnimateOnScroll';
+
+
 // Constants
 import { USER_PAGES_TEXT } from '../../../../constants/constants';
 
 // Utils
 import UTILS from '../../../../utils/utils';
 
-class PageHeader extends React.Component {
+
+class SectionHeader extends React.Component {
 
 	render () {
 
@@ -36,9 +41,11 @@ class PageHeader extends React.Component {
 	}
 }
 
-export default PageHeader;
+const WrappedComponent = AnimateOnScroll(SectionHeader);
 
-PageHeader.propTypes = {
+export default WrappedComponent;
+
+SectionHeader.propTypes = {
 	language: PropTypes.string,
 	pageName: PropTypes.string,
 	sectionName: PropTypes.string,

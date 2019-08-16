@@ -1,5 +1,6 @@
 import React from 'react';
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
+import ScrollAnimation from 'react-animate-on-scroll';
 
 // Partials
 import PageHeader from '../common/headers/PageHeader';
@@ -35,7 +36,6 @@ class Home extends React.Component {
 
 		this.video = React.createRef();
 		this.unmuteBtn = React.createRef();
-
 	}
 
 	componentDidMount () {
@@ -111,6 +111,7 @@ class Home extends React.Component {
 						{/*{this.state.videoMuted && <i className="fa fa-volume-up" aria-hidden="true"/>}*/}
 						{/*{!this.state.videoMuted && <i className="fa fa-volume-off" aria-hidden="true"/>}*/}
 						{BUTTONS[activeLanguage].playWithAudio}
+
 						<span className="slider"/>
 
 					</button>

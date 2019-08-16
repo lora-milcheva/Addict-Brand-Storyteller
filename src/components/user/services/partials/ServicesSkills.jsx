@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// HOC
+import AnimateOnScroll from '../../HOC/AnimateOnScroll';
 
 // Partials
 import SectionHeader from '../../common/headers/SectionHeader';
 import ArticleList from '../../common/articlePartials/ArticleList'
+
 
 
 class ServicesSkills extends React.Component {
@@ -36,7 +39,9 @@ class ServicesSkills extends React.Component {
 	}
 }
 
-export default ServicesSkills;
+const WrappedComponent = AnimateOnScroll(ServicesSkills, []);
+
+export default WrappedComponent;
 
 ServicesSkills.propTypes = {
 	language: PropTypes.string

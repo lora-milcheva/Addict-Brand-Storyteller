@@ -1,18 +1,19 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
 import { LanguageContext, languages } from './languagesContext/LanguageContext';
 
 // Partials
-import UserMenuAnimated from './UserMenuAnimated';
+import UserMenuAnimated from './navigation/UserMenuAnimated';
 import UserMenu from './navigation/UserMenu';
+import AdminMenu from './navigation/AdminMenu';
 
 // Services
 import authService from '../../services/auth/authService';
 
-// Constants
-import { MENU } from '../../constants/constants';
+
+
 
 class HeaderC extends React.Component {
 
@@ -82,13 +83,12 @@ class HeaderC extends React.Component {
 			.catch(err => console.log(err));
 	};
 
-
 	toggleNav = () => {
 		let toggleBtn = this.toggleMenuBtn.current;
 
 		this.test();
 
-		if (toggleBtn.classList.contains('clicked')){
+		if (toggleBtn.classList.contains('clicked')) {
 			toggleBtn.classList.remove('clicked');
 			return;
 		}
@@ -105,6 +105,8 @@ class HeaderC extends React.Component {
 		let admin = sessionStorage.getItem('role') !== null;
 		let activeLanguage = this.context.language;
 
+		if (admin) return <AdminMenu activeLanguage={activeLanguage} logout={this.logout}/>;
+
 		let toggleBtn = (
 			<button id="toggle-menu-btn"
 			        className="btn sm"
@@ -116,41 +118,6 @@ class HeaderC extends React.Component {
 			</button>
 		);
 
-		if (admin) {
-			return (
-				<div id="admin-header">
-
-					<nav id="admin-main-nav">
-
-						<NavLink to='/admin/projects-list'
-						         className="nav-link"
-						         activeClassName='active'>{MENU[activeLanguage].projects}</NavLink>
-
-						<NavLink to='/admin/category-list'
-						         className="nav-link"
-						         activeClassName='active'>{MENU[activeLanguage].categories}</NavLink>
-
-						<NavLink to='/admin/clients-list'
-						         className="nav-link"
-						         activeClassName='active'>{MENU[activeLanguage].clients}</NavLink>
-
-						<NavLink to='/admin/sections-list'
-						         className="nav-link"
-						         activeClassName='active'>{MENU[activeLanguage].sections}</NavLink>
-					</nav>
-
-
-					<span className='username'>Потребител<span
-						className='name'> {sessionStorage.getItem('username')}</span></span>
-					<NavLink exact to='/'
-					         className="nav-link logout"
-					         activeClassName='active'
-					         onClick={this.logout}>{MENU[activeLanguage].logout}</NavLink>
-
-				</div>
-			);
-		}
-
 		let language = activeLanguage === languages.bg ? '' : '/' + activeLanguage;
 
 		return (
@@ -158,7 +125,7 @@ class HeaderC extends React.Component {
 
 				<div id="header">
 
-					<Link to="/" id="brand" />
+					<Link to="/" id="brand"/>
 
 					<button id="lang-btn" className="btn sm"
 					        value={activeLanguage}
@@ -169,15 +136,15 @@ class HeaderC extends React.Component {
 				</div>
 
 
-				<UserMenuAnimated activeLanguage={activeLanguage}
-				      language={language}
-				      isOpen={this.state.isOpen}
-				      toggleNav={this.toggleNav}/>
+				{/*<UserMenuAnimated activeLanguage={activeLanguage}*/}
+				{/*                  language={language}*/}
+				{/*                  isOpen={this.state.isOpen}*/}
+				{/*                  toggleNav={this.toggleNav}/>*/}
 
-				{/*<UserMenu activeLanguage={activeLanguage}*/}
-				{/*          language={language}*/}
-				{/*          toggleNav={this.toggleNav}*/}
-				{/*          isOpen={this.state.isOpen}/>*/}
+				<UserMenu activeLanguage={activeLanguage}
+				          language={language}
+				          toggleNav={this.toggleNav}
+				          isOpen={this.state.isOpen}/>
 
 			</header>
 		);

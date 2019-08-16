@@ -2,12 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+// HOC
+import AnimateOnScroll from '../../HOC/AnimateOnScroll';
 
 // Partials
 import SectionHeader from '../../common/headers/SectionHeader';
 
 // Constants
 import { BUTTONS } from '../../../../constants/constants';
+
 
 
 class Services extends React.Component {
@@ -32,7 +35,9 @@ class Services extends React.Component {
 	}
 }
 
-export default Services;
+const WrappedComponent = AnimateOnScroll(Services);
+
+export default WrappedComponent;
 
 Services.propTypes = {
 	language: PropTypes.string,

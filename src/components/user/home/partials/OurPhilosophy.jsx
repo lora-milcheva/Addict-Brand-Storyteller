@@ -1,5 +1,8 @@
 import React from 'react';
 
+// HOC
+import AnimateOnScroll from '../../HOC/AnimateOnScroll'
+
 // Partials
 import SectionHeader from '../../common/headers/SectionHeader';
 import Article from '../../common/articlePartials/Article';
@@ -53,4 +56,6 @@ class OurPhilosophy extends React.Component {
 	}
 }
 
-export default OurPhilosophy;
+const WrappedComponent = AnimateOnScroll(OurPhilosophy);
+
+export default WrappedComponent;

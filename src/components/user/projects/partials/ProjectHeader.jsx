@@ -8,7 +8,6 @@ import { USER_PAGES_TEXT } from '../../../../constants/constants';
 const ListContainer = posed.ul({
 	enter: {staggerChildren: 50},
 	exit: {staggerChildren: 20, staggerDirection: -1},
-
 });
 
 const Item = posed.li({
@@ -30,8 +29,8 @@ class ProjectHeader extends React.Component {
 					<img src={project.cover} className='img-fit' alt='page cover'/>
 				</figure>
 
-
 				<div className='container section-padding-top'>
+
 					<ListContainer>
 
 						<Item>
@@ -40,13 +39,11 @@ class ProjectHeader extends React.Component {
 							</p>
 						</Item>
 
-
 						<Item>
 							{client !== '' &&
 							<p className='client'>{USER_PAGES_TEXT.project[activeLanguage].client}{client} </p>
 							}
 						</Item>
-
 
 						<Item>
 							<h2 className="cliche">
@@ -59,9 +56,7 @@ class ProjectHeader extends React.Component {
 
 				</div>
 
-
 			</section>
-
 		);
 	}
 }

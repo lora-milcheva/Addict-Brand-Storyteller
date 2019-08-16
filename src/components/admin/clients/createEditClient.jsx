@@ -7,8 +7,8 @@ import FormInput from '../../common/formComponents/FormInput';
 import clientsService from '../../../services/clients/clientsService';
 
 // Notifications
-import Notifications from '../../common/Notifications';
-import ConfirmDialog from '../../common/ConfirmDialog';
+import Notifications from '../../common/notifications/Notifications';
+import ConfirmDialog from '../../common/notifications/ConfirmDialog';
 
 // Utils
 import Utils from '../../../utils/utils';
