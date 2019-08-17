@@ -34,7 +34,7 @@ class OurAim extends React.Component {
 	}
 }
 
-const WrappedComponent = AnimateOnScroll(OurAim, ['fadeIn', 200]);
+const WrappedComponent = AnimateOnScroll(OurAim, 'fadeIn');
 
 export default WrappedComponent;
 

@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// HOC
-import AnimateOnScroll from '../../HOC/AnimateOnScroll';
 
 // Partials
 import SectionHeader from '../../common/headers/SectionHeader';
-import ArticleList from '../../common/articlePartials/ArticleList'
+import ServicesSkillsDescription from './ServicesSkillsDescription'
 
 
 
@@ -22,26 +20,15 @@ class ServicesSkills extends React.Component {
 
 				<SectionHeader language={activeLanguage} pageName='services' sectionName='skills' showSectionName={true}/>
 
-				<section id='skills-description'>
-
-					<ArticleList language={activeLanguage} pageName='services' sectionName='skills' subSectionName='strategy' />
-
-					<ArticleList language={activeLanguage} pageName='services' sectionName='skills' subSectionName='design' />
-
-					<ArticleList language={activeLanguage} pageName='services' sectionName='skills' subSectionName='marketing' />
-
-					<ArticleList language={activeLanguage} pageName='services' sectionName='skills' subSectionName='production' />
-
-				</section>
+				<ServicesSkillsDescription language={activeLanguage}/>
 
 			</section>
 		);
 	}
 }
 
-const WrappedComponent = AnimateOnScroll(ServicesSkills, []);
 
-export default WrappedComponent;
+export default ServicesSkills;
 
 ServicesSkills.propTypes = {
 	language: PropTypes.string

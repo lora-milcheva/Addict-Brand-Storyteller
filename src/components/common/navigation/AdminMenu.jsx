@@ -36,8 +36,10 @@ class AdminMenu extends React.Component {
 				</nav>
 
 
-				<span className='username'>Потребител<span
-					className='name'> {sessionStorage.getItem('username')}</span></span>
+				<span className='username'>
+					Потребител<span className='name'> {sessionStorage.getItem('username')}</span>
+				</span>
+
 				<NavLink exact to='/'
 				         className="nav-link logout"
 				         activeClassName='active'

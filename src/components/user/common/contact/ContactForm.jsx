@@ -1,6 +1,9 @@
 import React from 'react';
 import { LanguageContext } from '../../../common/languagesContext/LanguageContext';
 
+// HOC
+import AnimateOnScroll from '../../HOC/AnimateOnScroll';
+
 // Partials
 import FormInput from '../../../common/formComponents/FormInput';
 import TextArea from '../../../common/formComponents/TextArea';
@@ -169,4 +172,7 @@ class ContactForm extends React.Component {
 
 ContactForm.contextType = LanguageContext;
 
-export default ContactForm;
+
+const WrappedComponent = AnimateOnScroll(ContactForm, 'fadeIn', 200, 2);
+
+export default WrappedComponent;

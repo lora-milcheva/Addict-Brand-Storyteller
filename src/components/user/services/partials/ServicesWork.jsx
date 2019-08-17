@@ -27,7 +27,7 @@ class ServicesWork extends React.Component {
 	}
 }
 
-const WrappedComponent = AnimateOnScroll(ServicesWork);
+const WrappedComponent = AnimateOnScroll(ServicesWork, 'fadeIn', 200, 2);
 
 export default WrappedComponent;
 

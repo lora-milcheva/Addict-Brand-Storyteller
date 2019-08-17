@@ -41,7 +41,7 @@ function HomeProjectCard (props) {
 
 }
 
-const WrappedComponent = AnimateOnScroll(HomeProjectCard);
+const WrappedComponent = AnimateOnScroll(HomeProjectCard, 'fadeIn', 0, 2);
 
 export default WrappedComponent;
 

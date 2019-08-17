@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// HOC
+import AnimateOnScroll from '../../../HOC/AnimateOnScroll';
+
 
 class InfoSection extends React.Component {
 
@@ -30,7 +33,10 @@ class InfoSection extends React.Component {
 	}
 }
 
-export default InfoSection;
+const WrappedComponent = AnimateOnScroll(InfoSection, 'fadeIn', 200, 2);
+
+export default WrappedComponent;
+
 
 InfoSection.propTypes = {
 	image: PropTypes.string,

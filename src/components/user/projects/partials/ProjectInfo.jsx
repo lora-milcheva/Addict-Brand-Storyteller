@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { USER_PAGES_TEXT } from '../../../../constants/constants';
-import InfoSection from './partials/InfoSection';
 
+// Partials
+import InfoSection from './partials/InfoSection';
 
 
 class ProjectInfo extends React.Component {

@@ -1,13 +1,11 @@
 import React from 'react';
 import ScrollAnimation from 'react-animate-on-scroll';
 
-const AnimateOnScroll = (WrappedComponent, props) => {
+const AnimateOnScroll = (WrappedComponent, type, delay, duration, animatePreScroll) => {
 
 	class HOC extends React.Component {
 
 		render () {
-
-			let type, delay, duration, animatePreScroll = props;
 
 			return (
 				<ScrollAnimation animateIn={type || 'fadeInUp'}
