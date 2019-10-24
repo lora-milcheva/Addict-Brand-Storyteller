@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 // HOC
 import AnimateOnScroll from '../../../HOC/AnimateOnScroll';
 
+// Partials
+import SectionImage from '../../../common/images/SectionImage';
+import SectionText from './partials/SectionText'
 
 class InfoSection extends React.Component {
 
@@ -14,21 +17,12 @@ class InfoSection extends React.Component {
 		return (
 
 			<section>
-
 				{image !== '' &&
-				<img src={image} className='section-image' alt='section image'/>
+				<SectionImage image={image}/>
 				}
 
-				<article className="info-section container section-padding-top">
-					<div className="section-header">
-						<h2 className="section-title">{sectionName}</h2>
-					</div>
-					<div className='section-text' style={{color: 'inherit'}}
-					     dangerouslySetInnerHTML={{__html: sectionText}}/>
-				</article>
-
+				<SectionText sectionName={sectionName} sectionText={sectionText} />
 			</section>
-
 		);
 	}
 }
@@ -36,7 +30,6 @@ class InfoSection extends React.Component {
 const WrappedComponent = AnimateOnScroll(InfoSection, 'fadeIn', 200, 2);
 
 export default WrappedComponent;
-
 
 InfoSection.propTypes = {
 	image: PropTypes.string,

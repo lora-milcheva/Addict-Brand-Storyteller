@@ -50,7 +50,7 @@ class ServicesDescription extends React.Component {
 
 const WrappedComponent = AnimateOnScroll(ServicesDescription, 'fadeIn', 200, 2);
 
-export default WrappedComponent;
+export default ServicesDescription;
 
 ServicesDescription.propTypes = {
 	language: PropTypes.string

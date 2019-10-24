@@ -25,6 +25,11 @@ const FORM_VALIDATION = {
 	}
 };
 
+const FOOTER = {
+	bg: '2019 Addict Brand Storyteller. Всички права запазени.',
+	en: '2019 Addict Brand Storyteller. All rights reserved.'
+};
+
 const MENU = {
 	bg: {
 		home: 'Начало',
@@ -196,7 +201,7 @@ const CONFIRM_DIALOG_MESSAGES = {
 
 const NOTIFICATIONS = {
 	bg: {
-		projectCreated: 'Проектът беше създаден.',
+		projectCreated: 'Проектът е създаден.',
 		projectDeleted: 'Проектът беше изтрит.',
 
 		categoryCreated: 'Категорията е създадена.',
@@ -212,7 +217,7 @@ const NOTIFICATIONS = {
 
 		selectSectionName: 'Моля, изберете име на секция.',
 
-		messageSent: 'Съобшението беше изпратено.',
+		messageSent: 'Съобщението беше изпратено.',
 		messageError: 'Грешка. Моля, опитайто отново.',
 
 		fieldsRequired: 'Моля, попълнете следните полета:',
@@ -221,8 +226,8 @@ const NOTIFICATIONS = {
 
 	},
 	en: {
-		projectCreated: 'ProjectSimple created.',
-		projectDeleted: 'ProjectSimple deleted.',
+		projectCreated: 'Project created.',
+		projectDeleted: 'Project deleted.',
 
 		categoryCreated: 'Category created.',
 		categoryDeleted: 'Category deleted.',
@@ -248,7 +253,7 @@ const ADMIN_PAGES_TEXT = {
 	project: {
 		bg: {
 			thumbnail: 'Тъмбнейл',
-			largeThumbnail: 'Голям тъмбнейл',
+			largeThumbnail: 'Тъмбнейл за начална страница',
 			cover: 'Корица',
 			images: 'Изображения',
 			videos: 'Видеа',
@@ -258,7 +263,7 @@ const ADMIN_PAGES_TEXT = {
 		},
 		en: {
 			thumbnail: 'Thumbnail',
-			largeThumbnail: 'Large Thumbnail',
+			largeThumbnail: 'Home Page Thumbnail',
 			cover: 'Cover',
 			images: 'Images',
 			videos: 'Videos',
@@ -955,6 +960,7 @@ export {
 	LANGUAGES,
 	RESOLUTIONS,
 	FORM_VALIDATION,
+	FOOTER,
 	MENU,
 	CREATE_PROJECT_INPUTS,
 	CATEGORY_INPUTS,

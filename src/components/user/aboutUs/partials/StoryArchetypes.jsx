@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 // Partials
 import ArticleSection from '../../common/articlePartials/ArticleSection';
 import SectionHeader from '../../common/headers/SectionHeader';
+import SectionImage from '../../common/images/SectionImage';
 
 class StoryArchetypes extends React.Component {
 
@@ -29,9 +30,9 @@ class StoryArchetypes extends React.Component {
 					                subSectionName='reborn'/>
 				</div>
 
-				<figure className="img-container">
-					<img className="img-fit" src='/images/bgs/about-us-1.jpg' alt=''/>
-				</figure>
+
+				<SectionImage image={'/images/bgs/about-us-1.jpg'}/>
+
 
 				<div className='container'>
 
@@ -46,9 +47,8 @@ class StoryArchetypes extends React.Component {
 					                subSectionName='theQuest'/>
 				</div>
 
-				<figure className="img-container">
-					<img className="img-fit" src='/images/bgs/about-us-2.jpg' alt=''/>
-				</figure>
+
+				<SectionImage image={'/images/bgs/about-us-2.jpg'}/>
 
 				<div className='container'>
 

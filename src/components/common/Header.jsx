@@ -11,6 +11,7 @@ import AdminMenu from './navigation/AdminMenu';
 
 // Services
 import authService from '../../services/auth/authService';
+import { MENU } from '../../constants/constants';
 
 
 
@@ -109,6 +110,7 @@ class HeaderC extends React.Component {
 
 		let toggleBtn = (
 			<button id="toggle-menu-btn"
+			        aria-label="Toggle menu"
 			        className="btn sm"
 			        ref={this.toggleMenuBtn}
 			        onClick={this.toggleNav}>
@@ -125,11 +127,15 @@ class HeaderC extends React.Component {
 
 				<div id="header">
 
-					<Link to="/" id="brand"/>
+					<Link to="/" id="brand" aria-label={'Logo'}/>
 
-					<button id="lang-btn" className="btn sm"
+					<button id="lang-btn"
+					        aria-label="Change language"
+					        // className="btn sm"
 					        value={activeLanguage}
-					        onClick={this.changeRouteByLanguage}>{activeLanguage === languages.bg ? languages.en : languages.bg}
+					        // onClick={this.changeRouteByLanguage}
+					>
+						{/*{activeLanguage === languages.bg ? languages.en : languages.bg}*/}
 					</button>
 
 					{toggleBtn}

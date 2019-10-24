@@ -161,8 +161,11 @@ class ContactForm extends React.Component {
 
 					<div id={'submit-buttons'} className="buttons-container text-center">
 						<button className="btn btn-default-light"
+						        aria-label={BUTTONS[activeLanguage].clear}
 						        onClick={this.clearForm}>{BUTTONS[activeLanguage].clear}</button>
-						<button className="btn btn-default" type="submit">{BUTTONS[activeLanguage].send}</button>
+						<button className="btn btn-default"
+						        aria-label={BUTTONS[activeLanguage].send}
+						        type="submit">{BUTTONS[activeLanguage].send}</button>
 					</div>
 				</form>
 			</div>

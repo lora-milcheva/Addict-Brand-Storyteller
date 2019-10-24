@@ -1,5 +1,5 @@
 // Constants
-import { LANGUAGES } from '../constants/constants';
+import { LANGUAGES, USER_PAGES_TEXT } from '../constants/constants';
 
 let months = {
 	0: 'януари',
@@ -109,6 +109,21 @@ function createMarkup (input) {
 	return {__html: input};
 }
 
+function generateMarkup (type, props) {
+
+	let {language, pageName, sectionName, subSectionName, subSubSectionName} = props;
+
+	if (sectionName && subSectionName && subSubSectionName) {
+		return createMarkup(USER_PAGES_TEXT[pageName][language].sections[sectionName][subSectionName][subSubSectionName][type]);
+	}
+
+	if (sectionName && subSectionName) {
+		return createMarkup(USER_PAGES_TEXT[pageName][language].sections[sectionName][subSectionName][type]);
+	}
+
+	return createMarkup(USER_PAGES_TEXT[pageName][language].sections[sectionName][type]);
+};
+
 export default {
 	calculatePriceAfterDiscount,
 	formatDate,
@@ -120,5 +135,6 @@ export default {
 	getVideoDescription,
 	createStateCopy,
 	getLanguage,
-	createMarkup
+	createMarkup,
+	generateMarkup
 };

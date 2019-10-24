@@ -13,8 +13,7 @@ import { USER_PAGES_TEXT } from '../../../../constants/constants';
 // Utils
 import UTILS from '../../../../utils/utils';
 
-
-class ServicesMain extends React.Component {
+class ServicesScheme extends React.Component {
 
 	render () {
 
@@ -35,8 +34,10 @@ class ServicesMain extends React.Component {
 					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.brandStory)}/>
 
 					<div className='scheme center'>
-						<span dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.brandConcept)}/>
-						<span className='small' dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.brandConcept.text)}/>
+						<span
+							dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.brandConcept)}/>
+						<span className='small'
+						      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.brandConcept.text)}/>
 					</div>
 
 					<span className='scheme right'
@@ -44,9 +45,7 @@ class ServicesMain extends React.Component {
 
 					<span className='scheme right'
 					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.brandAchievements)}/>
-				</section>
 
-				<section id='scheme-description'>
 					<span className='scheme-description'
 					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.architecture)}/>
 
@@ -55,6 +54,12 @@ class ServicesMain extends React.Component {
 
 					<span className='scheme-description'
 					      dangerouslySetInnerHTML={UTILS.createMarkup(USER_PAGES_TEXT.services[activeLanguage].sections.main.schemeText.marketingCommunications)}/>
+
+				</section>
+
+				<section id='scheme-description'>
+
+
 				</section>
 
 			</section>
@@ -62,10 +67,10 @@ class ServicesMain extends React.Component {
 	}
 }
 
-const WrappedComponent = AnimateOnScroll(ServicesMain);
+const WrappedComponent = AnimateOnScroll(ServicesScheme);
 
 export default WrappedComponent;
 
-ServicesMain.propTypes = {
+ServicesScheme.propTypes = {
 	language: PropTypes.string
 };

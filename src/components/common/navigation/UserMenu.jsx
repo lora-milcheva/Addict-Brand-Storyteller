@@ -49,10 +49,10 @@ class UserMenu extends React.Component {
 				         className="nav-link"
 				         activeClassName='active'>{MENU[activeLanguage].contact}</NavLink>
 
-				<NavLink exact
-				         to="/login"
-				         className="nav-link"
-				         activeClassName='active'>{MENU[activeLanguage].login}</NavLink>
+				{/*<NavLink exact*/}
+				{/*         to="/login"*/}
+				{/*         className="nav-link"*/}
+				{/*         activeClassName='active'>{MENU[activeLanguage].login}</NavLink>*/}
 
 			</nav>
 

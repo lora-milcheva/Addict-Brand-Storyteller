@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+
+// HOC
+import AnimateOnScroll from '../../HOC/AnimateOnScroll';
+
 // Constants
 import { USER_PAGES_TEXT } from '../../../../constants/constants';
 
 // Utils
 import UTILS from '../../../../utils/utils';
+
 
 class ArticleList extends React.Component {
 
@@ -28,7 +33,9 @@ class ArticleList extends React.Component {
 	}
 }
 
-export default ArticleList;
+const WrappedComponent = AnimateOnScroll(ArticleList, 'fadeIn' ,200, 2);
+
+export default WrappedComponent;
 
 ArticleList.propTypes = {
 	language: PropTypes.string,

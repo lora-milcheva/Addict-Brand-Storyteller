@@ -1,5 +1,5 @@
 import React from 'react';
-import { LanguageContext } from '../../common/languagesContext/LanguageContext';
+import { LanguageContext } from '../../../common/languagesContext/LanguageContext';
 
 // Partials
 import ImagePreview from './partials/ImagePreview';
@@ -7,19 +7,16 @@ import ImageGallery from './partials/ImageGallery';
 import VideoGallery from './partials/VideoGallery';
 
 // Services
-import projectsService from '../../../services/projects/projectsService';
-import sectionsService from '../../../services/projects/sectionsService';
-import clientsService from '../../../services/clients/clientsService';
-import authService from '../../../services/auth/authService';
+import projectsService from '../../../../services/projects/projectsService';
+import sectionsService from '../../../../services/projects/sectionsService';
+import clientsService from '../../../../services/clients/clientsService';
+import authService from '../../../../services/auth/authService';
 
 // Constants
-import { USER_PAGES_TEXT } from '../../../constants/constants';
-import RandomProjects from '../common/projects/RandomProjects';
-import Article from '../common/articlePartials/Article';
-import InfoSection from './partials/partials/InfoSection';
+import RandomProjects from '../../common/projects/RandomProjects';
 import ProjectHeader from './partials/ProjectHeader';
 import ProjectInfo from './partials/ProjectInfo';
-import SectionHeader from '../common/headers/SectionHeader';
+import SectionHeader from '../../common/headers/SectionHeader';
 
 class ProjectStory extends React.Component {
 	constructor (props) {

@@ -132,6 +132,7 @@
   font-family: 'Prata Italic', serif;
   font-style: italic;
   color: $dark-grey;
+  //color: $white;
   text-align: left;
 
   @media only screen and (max-width: 900px) {
@@ -149,7 +150,8 @@
   font-size: 1.5em;
   margin-top: 2em;
   padding: 0 10%;
-  color: $dark-grey;
+  //color: $dark-grey;
+  color: $dark-grey-1;
   text-align: right;
 }
 

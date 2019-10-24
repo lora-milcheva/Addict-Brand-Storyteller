@@ -61,7 +61,7 @@ class Notifications extends React.Component {
 				<div className="notification">
 					<p className="notification-text">{this.state.message}</p>
 
-					<button className="btn btn-default md" onClick={this.hideMessage}>{BUTTONS[language].close}</button>
+					<button className="btn btn-default md" aria-label={BUTTONS[language].close} onClick={this.hideMessage}>{BUTTONS[language].close}</button>
 				</div>
 
 			</div>

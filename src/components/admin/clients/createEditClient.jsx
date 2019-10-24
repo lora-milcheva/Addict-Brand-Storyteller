@@ -146,7 +146,7 @@ class createEditCategory extends React.Component {
 					<h1 className="page-title">{title}</h1>
 
 					{this.clientId &&
-					<button className="btn btn-danger xs" onClick={this.confirm}>{BUTTONS.bg.delete}</button>
+					<button className="btn btn-danger xs" aria-label={BUTTONS.bg.delete} onClick={this.confirm}>{BUTTONS.bg.delete}</button>
 					}
 				</div>
 
@@ -182,8 +182,8 @@ class createEditCategory extends React.Component {
 
 					{/*//SUBMIT*/}
 					<div className="form-group">
-						<button className="btn btn-default" onClick={this.cancel}>{BUTTONS.bg.cancel}</button>
-						<button className="btn btn-primary" type="submit">{buttonText}</button>
+						<button className="btn btn-default" aria-label={BUTTONS.bg.cancel} onClick={this.cancel}>{BUTTONS.bg.cancel}</button>
+						<button className="btn btn-primary" aria-label={buttonText} type="submit">{buttonText}</button>
 					</div>
 				</form>
 			</div>

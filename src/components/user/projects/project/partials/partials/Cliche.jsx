@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // HOC
-import AnimateOnScroll from '../../../HOC/AnimateOnScroll';
-import { USER_PAGES_TEXT } from '../../../../../constants/constants';
+import AnimateOnScroll from '../../../../HOC/AnimateOnScroll';
+import { USER_PAGES_TEXT } from '../../../../../../constants/constants';
 
 class Cliche extends React.Component {
 

@@ -28,7 +28,7 @@ class Services extends React.Component {
 				               sectionName='services'
 				               showSectionName={true}/>
 
-				<Link className='btn btn-default' to='/services'>{BUTTONS[activeLanguage].readMore}</Link>
+				<Link className='btn btn-default' to='/services' aria-label={BUTTONS[activeLanguage].readMore}>{BUTTONS[activeLanguage].readMore}</Link>
 
 			</section>
 		);

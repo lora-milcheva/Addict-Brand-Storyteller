@@ -3,7 +3,7 @@ import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
 // Partials
 import PageHeader from '../common/headers/PageHeader';
-import ServicesMain from './partials/ServicesMain';
+import ServicesMain from './partials/ServicesScheme';
 import ServicesDescription from './partials/ServicesDescription';
 import ServicesSkills from './partials/ServicesSkills';
 import ServicesWork from './partials/ServicesWork';

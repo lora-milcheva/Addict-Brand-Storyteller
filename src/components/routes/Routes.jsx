@@ -8,8 +8,8 @@ import PrivateRoute from './PrivateRoute';
 // Components
 import Login from '../auth/Login';
 import Home from '../user/home/Home';
-import ProjectsList from '../user/projects/ProjectsList';
-import ProjectStory from '../user/projects/ProjectStory';
+import ProjectsList from '../user/projects/list/ProjectsList';
+import ProjectStory from '../user/projects/project/ProjectStory';
 import ContactUs from '../user/contact/ContactUs';
 import Services from '../user/services/Services';
 import AboutUs from '../user/aboutUs/AboutUs';
@@ -102,8 +102,6 @@ let Routes = () => {
 									<PrivateRoute path={'/admin/sections-list'} component={sectionsList}/>
 									<PrivateRoute path={'/admin/section-create'} component={createEditSection}/>
 									<PrivateRoute path={'/admin/section-edit/:id'} component={createEditSection}/>
-
-									<Route path='*' component={NotFound}/>
 								</>
 							)}
 						/>
@@ -118,7 +116,6 @@ let Routes = () => {
 };
 
 export default Routes;
-
 
 let backup = (
 	<Switch>
@@ -167,4 +164,4 @@ let backup = (
 
 		<Route path='*' component={NotFound}/>
 	</Switch>
-)
+);

@@ -140,6 +140,7 @@
 
 .blockquote {
   background-color: $pale-salmon;
+  //background-color: $black;
 
   .quote {
     @include quotation-text;
@@ -155,7 +156,7 @@
 
   .img-container {
     height: auto;
-    min-height: 400px;
+    min-height: 300px;
     background-color: $black;
 
     .img-fit {
@@ -343,7 +344,7 @@
       }
     }
 
-    .blockquote {
+    .animated, .blockquote {
       align-self: center;
       background-color: transparent;
 
@@ -452,6 +453,14 @@
   }
 }
 
+#other-projects,
+#services-work {
+  .section-header {
+    padding: 0 $grid-gap-small;
+    margin-bottom: .7em;
+  }
+}
+
 #random-projects {
 
   @include display-grid;
@@ -514,19 +523,18 @@
 
 #project-story {
 
-
   // summary
   #project-header {
     text-align: center;
-    @include section-padding-bottom;
 
     .img-container {
       height: auto;
-      min-height: 300px;
-      background-color: $black;
+      min-height: 150px;
+      //background-color: $black;
 
       .img-fit {
         min-height: inherit;
+        @include scale(1);
       }
     }
 
@@ -551,14 +559,22 @@
   #project-info {
     @include display-grid;
 
-    .section-image {
+    .img-container {
+      height: auto;
+      //min-height: 280px;
       @include section-padding-top;
+
+
+      .img-fit {
+        min-height: inherit;
+        @include scale(1);
+      }
     }
 
     .info-section {
       @include section-padding-top;
       @include display-grid;
-      grid-template-columns: 2.5fr 6fr;
+      grid-template-columns: 2.5fr 5.5fr;
 
       .section-header {
         margin: 0;
@@ -780,7 +796,7 @@
   #services-main {
 
     .section-title {
-      //font-size: 3.5vw;
+      font-size: 3em;
     }
 
     #services-scheme {
@@ -819,82 +835,71 @@
         font-weight: 400;
         margin-top: 10px;
       }
-    }
-
-    #scheme-description {
-      @include display-grid;
-      grid-template-columns: 2fr 1fr 2fr;
-      margin-top: $grid-gap-small;
-
-      text-align: center;
-      color: $dark-grey-1;
-      font-weight: 600;
 
       .scheme-description {
+        text-align: center;
+        color: $dark-grey-1;
+        font-weight: 600;
+        padding-top: 10px;
+      }
 
+      span.scheme-description:nth-child(6) {
+        grid-area: 2 / 1 / 2 / 3;
+      }
+
+      span.scheme-description:nth-child(7) {
+        grid-area: 2 / 3 / 2 / 4;
+      }
+
+      span.scheme-description:nth-child(8) {
+        grid-area: 2 / 4 / 2 / 6;
       }
     }
+
   }
 
-  #services-description #articles {
-    @include display-grid;
-    @include grid-template-columns(2, 1fr);
+  #services-description {
+
+    #articles {
+      @include display-grid;
+      @include grid-template-columns(2, 1fr);
 
 
-    .section-title {
-      margin: 0;
+      .section-title {
+        margin: 0;
+      }
+
+
+      // Using animation class instead of 'article-box'
+      .animated {
+        padding: 10px 45px;
+        text-align: center;
+
+        &:nth-of-type(2) {
+          grid-area: 2 / 1 / 2 / 1;
+        }
+
+        &:nth-of-type(2),
+        &:nth-of-type(1) {
+          border-right: 2px solid $primary;
+        }
+
+        &:nth-of-type(2),
+        &:nth-of-type(4) {
+          padding-top: 45px;
+        }
+      }
     }
 
-    .article-box {
-      padding: 10px 45px;
-      text-align: center;
+  }
 
-      &:nth-of-type(2) {
-        grid-area: 2 / 1 / 2 / 1;
-      }
-
-      &:nth-of-type(2),
-      &:nth-of-type(1) {
-        border-right: 2px solid $primary;
-      }
-
-      &:nth-of-type(2),
-      &:nth-of-type(4) {
-        padding-top: 45px;
-      }
+  #services-skills {
+    #skills-description {
+      @include display-grid;
+      @include grid-template-columns(4, 1fr);
+      @include grid-gap($grid-gap, $grid-gap)
     }
   }
-
-  #services-skills #skills-description {
-    @include display-grid;
-    @include grid-template-columns(4, 1fr);
-    @include grid-gap($grid-gap, $grid-gap)
-  }
-
-  //#services-contact {
-  //  background: linear-gradient(to bottom, rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), url("/images/bgs/contact-us-big.jpg") no-repeat center/cover;
-  //
-  //
-  //  #contact-form .form-group .form-control {
-  //    border: none;
-  //    border-bottom: none;
-  //    background-color: rgba(0, 0, 0, .3);
-  //    color: $white;
-  //
-  //    &textarea {
-  //      color: $white;
-  //
-  //      &::placeholder {
-  //        color: $primary;
-  //      }
-  //    }
-  //  }
-  //
-  //  #contact-form .form-group label {
-  //    color: $white;
-  //    @include text-shadow;
-  //  }
-  //}
 }
 
 #careers {

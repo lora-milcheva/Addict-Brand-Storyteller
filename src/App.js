@@ -80,6 +80,7 @@ class App extends React.Component {
 					<button id='go-to-top-btn'
 					        ref={this.scrollTopBtn}
 					        className='btn btn-default sm'
+					        aria-label="Go to top"
 					        onClick={this.scrollTop}>
 						<i className="fa fa-arrow-up" aria-hidden="true"/>
 					</button>

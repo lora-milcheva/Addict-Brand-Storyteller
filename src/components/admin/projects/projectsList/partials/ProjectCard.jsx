@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { MENU } from '../../../../../constants/constants';
 
 function ProjectCard (props) {
 
 	let project = props.project;
 
 	return (
-		<Link to={'project-edit/' + project._id}>
+		<Link to={'project-edit/' + project._id} >
 			<article className="project-card">
 
 				<figure className="img-container">

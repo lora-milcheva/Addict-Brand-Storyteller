@@ -27,7 +27,7 @@ class OurAim extends React.Component {
 				               sectionName='ourAim'
 				               showSectionName={false}/>
 
-				<Link className='btn btn-default' to='/projects'>{BUTTONS[activeLanguage].seeWhatWeDo}</Link>
+				<Link className='btn btn-default' to='/projects' aria-label={BUTTONS[activeLanguage].seeWhatWeDo}>{BUTTONS[activeLanguage].seeWhatWeDo}</Link>
 
 			</section>
 		);

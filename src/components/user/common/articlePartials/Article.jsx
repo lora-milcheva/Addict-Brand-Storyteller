@@ -4,24 +4,11 @@ import PropTypes from 'prop-types';
 // HOC
 import AnimateOnScroll from '../../HOC/AnimateOnScroll';
 
-// Constants
-import { USER_PAGES_TEXT } from '../../../../constants/constants';
-
 // Utils
 import UTILS from '../../../../utils/utils';
 
 
 class Article extends React.Component {
-
-	generateMarkup = (type) => {
-		let {language, pageName, sectionName, subSectionName, subSubSectionName} = this.props;
-
-		if (subSubSectionName) {
-			return UTILS.createMarkup(USER_PAGES_TEXT[pageName][language].sections[sectionName][subSectionName][subSubSectionName][type]);
-		}
-
-		return UTILS.createMarkup(USER_PAGES_TEXT[pageName][language].sections[sectionName][subSectionName][type]);
-	};
 
 	render () {
 
@@ -29,18 +16,18 @@ class Article extends React.Component {
 
 			<article className='article-box'>
 				<h4 className='article-headline'
-				    dangerouslySetInnerHTML={this.generateMarkup('title')}/>
+				    dangerouslySetInnerHTML={UTILS.generateMarkup('title', this.props)}/>
 				<p className='article-text'
-				   dangerouslySetInnerHTML={this.generateMarkup('text')}/>
+				   dangerouslySetInnerHTML={UTILS.generateMarkup('text', this.props)}/>
 			</article>
 
 		);
 	}
 }
 
-const WrappedComponent = AnimateOnScroll(Article);
+const WrappedComponent = AnimateOnScroll(Article, 'fadeIn' ,200, 2);
 
-export default Article;
+export default WrappedComponent;
 
 Article.propTypes = {
 	language: PropTypes.string,

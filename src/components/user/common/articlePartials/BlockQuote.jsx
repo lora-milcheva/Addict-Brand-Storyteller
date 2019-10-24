@@ -30,7 +30,7 @@ class BlockQuote extends React.Component {
 	}
 }
 
-const WrappedComponent = AnimateOnScroll(BlockQuote);
+const WrappedComponent = AnimateOnScroll(BlockQuote, 'fadeIn', 200, 2);
 
 export default WrappedComponent;
 

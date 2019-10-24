@@ -25,7 +25,6 @@
   #services {
 
     #services-main {
-      position: relative;
 
       .section-header {
         margin-bottom: 10px;
@@ -33,17 +32,17 @@
 
 
       #services-scheme {
-        @include grid-template-columns(1, 1fr);
-        width: 270px;
+        grid-template-columns: auto 30px;
+        max-width: 500px;
         margin: auto;
         padding: 10px;
 
 
         .scheme {
-          height: 100px;
+          height: 150px;
 
           &.left {
-            clip-path: polygon(50% 0, 100% 20px, 100% 100%, 50% 80px, 0 100%, 0 20px);
+            clip-path: polygon(50% 0, 100% 20px, 100% 100%, 50% 130px, 0 100%, 0 20px);
           }
 
           &.center {
@@ -53,7 +52,7 @@
           }
 
           &.right {
-            clip-path: polygon(50% 20px, 100% 0, 100% 80px, 50% 100%, 0 80px, 0 0);
+            clip-path: polygon(50% 20px, 100% 0, 100% 130px, 50% 100%, 0 130px, 0 0);
           }
         }
 
@@ -62,46 +61,55 @@
           font-weight: 400;
           margin-top: 10px;
         }
-      }
-
-      #scheme-description {
-        position: absolute;
-        top: 10%;
-        margin: 0;
-        transform-origin: left;
-        transform: translate(0, -50%) rotate(90deg);
-        width: 570px;
-        grid-template-columns: 200px 170px 200px;
 
 
         .scheme-description {
+          padding: 0;
+          writing-mode: vertical-rl;
+        }
 
+        span.scheme-description:nth-child(6) {
+          grid-area: 1 / 2 / 3 / 2;
+        }
+
+        span.scheme-description:nth-child(7) {
+          grid-area: 3 / 2 / 4 / 2;
+        }
+
+        span.scheme-description:nth-child(8) {
+          grid-area: 4 / 2 / 6 / 2;
+        }
+      }
+
+    }
+
+    #services-description {
+      #articles {
+        @include grid-template-columns(1, 1fr);
+        @include grid-gap($grid-gap, $grid-gap-small);
+
+
+        // Using animation class instead of 'article-box'
+        .animated {
+          padding: 0;
+
+          &:nth-of-type(2),
+          &:nth-of-type(1) {
+            border-right: none;
+          }
+
+          &:nth-of-type(2),
+          &:nth-of-type(4) {
+            padding-top: inherit;
+          }
         }
       }
     }
 
-    #services-description #articles {
-      @include grid-template-columns(1, 1fr);
-      @include grid-gap($grid-gap, $grid-gap-small);
-
-
-      .article-box {
-        padding: 0;
-
-        &:nth-of-type(2),
-        &:nth-of-type(1) {
-          border-right: none;
-        }
-
-        &:nth-of-type(2),
-        &:nth-of-type(4) {
-          padding-top: inherit;
-        }
+    #services-skills {
+      #skills-description {
+        @include grid-template-columns(2, 1fr);
       }
-    }
-
-    #services-skills #skills-description {
-      @include grid-template-columns(2, 1fr);
     }
   }
 
@@ -141,7 +149,7 @@
 
       .article-box {
         border-left: none;
-        padding: $grid-gap $grid-gap-small;
+        padding: $grid-gap 0;
 
         p {
           margin-top: .75em;
@@ -176,7 +184,7 @@
           .article-box {
             grid-area: 1 / 1 / 2 / 2;
             border-right: none;
-            padding: $grid-gap $grid-gap-small;
+            padding: $grid-gap 0;
           }
         }
       }
@@ -220,7 +228,7 @@
     #our-philosophy {
 
       .section-title {
-        font-size: 3.8em;
+        font-size: 3.0em;
       }
 
       #sections {
@@ -360,22 +368,20 @@
 
 
       .gallery-navigation {
+        display: none;
 
-        .gallery-navigation-button {
-          padding: 0 10px;
-
-          #prevBtn,
-          #nextBtn {
-            width: 30px;
-            height: 30px;
-          }
-        }
+        //.gallery-navigation-button {
+        //  padding: 0 10px;
+        //
+        //  #prevBtn,
+        //  #nextBtn {
+        //    width: 30px;
+        //    height: 30px;
+        //  }
+        //}
       }
-
     }
-
   }
-
 }
 
 

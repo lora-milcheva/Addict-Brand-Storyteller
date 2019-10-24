@@ -30,9 +30,9 @@ class ServicesSkillsDescription extends React.Component {
 	}
 }
 
-const WrappedComponent = AnimateOnScroll(ServicesSkillsDescription, 'fadeIn', 200, 2);
+// const WrappedComponent = AnimateOnScroll(ServicesSkillsDescription, 'fadeIn', 200, 2);
 
-export default WrappedComponent;
+export default ServicesSkillsDescription;
 
 ServicesSkillsDescription.propTypes = {
 	language: PropTypes.string

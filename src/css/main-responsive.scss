@@ -49,6 +49,16 @@
   #main-nav {
     top: 78px;  // header in smaller devices
   }
+
+  footer {
+    grid-template-columns: 7fr 2fr 1fr;
+
+    #social-media {
+      i {
+        font-size: 2.5em;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 530px) {
@@ -85,6 +95,24 @@
       &:first-of-type {
         margin-top: 25px;
       }
+    }
+  }
+
+  footer {
+    grid-template-columns: 2fr 2fr;
+    height: 70px;
+
+    #copy {
+      grid-area: 2 / 1 / 2 / 3;
+    }
+
+    #social-media {
+      grid-area: 1 / 1 / 1/ 2;
+      padding: 5px 0;
+    }
+
+    #footer-nav {
+      grid-area: 1 / 2 / 3 / 3;
     }
   }
 }

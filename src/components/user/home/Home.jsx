@@ -1,6 +1,6 @@
 import React from 'react';
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
-import ScrollAnimation from 'react-animate-on-scroll';
+
 
 // Partials
 import PageHeader from '../common/headers/PageHeader';
@@ -63,6 +63,7 @@ class Home extends React.Component {
 		projectsService
 			.loadAllProjects(query)
 			.then(res => {
+				console.log(res)
 				res.sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber));
 				this.setState({projects: res});
 			})
@@ -107,6 +108,7 @@ class Home extends React.Component {
 
 					<button id='unmute-btn'
 					        ref={this.unmuteBtn}
+					        aria-label={BUTTONS[activeLanguage].playWithAudio}
 					        onClick={this.toggleVideoControls}>
 						{/*{this.state.videoMuted && <i className="fa fa-volume-up" aria-hidden="true"/>}*/}
 						{/*{!this.state.videoMuted && <i className="fa fa-volume-off" aria-hidden="true"/>}*/}

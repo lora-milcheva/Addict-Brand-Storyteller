@@ -26,7 +26,7 @@ class AboutUs extends React.Component {
 				               sectionName='aboutUs'
 				               showSectionName={true}/>
 
-				<Link className='btn btn-default' to='/about-us'>{BUTTONS[activeLanguage].readMore}</Link>
+				<Link className='btn btn-default' to='/about-us' aria-label={BUTTONS[activeLanguage].readMore}>{BUTTONS[activeLanguage].readMore}</Link>
 
 			</section>
 		);

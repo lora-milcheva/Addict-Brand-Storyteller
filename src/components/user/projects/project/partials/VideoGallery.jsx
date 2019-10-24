@@ -212,11 +212,13 @@ class VideoGallery extends React.Component {
 					<div className="gallery-navigation">
 						<button
 							className={this.state.imageIndex === 0 ? 'btn btn-default md disabled' : 'btn btn-default md'}
+							aria-label={'Move left'}
 							onClick={() => this.moveCarousel('left')}>
 							<i className="fa fa-arrow-left" aria-hidden="true"/>
 						</button>
 						<button
 							className={this.state.imageIndex === (this.props.videos.length - 1) ? 'btn btn-default md disabled' : 'btn btn-default md'}
+							aria-label={'Move right'}
 							onClick={() => this.moveCarousel('right')}>
 							<i className="fa fa-arrow-right" aria-hidden="true"/>
 						</button>

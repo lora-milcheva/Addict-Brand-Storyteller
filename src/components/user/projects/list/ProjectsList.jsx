@@ -1,16 +1,16 @@
 import React from 'react';
-import { LanguageContext } from '../../common/languagesContext/LanguageContext';
+import { LanguageContext } from '../../../common/languagesContext/LanguageContext';
 
 // Partials
-import PageHeader from '../common/headers/PageHeader';
-import ProjectCard from '../common/projects/ProjectCard';
+import PageHeader from '../../common/headers/PageHeader';
+import ProjectCard from '../../common/projects/ProjectCard';
 
 // Services
-import projectsService from '../../../services/projects/projectsService';
-import authService from '../../../services/auth/authService';
+import projectsService from '../../../../services/projects/projectsService';
+import authService from '../../../../services/auth/authService';
 
 // Notifications
-import Notifications from '../../common/notifications/Notifications';
+import Notifications from '../../../common/notifications/Notifications';
 
 class ProjectList extends React.Component {
 	constructor (props) {

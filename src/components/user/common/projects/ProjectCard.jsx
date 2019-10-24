@@ -12,7 +12,7 @@ function ProjectCard (props) {
 	let pathLang = activeLanguage === 'en' ? '/' + activeLanguage : '';
 
 	return (
-		<Link to={pathLang + '/projects/' + project._id} className="project-card">
+		<Link to={pathLang + '/projects/' + project._id} className="project-card" aria-label={project.name[activeLanguage]}>
 
 			<figure className="img-container">
 				<img className="img-fit" src={project.thumbnail} alt={project.name[activeLanguage]}/>
@@ -23,7 +23,7 @@ function ProjectCard (props) {
 					<p className='project-name'>{project.name[activeLanguage]}</p>
 					<p className='cliche'>{project.description[activeLanguage]}</p>
 				</div>
-				<button className="btn">{BUTTONS[activeLanguage].more}</button>
+				<button className="btn" aria-label={BUTTONS[activeLanguage].more}>{BUTTONS[activeLanguage].more}</button>
 			</div>
 
 		</Link>

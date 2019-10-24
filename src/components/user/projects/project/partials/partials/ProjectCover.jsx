@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // HOC
-import AnimateOnScroll from '../../../HOC/AnimateOnScroll';
+import AnimateOnScroll from '../../../../HOC/AnimateOnScroll';
 
 class ProjectCover extends React.Component {
 

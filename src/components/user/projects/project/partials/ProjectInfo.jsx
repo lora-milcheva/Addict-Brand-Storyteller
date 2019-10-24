@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Partials
-import InfoSection from './partials/InfoSection';
+import InfoSection from './InfoSection';
 
 
 class ProjectInfo extends React.Component {

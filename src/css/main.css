@@ -1,6 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=cyrillic");
-@import url("https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&subset=cyrillic,cyrillic-ext");
-@import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:100,300,400,500,700,800,900&display=swap&subset=cyrillic,cyrillic-ext");
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 @import url("https://fonts.googleapis.com/css?family=Lora:400,700|Playfair+Display:400,700,900|Prata&display=swap&subset=cyrillic");
 .lds-dual-ring {
@@ -494,6 +492,8 @@ footer {
   height: 60px;
   background-color: #fafafa;
   font-size: .85em; }
+  footer * {
+    align-self: center; }
   footer #social-media i {
     font-size: 2em;
     margin-right: 10px;

@@ -8,7 +8,10 @@ class ImagePreview extends React.Component {
 		this.state = {
 			image: this.props.image,
 
-			allImages: this.props.allImages
+			allImages: this.props.allImages,
+
+			touchStartPosition: 0,
+			touchEndPosition: 0
 		};
 
 		this.image = React.createRef();
@@ -31,8 +34,6 @@ class ImagePreview extends React.Component {
 
 		if (e.key === 'Escape') this.props.onClose();
 	};
-
-
 
 	// componentWillReceiveProps (nextProps, nextContext) {
 	//
@@ -113,10 +114,36 @@ class ImagePreview extends React.Component {
 		});
 	};
 
+	onTouchStart = (e) => {
+
+		let touchStart = e.changedTouches[0].clientX;
+
+		this.setState({touchStartPosition: touchStart});
+
+	};
+
+	onTouchEnd = (e) => {
+
+		let touchEnd = e.changedTouches[0].clientX;
+
+		this.setState({touchEndPosition: touchEnd}, () => {
+
+			let startPosition = this.state.touchStartPosition;
+			let endPosition = this.state.touchEndPosition;
+
+			if (startPosition >= endPosition) {
+				this.showNextImage();
+			} else {
+				this.showPrevImage();
+			}
+		});
+
+	};
+
 	render () {
 
 		return (
-			<div id='image-preview'>
+			<div id='image-preview' onTouchEnd={this.onTouchEnd} onTouchStart={this.onTouchStart}>
 
 				<figure className="image">
 					<img src={this.state.image.url}
@@ -126,15 +153,19 @@ class ImagePreview extends React.Component {
 				</figure>
 
 				<div className="gallery-navigation">
-					<button className={'btn btn-default-light md'} onClick={this.showPrevImage}>
+					<button className={'btn btn-default-light md'}
+					        aria-label={'Show previous image'}
+					        onClick={this.showPrevImage}>
 						<i className="fa fa-arrow-left" aria-hidden="true"/>
 					</button>
-					<button className={'btn btn-default-light md'} onClick={this.showNextImage}>
+					<button className={'btn btn-default-light md'}
+					        aria-label={'Show next image'}
+					        onClick={this.showNextImage}>
 						<i className="fa fa-arrow-right" aria-hidden="true"/>
 					</button>
 				</div>
 
-				<button id='close-btn' className="btn btn-default-light md" onClick={this.props.onClose}>
+				<button id='close-btn' className="btn btn-default-light md" aria-label={'Close'} onClick={this.props.onClose}>
 					<i className="fa fa-times" aria-hidden="true"/>
 				</button>
 			</div>
