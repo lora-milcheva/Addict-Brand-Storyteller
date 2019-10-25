@@ -11,6 +11,10 @@
 # production
 /build
 
+# public
+public/images
+public/videos
+
 # misc
 .DS_Store
 .env.local
@@ -21,4 +25,5 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-/public/
+
+
