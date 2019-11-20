@@ -9,7 +9,6 @@ import App from './App';
 ReactDOM.render(
 	<BrowserRouter onUpdate={() => {
 		window.scrollTo(0, 0);
-		// console.log(333)
 	}}>
 		<App/>
 	</BrowserRouter>,

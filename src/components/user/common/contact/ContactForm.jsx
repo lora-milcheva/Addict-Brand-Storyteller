@@ -38,21 +38,25 @@ class ContactForm extends React.Component {
 		e.preventDefault();
 
 		let lang = this.context.language;
-		let emptyFields = [];
+		let requiredFields = [];
 
 		Object.keys(this.state).forEach(e => {
 			if (e === 'phone' || e === 'subject' || e === 'message') return;
-			if (this.state[e].trim() === '') emptyFields.push(e);
+
+			if (this.state[e].trim() === '') requiredFields.push(e);
 		});
 
-		if (emptyFields.length > 0) {
-			this.notifications.showMessage(NOTIFICATIONS[lang].fieldsRequired + '\r\n' + emptyFields.join(', '));
+
+		if (requiredFields.length > 0) {
+			this.notifications.showMessage(NOTIFICATIONS[lang].fieldsRequired + '\r\n' + requiredFields.join(', '));
 			return;
 		}
 
 		contactFormService
 			.sendMail(this.state)
-			.then(res => {
+			.then((res, textStatus, xhr) => {
+
+				console.log(xhr.status);
 				this.checkResponse(res);
 			})
 			.catch(err => {
@@ -70,7 +74,6 @@ class ContactForm extends React.Component {
 
 		let lang = this.context.language;
 
-		console.log(res.status);
 		if (res.status === 200) {
 			this.notifications.showMessage(NOTIFICATIONS[lang].messageSent);
 			this.clearForm();

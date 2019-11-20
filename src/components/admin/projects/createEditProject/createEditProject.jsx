@@ -157,7 +157,6 @@ class createProject extends React.Component {
 		// If adding main info
 		if (stateProp === 'info') {
 
-
 			if (!sectionId) {
 
 				// If adding new content
@@ -383,6 +382,8 @@ class createProject extends React.Component {
 
 		e.preventDefault();
 
+		let targetName = e.target.name;
+
 		let project = Utils.createStateCopy(this.state);
 
 		if (this.projectId) {
@@ -390,8 +391,15 @@ class createProject extends React.Component {
 				.editProject(this.projectId, project)
 				.then(res => {
 
-					this.notifications.showMessage(NOTIFICATIONS.bg.successEdit);
-					setTimeout(() => this.props.history.push('/admin/projects-list'), 2000);
+					if (targetName === 'saveProject') {
+						this.notifications.showMessage(NOTIFICATIONS.bg.successEdit);
+						setTimeout(() => this.props.history.push('/admin/projects-list'), 2000);
+					}
+
+					if (targetName === 'saveAndPreviewProject') {
+						this.notifications.showMessage(NOTIFICATIONS.bg.loadingPreview);
+						setTimeout(() => this.props.history.push('/admin/project-preview/' + this.projectId), 2000);
+					}
 
 				})
 				.catch(err => {
@@ -405,8 +413,17 @@ class createProject extends React.Component {
 			.createProject(project)
 			.then(res => {
 
-				this.notifications.showMessage(NOTIFICATIONS.bg.projectCreated);
-				setTimeout(() => this.props.history.go('/admin/projects-list'), 2000);
+				let id = res._id;
+
+				if (targetName === 'saveProject') {
+					this.notifications.showMessage(NOTIFICATIONS.bg.projectCreated);
+					setTimeout(() => this.props.history.go('/admin/projects-list'), 2000);
+				}
+
+				if (targetName === 'saveAndPreviewProject') {
+					this.notifications.showMessage(NOTIFICATIONS.bg.loadingPreview);
+					setTimeout(() => this.props.history.push('/admin/project-preview/' + id), 2000);
+				}
 
 			})
 			.catch(err => {
@@ -434,7 +451,7 @@ class createProject extends React.Component {
 
 	cancel = (e) => {
 		e.preventDefault();
-		this.props.history.go(-1);
+		this.props.history.push('/admin/projects-list');
 	};
 
 	render () {
@@ -505,14 +522,14 @@ class createProject extends React.Component {
 			{CREATE_PROJECT_INPUTS.bg.isStar}
 		</button>;
 
-		let isBlocked = <button className={this.state.isBlocked ? 'btn xs category-label danger' : 'btn xs category-label'}
-		                     name="isBlocked"
-		                     value={this.state.isBlocked}
-		                     onClick={this.handleCheckBoxChange}>
+		let isBlocked = <button
+			className={this.state.isBlocked ? 'btn xs category-label danger' : 'btn xs category-label'}
+			name="isBlocked"
+			value={this.state.isBlocked}
+			onClick={this.handleCheckBoxChange}>
 			<i className="fa fa-ban" aria-hidden="true"/>
 			{CREATE_PROJECT_INPUTS.bg.isBlocked}
 		</button>;
-
 
 		let info = Object.keys(this.state.info).map(e => {
 
@@ -794,8 +811,22 @@ class createProject extends React.Component {
 
 				{/*//SUBMIT*/}
 				<div id={'submit-buttons'} className="buttons-container">
-					<button className="btn btn-default-light" onClick={this.cancel}>{BUTTONS.bg.cancel}</button>
-					<button className="btn btn-primary" onClick={this.saveProject} type="submit">{buttonText}</button>
+
+					<button className="btn btn-default-light"
+					        onClick={this.cancel}>{BUTTONS.bg.cancel}
+					</button>
+
+					<button className="btn btn-primary"
+					        name='saveAndPreviewProject'
+					        onClick={this.saveProject}
+					        type="submit">{BUTTONS.bg.preview}
+					</button>
+
+					<button className="btn btn-primary"
+					        name='saveProject'
+					        onClick={this.saveProject}
+					        type="submit">{buttonText}
+					</button>
 				</div>
 
 			</div>

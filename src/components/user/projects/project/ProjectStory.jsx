@@ -182,6 +182,12 @@ class ProjectStory extends React.Component {
 					<RandomProjects language={activeLanguage} currentProjectId={this.projectId}/>
 				</section>
 
+				{this.props.location.pathname === '/admin/project-preview/' + this.projectId &&
+				<div className="buttons-container text-center">
+					<button className='btn btn-primary' onClick={() => this.props.history.push('/admin/project-edit/' + this.projectId)}>Back</button>
+				</div>
+				}
+
 			</div>
 		);
 	}

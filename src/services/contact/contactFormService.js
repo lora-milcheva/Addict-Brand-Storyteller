@@ -1,6 +1,7 @@
 import $ from 'jquery';
 
-const url = 'http://addict-bg.com/api';
+// const url = 'http://addict-bg.com/api';
+const url = 'http://localhost:80';
 
 export default {
 
@@ -10,10 +11,10 @@ export default {
 
 		return $.ajax(
 			{
-				type: 'POST',
+				type: 'GET',
 				url: url,
-				data: data,
-				dataType: 'jsonp',
+				// data: data,
+				// dataType: 'jsonp',
 			})
 	}
 };

@@ -69,6 +69,8 @@ class App extends React.Component {
 
 	render () {
 
+		let admin = sessionStorage.getItem('role') !== null;
+
 		return (
 
 			<LanguageContext.Provider value={{language: this.state.language, updateLanguage: this.updateLanguage}}>
@@ -89,7 +91,7 @@ class App extends React.Component {
 
 				</main>
 
-				<Footer/>
+				{!admin && <Footer/>}
 
 			</LanguageContext.Provider>
 

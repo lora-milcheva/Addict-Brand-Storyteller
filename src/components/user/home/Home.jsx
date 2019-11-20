@@ -63,7 +63,6 @@ class Home extends React.Component {
 		projectsService
 			.loadAllProjects(query)
 			.then(res => {
-				console.log(res)
 				res.sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber));
 				this.setState({projects: res});
 			})

@@ -49,12 +49,8 @@ class Login extends React.Component {
 	};
 
 	makeLoginRequest = () => {
-
-		console.log(this.state)
 		authService.login(this.state)
 			.then(res => {
-
-				console.log(res)
 				authService.saveSession(res);
 				this.clearForm();
 				this.notifications.showMessage('logged in as: ' + res.username);

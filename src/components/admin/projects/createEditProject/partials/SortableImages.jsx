@@ -27,8 +27,6 @@ class SortableImages extends React.Component {
 			startY: e.clientY
 		});
 
-		console.log(this.props.elements)
-
 		// Fade out element
 		let elementIndex = this.props.elements.indexOf(element);
 		this.fadeOut(this.dataContainer.current.children[elementIndex], .1);

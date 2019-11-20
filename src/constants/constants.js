@@ -136,6 +136,7 @@ const BUTTONS = {
 		add: 'Добави',
 		delete: 'Изтриване',
 		clear: 'Изчисти',
+		preview: 'Преглед',
 		info: 'Инфо',
 		cancel: 'Отказ',
 		view: 'Разгледай',
@@ -164,6 +165,7 @@ const BUTTONS = {
 		add: 'Add',
 		delete: 'Delete',
 		clear: 'Clear',
+		preview: 'Preview',
 		info: 'Info',
 		cancel: 'Cancel',
 		view: 'View More',
@@ -214,6 +216,7 @@ const NOTIFICATIONS = {
 		sectionDeleted: 'Секцията беше изтрита',
 
 		successEdit: 'Успешна редакция.',
+		loadingPreview: 'Промените са записани. Пренасочване към преглед.',
 
 		selectSectionName: 'Моля, изберете име на секция.',
 
@@ -228,6 +231,7 @@ const NOTIFICATIONS = {
 	en: {
 		projectCreated: 'Project created.',
 		projectDeleted: 'Project deleted.',
+		loadingPreview: 'Changes saved. Loading Preview',
 
 		categoryCreated: 'Category created.',
 		categoryDeleted: 'Category deleted.',

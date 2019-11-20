@@ -57,6 +57,8 @@ let Routes = () => {
 			<PoseGroup>
 				<RouteContainer key={location.key || '200'}>
 					<Switch location={location}>
+
+
 						{/*//User*/}
 						<Route exact path='/' component={Home}/>
 						<Route exact path='/en' component={Home}/>
@@ -90,6 +92,7 @@ let Routes = () => {
 									<PrivateRoute path='/admin/projects-list' component={adminProjectsList}/>
 									<PrivateRoute path='/admin/project-create' component={createProject}/>
 									<PrivateRoute path='/admin/project-edit/:id' component={createProject}/>
+									<PrivateRoute path='/admin/project-preview/:id' component={ProjectStory}/>
 
 									<PrivateRoute path='/admin/category-list' component={categoriesList}/>
 									<PrivateRoute path='/admin/category-create' component={createEditCategory}/>
