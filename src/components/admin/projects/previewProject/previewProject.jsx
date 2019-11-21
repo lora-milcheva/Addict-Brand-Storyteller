@@ -1,26 +1,23 @@
 import React from 'react';
 import { LanguageContext } from '../../../common/languagesContext/LanguageContext';
 
-// Partials
-import ProjectHeader from './partials/ProjectHeader';
-import ProjectInfo from './partials/ProjectInfo';
-import ImagePreview from './partials/ImagePreview';
-import ImageGallery from './partials/ImageGallery';
-import VideoGallery from './partials/VideoGallery';
+// Partials - import from user folder
+import ImagePreview from '../../../user/projects/project/partials/ImagePreview';
+import ImageGallery from '../../../user/projects/project/partials/ImageGallery';
+import VideoGallery from '../../../user/projects/project/partials/VideoGallery';
+import ProjectHeader from '../../../user/projects/project/partials/ProjectHeader';
+import ProjectInfo from '../../../user/projects/project/partials/ProjectInfo';
 
-import RandomProjects from '../../common/projects/RandomProjects';
-import SectionHeader from '../../common/headers/SectionHeader';
 
 // Services
 import projectsService from '../../../../services/projects/projectsService';
 import sectionsService from '../../../../services/projects/sectionsService';
 import clientsService from '../../../../services/clients/clientsService';
-import authService from '../../../../services/auth/authService';
 
 // Constants
+import { BUTTONS } from '../../../../constants/constants';
 
-
-class ProjectStory extends React.Component {
+class previewProject extends React.Component {
 	constructor (props) {
 		super(props);
 
@@ -46,31 +43,8 @@ class ProjectStory extends React.Component {
 
 		document.addEventListener('keydown', this.handleKeyPress);
 
-		// Log anonymous user if storage is empty
-		if (sessionStorage.getItem('authtoken') === null) {
-			authService
-				.loginAnonymousUser()
-				.then(res => {
-					authService.saveSession(res);
-					this.loadProject();
-				})
-				.catch(err => this.notifications.showMessage(err.responseJSON.description));
-		} else {
-			this.loadProject();
-		}
-	}
+		this.loadProject();
 
-	componentWillReceiveProps (nextProps, nextContext) {
-
-		// To reload page when select different project
-
-		if (this.props.match.params.id !== nextProps.match.params.id) {
-			this.setState({loading: true});
-
-			this.projectId = nextProps.match.params.id;
-
-			this.loadProject();
-		}
 	}
 
 	componentWillUnmount () {
@@ -178,11 +152,12 @@ class ProjectStory extends React.Component {
 				}
 
 
-				<section id='other-projects' className='section-padding-top-bottom bg-light'>
-					<SectionHeader pageName='project' language={activeLanguage} sectionName='otherProjects'/>
+				<div className="buttons-container text-center">
+					<button className='btn btn-default'
+					        onClick={() => this.props.history.push('/admin/project-edit/' + this.projectId)}>{BUTTONS.bg.back}
+					</button>
+				</div>
 
-					<RandomProjects language={activeLanguage} currentProjectId={this.projectId}/>
-				</section>
 
 			</div>
 		);
@@ -190,7 +165,7 @@ class ProjectStory extends React.Component {
 
 }
 
-ProjectStory.contextType = LanguageContext;
+previewProject.contextType = LanguageContext;
 
-export default ProjectStory;
+export default previewProject;
 

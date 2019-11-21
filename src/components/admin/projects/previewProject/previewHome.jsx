@@ -1,26 +1,26 @@
 import React from 'react';
-import { LanguageContext } from '../../common/languagesContext/LanguageContext';
+import { LanguageContext } from '../../../common/languagesContext/LanguageContext';
 
+// Partials import from user folder
+import OurAim from '../../../user/home/partials/OurAim';
+import OurPhilosophy from '../../../user/home/partials/OurPhilosophy';
+import Services from '../../../user/home/partials/Services';
+import Projects from '../../../user/home/partials/Projects';
+import AboutUs from '../../../user/home/partials/AboutUs';
 
-// Partials
-import OurAim from './partials/OurAim';
-import OurPhilosophy from './partials/OurPhilosophy';
-import Services from './partials/Services';
-import Projects from './partials/Projects';
-import AboutUs from './partials/AboutUs';
-import BlockQuote from '../common/articlePartials/BlockQuote';
-import HomeProjectCard from '../common/projects/HomeProjectCard';
-import PageHeader from '../common/headers/PageHeader';
+import PageHeader from '../../../user/common/headers/PageHeader';
+import BlockQuote from '../../../user/common/articlePartials/BlockQuote';
+import HomeProjectCard from '../../../user/common/projects/HomeProjectCard';
 
 
 // Services
-import authService from '../../../services/auth/authService';
-import projectsService from '../../../services/projects/projectsService';
+import projectsService from '../../../../services/projects/projectsService';
 
 //Constants
-import { BUTTONS } from '../../../constants/constants';
+import { BUTTONS } from '../../../../constants/constants';
 
-class Home extends React.Component {
+
+class previewHome extends React.Component {
 	constructor (props) {
 		super(props);
 
@@ -40,26 +40,12 @@ class Home extends React.Component {
 	}
 
 	componentDidMount () {
-
-		// Log anonymous user if storage is empty
-		if (sessionStorage.getItem('authtoken') === null) {
-			authService
-				.loginAnonymousUser()
-				.then(res => {
-					authService.saveSession(res);
-					this.loadStarProjects();
-				})
-				.catch(err => this.notifications.showMessage(err.responseJSON.description));
-
-			return;
-		}
-
 		this.loadStarProjects();
 	}
 
 	loadStarProjects = () => {
 
-		let query = '?query={"isStar":true,"isBlocked":false}';
+		let query = '?query={"isStar":true}';
 
 		projectsService
 			.loadAllProjects(query)
@@ -103,15 +89,13 @@ class Home extends React.Component {
 					       controlsList="nodownload"
 					       className='carousel-video'
 					       ref={this.video}>
-						<source src='videos/home/video.mp4' type="video/mp4"/>
+						<source src='/videos/home/video.mp4' type="video/mp4"/>
 					</video>
 
 					<button id='unmute-btn'
 					        ref={this.unmuteBtn}
 					        aria-label={BUTTONS[activeLanguage].playWithAudio}
 					        onClick={this.toggleVideoControls}>
-						{/*{this.state.videoMuted && <i className="fa fa-volume-up" aria-hidden="true"/>}*/}
-						{/*{!this.state.videoMuted && <i className="fa fa-volume-off" aria-hidden="true"/>}*/}
 						{BUTTONS[activeLanguage].playWithAudio}
 
 						<span className="slider"/>
@@ -135,12 +119,18 @@ class Home extends React.Component {
 
 				<AboutUs language={activeLanguage}/>
 
+				<div className="buttons-container text-center">
+					<button className='btn btn-default'
+					        onClick={() => this.props.history.go(-1)}>{BUTTONS.bg.back}
+					</button>
+				</div>
+
 			</div>
 
 		);
 	}
 }
 
-Home.contextType = LanguageContext;
+previewHome.contextType = LanguageContext;
 
-export default Home;
+export default previewHome;

@@ -390,17 +390,7 @@ class createProject extends React.Component {
 			projectsService
 				.editProject(this.projectId, project)
 				.then(res => {
-
-					if (targetName === 'saveProject') {
-						this.notifications.showMessage(NOTIFICATIONS.bg.successEdit);
-						setTimeout(() => this.props.history.push('/admin/projects-list'), 2000);
-					}
-
-					if (targetName === 'saveAndPreviewProject') {
-						this.notifications.showMessage(NOTIFICATIONS.bg.loadingPreview);
-						setTimeout(() => this.props.history.push('/admin/project-preview/' + this.projectId), 2000);
-					}
-
+					this.redirect(targetName, this.projectId);
 				})
 				.catch(err => {
 					this.notifications.showMessage(err.responseJSON.description);
@@ -412,23 +402,30 @@ class createProject extends React.Component {
 		projectsService
 			.createProject(project)
 			.then(res => {
-
 				let id = res._id;
-
-				if (targetName === 'saveProject') {
-					this.notifications.showMessage(NOTIFICATIONS.bg.projectCreated);
-					setTimeout(() => this.props.history.go('/admin/projects-list'), 2000);
-				}
-
-				if (targetName === 'saveAndPreviewProject') {
-					this.notifications.showMessage(NOTIFICATIONS.bg.loadingPreview);
-					setTimeout(() => this.props.history.push('/admin/project-preview/' + id), 2000);
-				}
-
+				this.redirect(targetName, id);
 			})
 			.catch(err => {
 				this.notifications.showMessage(err.responseJSON.description);
 			});
+	};
+
+	redirect = (targetName, projectId) => {
+
+		if (targetName === 'saveProject') {
+			this.notifications.showMessage(NOTIFICATIONS.bg.projectCreated);
+			setTimeout(() => this.props.history.push('/admin/projects-list'), 2000);
+		}
+
+		if (targetName === 'saveAndPreviewProject') {
+			this.notifications.showMessage(NOTIFICATIONS.bg.loadingPreview);
+			setTimeout(() => this.props.history.push('/admin/project-preview/' + projectId), 2000);
+		}
+
+		if (targetName === 'saveAndPreviewHome') {
+			this.notifications.showMessage(NOTIFICATIONS.bg.loadingPreview);
+			setTimeout(() => this.props.history.push('/admin/home-preview/' + projectId), 2000);
+		}
 	};
 
 	confirmDeleteProject = () => {
@@ -817,12 +814,18 @@ class createProject extends React.Component {
 					</button>
 
 					<button className="btn btn-primary"
+					        name='saveAndPreviewHome'
+					        onClick={this.saveProject}
+					        type="submit">{BUTTONS.bg.previewHome}
+					</button>
+
+					<button className="btn btn-primary"
 					        name='saveAndPreviewProject'
 					        onClick={this.saveProject}
 					        type="submit">{BUTTONS.bg.preview}
 					</button>
 
-					<button className="btn btn-primary"
+					<button className="btn btn-default"
 					        name='saveProject'
 					        onClick={this.saveProject}
 					        type="submit">{buttonText}

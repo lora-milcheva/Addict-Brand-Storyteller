@@ -12,9 +12,11 @@
 /build
 
 # public
+
+/public
 public/images
 public/videos
-/public/sitemap.xml
+public/sitemap.xml
 
 # misc
 .DS_Store

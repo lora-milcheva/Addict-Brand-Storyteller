@@ -136,13 +136,15 @@ const BUTTONS = {
 		add: 'Добави',
 		delete: 'Изтриване',
 		clear: 'Изчисти',
-		preview: 'Преглед',
+		preview: 'Запис и преглед',
+		previewHome: 'Запис и преглед на начална страница',
 		info: 'Инфо',
 		cancel: 'Отказ',
 		view: 'Разгледай',
 		confirm: 'OK',
 		close: 'Затвори',
 		addSection: 'Добави секция',
+		back: 'Назад',
 
 		// Home
 		seeWhatWeDo: 'Вижте какво правим',
@@ -165,13 +167,15 @@ const BUTTONS = {
 		add: 'Add',
 		delete: 'Delete',
 		clear: 'Clear',
-		preview: 'Preview',
+		preview: 'Save and Preview',
+		previewHome: 'Save and Preview Home Page',
 		info: 'Info',
 		cancel: 'Cancel',
 		view: 'View More',
 		confirm: 'OK',
 		close: 'Close',
 		addSection: 'Add Section',
+		back: 'Back',
 
 		// Home
 		seeWhatWeDo: 'See what we do',
