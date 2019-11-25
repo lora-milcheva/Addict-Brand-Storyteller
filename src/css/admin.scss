@@ -5,6 +5,11 @@
 
 #project-create {
 
+  #files-upload-field {
+    border: 1px solid $medium-to-dark-grey;
+    min-height: 200px;
+  }
+
   #create-project-form {
     @include display-grid;
     @include grid-template-columns(2, 1fr);

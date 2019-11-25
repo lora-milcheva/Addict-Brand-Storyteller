@@ -11,6 +11,8 @@ import SortableVideos from './partials/SortableVideos';
 import MediaInfo from './partials/MediaInfo';
 import TextSectionFrom from './partials/TextSectionForm';
 
+import FilesUploadField from './partials/FilesUploadField';
+
 // Services
 import projectsService from '../../../../services/projects/projectsService';
 import clientsService from '../../../../services/clients/clientsService';
@@ -44,7 +46,7 @@ class createProject extends React.Component {
 			year: '',
 			webPage: '',
 			isStar: false,
-			isBlocked: false,
+			isBlocked: true,
 			clientId: '',
 			categoryIds: [],
 
@@ -779,6 +781,10 @@ class createProject extends React.Component {
 								placeholder='/images/projects/folderName/imageName'
 								onChange={this.addImageVideo}
 								clearText={true}/>
+
+							<FilesUploadField/>
+
+							<input type="file" />
 						</div>
 
 						{/*Videos*/}

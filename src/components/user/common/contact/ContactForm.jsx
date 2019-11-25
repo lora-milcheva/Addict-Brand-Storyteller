@@ -40,6 +40,7 @@ class ContactForm extends React.Component {
 		let lang = this.context.language;
 		let requiredFields = [];
 
+		// Validation
 		Object.keys(this.state).forEach(e => {
 			if (e === 'phone' || e === 'subject' || e === 'message') return;
 
@@ -56,7 +57,7 @@ class ContactForm extends React.Component {
 			.sendMail(this.state)
 			.then((res, textStatus, xhr) => {
 
-				console.log(xhr.status);
+				console.log(res);
 				this.checkResponse(res);
 			})
 			.catch(err => {

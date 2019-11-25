@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
-// const url = 'http://addict-bg.com/api';
-const url = 'http://localhost:80';
+const url = 'http://addict-bg.com/api/mailServer.php';
+// const url = 'http://localhost:80';
 
 export default {
 
@@ -13,8 +13,8 @@ export default {
 			{
 				type: 'GET',
 				url: url,
-				// data: data,
-				// dataType: 'jsonp',
+				data: data,
+				dataType: 'jsonp',
 			})
 	}
 };
