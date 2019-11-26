@@ -145,6 +145,7 @@ const BUTTONS = {
 		close: 'Затвори',
 		addSection: 'Добави секция',
 		back: 'Назад',
+		createProjectFolder: 'Създай папка на проекта',
 
 		// Home
 		seeWhatWeDo: 'Вижте какво правим',
@@ -176,6 +177,7 @@ const BUTTONS = {
 		close: 'Close',
 		addSection: 'Add Section',
 		back: 'Back',
+		createProjectFolder: 'Create project folder',
 
 		// Home
 		seeWhatWeDo: 'See what we do',

@@ -22,7 +22,7 @@ export default {
 
 		return $.ajax({
 			url: makeDirUrl,
-			type: 'GET',
+			type: 'POST',
 			data: data,
 		});
 	}

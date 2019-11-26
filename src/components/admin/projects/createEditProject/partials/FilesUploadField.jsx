@@ -11,63 +11,47 @@ class FilesUploadField extends React.Component {
 	constructor (props) {
 		super(props);
 
-		this.state = {
-			images: [],
-			dirName: ''
-		};
-
-		this.dataContainer = React.createRef();
+		this.state = {};
 	}
 
-	handleInputChange = (e) => {
-		this.setState({[e.target.name]: e.target.value});
-	};
+	handleDrop = (files) => {
 
-	makeFolder = () => {
-
-		let data = {dirName: this.state.dirName};
-
-		fileService
-			.makeDir(data)
-			.then((res) => {
-				console.log(res.responseText);
-			})
-			.catch(err => {
-				console.log(err.responseText);
-			});
-	};
-
-	handleDrop (files) {
 		let data = new FormData();
 
+		let projectFolder = this.props.projectFolder;
+
+		if (!projectFolder) {
+			alert('No folder');
+			return;
+		}
+
 		files.forEach((file, index) => {
-			data.append('file' + index, file);
+			data.append(projectFolder + '/file_' + index, file);
 		});
 
 		fileService
 			.uploadFiles(data)
-			.then((res) => {
+			.then(res => {
 				console.log(res);
+				this.props.addImages(JSON.parse(res['addedFiles']));
 			})
 			.catch(err => {
 				console.log(err);
 			});
-	}
+	};
 
 	render () {
 		return (
-			<div>
-				<DropToUpload onDrop={this.handleDrop} id='files-upload-field'>
-					Drop file here to upload
-				</DropToUpload>
-				<input type='text' name='dirName' onChange={this.handleInputChange}/>
-				<button className='btn btn-default' onClick={this.makeFolder}>Направи папка</button>
-			</div>
-
+			<DropToUpload onDrop={this.handleDrop} id='files-upload-field'>
+				Drop files here to upload
+			</DropToUpload>
 		);
 	}
 }
 
 export default FilesUploadField;
 
-FilesUploadField.propTypes = {};
+FilesUploadField.propTypes = {
+	addImages: PropTypes.func,
+	projectFolder: PropTypes.string
+};

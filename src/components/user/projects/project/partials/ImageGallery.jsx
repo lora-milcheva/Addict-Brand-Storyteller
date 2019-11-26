@@ -112,11 +112,11 @@ class ImageGallery extends React.Component {
 
 		let lang = this.props.language;
 
-		let gallery = this.props.images.map((element, i) => {
+		let gallery = this.props.images.map((image, i) => {
 
-			for (let el in element.info) {
+			for (let el in image.info) {
 				let section = this.props.sections.filter(s => s._id === el)[0];
-				element[section.name.en] = element.info[el];
+				image[section.name.en] = image.info[el];
 			}
 
 			let name = 'img' + i;
@@ -133,21 +133,21 @@ class ImageGallery extends React.Component {
 							        img.parentNode.classList.add('portrait');
 						        }
 					        }}>
-						<img src={element.url}
+						<img src={image.url}
 						     className="img-fit"
-						     alt={element.url}
-						     data-target={JSON.stringify(element)}
+						     alt={image.url}
+						     data-target={JSON.stringify(image)}
 						     onClick={this.props.showPreview}/>
 					</figure>
 
 					<span className='btn md'
-					      data-target={JSON.stringify(element)}
+					      data-target={JSON.stringify(image)}
 					      onClick={this.props.showPreview}>
 						View
 					</span>
 
-					{element.Headline &&
-					<div className='name' dangerouslySetInnerHTML={{__html: element.Headline[lang]}}/>
+					{image.Headline &&
+					<div className='name' dangerouslySetInnerHTML={{__html: image.Headline[lang]}}/>
 					}
 				</div>
 			);

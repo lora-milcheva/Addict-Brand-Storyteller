@@ -17,6 +17,7 @@ import Careers from '../user/careers/Careers';
 
 // Admin Components
 import createProject from '../admin/projects/createEditProject/createEditProject';
+import createEditProjectNew from '../admin/projects/createEditProject/createEditProjectNew';
 import adminProjectsList from '../admin/projects/projectsList/projectsList';
 import previewProject from '../admin/projects/previewProject/previewProject';
 import previewHome from '../admin/projects/previewProject/previewHome';
@@ -92,8 +93,8 @@ let Routes = () => {
 							render={({match: {url}}) => (
 								<>
 									<PrivateRoute path='/admin/projects-list' component={adminProjectsList}/>
-									<PrivateRoute path='/admin/project-create' component={createProject}/>
-									<PrivateRoute path='/admin/project-edit/:id' component={createProject}/>
+									<PrivateRoute path='/admin/project-create' component={createEditProjectNew}/>
+									<PrivateRoute path='/admin/project-edit/:id' component={createEditProjectNew}/>
 									<PrivateRoute path='/admin/project-preview/:id' component={previewProject}/>
 									<PrivateRoute path='/admin/home-preview' component={previewHome}/>
 

@@ -10,12 +10,14 @@ import SortableVideos from './partials/SortableVideos';
 import MediaInfo from './partials/MediaInfo';
 import TextSectionFrom from './partials/TextSectionForm';
 
+import FilesUploadField from './partials/FilesUploadField';
 
 // Services
 import projectsService from '../../../../services/projects/projectsService';
 import clientsService from '../../../../services/clients/clientsService';
 import categoriesService from '../../../../services/categories/categoriesService';
 import sectionsService from '../../../../services/projects/sectionsService';
+import fileService from '../../../../services/projects/fileService';
 
 // Notifications
 import Notifications from '../../../common/notifications/Notifications';
@@ -33,7 +35,7 @@ import {
 	ADMIN_PAGES_TEXT
 } from '../../../../constants/constants';
 
-class createProject extends React.Component {
+class createEditProjectNew extends React.Component {
 	constructor (props) {
 		super(props);
 
@@ -48,6 +50,7 @@ class createProject extends React.Component {
 			clientId: '',
 			categoryIds: [],
 
+			projectFolder: '',
 			thumbnail: '',
 			largeThumbnail: '',
 			cover: '',
@@ -93,6 +96,8 @@ class createProject extends React.Component {
 						isBlocked: res.isBlocked,
 						clientId: res.clientId,
 						categoryIds: res.categoryIds,
+
+						projectFolder: res.projectFolder,
 						images: res.images,
 						thumbnail: res.thumbnail || '',
 						largeThumbnail: res.largeThumbnail || '',
@@ -342,12 +347,50 @@ class createProject extends React.Component {
 			info: {}
 		};
 
+		console.log(elementToAdd);
+
 		if (stateProp === 'videos') {
 			elementToAdd.poster = url.split('.').shift() + '.jpg';
 		}
 
 		this.setState({[e.target.name]: [...this.state[e.target.name], elementToAdd]});
 
+	};
+
+	addImages = (data) => {
+
+		let images = [];
+
+		console.log(this.state.projectFolder);
+
+		data.forEach(imgName => {
+			let image = {
+				url: '/projects/' + this.state.projectFolder + '/' + imgName,
+				info: {}
+			};
+			images.push(image);
+		});
+
+		this.setState({images}, () => console.log(this.state.projectFolder));
+
+	};
+
+	createFolder = (e) => {
+
+		e.preventDefault();
+
+		let projectFolder = this.state.projectFolder;
+
+		let data = {projectFolder: projectFolder};
+
+		fileService
+			.makeDir(data)
+			.then(res => {
+				console.log(res);
+			})
+			.catch(err => {
+				console.log(err);
+			});
 	};
 
 	removeImageVideo = (e) => {
@@ -702,6 +745,19 @@ class createProject extends React.Component {
 					{/*//PROJECT IMAGES & VIDEOS*/}
 					<aside id="project-data">
 
+						{/*Project folder*/}
+						<div className='form-group add-on'>
+
+							<input type='text'
+							       name='projectFolder'
+							       className='form-control add-on'
+							       onChange={this.handleInputChange}/>
+
+							<button className='btn btn-primary add-on-btn'
+							        onClick={this.createFolder}>{BUTTONS.bg.createProjectFolder}
+							</button>
+						</div>
+
 						{/*Thumbnail*/}
 						<div className="project-data">
 
@@ -710,15 +766,7 @@ class createProject extends React.Component {
 								{thumbnail}
 							</div>
 
-							<AddOnInput
-								name="thumbnail"
-								label={CREATE_PROJECT_INPUTS.bg.thumbnail}
-								labelClassName="no-label"
-								buttonText='+'
-								value={this.state.thumbnail}
-								placeholder='/images/projects/folderName/imageName'
-								onChange={this.handleInputChange}
-								clearText={false}/>
+							<input type='file'/>
 						</div>
 
 						{/*Large Thumbnail*/}
@@ -729,15 +777,7 @@ class createProject extends React.Component {
 								{largeThumbnail}
 							</div>
 
-							<AddOnInput
-								name="largeThumbnail"
-								label={CREATE_PROJECT_INPUTS.bg.largeThumbnail}
-								labelClassName="no-label"
-								buttonText='+'
-								value={this.state.largeThumbnail}
-								placeholder='/images/projects/folderName/imageName'
-								onChange={this.handleInputChange}
-								clearText={false}/>
+							<input type='file'/>
 						</div>
 
 
@@ -749,15 +789,7 @@ class createProject extends React.Component {
 								{cover}
 							</div>
 
-							<AddOnInput
-								name="cover"
-								label={CREATE_PROJECT_INPUTS.bg.cover}
-								labelClassName="no-label"
-								buttonText='+'
-								value={this.state.cover}
-								placeholder='/images/projects/folderName/imageName'
-								onChange={this.handleInputChange}
-								clearText={false}/>
+							<input type='file'/>
 						</div>
 
 						{/*Images*/}
@@ -771,14 +803,8 @@ class createProject extends React.Component {
 							                showMediaInfo={this.showMediaInfo}
 							                removeImageVideo={this.removeImageVideo}/>
 
-							<AddOnInput
-								name='images'
-								// label={CREATE_PROJECT_INPUTS.bg.images}
-								labelClassName='no-label'
-								buttonText='+'
-								placeholder='/images/projects/folderName/imageName'
-								onChange={this.addImageVideo}
-								clearText={true}/>
+							<FilesUploadField addImages={this.addImages} projectFolder={this.state.projectFolder}/>
+
 						</div>
 
 						{/*Videos*/}
@@ -792,14 +818,6 @@ class createProject extends React.Component {
 							                showMediaInfo={this.showMediaInfo}
 							                removeImageVideo={this.removeImageVideo}/>
 
-							<AddOnInput
-								name="videos"
-								// label={CREATE_PROJECT_INPUTS.bg.videos}
-								labelClassName="no-label"
-								buttonText='+'
-								placeholder='Добави видео'
-								onChange={this.addImageVideo}
-								clearText={true}/>
 						</div>
 
 					</aside>
@@ -838,5 +856,5 @@ class createProject extends React.Component {
 	}
 }
 
-export default createProject;
+export default createEditProjectNew;
 
