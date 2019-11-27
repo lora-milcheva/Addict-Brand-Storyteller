@@ -72,6 +72,7 @@ function createProjectInfo (state) {
 		isBlocked: state.isBlocked,
 		clientId: state.clientId,
 		categoryIds: state.categoryIds,
+		projectFolder: state.projectFolder,
 		images: state.images,
 		thumbnail: state.thumbnail,
 		largeThumbnail: state.largeThumbnail,

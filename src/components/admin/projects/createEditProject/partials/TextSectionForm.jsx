@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Notifications
 import Notifications from '../../../../common/notifications/Notifications';
@@ -10,6 +11,7 @@ import TextEditor from './TextEditor';
 
 // Constants
 import { BUTTONS, CREATE_PROJECT_INPUTS, NOTIFICATIONS } from '../../../../../constants/constants';
+import fileService from '../../../../../services/projects/fileService';
 
 class TextSectionFrom extends React.Component {
 	constructor (props) {
@@ -17,14 +19,17 @@ class TextSectionFrom extends React.Component {
 
 		this.state = {
 			stateProp: '',
+
 			mediaId: '',
 			sectionId: '',
+
 			textBG: '',
 			textEN: '',
+			image: '',
 
 			sections: [],
 
-			visible: false
+			visible: false,
 		};
 	}
 
@@ -49,7 +54,8 @@ class TextSectionFrom extends React.Component {
 			image: data.image,
 
 			sections: data.sections,
-			visible: true
+
+			visible: true,
 		});
 	};
 
@@ -63,6 +69,48 @@ class TextSectionFrom extends React.Component {
 
 	handleTextChangeEN = (value) => {
 		this.setState({textEN: value});
+	};
+
+	addImage = (e) => {
+
+		const files = Array.from(e.target.files);
+		const stateProp = e.target.name;
+
+		let data = new FormData();
+
+		let projectFolder = this.props.projectFolder;
+
+		if (!projectFolder) {
+			alert('No folder');
+			return;
+		}
+
+		console.log(this.state.image);
+
+		if (this.state.image) {
+			fileService
+				.deleteFile(this.state.image)
+				.then(res => {
+					console.log(res);
+				})
+				.catch(err => console.log(err));
+		}
+
+		files.forEach((file, index) => {
+			data.append(projectFolder + '/file_' + index, file);
+		});
+
+		fileService
+			.uploadFiles(data)
+			.then(res => {
+				console.log(res);
+				let image = '/projects/' + projectFolder + '/' + JSON.parse(res['addedFiles'])[0];
+
+				this.setState({[stateProp]: image});
+			})
+			.catch(err => {
+				console.log(err);
+			});
 	};
 
 	submitInfo = (e) => {
@@ -125,20 +173,17 @@ class TextSectionFrom extends React.Component {
 				<Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
 
 				<div className="form">
-					<div className="buttons-container">
-						<a href="/admin/section-create" className="btn btn-default xs">
-							{BUTTONS.bg.createSection}
-						</a>
-					</div>
+
 					<img src={this.state.image} alt={''}/>
 
-					<FormInputField name='image'
-					                label='Change Image'
-					                value={this.state.image}
-					                type='text'
-					                required={false}
-					                onChange={this.handleChange}/>
+					{/*<FormInputField name='image'*/}
+					{/*                label='Change Image'*/}
+					{/*                value={this.state.image}*/}
+					{/*                type='text'*/}
+					{/*                required={false}*/}
+					{/*                onChange={this.handleChange}/>*/}
 
+					<input type='file' name='image' onChange={this.addImage}/>
 
 					<FormSelectField name='sectionId'
 					                 label={CREATE_PROJECT_INPUTS.bg.textSectionName}
@@ -151,8 +196,7 @@ class TextSectionFrom extends React.Component {
 
 					<div className="form-group">
 						<label>{CREATE_PROJECT_INPUTS.bg.textBG}</label>
-						{/*<ReactQuill value={this.state.textBG}*/}
-						{/*            onChange={this.handleTextChangeBG}/>*/}
+
 						{this.state.visible !== '' &&
 						<TextEditor
 							value={this.state.textBG}
@@ -163,8 +207,6 @@ class TextSectionFrom extends React.Component {
 
 					<div className="form-group">
 						<label>{CREATE_PROJECT_INPUTS.bg.textEN}</label>
-						{/*<ReactQuill value={this.state.textEN}*/}
-						{/*            onChange={this.handleTextChangeEN}/>*/}
 
 						{this.state.visible !== '' &&
 						<TextEditor
@@ -180,7 +222,7 @@ class TextSectionFrom extends React.Component {
 						</button>
 						<button className="btn sm btn-primary"
 						        name={this.state.stateProp}
-						        onClick={this.submitInfo}>{BUTTONS.bg.add}
+						        onClick={this.submitInfo}>{BUTTONS.bg.ok}
 						</button>
 					</div>
 				</div>
@@ -190,3 +232,7 @@ class TextSectionFrom extends React.Component {
 }
 
 export default TextSectionFrom;
+
+TextSectionFrom.propTypes = {
+	projectFolder: PropTypes.string
+};

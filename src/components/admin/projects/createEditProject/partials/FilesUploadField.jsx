@@ -1,7 +1,6 @@
 import React from 'react';
 import DropToUpload from 'react-drop-to-upload';
 import PropTypes from 'prop-types';
-import { BUTTONS } from '../../../../../constants/constants';
 
 // Services
 import fileService from '../../../../../services/projects/fileService';

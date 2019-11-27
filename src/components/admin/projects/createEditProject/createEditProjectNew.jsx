@@ -307,14 +307,14 @@ class createEditProjectNew extends React.Component {
 	handleMultiLangChange = (e) => {
 
 		let lang = e.target.id.split('-')[1];   // get the language
-		let key = e.target.name;                // get the state key
+		let inputName = e.target.name;                // get the state key
 		let value = e.target.value;             // get new value
 
-		let stateProp = Object.assign({}, this.state[key]);  // make state key copy
+		let stateProp = Object.assign({}, this.state[inputName]);  // make state key copy
 
 		stateProp[lang] = value; // add new value
 
-		this.setState({[key]: stateProp});
+		this.setState({[inputName]: stateProp});
 	};
 
 	handleArrChange = (e) => {
@@ -323,7 +323,6 @@ class createEditProjectNew extends React.Component {
 
 		if (this.state[e.target.name].includes(e.target.value)) {
 			this.setState({[e.target.name]: this.state[e.target.name].filter(el => el !== e.target.value)});
-
 		} else {
 			this.setState({[e.target.name]: [...this.state[e.target.name], e.target.value]});
 		}
@@ -357,21 +356,69 @@ class createEditProjectNew extends React.Component {
 
 	};
 
-	addImages = (data) => {
+	addImage = (e) => {
 
-		let images = [];
+		const files = Array.from(e.target.files);
+		const stateProp = e.target.name;
 
-		console.log(this.state.projectFolder);
+		let data = new FormData();
+
+		let projectFolder = this.state.projectFolder;
+
+		if (!projectFolder) {
+			alert('No folder');
+			return;
+		}
+
+		if (this.state[stateProp]) {
+			fileService
+				.deleteFile(this.state[stateProp])
+				.then(res => {
+					console.log(res);
+				})
+				.catch(err => console.log(err));
+		}
+
+		files.forEach((file, index) => {
+			data.append(projectFolder + '/file_' + index, file);
+		});
+
+		fileService
+			.uploadFiles(data)
+			.then(res => {
+				console.log(res);
+				let image = '/projects/' + projectFolder + '/' + JSON.parse(res['addedFiles'])[0];
+
+				this.setState({[stateProp]: image});
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	};
+
+	addImagesToGallery = (data) => {
+
+		let images = this.state.images;
 
 		data.forEach(imgName => {
+
 			let image = {
 				url: '/projects/' + this.state.projectFolder + '/' + imgName,
 				info: {}
 			};
+
+			// Check if image is already uploaded and remove old version, save new
+			images.forEach(el => {
+				if (el.url === image.url) {
+					images = images.filter(img => img.url !== image.url);
+				}
+			});
+
 			images.push(image);
+
 		});
 
-		this.setState({images}, () => console.log(this.state.projectFolder));
+		this.setState({images});
 
 	};
 
@@ -404,7 +451,7 @@ class createEditProjectNew extends React.Component {
 
 	};
 
-	handleNewOrder = (stateProp, reorderedElements) => {
+	saveNewOrder = (stateProp, reorderedElements) => {
 		this.setState({[stateProp]: reorderedElements});
 	};
 
@@ -433,7 +480,7 @@ class createEditProjectNew extends React.Component {
 			projectsService
 				.editProject(this.projectId, project)
 				.then(res => {
-					this.redirect(targetName, this.projectId);
+					this.redirectToPreview(targetName, this.projectId);
 				})
 				.catch(err => {
 					this.notifications.showMessage(err.responseJSON.description);
@@ -446,14 +493,14 @@ class createEditProjectNew extends React.Component {
 			.createProject(project)
 			.then(res => {
 				let id = res._id;
-				this.redirect(targetName, id);
+				this.redirectToPreview(targetName, id);
 			})
 			.catch(err => {
 				this.notifications.showMessage(err.responseJSON.description);
 			});
 	};
 
-	redirect = (targetName, projectId) => {
+	redirectToPreview = (targetName, projectId) => {
 
 		if (targetName === 'saveProject') {
 			this.notifications.showMessage(NOTIFICATIONS.bg.projectCreated);
@@ -614,7 +661,8 @@ class createEditProjectNew extends React.Component {
 
 				<TextSectionFrom onRef={ref => (this.textSectionForm = ref)}
 				                 addTextSection={this.addInfoSection}
-				                 addMediaInfo={this.addMediaInfo}/>
+				                 addMediaInfo={this.addMediaInfo}
+				                 projectFolder={this.state.projectFolder}/>
 
 				<MediaInfo onRef={ref => (this.mediaInfo = ref)}
 				           loadTextSectionForm={this.loadTextSectionForm}
@@ -766,7 +814,7 @@ class createEditProjectNew extends React.Component {
 								{thumbnail}
 							</div>
 
-							<input type='file'/>
+							<input type='file' name='thumbnail' onChange={this.addImage}/>
 						</div>
 
 						{/*Large Thumbnail*/}
@@ -777,7 +825,7 @@ class createEditProjectNew extends React.Component {
 								{largeThumbnail}
 							</div>
 
-							<input type='file'/>
+							<input type='file' name='largeThumbnail' onChange={this.addImage}/>
 						</div>
 
 
@@ -789,7 +837,7 @@ class createEditProjectNew extends React.Component {
 								{cover}
 							</div>
 
-							<input type='file'/>
+							<input type='file' name='cover' onChange={this.addImage}/>
 						</div>
 
 						{/*Images*/}
@@ -798,12 +846,13 @@ class createEditProjectNew extends React.Component {
 
 							<SortableImages elements={this.state.images}
 							                name="images"
-							                onChange={this.handleNewOrder}
+							                onChange={this.saveNewOrder}
 							                onDelete={this.removeImageVideo}
 							                showMediaInfo={this.showMediaInfo}
 							                removeImageVideo={this.removeImageVideo}/>
 
-							<FilesUploadField addImages={this.addImages} projectFolder={this.state.projectFolder}/>
+							<FilesUploadField addImages={this.addImagesToGallery}
+							                  projectFolder={this.state.projectFolder}/>
 
 						</div>
 
@@ -813,7 +862,7 @@ class createEditProjectNew extends React.Component {
 
 							<SortableVideos elements={this.state.videos}
 							                name="videos"
-							                onChange={this.handleNewOrder}
+							                onChange={this.saveNewOrder}
 							                onDelete={this.removeImageVideo}
 							                showMediaInfo={this.showMediaInfo}
 							                removeImageVideo={this.removeImageVideo}/>
