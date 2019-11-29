@@ -11,7 +11,7 @@ import projectsService from '../../../../services/projects/projectsService';
 import Notifications from '../../../common/notifications/Notifications';
 
 // Constants
-import { ADMIN_PAGES_TEXT, NOTIFICATIONS } from '../../../../constants/constants';
+import { ADMIN_PAGES_TEXT, NOTIFICATIONS, BUTTONS } from '../../../../constants/constants';
 
 class projectsList extends React.Component {
 	constructor (props) {
@@ -74,7 +74,7 @@ class projectsList extends React.Component {
 
 				<Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
 
-				<div className="page-header">
+				<div className="admin-page-header">
 					<h1 className="page-title">{ADMIN_PAGES_TEXT.project.bg.allProjects}</h1>
 				</div>
 
@@ -84,9 +84,9 @@ class projectsList extends React.Component {
 				              elements={this.state.projects}
 				              onChange={this.handleNewOrder}/>
 
-				<div className='buttons-container'>
-					<button className='btn btn-primary sm'
-					        onClick={this.saveOrder}>Save
+				<div className='buttons-container text-center'>
+					<button className='btn btn-default md'
+					        onClick={this.saveOrder}>{BUTTONS.bg.saveOrder}
 					</button>
 				</div>
 

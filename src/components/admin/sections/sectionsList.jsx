@@ -63,7 +63,7 @@ class sectionsList extends React.Component {
 
 				<Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
 
-				<div className="page-header">
+				<div className="admin-page-header">
 					<h1 className="page-title">{ADMIN_PAGES_TEXT.section.bg.sections}</h1>
 				</div>
 

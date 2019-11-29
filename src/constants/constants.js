@@ -80,7 +80,7 @@ const CREATE_PROJECT_INPUTS = {
 		videos: 'Видеа'
 	},
 	en: {
-		name: 'ProjectSimple name',
+		name: 'Project Name',
 		description: 'Description',
 		info: 'Main Info',
 		infoSections: 'Info Sections',
@@ -133,6 +133,7 @@ const BUTTONS = {
 		edit: 'Редакция',
 		send: 'Изпрати',
 		saveChanges: 'Запази промените',
+		saveOrder: 'Запази подреждането',
 		add: 'Добави',
 		delete: 'Изтриване',
 		clear: 'Изчисти',
@@ -166,6 +167,7 @@ const BUTTONS = {
 		edit: 'Edit',
 		send: 'Send',
 		saveChanges: 'Save Changes',
+		saveOrder: 'Save order',
 		add: 'Add',
 		delete: 'Delete',
 		clear: 'Clear',

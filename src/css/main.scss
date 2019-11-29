@@ -1,12 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=cyrillic');
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 
-
 @import "constants";
 @import "grid";
 @import "animations";
 @import "typography";
-
 
 
 * {
@@ -120,6 +118,8 @@ button {
   padding: 15px 30px;
   @include main-transition;
   @include transform-button-text;
+  border: 1px solid transparent;
+  height: fit-content;
 
   &:hover {
     cursor: pointer;
@@ -193,17 +193,20 @@ button {
     &:active {
       color: $default;
       background-color: $white;
+      border: 1px solid $medium-grey;
     }
   }
 
   &.btn-default-light {
     color: $default;
     background-color: $white;
+    border: 1px solid $medium-grey;
 
     &:hover,
     &:active {
       color: $white;
       background-color: $default;
+      border-color: $default;
     }
   }
 
@@ -239,8 +242,18 @@ button {
     }
   }
 
+  &.btn-info {
+    color: $white;
+    background-color: $info;
+
+    &:hover,
+    &:active {
+      background-color: $info-hover;
+    }
+  }
+
   &.btn-danger {
-    color: $black;
+    color: $dark-grey;
     background-color: $attention;
 
     &:hover,
@@ -293,7 +306,7 @@ button {
 
   label {
     margin-bottom: 5px;
-    color: $medium-to-dark-grey;
+    color: $dark-grey;
     padding-right: 2%;
 
     &.no-label {
@@ -324,6 +337,7 @@ button {
     font-size: 1.1em;
 
     &.add-on {
+
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
       font-size: 1em;
@@ -337,16 +351,18 @@ button {
     }
 
     &:focus {
-      border-color: $primary;
+      border-color: $default;
       //padding-left: 25px;
     }
   }
 
   .add-on-btn {
     height: $input-height;
+    border-radius: 5px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     font-size: 1em;
+    padding: 3px 20px;
   }
 
   textarea {
@@ -381,10 +397,7 @@ button {
 }
 
 .buttons-container {
-  margin: 15px 0 20px;
-  padding: 10px 0;
-  //border-top: 1px solid $medium-grey;
-  //border-bottom: 1px solid $medium-grey;
+  margin: 20px 0;
 }
 
 .category-label {
@@ -393,6 +406,7 @@ button {
   border-radius: 2px;
   margin: 3px 3px 0 0;
   font-size: .8em;
+  background-color: $white;
   @include main-transition;
 
   &.selected {
@@ -406,7 +420,7 @@ button {
   }
 
   &.danger {
-    background-color: $attention;
+    background-color: $primary;
     color: $white;
   }
 
@@ -468,7 +482,7 @@ button {
 
 main {
   padding-top: $header-height;
-  min-height: calc(100vh - 80px); //header + footer height
+  //min-height: calc(100vh - 80px); //header + footer height
 }
 
 #header {
@@ -578,9 +592,18 @@ main {
 }
 
 #admin-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
   @include display-grid;
-  grid-template-columns: 5fr 1fr 1fr;
+  grid-template-columns: 5fr 2fr 1fr;
+  background: $white;
+
+  z-index: 1000;
+
+
   padding: 10px;
+  border-bottom: 1px solid $black;
 
   .nav-link {
     display: inline-block;
@@ -591,12 +614,17 @@ main {
     &.active,
     &:hover,
     &:active {
-      background-color: $primary;
+      background-color: $default;
       color: $white;
     }
 
     &.logout {
-      background: $medium-grey;
+      background: $white;
+
+      &:hover,
+      &:active {
+        background: $dark-grey;
+      }
     }
   }
 

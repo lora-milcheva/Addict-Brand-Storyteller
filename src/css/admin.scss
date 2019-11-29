@@ -3,17 +3,40 @@
 @import "animations";
 @import "typography";
 
+.admin-page-header {
+  @include display-grid;
+  @include grid-gap($grid-gap, $grid-gap-small);
+  grid-template-columns: 2fr 1fr;
+  margin-bottom: 4em;
+  align-items: center;
+
+  .page-title {
+    font-size: 3em;
+  }
+
+  #delete-btn,
+  #star-blocked {
+    justify-self: end
+  }
+}
+
 #project-create {
 
   #files-upload-field {
+    @include display-grid;
+    @include align-content-center;
+    @include justify-content-center;
+    margin-top: $grid-gap-small;
+    background-color: $white;
+    justify-content: center;
     border: 1px solid $medium-to-dark-grey;
-    min-height: 200px;
+    min-height: 80px;
   }
 
   #create-project-form {
     @include display-grid;
     @include grid-template-columns(2, 1fr);
-    @include grid-gap($grid-gap, $grid-gap);
+    @include grid-gap($grid-gap-small, $grid-gap-small);
     margin-top: $grid-gap-small;
   }
 
@@ -26,6 +49,14 @@
     }
   }
 
+  .section {
+    padding: 10px 25px 25px 25px;
+    border: 1px solid $medium-grey;
+    margin-bottom: $grid-gap-small;
+    background-color: $bg-grey;
+  }
+
+
   .section-title {
     margin: 15px 0;
     font-size: 1.5em;
@@ -33,7 +64,6 @@
     padding-bottom: 15px;
     display: grid;
     justify-items: stretch;
-    grid-template-columns: (2fr 2fr);
 
     span {
       display: block;
@@ -46,14 +76,7 @@
   }
 
   #submit-buttons {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    margin: 0;
-    width: 100%;
-    background-color: $white;
     text-align: center;
-    @include shadow-top;
   }
 
   #info-section-inputs {
@@ -175,6 +198,7 @@
         .image {
           position: relative;
           min-height: 38px;
+          max-height: 180px;
           overflow: hidden;
           margin: 0 1% 1% 0;
           border: 1px solid $medium-grey;

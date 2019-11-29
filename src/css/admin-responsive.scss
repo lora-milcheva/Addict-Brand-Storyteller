@@ -1,0 +1,23 @@
+@import "constants";
+@import "grid";
+@import "animations";
+@import "typography";
+
+@media screen and (max-width: 950px) {
+
+  #project-create {
+    #create-project-form {
+      @include grid-template-columns(1, 1fr);
+    }
+
+    .category-label {
+      .btn-text {
+        display: none
+      }
+
+      .fa {
+        margin: 0;
+      }
+    }
+  }
+}

@@ -15,6 +15,18 @@ class FilesUploadField extends React.Component {
 
 	handleDrop = (files) => {
 
+		this.uploadFiles(files)
+	};
+
+	handleInputFiles = (e) => {
+
+		const files = Array.from(e.target.files);
+
+		this.uploadFiles(files);
+	};
+
+	uploadFiles = (files) => {
+
 		let data = new FormData();
 
 		let projectFolder = this.props.projectFolder;
@@ -37,13 +49,17 @@ class FilesUploadField extends React.Component {
 			.catch(err => {
 				console.log(err);
 			});
-	};
+	}
 
 	render () {
 		return (
-			<DropToUpload onDrop={this.handleDrop} id='files-upload-field'>
-				Drop files here to upload
-			</DropToUpload>
+			<div>
+				<DropToUpload onDrop={this.handleDrop} id='files-upload-field'>
+					Drop files here to upload
+				</DropToUpload>
+				<input type='file' multiple='multiple' onChange={this.handleInputFiles}/>
+			</div>
+
 		);
 	}
 }

@@ -65,7 +65,7 @@ class categoriesList extends React.Component {
 
 				<Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
 
-				<div className="page-header">
+				<div className="admin-page-header">
 					<h1 className="page-title">{ADMIN_PAGES_TEXT.category.bg.categories}</h1>
 				</div>
 

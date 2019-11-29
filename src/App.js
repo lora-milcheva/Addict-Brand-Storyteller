@@ -7,6 +7,7 @@ import './css/main-responsive.css';
 import './css/user.css';
 import './css/user-responsive.css';
 import './css/admin.css';
+import './css/admin-responsive.css';
 
 // Components
 import Header from './components/common/Header';

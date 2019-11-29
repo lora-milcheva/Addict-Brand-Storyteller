@@ -131,7 +131,7 @@ class createEditSection extends React.Component {
 				<Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
 				<ConfirmDialog onRef={ref => (this.confirmDialog = ref)} language='bg'/>
 
-				<div className="page-header">
+				<div className="admin-page-header">
 					<h1 className="page-title">{title}</h1>
 
 					{this.sectionId &&
