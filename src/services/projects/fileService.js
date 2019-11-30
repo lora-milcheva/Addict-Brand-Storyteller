@@ -1,18 +1,22 @@
 import $ from 'jquery';
 
+const localhostUrl = 'http://localhost:80';
+
 const uploadFilesUrl = 'http://addict-bg.com/api/fileUpload.php';
 const deleteFileUrl = 'http://addict-bg.com/api/deleteFile.php';
 const makeDirUrl = 'http://addict-bg.com/api/makeDir.php';
-const localhostUrl = 'http://localhost:80';
+
 
 export default {
 
-	uploadFiles: (files) => {
+	uploadFiles: (data) => {
+
+		console.log(data)
 
 		return $.ajax({
 			url: uploadFilesUrl,
 			type: 'POST',
-			data: files,
+			data: data,
 			processData: false,
 			contentType: false,
 			mode: 'no-cors'
@@ -30,7 +34,7 @@ export default {
 
 	deleteFile: (filePath) => {
 		return $.ajax({
-			url: localhostUrl,
+			url: deleteFileUrl,
 			type: 'GET',
 			data: {'file' : filePath },
 			dataType: 'json'

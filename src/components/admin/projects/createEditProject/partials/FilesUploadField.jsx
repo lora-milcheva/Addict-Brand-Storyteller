@@ -37,19 +37,23 @@ class FilesUploadField extends React.Component {
 		}
 
 		files.forEach((file, index) => {
+			console.log(file);
 			data.append(projectFolder + '/file_' + index, file);
 		});
+
+		let stateProp = this.props.stateProp;
+		console.log(files);
 
 		fileService
 			.uploadFiles(data)
 			.then(res => {
 				console.log(res);
-				this.props.addImages(JSON.parse(res['addedFiles']));
+				this.props.addFiles(stateProp, JSON.parse(res['addedFiles']));
 			})
 			.catch(err => {
 				console.log(err);
 			});
-	}
+	};
 
 	render () {
 		return (
@@ -67,6 +71,7 @@ class FilesUploadField extends React.Component {
 export default FilesUploadField;
 
 FilesUploadField.propTypes = {
-	addImages: PropTypes.func,
-	projectFolder: PropTypes.string
+	addFiles: PropTypes.func,
+	projectFolder: PropTypes.string,
+	stateProp: PropTypes.string
 };

@@ -396,29 +396,47 @@ class createEditProjectNew extends React.Component {
             });
     };
 
-    addImagesToGallery = (data) => {
+    addFilesToGallery = (stateProp, data) => {
 
-        let images = this.state.images;
+        let collection = this.state[stateProp];
 
-        data.forEach(imgName => {
+        data.forEach(fileName => {
 
-            let image = {
-                url: '/projects/' + this.state.projectFolder + '/' + imgName,
+            let file = {
+                url: '',
                 info: {}
             };
 
-            // Check if image is already uploaded and remove old version, save new
-            images.forEach(el => {
-                if (el.url === image.url) {
-                    images = images.filter(img => img.url !== image.url);
+            let filePath = '/projects/' + this.state.projectFolder + '/';
+
+            if (stateProp === 'videos') {
+
+                let fileType = fileName.split('.').pop();
+
+                if (fileType === 'mp4') {
+
+                    let posterName = fileName.split('.').shift() + '.jpg';
+                    file.poster = filePath + posterName;
+
+                } else return
+            }
+
+            file.url = filePath + fileName;
+
+
+            // Check if file is already uploaded and remove old version, save new
+            collection.forEach(el => {
+                if (el.url === file.url) {
+                    collection = collection.filter(e => e.url !== file.url);
                 }
             });
 
-            images.push(image);
+            collection.push(file);
 
         });
 
-        this.setState({images});
+
+        this.setState({[stateProp]: collection}, () => console.log(this.state[stateProp]));
 
     };
 
@@ -863,8 +881,9 @@ class createEditProjectNew extends React.Component {
                                             removeImageVideo={this.removeImageVideo}/>
 
 
-                            <FilesUploadField addImages={this.addImagesToGallery}
-                                              projectFolder={this.state.projectFolder}/>
+                            <FilesUploadField addFiles={this.addFilesToGallery}
+                                              projectFolder={this.state.projectFolder}
+                                              stateProp='images'/>
 
                         </div>
 
@@ -878,6 +897,10 @@ class createEditProjectNew extends React.Component {
                                             onDelete={this.removeImageVideo}
                                             showMediaInfo={this.showMediaInfo}
                                             removeImageVideo={this.removeImageVideo}/>
+
+                            <FilesUploadField addFiles={this.addFilesToGallery}
+                                              projectFolder={this.state.projectFolder}
+                                              stateProp='videos'/>
 
                         </div>
 

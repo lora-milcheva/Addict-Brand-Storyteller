@@ -8,6 +8,8 @@ $response = array();
 $filesAdded = array();
 $errorFiles = array();
 
+echo json_encode($_FILES);
+
 if($_FILES) {
 
 
