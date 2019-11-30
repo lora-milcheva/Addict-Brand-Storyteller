@@ -42,7 +42,6 @@ class FilesUploadField extends React.Component {
 		});
 
 		let stateProp = this.props.stateProp;
-		console.log(files);
 
 		fileService
 			.uploadFiles(data)
@@ -61,6 +60,8 @@ class FilesUploadField extends React.Component {
 				<DropToUpload onDrop={this.handleDrop} id='files-upload-field'>
 					Drop files here to upload
 				</DropToUpload>
+
+				<input type="hidden" name="MAX_FILE_SIZE" value="300000" />
 				<input type='file' multiple='multiple' onChange={this.handleInputFiles}/>
 			</div>
 

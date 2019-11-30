@@ -8,7 +8,6 @@ $response = array();
 $filesAdded = array();
 $errorFiles = array();
 
-echo json_encode($_FILES);
 
 if($_FILES) {
 
@@ -25,7 +24,8 @@ if($_FILES) {
             $response = array(
                 "status" => "error",
                 "error" => true,
-                "message" => "Error uploading the file!"
+                "message" => "Error uploading the file!",
+                "files" => ($_FILES)
             );
 
         } else {
@@ -42,7 +42,8 @@ if($_FILES) {
                     "status" => "success",
                     "error" => false,
                     "message" => "File(s) uploaded successfully",
-                    "addedFiles" => json_encode($filesAdded)
+                    "addedFiles" => json_encode($filesAdded),
+                    "files" => ($_FILES)
                 );
 
 
@@ -54,7 +55,8 @@ if($_FILES) {
                     "status" => "error",
                     "error" => true,
                     "message" => "Error uploading the file!",
-                    "errorFiles" => json_encode($errorFiles)
+                    "errorFiles" => json_encode($errorFiles),
+                    "files" => ($_FILES)
                 );
 
             }
@@ -66,7 +68,8 @@ if($_FILES) {
     $response = array(
         "status" => "error",
         "error" => true,
-        "message" => "No file was sent!"
+        "message" => "No file was sent!",
+        "files" => ($_FILES)
     );
 }
 

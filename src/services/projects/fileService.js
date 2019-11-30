@@ -11,8 +11,6 @@ export default {
 
 	uploadFiles: (data) => {
 
-		console.log(data)
-
 		return $.ajax({
 			url: uploadFilesUrl,
 			type: 'POST',
