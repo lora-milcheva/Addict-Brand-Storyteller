@@ -56,8 +56,28 @@
   transform: scale(1.04);
 }
 
+#uploader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .8);
+  z-index: 1001;
+  @include display-grid;
+  @include align-content-center;
+  @include justify-content-center;
+  visibility: hidden;
+  @include main-transition;
+  opacity: 0;
 
+  color: $medium-grey;
 
+  &.visible {
+    visibility: visible;
+    opacity: 1;
+  }
+}
 
 
 .lds-dual-ring {
@@ -66,6 +86,7 @@
   width: 64px;
   height: 64px;
 }
+
 .lds-dual-ring:after {
   content: " ";
   display: block;
@@ -77,6 +98,7 @@
   border-color: #ddd transparent #ddd transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
+
 @keyframes lds-dual-ring {
   0% {
     transform: rotate(0deg);

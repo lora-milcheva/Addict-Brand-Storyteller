@@ -4,7 +4,6 @@ import React from 'react';
 import FormInput from '../../../common/formComponents/FormInput';
 import FormSelectField from '../../../common/formComponents/FormSelectField';
 import Textarea from '../../../common/formComponents/TextArea';
-import AddOnInput from '../../../common/formComponents/AddOnInput';
 import SortableImages from './partials/SortableImages';
 import SortableVideos from './partials/SortableVideos';
 import MediaInfo from './partials/MediaInfo';
@@ -89,7 +88,7 @@ class createEditProjectNew extends React.Component {
                     this.setState({
                         name: res.name,
                         description: res.description,
-                        info: res.info || {},
+                        info: res.info,
                         year: res.year,
                         webPage: res.webPage,
                         isStar: res.isStar,
@@ -99,9 +98,9 @@ class createEditProjectNew extends React.Component {
 
                         projectFolder: res.projectFolder,
                         images: res.images,
-                        thumbnail: res.thumbnail || '',
-                        largeThumbnail: res.largeThumbnail || '',
-                        cover: res.cover || '',
+                        thumbnail: res.thumbnail,
+                        largeThumbnail: res.largeThumbnail,
+                        cover: res.cover,
                         videos: res.videos,
                         orderNumber: res.orderNumber,
 
@@ -150,6 +149,30 @@ class createEditProjectNew extends React.Component {
         e.preventDefault();
 
         this.setState({[e.target.name]: !this.state[e.target.name]});
+    };
+
+    handleMultiLangChange = (e) => {
+
+        let lang = e.target.id.split('-')[1];   // get the language
+        let inputName = e.target.name;                // get the state key
+        let value = e.target.value;             // get new value
+
+        let stateProp = Object.assign({}, this.state[inputName]);  // make state key copy
+
+        stateProp[lang] = value; // add new value
+
+        this.setState({[inputName]: stateProp});
+    };
+
+    handleArrChange = (e) => {
+
+        e.preventDefault();
+
+        if (this.state[e.target.name].includes(e.target.value)) {
+            this.setState({[e.target.name]: this.state[e.target.name].filter(el => el !== e.target.value)});
+        } else {
+            this.setState({[e.target.name]: [...this.state[e.target.name], e.target.value]});
+        }
     };
 
     loadTextSectionForm = (e) => {
@@ -304,71 +327,34 @@ class createEditProjectNew extends React.Component {
         this.mediaInfo.loadData(data);
     };
 
-    handleMultiLangChange = (e) => {
-
-        let lang = e.target.id.split('-')[1];   // get the language
-        let inputName = e.target.name;                // get the state key
-        let value = e.target.value;             // get new value
-
-        let stateProp = Object.assign({}, this.state[inputName]);  // make state key copy
-
-        stateProp[lang] = value; // add new value
-
-        this.setState({[inputName]: stateProp});
-    };
-
-    handleArrChange = (e) => {
+    createProjectFolder = (e) => {
 
         e.preventDefault();
 
-        if (this.state[e.target.name].includes(e.target.value)) {
-            this.setState({[e.target.name]: this.state[e.target.name].filter(el => el !== e.target.value)});
+        let projectFolder = this.state.projectFolder.trim().split(' ').join('_');
+
+        const regex = /^([\w\-]+)$/;
+
+        if (regex.test(projectFolder)) {
+
+            this.setState({projectFolder});
+
+            fileService
+                .createProjectFolder(projectFolder)
+                .then(res => {
+                    console.log(res);
+                    this.notifications.showMessage(NOTIFICATIONS.bg.directoryCreated);
+                })
+                .catch(err => {
+                    console.log(err);
+                    this.notifications.showMessage(NOTIFICATIONS.bg.messageError);
+                });
         } else {
-            this.setState({[e.target.name]: [...this.state[e.target.name], e.target.value]});
+            this.notifications.showMessage(NOTIFICATIONS.bg.wrongDirectoryName)
         }
     };
 
-    removeCoverThumbnail = (e) => {
-        e.preventDefault();
-
-        this.setState({[e.target.name]: ''});
-    };
-
-    addImageVideo = (e) => {
-
-        e.preventDefault();
-
-        let stateProp = e.target.name;
-        let url = e.target.value;
-
-        let elementToAdd = {
-            url: url,
-            info: {}
-        };
-
-        console.log(elementToAdd);
-
-        if (stateProp === 'videos') {
-            elementToAdd.poster = url.split('.').shift() + '.jpg';
-        }
-
-        this.setState({[e.target.name]: [...this.state[e.target.name], elementToAdd]});
-
-    };
-
-    addImage = (e) => {
-
-        const files = Array.from(e.target.files);
-        const stateProp = e.target.name;
-
-        let data = new FormData();
-
-        let projectFolder = this.state.projectFolder;
-
-        if (!projectFolder) {
-            alert('No folder');
-            return;
-        }
+    addImage = (stateProp, files) => {
 
         if (this.state[stateProp]) {
             fileService
@@ -379,21 +365,27 @@ class createEditProjectNew extends React.Component {
                 .catch(err => console.log(err));
         }
 
-        files.forEach((file, index) => {
-            data.append(projectFolder + '/file_' + index, file);
-        });
+        let file = '/projects/' + this.state.projectFolder + '/' + files[0];
 
-        fileService
-            .uploadFiles(data)
-            .then(res => {
-                console.log(res);
-                let image = '/projects/' + projectFolder + '/' + JSON.parse(res['addedFiles'])[0];
+        this.setState({[stateProp]: file});
 
-                this.setState({[stateProp]: image});
-            })
-            .catch(err => {
-                console.log(err);
-            });
+    };
+
+    removeImage = (e) => {
+        e.preventDefault();
+
+        let stateProp = e.target.name;
+
+        if (this.state[stateProp]) {
+            fileService
+                .deleteFile(this.state[stateProp])
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => console.log(err));
+        }
+
+        this.setState({[stateProp]: ''});
     };
 
     addFilesToGallery = (stateProp, data) => {
@@ -436,29 +428,11 @@ class createEditProjectNew extends React.Component {
         });
 
 
-        this.setState({[stateProp]: collection}, () => console.log(this.state[stateProp]));
+        this.setState({[stateProp]: collection});
 
     };
 
-    createFolder = (e) => {
-
-        e.preventDefault();
-
-        let projectFolder = this.state.projectFolder;
-
-        let data = {projectFolder: projectFolder};
-
-        fileService
-            .makeDir(data)
-            .then(res => {
-                console.log(res);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    };
-
-    removeImageVideo = (e) => {
+    removeFilesFromGallery = (e) => {
         e.preventDefault();
 
         let arr = this.state[e.target.name];
@@ -521,7 +495,7 @@ class createEditProjectNew extends React.Component {
     redirectToPreview = (targetName, projectId) => {
 
         if (targetName === 'saveProject') {
-            this.notifications.showMessage(NOTIFICATIONS.bg.projectCreated);
+            this.notifications.showMessage(NOTIFICATIONS.bg.projectSaved);
             setTimeout(() => this.props.history.push('/admin/projects-list'), 2000);
         }
 
@@ -542,6 +516,15 @@ class createEditProjectNew extends React.Component {
     };
 
     deleteProject = () => {
+
+        fileService
+            .deleteProjectFolderAndFiles(this.state.projectFolder)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            });
 
         projectsService
             .deleteProject(this.projectId)
@@ -576,33 +559,33 @@ class createEditProjectNew extends React.Component {
 
         let thumbnail = this.state.thumbnail !== ''
             ? (<figure className="image">
+                    <img src={this.state.thumbnail} alt="project thumbnail" className="img-fit"/>
                     <button className="btn btn-primary xs del-btn"
                             name='thumbnail'
-                            onClick={this.removeCoverThumbnail}>{BUTTONS.en.clear}
+                            onClick={this.removeImage}>{BUTTONS.en.clear}
                     </button>
-                    <img src={this.state.thumbnail} alt="project thumbnail" className="img-fit"/>
                 </figure>
             )
             : null;
 
         let largeThumbnail = this.state.largeThumbnail !== ''
             ? (<figure className="image">
+                    <img src={this.state.largeThumbnail} alt="project thumbnail" className="img-fit"/>
                     <button className="btn btn-primary xs del-btn"
                             name='thumbnail'
-                            onClick={this.removeCoverThumbnail}>{BUTTONS.en.clear}
+                            onClick={this.removeImage}>{BUTTONS.en.clear}
                     </button>
-                    <img src={this.state.largeThumbnail} alt="project thumbnail" className="img-fit"/>
                 </figure>
             )
             : null;
 
         let cover = this.state.cover !== ''
             ? (<figure className="image">
+                    <img src={this.state.cover} alt="project cover" className="img-fit"/>
                     <button className="btn btn-primary xs del-btn"
                             name='cover'
-                            onClick={this.removeCoverThumbnail}>{BUTTONS.en.clear}
+                            onClick={this.removeImage}>{BUTTONS.en.clear}
                     </button>
-                    <img src={this.state.cover} alt="project cover" className="img-fit"/>
                 </figure>
             )
             : null;
@@ -618,6 +601,7 @@ class createEditProjectNew extends React.Component {
                 </button>
             );
         });
+
 
         let isStar = <button className={this.state.isStar ? 'btn md category-label info' : 'btn md category-label'}
                              name="isStar"
@@ -688,14 +672,17 @@ class createEditProjectNew extends React.Component {
                            saveMediaContentOrder={this.saveMediaContentOrder}
                            saveOrder={this.saveMediaContentOrder}/>
 
+
                 {/*//PAGE HEADER*/}
                 <div className="admin-page-header container">
                     <h1 className="page-title">{title}</h1>
 
                     <div>
                         {this.projectId &&
-                        <button id='delete-btn' className="btn btn-default-light sm"
+                        <button id='delete-btn'
+                                className="btn btn-default-light sm"
                                 onClick={this.confirmDeleteProject}>
+
                             <i className="fa fa-trash" aria-hidden="true"/>
                             {BUTTONS.bg.delete}
                         </button>
@@ -703,17 +690,20 @@ class createEditProjectNew extends React.Component {
                     </div>
 
                     {/*Project folder*/}
+
                     <div className='form-group add-on'>
 
                         <input type='text'
                                name='projectFolder'
                                className='form-control add-on'
+                               value={this.state.projectFolder}
                                onChange={this.handleInputChange}/>
 
                         <button className='btn btn-default add-on-btn'
-                                onClick={this.createFolder}>{BUTTONS.bg.createProjectFolder}
+                                onClick={this.createProjectFolder}>{BUTTONS.bg.createProjectFolder}
                         </button>
                     </div>
+
 
                     <div id='star-blocked'>
                         {isStar} {isBlocked}
@@ -843,7 +833,10 @@ class createEditProjectNew extends React.Component {
                                 {thumbnail}
                             </div>
 
-                            <input type='file' name='thumbnail' onChange={this.addImage}/>
+                            <FilesUploadField addFiles={this.addImage}
+                                              projectFolder={this.state.projectFolder}
+                                              stateProp='thumbnail'
+                                              multiple={false}/>
                         </div>
 
                         {/*Large Thumbnail*/}
@@ -854,7 +847,10 @@ class createEditProjectNew extends React.Component {
                                 {largeThumbnail}
                             </div>
 
-                            <input type='file' name='largeThumbnail' onChange={this.addImage}/>
+                            <FilesUploadField addFiles={this.addImage}
+                                              projectFolder={this.state.projectFolder}
+                                              stateProp='largeThumbnail'
+                                              multiple={false}/>
                         </div>
 
 
@@ -866,7 +862,11 @@ class createEditProjectNew extends React.Component {
                                 {cover}
                             </div>
 
-                            <input type='file' name='cover' onChange={this.addImage}/>
+
+                            <FilesUploadField addFiles={this.addImage}
+                                              projectFolder={this.state.projectFolder}
+                                              stateProp='cover'
+                                              multiple={false}/>
                         </div>
 
                         {/*Images*/}
@@ -876,14 +876,14 @@ class createEditProjectNew extends React.Component {
                             <SortableImages elements={this.state.images}
                                             name="images"
                                             onChange={this.saveNewOrder}
-                                            onDelete={this.removeImageVideo}
-                                            showMediaInfo={this.showMediaInfo}
-                                            removeImageVideo={this.removeImageVideo}/>
+                                            onDelete={this.removeFilesFromGallery}
+                                            showMediaInfo={this.showMediaInfo}/>
 
 
                             <FilesUploadField addFiles={this.addFilesToGallery}
                                               projectFolder={this.state.projectFolder}
-                                              stateProp='images'/>
+                                              stateProp='images'
+                                              multiple={true}/>
 
                         </div>
 
@@ -894,13 +894,13 @@ class createEditProjectNew extends React.Component {
                             <SortableVideos elements={this.state.videos}
                                             name="videos"
                                             onChange={this.saveNewOrder}
-                                            onDelete={this.removeImageVideo}
-                                            showMediaInfo={this.showMediaInfo}
-                                            removeImageVideo={this.removeImageVideo}/>
+                                            onDelete={this.removeFilesFromGallery}
+                                            showMediaInfo={this.showMediaInfo}/>
 
                             <FilesUploadField addFiles={this.addFilesToGallery}
                                               projectFolder={this.state.projectFolder}
-                                              stateProp='videos'/>
+                                              stateProp='videos'
+                                              multiple={true}/>
 
                         </div>
 

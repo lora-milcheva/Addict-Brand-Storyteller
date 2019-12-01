@@ -10,13 +10,16 @@ $dirName = $_POST["projectFolder"];
 if($dirName)  {
 
     $path = $_SERVER['DOCUMENT_ROOT'] . '/projects/' . $dirName;
+    // $path = 'D:/Lora/Pictures/Projects/' . $dirName;
 
-    if(mkdir($path, 0700)) {
+    if(array_map('unlink', glob("$path/*.*"))) {
+
+        rmdir($path);
 
         $response = array(
             "status" => "success",
             "error" => false,
-            "message" => "Directory created"
+            "message" => "Project folder removed."
             );
 
     } else {
@@ -24,7 +27,7 @@ if($dirName)  {
         $response = array(
             "status" => "error",
             "error" => true,
-            "message" => "Error creating directory"
+            "message" => "Error deleting directory"
         );
     }
 

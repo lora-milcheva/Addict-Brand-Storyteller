@@ -2,9 +2,10 @@ import $ from 'jquery';
 
 const localhostUrl = 'http://localhost:80';
 
-const uploadFilesUrl = 'http://addict-bg.com/api/fileUpload.php';
+const uploadFilesUrl = 'http://addict-bg.com/api/uploadFile.php';
 const deleteFileUrl = 'http://addict-bg.com/api/deleteFile.php';
-const makeDirUrl = 'http://addict-bg.com/api/makeDir.php';
+const createProjectFolder = 'http://addict-bg.com/api/createProjectFolder.php';
+const deleteProjectFolderUrl = 'http://addict-bg.com/api/deleteProjectFolder.php';
 
 
 export default {
@@ -21,20 +22,35 @@ export default {
 		});
 	},
 
-	makeDir: (data) => {
+	deleteFile: (filePath) => {
 
 		return $.ajax({
-			url: makeDirUrl,
+			url: deleteFileUrl,
+			type: 'GET',
+			data: {'file' : filePath },
+			dataType: 'json'
+		});
+	},
+
+	createProjectFolder: (projectFolder) => {
+
+		let data = {projectFolder: projectFolder};
+
+		return $.ajax({
+			url: createProjectFolder,
 			type: 'POST',
 			data: data,
 		});
 	},
 
-	deleteFile: (filePath) => {
+	deleteProjectFolderAndFiles:  (projectFolder) => {
+
+		let data = {projectFolder: projectFolder};
+
 		return $.ajax({
-			url: deleteFileUrl,
-			type: 'GET',
-			data: {'file' : filePath },
+			url: deleteProjectFolderUrl,
+			type: 'POST',
+			data: data,
 			dataType: 'json'
 		});
 	}

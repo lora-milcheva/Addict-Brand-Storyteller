@@ -148,6 +148,7 @@ const BUTTONS = {
 		back: 'Назад',
 		createProjectFolder: 'Създай папка на проекта',
 		ok: 'OK',
+		uploading: 'Uploading files ...',
 
 		// Home
 		seeWhatWeDo: 'Вижте какво правим',
@@ -182,6 +183,7 @@ const BUTTONS = {
 		back: 'Back',
 		createProjectFolder: 'Create project folder',
 		ok: 'OK',
+		uploading: 'Uploading files ...',
 
 		// Home
 		seeWhatWeDo: 'See what we do',
@@ -213,7 +215,7 @@ const CONFIRM_DIALOG_MESSAGES = {
 
 const NOTIFICATIONS = {
 	bg: {
-		projectCreated: 'Проектът е създаден.',
+		projectSaved: 'Проектът е записан.',
 		projectDeleted: 'Проектът беше изтрит.',
 
 		categoryCreated: 'Категорията е създадена.',
@@ -224,6 +226,10 @@ const NOTIFICATIONS = {
 
 		sectionCreated: 'Секцията е създадена',
 		sectionDeleted: 'Секцията беше изтрита',
+
+		directoryCreated: 'Папката е създадена.',
+		wrongDirectoryName: 'Невалидно име.',
+		allowedChars: 'Името може да се състои само от букви, цифри и тире.',
 
 		successEdit: 'Успешна редакция.',
 		loadingPreview: 'Промените са записани. Пренасочване към преглед.',
@@ -237,11 +243,13 @@ const NOTIFICATIONS = {
 
 		deleteForbidden: 'Изтриването е забранено!.',
 
+		noProjectFolder: 'Моля, създайте папка за файловете на проекта.'
+
 	},
 	en: {
 		projectCreated: 'Project created.',
 		projectDeleted: 'Project deleted.',
-		loadingPreview: 'Changes saved. Loading Preview',
+		loadingPreview: 'Changes saved. Uploading Preview',
 
 		categoryCreated: 'Category created.',
 		categoryDeleted: 'Category deleted.',
@@ -252,6 +260,8 @@ const NOTIFICATIONS = {
 		sectionCreated: 'Section created',
 		sectionDeleted: 'Section deleted',
 
+		directoryCreated: 'Directory created.',
+
 		successEdit: 'Successful edit.',
 
 		selectSectionName: 'Please, select section name.',
@@ -260,6 +270,8 @@ const NOTIFICATIONS = {
 		messageError: 'Error sending your message.',
 
 		fieldsRequired: 'Please, fill out these fields:',
+
+		noProjectFolder: 'Please, first create project folder.'
 	}
 };
 

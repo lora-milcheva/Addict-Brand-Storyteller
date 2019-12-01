@@ -2,77 +2,104 @@ import React from 'react';
 import DropToUpload from 'react-drop-to-upload';
 import PropTypes from 'prop-types';
 
+// Partials
+import Uploading from "../../../common/Uploading";
+
 // Services
 import fileService from '../../../../../services/projects/fileService';
 
+// Notifications
+import Notifications from '../../../../common/notifications/Notifications';
+
+// Constants
+import {NOTIFICATIONS} from "../../../../../constants/constants";
+
+
 class FilesUploadField extends React.Component {
 
-	constructor (props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {};
-	}
+        this.state = {
+            uploading: false
+        };
+    }
 
-	handleDrop = (files) => {
+    handleDrop = (files) => {
 
-		this.uploadFiles(files)
-	};
+        this.uploadFiles(files);
 
-	handleInputFiles = (e) => {
+    };
 
-		const files = Array.from(e.target.files);
+    handleInputFiles = (e) => {
 
-		this.uploadFiles(files);
-	};
+        const files = Array.from(e.target.files);
 
-	uploadFiles = (files) => {
+        this.uploadFiles(files);
+    };
 
-		let data = new FormData();
+    uploadFiles = (files) => {
 
-		let projectFolder = this.props.projectFolder;
+        let projectFolder = this.props.projectFolder;
 
-		if (!projectFolder) {
-			alert('No folder');
-			return;
-		}
+        if (!projectFolder) {
+            this.notifications.showMessage(NOTIFICATIONS.bg.noProjectFolder);
+            return;
+        }
 
-		files.forEach((file, index) => {
-			console.log(file);
-			data.append(projectFolder + '/file_' + index, file);
-		});
+        this.setState({uploading: true});
 
-		let stateProp = this.props.stateProp;
+        let data = new FormData();
 
-		fileService
-			.uploadFiles(data)
-			.then(res => {
-				console.log(res);
-				this.props.addFiles(stateProp, JSON.parse(res['addedFiles']));
-			})
-			.catch(err => {
-				console.log(err);
-			});
-	};
 
-	render () {
-		return (
-			<div>
-				<DropToUpload onDrop={this.handleDrop} id='files-upload-field'>
-					Drop files here to upload
-				</DropToUpload>
+        files.forEach((file, index) => {
+            data.append(projectFolder + '/file_' + index, file);
+        });
 
-				<input type="hidden" name="MAX_FILE_SIZE" value="300000" />
-				<input type='file' multiple='multiple' onChange={this.handleInputFiles}/>
-			</div>
+        let stateProp = this.props.stateProp;
 
-		);
-	}
+        fileService
+            .uploadFiles(data)
+            .then(res => {
+                this.setState({uploading: false});
+                this.props.addFiles(stateProp, JSON.parse(res['addedFiles']));
+            })
+            .catch(err => {
+                console.log(err);
+                this.setState({uploading: false});
+                this.notifications.showMessage(NOTIFICATIONS.bg.messageError);
+            });
+    };
+
+    render() {
+
+        let multiple = this.props.multiple;
+
+        return (
+            <div>
+                <Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
+                <Uploading visible={this.state.uploading} onRef={ref => (this.uploading = ref)}/>
+
+                {multiple &&
+                <DropToUpload onDrop={this.handleDrop} id='files-upload-field'>
+                    Drop files here to upload
+                </DropToUpload>
+                }
+
+                <div className={'form-group '}>
+                    <input type='file' multiple={multiple} onChange={this.handleInputFiles}/>
+                </div>
+            </div>
+
+        );
+    }
 }
 
 export default FilesUploadField;
 
 FilesUploadField.propTypes = {
-	addFiles: PropTypes.func,
-	projectFolder: PropTypes.string,
-	stateProp: PropTypes.string
+    addFiles: PropTypes.func,
+    projectFolder: PropTypes.string,
+    stateProp: PropTypes.string,
+    multiple: PropTypes.bool
 };

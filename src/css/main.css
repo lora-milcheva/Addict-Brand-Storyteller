@@ -1,6 +1,28 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=cyrillic");
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 @import url("https://fonts.googleapis.com/css?family=Lora:400,700|Playfair+Display:400,700,900|Prata&display=swap&subset=cyrillic");
+#uploader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1001;
+  display: -ms-grid;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  visibility: hidden;
+  -webkit-transition: .4s;
+  -moz-transition: .4s;
+  transition: .4s;
+  opacity: 0;
+  color: #eaeaea; }
+  #uploader.visible {
+    visibility: visible;
+    opacity: 1; }
+
 .lds-dual-ring {
   margin: auto;
   display: block;

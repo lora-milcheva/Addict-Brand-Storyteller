@@ -146,6 +146,5 @@ SortableImages.propTypes = {
 	name: PropTypes.string,
 	onDelete: PropTypes.func,
 	onChange: PropTypes.func,
-	showMediaInfo: PropTypes.func,
-	removeImageVideo: PropTypes.func
+	showMediaInfo: PropTypes.func
 };
