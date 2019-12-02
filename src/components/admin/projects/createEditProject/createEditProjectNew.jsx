@@ -381,11 +381,13 @@ class createEditProjectNew extends React.Component {
                 .deleteFile(this.state[stateProp])
                 .then(res => {
                     console.log(res);
+                    this.setState({[stateProp]: ''});
                 })
-                .catch(err => console.log(err));
+                .catch(err => {
+                    console.log(err);
+                    this.notifications.showMessage(NOTIFICATIONS.bg.messageError)
+                });
         }
-
-        this.setState({[stateProp]: ''});
     };
 
     addFilesToGallery = (stateProp, data) => {
@@ -435,11 +437,23 @@ class createEditProjectNew extends React.Component {
     removeFilesFromGallery = (e) => {
         e.preventDefault();
 
-        let arr = this.state[e.target.name];
+        let stateProp = e.target.name;
+        let file = e.target.value;
 
-        let filtered = arr.filter((el) => el.url !== e.target.value);
+        fileService
+            .deleteFile(file)
+            .then(res => {
 
-        this.setState({[e.target.name]: filtered});
+                let arr = this.state[stateProp];
+
+                let filtered = arr.filter((el) => el.url !== file);
+
+                this.setState({[stateProp]: filtered});
+            })
+            .catch(err => {
+                console.log(err);
+                this.notifications.showMessage(NOTIFICATIONS.bg.messageError)
+            });
 
     };
 
@@ -572,7 +586,7 @@ class createEditProjectNew extends React.Component {
             ? (<figure className="image">
                     <img src={this.state.largeThumbnail} alt="project thumbnail" className="img-fit"/>
                     <button className="btn btn-primary xs del-btn"
-                            name='thumbnail'
+                            name='largeThumbnail'
                             onClick={this.removeImage}>{BUTTONS.en.clear}
                     </button>
                 </figure>

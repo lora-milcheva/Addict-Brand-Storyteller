@@ -8,231 +8,264 @@ import Notifications from '../../../../common/notifications/Notifications';
 import FormSelectField from '../../../../common/formComponents/FormSelectField';
 import FormInputField from '../../../../common/formComponents/FormInput';
 import TextEditor from './TextEditor';
+import Uploading from "../../../common/Uploading";
+
 
 // Constants
-import { BUTTONS, CREATE_PROJECT_INPUTS, NOTIFICATIONS } from '../../../../../constants/constants';
+import {BUTTONS, CREATE_PROJECT_INPUTS, NOTIFICATIONS} from '../../../../../constants/constants';
 import fileService from '../../../../../services/projects/fileService';
 
 class TextSectionFrom extends React.Component {
-	constructor (props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			stateProp: '',
+        this.state = {
+            stateProp: '',
 
-			mediaId: '',
-			sectionId: '',
+            mediaId: '',
+            sectionId: '',
 
-			textBG: '',
-			textEN: '',
-			image: '',
+            textBG: '',
+            textEN: '',
+            image: '',
 
-			sections: [],
+            sections: [],
 
-			visible: false,
-		};
-	}
+            visible: false,
+        };
+    }
 
-	componentDidMount () {
-		this.props.onRef(this);
-	}
+    componentDidMount() {
+        this.props.onRef(this);
+    }
 
-	componentWillUnmount () {
-		this.props.onRef(undefined);
-	}
+    componentWillUnmount() {
+        this.props.onRef(undefined);
+    }
 
-	loadData = (data) => {
+    loadData = (data) => {
 
-		this.setState({
-			stateProp: data.stateProp,
+        this.setState({
+            stateProp: data.stateProp,
 
-			mediaId: data.mediaId,
-			sectionId: data.sectionId,
+            mediaId: data.mediaId,
+            sectionId: data.sectionId,
 
-			textBG: data.textBG,
-			textEN: data.textEN,
-			image: data.image,
+            textBG: data.textBG,
+            textEN: data.textEN,
+            image: data.image,
 
-			sections: data.sections,
+            sections: data.sections,
 
-			visible: true,
-		});
-	};
+            visible: true,
+            uploading: false
+        });
+    };
 
-	handleChange = (e) => {
-		this.setState({[e.target.name]: e.target.value});
-	};
+    handleChange = (e) => {
+        this.setState({[e.target.name]: e.target.value});
+    };
 
-	handleTextChangeBG = (value) => {
-		this.setState({textBG: value});
-	};
+    handleTextChangeBG = (value) => {
+        this.setState({textBG: value});
+    };
 
-	handleTextChangeEN = (value) => {
-		this.setState({textEN: value});
-	};
-
-	addImage = (e) => {
-
-		const files = Array.from(e.target.files);
-		const stateProp = e.target.name;
-
-		let data = new FormData();
-
-		let projectFolder = this.props.projectFolder;
-
-		if (!projectFolder) {
-			alert('No folder');
-			return;
-		}
-
-		console.log(this.state.image);
-
-		if (this.state.image) {
-			fileService
-				.deleteFile(this.state.image)
-				.then(res => {
-					console.log(res);
-				})
-				.catch(err => console.log(err));
-		}
-
-		files.forEach((file, index) => {
-			data.append(projectFolder + '/file_' + index, file);
-		});
-
-		fileService
-			.uploadFiles(data)
-			.then(res => {
-				console.log(res);
-				let image = '/projects/' + projectFolder + '/' + JSON.parse(res['addedFiles'])[0];
-
-				this.setState({[stateProp]: image});
-			})
-			.catch(err => {
-				console.log(err);
-			});
-	};
-
-	submitInfo = (e) => {
-		e.preventDefault();
-
-		let s = this.state;
-
-		// Remove image
-		if (s.image === undefined) s.image = '';
-
-		// Check info
-		if (!this.state.sectionId) {
-			this.notifications.showMessage(NOTIFICATIONS.bg.selectSectionName);
-			return;
-		}
-
-		let data = {
-			[s.sectionId]: {
-				bg: s.textBG,
-				en: s.textEN,
-				image: s.image
-			}
-		};
-
-		if (this.state.stateProp === 'info') data[s.sectionId].image = s.image;
-
-		this.state.stateProp === 'info'
-			? this.props.addTextSection(data, this.state.stateProp)
-			: this.props.addMediaInfo(data, this.state.stateProp, this.state.mediaId);
-
-		this.cancel();  // To close modal
-	};
-
-	cancel = () => {
-		this.setState({
-			stateProp: '',
-			mediaId: '',
-			sectionId: '',
-			textBG: '',
-			textEN: '',
-			image: '',
-
-			sections: [],
-
-			visible: false
-		});
-	};
-
-	render () {
-
-		let isVisible = this.state.visible;
-
-		// To prevent mounting of text editor with empty values
-		if (!this.state.visible) return (<div className={'loader'}/>);
-
-		return (
-			<div className={isVisible ? 'visible' : ''}
-			     id="info-section-inputs">
-
-				<Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
-
-				<div className="form">
-
-					<img src={this.state.image} alt={''}/>
-
-					{/*<FormInputField name='image'*/}
-					{/*                label='Change Image'*/}
-					{/*                value={this.state.image}*/}
-					{/*                type='text'*/}
-					{/*                required={false}*/}
-					{/*                onChange={this.handleChange}/>*/}
-
-					<input type='file' name='image' onChange={this.addImage}/>
-
-					<FormSelectField name='sectionId'
-					                 label={CREATE_PROJECT_INPUTS.bg.textSectionName}
-					                 className='client-field'
-					                 required={true}
-					                 disabled={false}
-					                 defaultValue={this.state.sectionId}
-					                 options={this.state.sections}
-					                 onChange={this.handleChange}/>
-
-					<div className="form-group">
-						<label>{CREATE_PROJECT_INPUTS.bg.textBG}</label>
-
-						{this.state.visible !== '' &&
-						<TextEditor
-							value={this.state.textBG}
-							onChange={this.handleTextChangeBG}/>
-						}
-					</div>
+    handleTextChangeEN = (value) => {
+        this.setState({textEN: value});
+    };
 
 
-					<div className="form-group">
-						<label>{CREATE_PROJECT_INPUTS.bg.textEN}</label>
+    uploadFiles = (e) => {
 
-						{this.state.visible !== '' &&
-						<TextEditor
-							value={this.state.textEN}
-							onChange={this.handleTextChangeEN}/>
-						}
-					</div>
+        const files = Array.from(e.target.files);
+
+        let projectFolder = this.props.projectFolder;
+
+        if (!projectFolder) {
+            this.notifications.showMessage(NOTIFICATIONS.bg.noProjectFolder);
+            return;
+        }
+
+        this.setState({uploading: true});
+
+        if (this.state.image) {
+            fileService
+                .deleteFile(this.state.image)
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => console.log(err));
+        }
 
 
-					<div className="buttons-container text-center">
-						<button className="btn sm btn-default-light"
-						        onClick={this.cancel}>{BUTTONS.bg.cancel}
-						</button>
-						<button className="btn sm btn-primary"
-						        name={this.state.stateProp}
-						        onClick={this.submitInfo}>{BUTTONS.bg.ok}
-						</button>
-					</div>
-				</div>
-			</div>
-		);
-	}
+        let data = new FormData();
+
+        files.forEach((file, index) => {
+            data.append(projectFolder + '/file_' + index, file);
+        });
+
+
+        fileService
+            .uploadFiles(data)
+            .then(res => {
+                this.setState({uploading: false});
+
+                let image = '/projects/' + projectFolder + '/' + JSON.parse(res['addedFiles'])[0];
+
+                this.setState({
+                    image: image,
+                    uploading: false
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                this.setState({uploading: false});
+                this.notifications.showMessage(NOTIFICATIONS.bg.messageError);
+            });
+    };
+
+    removeImage = (e) => {
+
+        e.preventDefault();
+
+
+        if (this.state.image) {
+            fileService
+                .deleteFile(this.state.image)
+                .then(res => {
+                    console.log(res);
+                    this.setState({image: ''});
+                })
+                .catch(err => {
+                    console.log(err);
+                    this.notifications.showMessage(NOTIFICATIONS.bg.messageError)
+                });
+        }
+    };
+
+    submitInfo = (e) => {
+        e.preventDefault();
+
+        let s = this.state;
+
+        // Remove image
+        if (s.image === undefined) s.image = '';
+
+        // Check info
+        if (!this.state.sectionId) {
+            this.notifications.showMessage(NOTIFICATIONS.bg.selectSectionName);
+            return;
+        }
+
+        let data = {
+            [s.sectionId]: {
+                bg: s.textBG,
+                en: s.textEN,
+                image: s.image
+            }
+        };
+
+        if (this.state.stateProp === 'info') data[s.sectionId].image = s.image;
+
+        this.state.stateProp === 'info'
+            ? this.props.addTextSection(data, this.state.stateProp)
+            : this.props.addMediaInfo(data, this.state.stateProp, this.state.mediaId);
+
+        this.cancel();  // To close modal
+    };
+
+    cancel = () => {
+        this.setState({
+            stateProp: '',
+            mediaId: '',
+            sectionId: '',
+            textBG: '',
+            textEN: '',
+            image: '',
+
+            sections: [],
+
+            visible: false
+        });
+    };
+
+    render() {
+
+        let isVisible = this.state.visible;
+
+        // To prevent mounting of text editor with empty values
+        if (!this.state.visible) return (<div className={'loader'}/>);
+
+        return (
+            <div className={isVisible ? 'visible' : ''}
+                 id="info-section-inputs">
+
+                <Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
+                <Uploading visible={this.state.uploading} onRef={ref => (this.uploading = ref)}/>
+
+                <div className="form">
+
+                    {this.state.image &&
+                    <figure className="image">
+                        <img src={this.state.image} alt="project cover" className="img-fit"/>
+                        <button className="btn btn-primary xs del-btn"
+                                name='cover'
+                                onClick={this.removeImage}>{BUTTONS.en.clear}
+                        </button>
+                    </figure>}
+
+                    <div className={'form-group input-wrapper btn btn-default sm'}>
+                        <input type='file' name='image' className={'file-input'} onChange={this.uploadFiles}
+                               value={''}/>
+                    </div>
+
+                    <FormSelectField name='sectionId'
+                                     label={CREATE_PROJECT_INPUTS.bg.textSectionName}
+                                     className='client-field'
+                                     required={true}
+                                     disabled={false}
+                                     defaultValue={this.state.sectionId}
+                                     options={this.state.sections}
+                                     onChange={this.handleChange}/>
+
+                    <div className="form-group">
+                        <label>{CREATE_PROJECT_INPUTS.bg.textBG}</label>
+
+                        {this.state.visible !== '' &&
+                        <TextEditor
+                            value={this.state.textBG}
+                            onChange={this.handleTextChangeBG}/>
+                        }
+                    </div>
+
+
+                    <div className="form-group">
+                        <label>{CREATE_PROJECT_INPUTS.bg.textEN}</label>
+
+                        {this.state.visible !== '' &&
+                        <TextEditor
+                            value={this.state.textEN}
+                            onChange={this.handleTextChangeEN}/>
+                        }
+                    </div>
+
+
+                    <div className="buttons-container text-center">
+                        <button className="btn sm btn-default-light"
+                                onClick={this.cancel}>{BUTTONS.bg.cancel}
+                        </button>
+                        <button className="btn sm btn-primary"
+                                onClick={this.submitInfo}>{BUTTONS.bg.ok}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default TextSectionFrom;
 
 TextSectionFrom.propTypes = {
-	projectFolder: PropTypes.string
+    projectFolder: PropTypes.string
 };

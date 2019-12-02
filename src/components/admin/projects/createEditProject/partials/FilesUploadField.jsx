@@ -86,8 +86,8 @@ class FilesUploadField extends React.Component {
                 </DropToUpload>
                 }
 
-                <div className={'form-group '}>
-                    <input type='file' multiple={multiple} onChange={this.handleInputFiles}/>
+                <div className={'form-group input-wrapper btn btn-default-light sm'}>
+                    <input type='file'  className={'file-input'} multiple={multiple} onChange={this.handleInputFiles} value={''}/>
                 </div>
             </div>
 

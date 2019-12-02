@@ -304,6 +304,30 @@ button {
   @include display-grid;
   margin: 10px 0;
 
+  &.input-wrapper {
+
+    position: relative;
+
+    &:after {
+      content: 'Select file';
+    }
+  }
+
+  .file-input {
+    cursor: pointer;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    /*This makes the button huge. If you want a bigger button, increase the font size*/
+    font-size: 50px;
+    /*Opacity settings for all browsers*/
+    opacity: 0;
+    -moz-opacity: 0;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+  }
+
   label {
     margin-bottom: 5px;
     color: $dark-grey;
@@ -482,7 +506,7 @@ button {
 
 main {
   padding-top: $header-height;
-  //min-height: calc(100vh - 80px); //header + footer height
+  min-height: calc(100vh - 60px); //header + footer height
 }
 
 #header {

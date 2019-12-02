@@ -42,7 +42,7 @@
 
   .form-group {
     @include display-grid;
-    grid-template-columns: 1.5fr 4fr;
+    //grid-template-columns: 1.5fr 4fr;
 
     &.add-on {
       @include grid-template-columns(2, auto)
@@ -104,12 +104,31 @@
       @include translate(-50%, -50%);
       overflow-y: auto;
 
-      max-height: 80vh;
+      height: 80vh;
       padding: 20px 30px;
       background-color: white;
 
       .message-text {
         font-size: 2em;
+      }
+
+      .image {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+        border: 1px solid $medium-grey;
+
+        .img-fit {
+          width: auto;
+          height: inherit;
+        }
+
+
+        .del-btn {
+          position: absolute;
+          top: 8px;
+          right: 5px;
+        }
       }
     }
   }
