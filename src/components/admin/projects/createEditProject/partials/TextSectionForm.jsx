@@ -75,7 +75,7 @@ class TextSectionFrom extends React.Component {
     };
 
 
-    uploadFiles = (e) => {
+    uploadImage = (e) => {
 
         const files = Array.from(e.target.files);
 
@@ -148,9 +148,6 @@ class TextSectionFrom extends React.Component {
 
         let s = this.state;
 
-        // Remove image
-        if (s.image === undefined) s.image = '';
-
         // Check info
         if (!this.state.sectionId) {
             this.notifications.showMessage(NOTIFICATIONS.bg.selectSectionName);
@@ -171,10 +168,10 @@ class TextSectionFrom extends React.Component {
             ? this.props.addTextSection(data, this.state.stateProp)
             : this.props.addMediaInfo(data, this.state.stateProp, this.state.mediaId);
 
-        this.cancel();  // To close modal
+        this.close();  // To close modal
     };
 
-    cancel = () => {
+    close = () => {
         this.setState({
             stateProp: '',
             mediaId: '',
@@ -215,7 +212,7 @@ class TextSectionFrom extends React.Component {
                     </figure>}
 
                     <div className={'form-group input-wrapper btn btn-default sm'}>
-                        <input type='file' name='image' className={'file-input'} onChange={this.uploadFiles}
+                        <input type='file' name='image' className={'file-input'} onChange={this.uploadImage}
                                value={''}/>
                     </div>
 
@@ -234,6 +231,7 @@ class TextSectionFrom extends React.Component {
                         {this.state.visible !== '' &&
                         <TextEditor
                             value={this.state.textBG}
+                            data-target-name={'textBG'}
                             onChange={this.handleTextChangeBG}/>
                         }
                     </div>
@@ -252,9 +250,10 @@ class TextSectionFrom extends React.Component {
 
                     <div className="buttons-container text-center">
                         <button className="btn sm btn-default-light"
-                                onClick={this.cancel}>{BUTTONS.bg.cancel}
+                                onClick={this.close}>{BUTTONS.bg.cancel}
                         </button>
                         <button className="btn sm btn-primary"
+                                name={this.state.stateProp}
                                 onClick={this.submitInfo}>{BUTTONS.bg.ok}
                         </button>
                     </div>

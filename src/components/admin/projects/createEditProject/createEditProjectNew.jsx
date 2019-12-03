@@ -50,6 +50,9 @@ class createEditProjectNew extends React.Component {
             categoryIds: [],
 
             projectFolder: '',
+            projectFolderNewName: '',
+            renameProjectFolder: false,
+
             thumbnail: '',
             largeThumbnail: '',
             cover: '',
@@ -97,6 +100,8 @@ class createEditProjectNew extends React.Component {
                         categoryIds: res.categoryIds,
 
                         projectFolder: res.projectFolder,
+                        projectFolderNewName: res.projectFolder,
+                        renameProjectFolder: true,
                         images: res.images,
                         thumbnail: res.thumbnail,
                         largeThumbnail: res.largeThumbnail,
@@ -327,28 +332,113 @@ class createEditProjectNew extends React.Component {
         this.mediaInfo.loadData(data);
     };
 
-    createProjectFolder = (e) => {
+    createEditProjectFolder = (e) => {
 
-        e.preventDefault();
+        let stateProp = e.target.name;
 
-        let projectFolder = this.state.projectFolder.trim().split(' ').join('_');
+        let folderName = this.state[stateProp].trim().split(' ').join('_');
 
         const regex = /^([\w\-]+)$/;
 
-        if (regex.test(projectFolder)) {
+        if (regex.test(folderName)) {
 
-            this.setState({projectFolder});
+            if (stateProp === 'projectFolderNewName') {
 
-            fileService
-                .createProjectFolder(projectFolder)
-                .then(res => {
-                    console.log(res);
-                    this.notifications.showMessage(NOTIFICATIONS.bg.directoryCreated);
-                })
-                .catch(err => {
-                    console.log(err);
-                    this.notifications.showMessage(NOTIFICATIONS.bg.messageError);
-                });
+                let oldName = this.state.projectFolder;
+
+                fileService
+                    .renameProjectFolder(oldName, folderName)
+                    .then(res => {
+
+                        let newThumbnail = this.state.thumbnail;
+                        let newLargeThumbnail = this.state.largeThumbnail;
+                        let newCover = this.state.cover;
+
+                        let newVideos = this.state.videos;
+                        let newImages = this.state.images;
+                        let newInfo = this.state.info;
+
+                        if (newThumbnail) {
+                            newThumbnail = newThumbnail.replace(oldName, folderName);
+                        }
+
+                        if (newLargeThumbnail) {
+                            newLargeThumbnail = newLargeThumbnail.replace(oldName, folderName);
+                        }
+
+                        if (newCover) {
+                            newCover = newCover.replace(oldName, folderName);
+                        }
+
+                        if (newImages.length > 0) {
+                            newImages.forEach(el => {
+                                el.url = el.url.replace(oldName, folderName)
+                            });
+                        }
+
+                        if (newVideos.length > 0) {
+                            newVideos.forEach(el => {
+                                el.url = el.url.replace(oldName, folderName)
+                            });
+                        }
+
+                        if (Object.keys(newInfo).length > 0) {
+                            Object.keys(newInfo).forEach(el => {
+                                if (newInfo[el].image) {
+                                    newInfo[el].image = newInfo[el].image.replace(oldName, folderName);
+                                }
+                            });
+                        }
+
+
+                        this.notifications.showMessage(NOTIFICATIONS.bg.directoryRenamed);
+
+                        this.setState({
+                            thumbnail: newThumbnail,
+                            largeThumbnail: newLargeThumbnail,
+                            cover: newCover,
+                            images: newImages,
+                            videos: newVideos,
+                            info: newInfo,
+                            projectFolder: folderName,  // Save if regex made changes
+                            projectFolderNewName: folderName,
+                            renameProjectFolder: true
+                        });
+
+                        this.saveProject()
+                    })
+                    .catch(err => {
+
+                        console.log(err);
+
+                        this.notifications.showMessage(NOTIFICATIONS.bg.messageError);
+                    });
+
+            } else if (stateProp === 'projectFolder') {
+
+                fileService
+                    .createProjectFolder(folderName)
+                    .then(res => {
+
+                        console.log(res);
+
+                        this.notifications.showMessage(NOTIFICATIONS.bg.directoryCreated);
+
+                        this.setState({
+                            projectFolder: folderName,  // Save if regex made changes
+                            projectFolderNewName: folderName,
+                            renameProjectFolder: true
+                        }, () => console.log(this.state));
+                    })
+                    .catch(err => {
+
+                        console.log(err);
+
+                        this.notifications.showMessage(NOTIFICATIONS.bg.messageError);
+                    });
+            }
+
+
         } else {
             this.notifications.showMessage(NOTIFICATIONS.bg.wrongDirectoryName)
         }
@@ -475,10 +565,12 @@ class createEditProjectNew extends React.Component {
     };
 
     saveProject = (e) => {
+        let targetName = '';
 
-        e.preventDefault();
-
-        let targetName = e.target.name;
+        if (e) {
+            e.preventDefault();
+            targetName = e.target.name;
+        }
 
         let project = Utils.createStateCopy(this.state);
 
@@ -708,13 +800,14 @@ class createEditProjectNew extends React.Component {
                     <div className='form-group add-on'>
 
                         <input type='text'
-                               name='projectFolder'
+                               name={this.state.renameProjectFolder ? 'projectFolderNewName' : 'projectFolder'}
                                className='form-control add-on'
-                               value={this.state.projectFolder}
+                               value={this.state.renameProjectFolder ? this.state.projectFolderNewName : this.state.projectFolder}
                                onChange={this.handleInputChange}/>
 
                         <button className='btn btn-default add-on-btn'
-                                onClick={this.createProjectFolder}>{BUTTONS.bg.createProjectFolder}
+                                name={this.state.renameProjectFolder ? 'projectFolderNewName' : 'projectFolder'}
+                                onClick={this.createEditProjectFolder}>{BUTTONS.bg.createProjectFolder}
                         </button>
                     </div>
 

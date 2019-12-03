@@ -228,6 +228,7 @@ const NOTIFICATIONS = {
 		sectionDeleted: 'Секцията беше изтрита',
 
 		directoryCreated: 'Папката е създадена.',
+		directoryRenamed: "Папката е преименувана.",
 		wrongDirectoryName: 'Невалидно име.',
 		allowedChars: 'Името може да се състои само от букви, цифри и тире.',
 
@@ -261,6 +262,9 @@ const NOTIFICATIONS = {
 		sectionDeleted: 'Section deleted',
 
 		directoryCreated: 'Directory created.',
+		directoryRenamed: "Directory renamed.",
+		wrongDirectoryName: 'Invalid name.',
+		allowedChars: 'Name can only consist of letters, numbers and dashes.',
 
 		successEdit: 'Successful edit.',
 
