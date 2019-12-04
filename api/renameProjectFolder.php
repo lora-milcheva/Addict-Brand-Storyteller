@@ -10,9 +10,9 @@ $newName = $_POST["newName"];
 
 if($oldName && $newName)  {
 
-    $oldPath = $_SERVER['DOCUMENT_ROOT'] . '/projects/' . $oldName;
+    $oldPath = $_SERVER['DOCUMENT_ROOT'] . '/projectsData/' . $oldName;
 
-    $newPath = $_SERVER['DOCUMENT_ROOT'] . '/projects/' . $newName;
+    $newPath = $_SERVER['DOCUMENT_ROOT'] . '/projectsData/' . $newName;
 
     if(rename($oldPath, $newPath)) {
 

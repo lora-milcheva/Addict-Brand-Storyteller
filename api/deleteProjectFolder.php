@@ -9,7 +9,7 @@ $dirName = $_POST["projectFolder"];
 
 if($dirName)  {
 
-    $path = $_SERVER['DOCUMENT_ROOT'] . '/projects/' . $dirName;
+    $path = $_SERVER['DOCUMENT_ROOT'] . '/projectsData/' . $dirName;
     // $path = 'D:/Lora/Pictures/Projects/' . $dirName;
 
     if(array_map('unlink', glob("$path/*.*"))) {

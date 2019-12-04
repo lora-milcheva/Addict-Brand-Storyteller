@@ -9,9 +9,9 @@ $dirName = $_POST["projectFolder"];
 
 if($dirName)  {
 
-    $path = $_SERVER['DOCUMENT_ROOT'] . '/projects/' . $dirName;
+    $path = $_SERVER['DOCUMENT_ROOT'] . '/projectsData/' . $dirName;
 
-    if(mkdir($path, 0700)) {
+    if(mkdir($path, 0755)) {
 
         $response = array(
             "status" => "success",

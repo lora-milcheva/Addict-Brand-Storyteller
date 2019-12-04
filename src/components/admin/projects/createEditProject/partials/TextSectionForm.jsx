@@ -110,7 +110,7 @@ class TextSectionFrom extends React.Component {
             .then(res => {
                 this.setState({uploading: false});
 
-                let image = '/projects/' + projectFolder + '/' + JSON.parse(res['addedFiles'])[0];
+                let image = '/projectsData/' + projectFolder + '/' + JSON.parse(res['addedFiles'])[0];
 
                 this.setState({
                     image: image,

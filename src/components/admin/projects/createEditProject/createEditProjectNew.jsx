@@ -455,7 +455,7 @@ class createEditProjectNew extends React.Component {
                 .catch(err => console.log(err));
         }
 
-        let file = '/projects/' + this.state.projectFolder + '/' + files[0];
+        let file = '/projectsData/' + this.state.projectFolder + '/' + files[0];
 
         this.setState({[stateProp]: file});
 
@@ -491,7 +491,7 @@ class createEditProjectNew extends React.Component {
                 info: {}
             };
 
-            let filePath = '/projects/' + this.state.projectFolder + '/';
+            let filePath = '/projectsData/' + this.state.projectFolder + '/';
 
             if (stateProp === 'videos') {
 
@@ -807,7 +807,8 @@ class createEditProjectNew extends React.Component {
 
                         <button className='btn btn-default add-on-btn'
                                 name={this.state.renameProjectFolder ? 'projectFolderNewName' : 'projectFolder'}
-                                onClick={this.createEditProjectFolder}>{BUTTONS.bg.createProjectFolder}
+                                onClick={this.createEditProjectFolder}>
+                            {this.state.renameProjectFolder ? BUTTONS.bg.renameProjectFolder :  BUTTONS.bg.createProjectFolder}
                         </button>
                     </div>
 

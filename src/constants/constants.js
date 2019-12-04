@@ -147,6 +147,7 @@ const BUTTONS = {
 		addSection: 'Добави секция',
 		back: 'Назад',
 		createProjectFolder: 'Създай папка на проекта',
+		renameProjectFolder: 'Преименувай',
 		ok: 'OK',
 		uploading: 'Uploading files ...',
 
@@ -182,6 +183,7 @@ const BUTTONS = {
 		addSection: 'Add Section',
 		back: 'Back',
 		createProjectFolder: 'Create project folder',
+		renameProjectFolder: 'Rename',
 		ok: 'OK',
 		uploading: 'Uploading files ...',
 

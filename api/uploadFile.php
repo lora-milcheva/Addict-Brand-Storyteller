@@ -30,9 +30,8 @@ if($_FILES) {
 
         } else {
 
-            // $upload_dir = 'D:/Lora/Pictures';
             $upload_dir = dirname(__DIR__, 1);
-            $location = $upload_dir . "/projects/" . $folder_name . "/" . $file_name;
+            $location = $upload_dir . "/projectsData/" . $folder_name . "/" . $file_name;
 
             if(move_uploaded_file($file_tmp_name , $location)) {
 
