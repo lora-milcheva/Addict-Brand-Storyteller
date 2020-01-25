@@ -12,11 +12,11 @@ class AdminMenu extends React.Component {
 
 		let activeLanguage = this.props.activeLanguage;
 
+		let style = this.props.isOpen ? 'visible' : '';
+
 		return (
 
-			<div id="admin-header">
-
-				<nav id="admin-main-nav">
+				<nav id="admin-main-nav" className={style} onClick={this.props.toggleNav}>
 
 					<NavLink to='/admin/projects-list'
 					         className="nav-link"
@@ -35,18 +35,6 @@ class AdminMenu extends React.Component {
 					         activeClassName='active'>{MENU[activeLanguage].sections}</NavLink>
 				</nav>
 
-
-				<span className='username'>
-					Потребител<span className='name'> {sessionStorage.getItem('username')}</span>
-				</span>
-
-				<NavLink exact to='/'
-				         className="nav-link logout"
-				         activeClassName='active'
-				         onClick={this.props.logout}>{MENU[activeLanguage].logout}</NavLink>
-
-			</div>
-
 		);
 	}
 }
@@ -55,5 +43,6 @@ export default AdminMenu;
 
 AdminMenu.propTypes = {
 	activeLanguage: PropTypes.string,
-	logout: PropTypes.func,
+	toggleNav: PropTypes.func,
+	isOpen: PropTypes.bool
 };

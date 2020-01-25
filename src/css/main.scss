@@ -119,7 +119,7 @@ button {
   @include main-transition;
   @include transform-button-text;
   border: 1px solid transparent;
-  height: fit-content;
+  //height: fit-content;
 
   &:hover {
     cursor: pointer;
@@ -425,6 +425,7 @@ button {
   margin: 20px 0;
 }
 
+
 .category-label {
   padding: 5px 10px;
   border: 1px solid $medium-grey;
@@ -451,6 +452,16 @@ button {
 
   &:hover {
     cursor: pointer;
+  }
+}
+
+.row {
+  display: grid;
+  padding: 15px;
+
+  &:hover {
+    background-color: $black;
+    color: $white;
   }
 }
 
@@ -521,6 +532,50 @@ main {
 
   z-index: 1000;
 
+  #main-nav {
+    @include display-grid;
+    @include align-content-top;
+    z-index: 1000;
+
+    position: fixed;
+    top: $header-height;
+    min-width: 280px;
+    right: 0;
+    bottom: 0;
+
+    background-color: $white;
+    border-left: 1px solid $medium-grey;
+
+    @include translate(105%);
+    @include ease-in(.25s);
+
+    .nav-link {
+      font-size: 1.5em;
+      font-weight: 600;
+      //text-align: right;
+      width: 70%;
+      margin: auto;
+      padding: 20px;
+      border-bottom: 3px solid transparent;
+
+      @include main-transition;
+
+      &:first-of-type {
+        margin-top: 80px;
+      }
+
+      &.active,
+      &:hover,
+      &:active {
+        border-bottom: 3px solid $primary;
+      }
+    }
+
+    &.visible {
+      @include translate(0);
+    }
+  }
+
   #lang-btn {
     justify-self: center;
     @include transform-button-text;
@@ -536,99 +591,65 @@ main {
     @include translate(60px, 0);
   }
 
-  #toggle-menu-btn {
-    justify-self: center;
-    margin-right: 10px;
 
-    .toggle {
-      display: block;
-      height: 3px;
-      width: 35px;
-      background-color: $black;
-      margin: 5px auto;
-
-      @include main-transition;
-    }
-
-    &.clicked {
-
-      .toggle:first-of-type {
-        transform: rotate(45deg);
-        position: relative;
-        top: 8px;
-
-      }
-
-      .toggle:nth-of-type(2) {
-        opacity: 0;
-      }
-
-      .toggle:last-of-type {
-        transform: rotate(-45deg);
-        position: relative;
-        top: -8px;
-      }
-    }
-  }
 }
 
-#main-nav {
-  @include display-grid;
-  @include align-content-top;
-  z-index: 1000;
+#toggle-menu-btn {
+  justify-self: center;
+  margin-right: 10px;
+  align-self: center;
 
-  position: fixed;
-  top: $header-height;
-  min-width: 280px;
-  right: 0;
-  bottom: 0;
-
-  background-color: $white;
-  border-left: 1px solid $medium-grey;
-
-  @include translate(105%);
-  @include ease-in(.25s);
-
-  .nav-link {
-    font-size: 1.5em;
-    font-weight: 600;
-    //text-align: right;
-    width: 70%;
-    margin: auto;
-    padding: 20px;
-    border-bottom: 3px solid transparent;
+  .toggle {
+    display: block;
+    height: 3px;
+    width: 35px;
+    background-color: $black;
+    margin: 5px auto;
 
     @include main-transition;
-
-    &:first-of-type {
-      margin-top: 80px;
-    }
-
-    &.active,
-    &:hover,
-    &:active {
-      border-bottom: 3px solid $primary;
-    }
   }
 
-  &.visible {
-    @include translate(0);
+  &.clicked {
+
+    .toggle:first-of-type {
+      transform: rotate(45deg);
+      position: relative;
+      top: 8px;
+
+    }
+
+    .toggle:nth-of-type(2) {
+      opacity: 0;
+    }
+
+    .toggle:last-of-type {
+      transform: rotate(-45deg);
+      position: relative;
+      top: -8px;
+    }
   }
 }
+
+
 
 #admin-header {
   position: fixed;
   top: 0;
   width: 100%;
   @include display-grid;
-  grid-template-columns: 5fr 2fr 1fr;
+  grid-template-columns: 5fr 3fr 1fr;
   background: $white;
+  align-items: center;
 
   z-index: 1000;
 
 
   padding: 10px;
   border-bottom: 1px solid $black;
+
+  #toggle-menu-btn {
+    display: none;
+  }
 
   .nav-link {
     display: inline-block;
@@ -645,10 +666,13 @@ main {
 
     &.logout {
       background: $white;
+      color: $black;
+      border: 1px solid $black;
 
       &:hover,
       &:active {
-        background: $dark-grey;
+        background: $black;
+        color: $white;
       }
     }
   }
@@ -657,6 +681,8 @@ main {
     display: inline-block;
     text-align: center;
     padding: 8px 20px;
+
+    justify-self: end;
 
 
     .name {

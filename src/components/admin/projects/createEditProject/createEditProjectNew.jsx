@@ -780,20 +780,20 @@ class createEditProjectNew extends React.Component {
 
 
                 {/*//PAGE HEADER*/}
-                <div className="admin-page-header container">
+                <div id='project-header' className="container">
                     <h1 className="page-title">{title}</h1>
 
-                    <div>
+
                         {this.projectId &&
                         <button id='delete-btn'
-                                className="btn btn-default-light sm"
+                                className="btn btn-default-light md"
                                 onClick={this.confirmDeleteProject}>
 
                             <i className="fa fa-trash" aria-hidden="true"/>
                             {BUTTONS.bg.delete}
                         </button>
                         }
-                    </div>
+
 
                     {/*Project folder*/}
 
@@ -996,7 +996,7 @@ class createEditProjectNew extends React.Component {
                         </div>
 
                         {/*Videos*/}
-                        <div className='project-data section'>
+                        <div className='project-data section gallery'>
                             <h3 className='section-title'>{ADMIN_PAGES_TEXT.project.bg.videos}</h3>
 
                             <SortableVideos elements={this.state.videos}

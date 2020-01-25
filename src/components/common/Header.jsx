@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
+import {Link, NavLink} from 'react-router-dom';
+import {withRouter} from 'react-router';
 
-import { LanguageContext, languages } from './languagesContext/LanguageContext';
+import {LanguageContext, languages} from './languagesContext/LanguageContext';
 
 // Partials
 import UserMenuAnimated from './navigation/UserMenuAnimated';
@@ -11,150 +11,158 @@ import AdminMenu from './navigation/AdminMenu';
 
 // Services
 import authService from '../../services/auth/authService';
-import { MENU } from '../../constants/constants';
-
-
+import {MENU} from '../../constants/constants';
 
 
 class HeaderC extends React.Component {
 
-	constructor (props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			isOpen: false
-		};
+        this.state = {
+            isOpen: false
+        };
 
-		this.toggleMenuBtn = React.createRef();
-		this.mainNav = React.createRef();
-	}
+        this.toggleMenuBtn = React.createRef();
+        this.mainNav = React.createRef();
+    }
 
-	componentDidMount () {
+    componentDidMount() {
 
-		if (sessionStorage.length === 0) {
-			authService
-				.loginAnonymousUser()
-				.then(res => {
-					authService.saveSession(res);
-					this.getLanguage();
-				})
-				.catch(err => {
-					console.log(err);
-				});
-		} else {
-			this.getLanguage();
-		}
-	}
+        if (sessionStorage.length === 0) {
+            authService
+                .loginAnonymousUser()
+                .then(res => {
+                    authService.saveSession(res);
+                    this.getLanguage();
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        } else {
+            this.getLanguage();
+        }
+    }
 
-	getLanguage = () => {
+    getLanguage = () => {
 
-		let pathArray = this.props.location.pathname.split('/').filter(e => e !== '');
+        let pathArray = this.props.location.pathname.split('/').filter(e => e !== '');
 
-		if (pathArray[0] === languages.en) {
-			this.context.updateLanguage(languages.en);
-		} else {
-			this.context.updateLanguage(languages.bg);
-		}
-	};
+        if (pathArray[0] === languages.en) {
+            this.context.updateLanguage(languages.en);
+        } else {
+            this.context.updateLanguage(languages.bg);
+        }
+    };
 
-	changeRouteByLanguage = (e) => {
+    changeRouteByLanguage = (e) => {
 
-		let pathArray = this.props.location.pathname;
+        let pathArray = this.props.location.pathname;
 
-		let activeLanguage = this.context.language;
+        let activeLanguage = this.context.language;
 
-		if (activeLanguage === languages.en) {
-			let subStr = pathArray.substring(3);
-			this.context.updateLanguage(languages.bg);
-			this.props.history.push(subStr);
-		} else {
-			this.context.updateLanguage(languages.en);
-			this.props.history.push('/' + languages.en + pathArray);
-		}
+        if (activeLanguage === languages.en) {
+            let subStr = pathArray.substring(3);
+            this.context.updateLanguage(languages.bg);
+            this.props.history.push(subStr);
+        } else {
+            this.context.updateLanguage(languages.en);
+            this.props.history.push('/' + languages.en + pathArray);
+        }
 
-	};
+    };
 
-	logout = () => {
-		authService
-			.logout()
-			.then(res => {
-				authService.clearSession();
-				window.location.reload();
-			})
-			.catch(err => console.log(err));
-	};
+    logout = () => {
+        authService
+            .logout()
+            .then(res => {
+                authService.clearSession();
+                window.location.reload();
+            })
+            .catch(err => console.log(err));
+    };
 
-	toggleNav = () => {
-		let toggleBtn = this.toggleMenuBtn.current;
+    toggleNav = () => {
+        let toggleBtn = this.toggleMenuBtn.current;
 
-		this.test();
+        this.setState({isOpen: !this.state.isOpen});
 
-		if (toggleBtn.classList.contains('clicked')) {
-			toggleBtn.classList.remove('clicked');
-			return;
-		}
+        if (toggleBtn.classList.contains('clicked')) {
+            toggleBtn.classList.remove('clicked');
+            return;
+        }
 
-		toggleBtn.classList.add('clicked');
-	};
-
-	test = () => {
-		this.setState({isOpen: !this.state.isOpen});
-	};
-
-	render () {
-
-		let admin = sessionStorage.getItem('role') !== null;
-		let activeLanguage = this.context.language;
-
-		if (admin) return <AdminMenu activeLanguage={activeLanguage} logout={this.logout}/>;
-
-		let toggleBtn = (
-			<button id="toggle-menu-btn"
-			        aria-label="Toggle menu"
-			        className="btn sm"
-			        ref={this.toggleMenuBtn}
-			        onClick={this.toggleNav}>
-				<span className="toggle"/>
-				<span className="toggle"/>
-				<span className="toggle"/>
-			</button>
-		);
-
-		let language = activeLanguage === languages.bg ? '' : '/' + activeLanguage;
-
-		return (
-			<header>
-
-				<div id="header">
-
-					<Link to="/" id="brand" aria-label={'Logo'}/>
-
-					<button id="lang-btn"
-					        aria-label="Change language"
-					        // className="btn sm"
-					        value={activeLanguage}
-					        // onClick={this.changeRouteByLanguage}
-					>
-						{/*{activeLanguage === languages.bg ? languages.en : languages.bg}*/}
-					</button>
-
-					{toggleBtn}
-				</div>
+        toggleBtn.classList.add('clicked');
+    };
 
 
-				{/*<UserMenuAnimated activeLanguage={activeLanguage}*/}
-				{/*                  language={language}*/}
-				{/*                  isOpen={this.state.isOpen}*/}
-				{/*                  toggleNav={this.toggleNav}/>*/}
+    render() {
 
-				<UserMenu activeLanguage={activeLanguage}
-				          language={language}
-				          toggleNav={this.toggleNav}
-				          isOpen={this.state.isOpen}/>
+        let admin = sessionStorage.getItem('role') !== null;
+        let activeLanguage = this.context.language;
 
-			</header>
-		);
-	}
+        let toggleBtn = (
+            <button id="toggle-menu-btn"
+                    aria-label="Toggle menu"
+                    className="btn sm"
+                    ref={this.toggleMenuBtn}
+                    onClick={this.toggleNav}>
+                <span className="toggle"/>
+                <span className="toggle"/>
+                <span className="toggle"/>
+            </button>
+        );
+
+        let language = activeLanguage === languages.bg ? '' : '/' + activeLanguage;
+
+        if (admin) return (
+            <header id="admin-header">
+
+                {toggleBtn}
+
+                <AdminMenu activeLanguage={activeLanguage}
+                           toggleNav={this.toggleNav}
+                           isOpen={this.state.isOpen}/>
+
+                <span className='username'>
+						Потребител <span className='name'> {sessionStorage.getItem('username')} </span>
+					</span>
+
+                <NavLink exact to='/'
+                         className="nav-link logout"
+                         activeClassName='active'
+                         onClick={this.logout}>{MENU[activeLanguage].logout}
+                </NavLink>
+
+            </header>
+        );
+
+
+        return (
+            <header id="header">
+
+                <Link to="/" id="brand" aria-label={'Logo'}/>
+
+                <button id="lang-btn"
+                        aria-label="Change language"
+                    // className="btn sm"
+                        value={activeLanguage}
+                    // onClick={this.changeRouteByLanguage}
+                >
+                    {/*{activeLanguage === languages.bg ? languages.en : languages.bg}*/}
+                </button>
+
+                {toggleBtn}
+
+
+                <UserMenu activeLanguage={activeLanguage}
+                          language={language}
+                          toggleNav={this.toggleNav}
+                          isOpen={this.state.isOpen}/>
+
+            </header>
+        );
+    }
 }
 
 // To fix mistake index.js:1452 Warning: withRouter(Header): Function components do not support contextType.

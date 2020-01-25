@@ -8,7 +8,7 @@ import sectionsService from '../../../services/projects/sectionsService';
 import Notifications from '../../common/notifications/Notifications';
 
 // Constants
-import { ADMIN_PAGES_TEXT } from '../../../constants/constants';
+import {ADMIN_PAGES_TEXT, BUTTONS} from '../../../constants/constants';
 import Buttons from '../common/Buttons';
 
 
@@ -45,7 +45,7 @@ class sectionsList extends React.Component {
 			sections = this.state.sections.map(e => {
 					return (
 						<Link key={e._id} to={'/admin/section-edit/' + e._id}>
-						<span  className="category-label">
+						<span  className="category-label row">
 							{e.name.bg}
 						</span>
 						</Link>
@@ -67,7 +67,9 @@ class sectionsList extends React.Component {
 					<h1 className="page-title">{ADMIN_PAGES_TEXT.section.bg.sections}</h1>
 				</div>
 
-				<Buttons />
+				<div className="buttons-container">
+					<Link to="/admin/section-create" className="btn btn-default-light sm">{BUTTONS.bg.createSection}</Link>
+				</div>
 
 				<div className="clients-container">
 					{sections}

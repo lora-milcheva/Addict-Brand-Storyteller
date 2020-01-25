@@ -11,7 +11,7 @@ import categoriesService from '../../../services/categories/categoriesService';
 import Notifications from '../../common/notifications/Notifications';
 
 // Constants
-import { ADMIN_PAGES_TEXT } from '../../../constants/constants';
+import {ADMIN_PAGES_TEXT, BUTTONS} from '../../../constants/constants';
 
 
 class categoriesList extends React.Component {
@@ -47,7 +47,7 @@ class categoriesList extends React.Component {
 			categories = this.state.categories.map(e => {
 					return (
 						<Link key={e._id} to={'/admin/category-edit/' + e._id}>
-						<span className="category-label">
+						<span className="category-label row">
 							{e.name.bg}
 						</span>
 						</Link>
@@ -69,7 +69,9 @@ class categoriesList extends React.Component {
 					<h1 className="page-title">{ADMIN_PAGES_TEXT.category.bg.categories}</h1>
 				</div>
 
-				<Buttons />
+				<div className="buttons-container">
+					<Link to="/admin/category-create" className="btn btn-default-light sm">{BUTTONS.bg.createCategory}</Link>
+				</div>
 
 				<div className="categories-container">
 					{categories}

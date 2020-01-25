@@ -590,6 +590,12 @@
         @include article-text;
         margin-top: 5px;
         padding-bottom: 0;
+
+        a {
+          color: $pale-teal;
+          color: $hyperlink;
+          color: $hyperlink-2;
+        }
       }
     }
   }

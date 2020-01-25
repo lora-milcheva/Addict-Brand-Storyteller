@@ -13,6 +13,7 @@ function ProjectCard (props) {
 				<figure className="img-container">
 					<img className="img-fit" src={project.thumbnail} alt={project.name.bg}/>
 				</figure>
+
 				<p className="project-name">{project.name.bg}</p>
 
 				<div className='labels'>

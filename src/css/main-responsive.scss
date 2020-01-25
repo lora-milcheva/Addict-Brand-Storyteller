@@ -50,6 +50,53 @@
     top: 78px;  // header in smaller devices
   }
 
+  #admin-header {
+    grid-template-columns: 1fr 4fr 1fr;
+
+    #toggle-menu-btn {
+      display: block;
+    }
+
+    #admin-main-nav {
+      @include display-grid;
+      @include align-content-top;
+      z-index: 1000;
+
+      position: fixed;
+      top: 68px;
+      min-width: 280px;
+      right: 0;
+      bottom: 0;
+
+
+
+      background-color: $white;
+      border-left: 1px solid $medium-grey;
+
+      @include translate(105%);
+      @include ease-in(.25s);
+
+      .nav-link {
+        font-size: 1.5em;
+        font-weight: 600;
+        //text-align: right;
+        width: 70%;
+        margin: auto;
+        padding: 20px ;
+
+        @include main-transition;
+
+        &:first-of-type {
+          margin-top: 20px;
+        }
+      }
+
+      &.visible {
+        @include translate(0);
+      }
+    }
+  }
+
   footer {
     grid-template-columns: 7fr 2fr 1fr;
 

@@ -140,7 +140,7 @@ class createEditCategory extends React.Component {
 					<h1 className="page-title">{title}</h1>
 
 					{this.categoryId &&
-					<button className="btn btn-danger xs" onClick={this.confirm}>{BUTTONS.bg.delete}</button>
+					<button className="btn btn-default-light sm" onClick={this.confirm}>{BUTTONS.bg.delete}</button>
 					}
 				</div>
 
@@ -174,9 +174,9 @@ class createEditCategory extends React.Component {
 						           onChange={this.handleMultiLangChange}/>
 
 					{/*//SUBMIT*/}
-					<div className="form-group">
-						<button className="btn btn-default" onClick={this.cancel}>{BUTTONS.bg.cancel}</button>
-						<button className="btn btn-primary" type="submit">{buttonText}</button>
+					<div className="buttons-container text-center">
+						<button className="btn btn-default-light md" onClick={this.cancel}>{BUTTONS.bg.cancel}</button>
+						<button className="btn btn-default md" type="submit">{buttonText}</button>
 					</div>
 				</form>
 			</div>

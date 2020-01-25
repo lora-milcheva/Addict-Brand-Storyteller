@@ -4,23 +4,37 @@
 @import "typography";
 
 .admin-page-header {
+  margin-bottom: $grid-gap;
   @include display-grid;
-  @include grid-gap($grid-gap, $grid-gap-small);
-  grid-template-columns: 2fr 1fr;
-  margin-bottom: 4em;
-  align-items: center;
+  grid-template-columns: 6fr 1fr;
+
+  .btn {
+    justify-self: end;
+  }
 
   .page-title {
     font-size: 3em;
   }
-
-  #delete-btn,
-  #star-blocked {
-    justify-self: end
-  }
 }
 
 #project-create {
+
+  #project-header {
+    @include display-grid;
+    @include grid-gap($grid-gap, $grid-gap-small);
+    grid-template-columns: 2fr 1fr;
+    margin-bottom: 4em;
+    align-items: center;
+
+    .page-title {
+      font-size: 3em;
+    }
+
+    #delete-btn,
+    #star-blocked {
+      justify-self: end
+    }
+  }
 
   #files-upload-field {
     @include display-grid;
@@ -77,6 +91,10 @@
 
   #submit-buttons {
     text-align: center;
+
+    .btn {
+      margin: 5px;
+    }
   }
 
   #info-section-inputs {
@@ -198,6 +216,10 @@
     .text {
       min-height: 15px;
 
+      a {
+        text-decoration: underline;
+      }
+
       p {
         margin: 0 0 .5em 0;
       }
@@ -288,6 +310,10 @@
         .img-fit {
           transform: scale(1.1);
         }
+      }
+
+      .project-name {
+        margin: 1em 0;
       }
     }
   }
