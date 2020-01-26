@@ -59,7 +59,7 @@ class sectionsList extends React.Component {
 		}
 
 		return (
-			<div id="admin-clients-list" className="container">
+			<div id="admin-sections-list" className="container">
 
 				<Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
 
@@ -68,7 +68,7 @@ class sectionsList extends React.Component {
 				</div>
 
 				<div className="buttons-container">
-					<Link to="/admin/section-create" className="btn btn-default-light sm">{BUTTONS.bg.createSection}</Link>
+					<Link to="/admin/section-create" className="btn btn-default sm">{BUTTONS.bg.createSection}</Link>
 				</div>
 
 				<div className="clients-container">

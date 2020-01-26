@@ -182,8 +182,13 @@ class createEditCategory extends React.Component {
 
 					{/*//SUBMIT*/}
 					<div className="buttons-container text-center">
-						<button className="btn btn-default-light md" onClick={this.cancel}>{BUTTONS.bg.cancel}</button>
-						<button className="btn btn-default md" type="submit">{buttonText}</button>
+						<button className="btn btn-default-light md" onClick={this.cancel}>
+							<i className="fa fa-ban" aria-hidden="true"/>
+						</button>
+						<button className="btn btn-default md" type="submit">
+							<i className="fa fa-check" aria-hidden="true"/>
+							&nbsp; {buttonText}
+						</button>
 					</div>
 				</form>
 			</div>

@@ -423,6 +423,10 @@ button {
 
 .buttons-container {
   margin: 20px 0;
+
+  .btn {
+    margin-bottom: 5px;
+  }
 }
 
 
@@ -637,7 +641,7 @@ main {
   top: 0;
   width: 100%;
   @include display-grid;
-  grid-template-columns: 5fr 3fr 1fr;
+  grid-template-columns: 5fr 3fr .5fr;
   background: $white;
   align-items: center;
 
@@ -668,6 +672,7 @@ main {
       background: $white;
       color: $black;
       border: 1px solid $black;
+      padding: 5px 10px;
 
       &:hover,
       &:active {

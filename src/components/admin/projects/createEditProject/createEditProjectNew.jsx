@@ -784,15 +784,16 @@ class createEditProjectNew extends React.Component {
                     <h1 className="page-title">{title}</h1>
 
 
-                        {this.projectId &&
+
                         <button id='delete-btn'
-                                className="btn btn-default-light md"
+                                className="btn btn-default-light"
                                 onClick={this.confirmDeleteProject}>
 
                             <i className="fa fa-trash" aria-hidden="true"/>
-                            {BUTTONS.bg.delete}
+                            <span className='btn-text'>{BUTTONS.bg.delete}</span>
+
                         </button>
-                        }
+
 
 
                     {/*Project folder*/}
@@ -808,7 +809,9 @@ class createEditProjectNew extends React.Component {
                         <button className='btn btn-default add-on-btn'
                                 name={this.state.renameProjectFolder ? 'projectFolderNewName' : 'projectFolder'}
                                 onClick={this.createEditProjectFolder}>
-                            {this.state.renameProjectFolder ? BUTTONS.bg.renameProjectFolder :  BUTTONS.bg.createProjectFolder}
+                            <i className="fa fa-check" aria-hidden="true"/>
+                            <span className='btn-text'>{this.state.renameProjectFolder ? BUTTONS.bg.renameProjectFolder :  BUTTONS.bg.createProjectFolder}</span>
+
                         </button>
                     </div>
 
@@ -1020,25 +1023,32 @@ class createEditProjectNew extends React.Component {
                 <div id={'submit-buttons'} className="buttons-container">
 
                     <button className="btn btn-default-light"
-                            onClick={this.cancel}>{BUTTONS.bg.cancel}
+                            onClick={this.cancel}>
+                        <i className="fa fa-ban" aria-hidden="true"/>
                     </button>
 
                     <button className="btn btn-default-light"
                             name='saveAndPreviewHome'
                             onClick={this.saveProject}
-                            type="submit">{BUTTONS.bg.previewHome}
+                            type="submit">
+                        <i className="fa fa-floppy-o" aria-hidden="true"/>
+                        <i className="fa fa-home" aria-hidden="true"/>
                     </button>
 
                     <button className="btn btn-default-light"
                             name='saveAndPreviewProject'
                             onClick={this.saveProject}
-                            type="submit">{BUTTONS.bg.preview}
+                            type="submit">
+                        <i className="fa fa-floppy-o" aria-hidden="true"/>
+                        <i className="fa fa-eye" aria-hidden="true"/>
                     </button>
 
                     <button className="btn btn-default"
                             name='saveProject'
                             onClick={this.saveProject}
-                            type="submit">{buttonText}
+                            type="submit">
+                        <i className="fa fa-check" aria-hidden="true"/>
+                        &nbsp;{buttonText}
                     </button>
                 </div>
 

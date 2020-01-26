@@ -5,6 +5,16 @@
 
 @media screen and (max-width: 950px) {
 
+  .btn {
+    .btn-text {
+      display: none;
+    }
+
+    .fa:last-of-type {
+      margin: 0;
+    }
+  }
+
   #project-create {
 
     #project-data {
@@ -17,19 +27,7 @@
 
     #project-info {
       .category-label {
-
         padding: 5px;
-      }
-    }
-
-    .category-label {
-
-      .btn-text {
-        display: none;
-      }
-
-      .fa {
-        margin: 0;
       }
     }
   }
@@ -39,6 +37,7 @@
 
   .form-group .add-on-btn {
     padding: 10px;
+    width: 100%;
   }
 
   #project-create {
@@ -47,13 +46,12 @@
     }
   }
 
-
-
   #admin-projects-list {
     #projects {
       @include grid-template-columns(2, 1fr);
     }
   }
+
 }
 
 
@@ -62,6 +60,44 @@
   #project-create {
     #create-project-form {
       @include grid-template-columns(1, 1fr);
+    }
+
+    #project-header {
+      .page-title {
+        font-size: 7vw;
+      }
+    }
+  }
+
+  .admin-page-header {
+    .page-title {
+      font-size: 7vw;
+    }
+  }
+}
+
+@media screen and (max-width: 460px) {
+
+  #project-create {
+
+    #project-header {
+      //grid-template-columns: none;
+      @include grid-gap(5px, 5px);
+      margin-bottom: 0;
+
+
+      .page-title {
+        grid-area: 1 / 1 / 2 / 2;
+      }
+
+      .form-group {
+        grid-area: 3 / 1 / 4 / 3;
+      }
+
+      #star-blocked {
+        grid-area: 2 / 1 / 3 / 3;
+        justify-self: start;
+      }
     }
   }
 }

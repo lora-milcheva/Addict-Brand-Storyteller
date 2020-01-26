@@ -70,7 +70,7 @@ class categoriesList extends React.Component {
 				</div>
 
 				<div className="buttons-container">
-					<Link to="/admin/category-create" className="btn btn-default-light sm">{BUTTONS.bg.createCategory}</Link>
+					<Link to="/admin/category-create" className="btn btn-default sm">{BUTTONS.bg.createCategory}</Link>
 				</div>
 
 				<div className="categories-container">

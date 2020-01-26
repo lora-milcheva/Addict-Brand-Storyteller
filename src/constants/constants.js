@@ -160,7 +160,7 @@ const BUTTONS = {
 		createProject: 'Нов проект',
 		createClient: 'Нов клиент',
 		createCategory: 'Нова категория',
-		createSection: 'Създай секция',
+		createSection: 'Нова секция',
 
 		more: 'Повече'
 	},
@@ -196,7 +196,7 @@ const BUTTONS = {
 		createProject: 'New ProjectSimple',
 		createClient: 'New Client',
 		createCategory: 'New Category',
-		createSection: 'Create Section',
+		createSection: 'New Section',
 
 		more: 'More'
 	}
@@ -291,7 +291,7 @@ const ADMIN_PAGES_TEXT = {
 			videos: 'Видеа',
 			editProject: 'Редакция на проект',
 			createProject: 'Създаване на проект',
-			allProjects: 'Всички проекти'
+			projects: 'Проекти'
 		},
 		en: {
 			thumbnail: 'Thumbnail',
@@ -301,7 +301,7 @@ const ADMIN_PAGES_TEXT = {
 			videos: 'Videos',
 			editProject: 'Edit ProjectSimple',
 			createProject: 'Create New ProjectSimple',
-			allProjects: 'All Projects'
+			projects: 'Projects'
 		}
 	},
 	client: {

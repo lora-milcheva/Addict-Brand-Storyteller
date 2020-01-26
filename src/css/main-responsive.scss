@@ -31,6 +31,15 @@
     padding: 13px 23px;
   }
 
+  #notifications,
+  #confirm-dialog {
+
+    .notification {
+      width: 90%;
+      padding: 30px 15px 30px 15px;
+    }
+  }
+
   #header {
 
     #brand {
@@ -64,31 +73,23 @@
 
       position: fixed;
       top: 68px;
-      min-width: 280px;
-      right: 0;
-      bottom: 0;
-
-
+      left: 0;
+      min-width: 200px;
 
       background-color: $white;
-      border-left: 1px solid $medium-grey;
+      border-right: 1px solid $medium-grey;
+      border-bottom: 1px solid $medium-grey;
+      border-top: 1px solid $black;
 
-      @include translate(105%);
+      @include translate(-105%);
       @include ease-in(.25s);
 
       .nav-link {
-        font-size: 1.5em;
-        font-weight: 600;
-        //text-align: right;
-        width: 70%;
+        font-size: 1.0em;
+        font-weight: 400;
+        width: 100%;
         margin: auto;
-        padding: 20px ;
-
-        @include main-transition;
-
-        &:first-of-type {
-          margin-top: 20px;
-        }
+        padding: 15px;
       }
 
       &.visible {

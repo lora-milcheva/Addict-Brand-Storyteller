@@ -75,7 +75,7 @@ class projectsList extends React.Component {
 				<Notifications onRef={ref => (this.notifications = ref)} language='bg'/>
 
 				<div className="admin-page-header">
-					<h1 className="page-title">{ADMIN_PAGES_TEXT.project.bg.allProjects}</h1>
+					<h1 className="page-title">{ADMIN_PAGES_TEXT.project.bg.projects}</h1>
 				</div>
 
 				<Buttons />
@@ -86,7 +86,9 @@ class projectsList extends React.Component {
 
 				<div className='buttons-container text-center'>
 					<button className='btn btn-default md'
-					        onClick={this.saveOrder}>{BUTTONS.bg.saveOrder}
+					        onClick={this.saveOrder}>
+						<i className="fa fa-check" aria-hidden="true"/>
+						&nbsp; {BUTTONS.bg.saveOrder}
 					</button>
 				</div>
 

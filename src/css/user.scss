@@ -586,15 +586,19 @@
       }
 
       .section-text {
-        //@include section-text;
         @include article-text;
         margin-top: 5px;
         padding-bottom: 0;
 
         a {
-          color: $pale-teal;
           color: $hyperlink;
-          color: $hyperlink-2;
+          text-decoration: underline;
+          text-decoration-color: transparent;
+          @include main-transition;
+
+          &:hover {
+            text-decoration-color: $hyperlink;
+          }
         }
       }
     }
