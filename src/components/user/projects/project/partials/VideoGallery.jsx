@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import UTILS from "../../../../../utils/utils";
 
 class VideoGallery extends React.Component {
 	constructor (props) {
@@ -160,35 +161,39 @@ class VideoGallery extends React.Component {
 
 		let videos = this.props.videos.map((video, i) => {
 
-			for (let el in video.info) {
-				let section = this.props.sections.filter(s => s._id === el)[0];
-				video.info[el].sectionName = section.name[lang];
-			}
+			let info;
 
-			let info = Object.keys(video.info).map(sectionId => {
-				return (
-					<div key={video.url + sectionId} className='section'>
-						<p className='section-name'>{video.info[sectionId].sectionName}</p>
-						<p className='section-text' dangerouslySetInnerHTML={{__html: video.info[sectionId][lang]}}/>
-					</div>
-				);
-			});
+			if (video.info && video.info.length > 0) {
+
+				info = video.info.map(vObject => {
+					return (
+						<div key={video.url + vObject.sectionId} className='section'>
+							<p className='section-name'>{this.props.sections[vObject.sectionId][lang]}</p>
+							{/*<p className='section-text' dangerouslySetInnerHTML={{__html: video.info[vObject][lang]}}/>*/}
+							<p className='section-text'>{vObject.text[lang]}</p>
+						</div>
+					);
+				});
+			}
 
 			let name = 'video' + i;
 
 			this[name] = React.createRef();
 
-			return (
-				<div key={video.url} className='video-container'>
+			let videoUrl = UTILS.generateUrl(this.props.projectFolder, video.url);
+			let posterUrl = UTILS.generateUrl(this.props.projectFolder, video.poster);
 
-					<video poster={video.poster}
+			return (
+				<div key={videoUrl} className='video-container'>
+
+					<video poster={posterUrl}
 					       data-target-name={name}
 					       className='video'
 					       controls
 					       controlsList="nodownload"
 					       onPlay={this.stopOtherVideos}
 					       ref={this[name]}>
-						<source src={video.url} type="video/mp4"/>
+						<source src={videoUrl} type="video/mp4"/>
 					</video>
 
 					<div className='video-info'>
@@ -233,8 +238,9 @@ export default VideoGallery;
 
 VideoGallery.propTypes = {
 	videos: PropTypes.array,
+	projectFolder: PropTypes.string,
 	language: PropTypes.string,
-	sections: PropTypes.array,
+	sections: PropTypes.object,
 	showPreview: PropTypes.func,
 	deviceWidth: PropTypes.number,
 	changeState: PropTypes.func

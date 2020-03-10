@@ -9,6 +9,9 @@ import AnimateOnScroll from '../../HOC/AnimateOnScroll'
 // Constants
 import { BUTTONS } from '../../../../constants/constants';
 
+// Utils
+import UTILS from "../../../../utils/utils";
+
 function HomeProjectCard (props) {
 
 	let {project, activeLanguage, additionalClass} = props;
@@ -21,11 +24,13 @@ function HomeProjectCard (props) {
 
 	let style = additionalClass ? 'project-info ' + additionalClass : 'project-info';
 
+	let imageUrl = UTILS.generateUrl(project.projectFolder, project.largeThumbnail);
+
 	return (
 		<section className='home-project'>
 
 			<figure className="img-container">
-				<img className="img-fit" src={project.largeThumbnail} alt={project.name[activeLanguage]}/>
+				<img className="img-fit" src={imageUrl} alt={project.name[activeLanguage]}/>
 			</figure>
 
 			<div className={style}>

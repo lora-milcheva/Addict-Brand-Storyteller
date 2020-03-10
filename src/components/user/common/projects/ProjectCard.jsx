@@ -1,39 +1,46 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+
+// Utils
+import UTILS from '../../../../utils/utils.js';
 
 // Constants
 import {BUTTONS} from '../../../../constants/constants'
 
-function ProjectCard (props) {
+function ProjectCard(props) {
 
-	let {project, activeLanguage} = props;
+    let {project, activeLanguage} = props;
 
-	let pathLang = activeLanguage === 'en' ? '/' + activeLanguage : '';
+    let pathLang = activeLanguage === 'en' ? '/' + activeLanguage : '';
 
-	return (
-		<Link to={pathLang + '/projects/' + project._id} className="project-card" aria-label={project.name[activeLanguage]}>
+    let imageUrl = UTILS.generateUrl(project.projectFolder, project.thumbnail);
 
-			<figure className="img-container">
-				<img className="img-fit" src={project.thumbnail} alt={project.name[activeLanguage]}/>
-			</figure>
+    return (
+        <Link to={pathLang + '/projects/' + project._id} className="project-card"
+              aria-label={project.name[activeLanguage]}>
 
-			<div className="project-info">
-				<div>
-					<p className='project-name'>{project.name[activeLanguage]}</p>
-					<p className='cliche'>{project.description[activeLanguage]}</p>
-				</div>
-				<button className="btn" aria-label={BUTTONS[activeLanguage].more}>{BUTTONS[activeLanguage].more}</button>
-			</div>
+            <figure className="img-container">
+                <img className="img-fit" src={imageUrl} alt={project.name[activeLanguage]}/>
+            </figure>
 
-		</Link>
-	);
+            <div className="project-info">
+                <div>
+                    <p className='project-name'>{project.name[activeLanguage]}</p>
+                    <p className='cliche'>{project.description[activeLanguage]}</p>
+                </div>
+                <button className="btn"
+                        aria-label={BUTTONS[activeLanguage].more}>{BUTTONS[activeLanguage].more}</button>
+            </div>
+
+        </Link>
+    );
 
 }
 
 export default ProjectCard;
 
 ProjectCard.propTypes = {
-	project: PropTypes.object,
-	activeLanguage: PropTypes.string,
+    project: PropTypes.object,
+    activeLanguage: PropTypes.string,
 };

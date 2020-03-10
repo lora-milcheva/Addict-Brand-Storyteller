@@ -19,6 +19,7 @@ import projectsService from '../../../services/projects/projectsService';
 
 //Constants
 import { BUTTONS } from '../../../constants/constants';
+import {PROJECTS} from "../../../constants/projects";
 
 class Home extends React.Component {
 	constructor (props) {
@@ -42,34 +43,38 @@ class Home extends React.Component {
 	componentDidMount () {
 
 		// Log anonymous user if storage is empty
-		if (sessionStorage.getItem('authtoken') === null) {
-			authService
-				.loginAnonymousUser()
-				.then(res => {
-					authService.saveSession(res);
-					this.loadStarProjects();
-				})
-				.catch(err => this.notifications.showMessage(err.responseJSON.description));
-
-			return;
-		}
+		// if (sessionStorage.getItem('authtoken') === null) {
+		// 	authService
+		// 		.loginAnonymousUser()
+		// 		.then(res => {
+		// 			authService.saveSession(res);
+		// 			this.loadStarProjects();
+		// 		})
+		// 		.catch(err => this.notifications.showMessage(err.responseJSON.description));
+		//
+		// 	return;
+		// }
 
 		this.loadStarProjects();
 	}
 
 	loadStarProjects = () => {
 
-		let query = '?query={"isStar":true,"isBlocked":false}';
+		this.setState({
+			projects: PROJECTS.filter(e => e.isStar).sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber))
+		})
 
-		projectsService
-			.loadAllProjects(query)
-			.then(res => {
-				res.sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber));
-				this.setState({projects: res});
-			})
-			.catch(err => {
-				this.notifications.showMessage(err.responseJSON.description);
-			});
+		// let query = '?query={"isStar":true,"isBlocked":false}';
+		//
+		// projectsService
+		// 	.loadAllProjects(query)
+		// 	.then(res => {
+		// 		res.sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber));
+		// 		this.setState({projects: res});
+		// 	})
+		// 	.catch(err => {
+		// 		this.notifications.showMessage(err.responseJSON.description);
+		// 	});
 	};
 
 	toggleVideoControls = () => {
@@ -85,9 +90,9 @@ class Home extends React.Component {
 
 		let activeLanguage = this.context.language;
 
-		let projects = Object.assign([], this.state.projects);
+		let projects = Object.assign([], this.state.projects); // Split projects
 
-		let accentProject = projects.shift();
+		let accentProject = projects.shift(); // Split projects
 
 		return (
 			<div id="home" className='container-fluid'>

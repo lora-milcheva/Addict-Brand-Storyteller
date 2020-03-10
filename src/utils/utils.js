@@ -122,7 +122,11 @@ function generateMarkup (type, props) {
 	}
 
 	return createMarkup(USER_PAGES_TEXT[pageName][language].sections[sectionName][type]);
-};
+}
+
+function generateUrl(folderName, imageName) {
+	return '/projectsData/' + folderName + '/' + imageName;
+}
 
 export default {
 	calculatePriceAfterDiscount,
@@ -136,5 +140,6 @@ export default {
 	createStateCopy,
 	getLanguage,
 	createMarkup,
-	generateMarkup
+	generateMarkup,
+	generateUrl
 };

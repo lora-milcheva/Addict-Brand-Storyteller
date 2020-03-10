@@ -5,6 +5,10 @@ import PropTypes from 'prop-types';
 import InfoSection from './InfoSection';
 
 
+// Utils
+import UTILS from '../../../../../utils/utils';
+
+
 class ProjectInfo extends React.Component {
 
 	render () {
@@ -13,17 +17,21 @@ class ProjectInfo extends React.Component {
 
 		let info;
 
-		if (Object.keys(project.info)) {
+		if (project.info.length > 0) {
 
-			info = Object.keys(project.info).map(e => {
+			info = project.info.map(s => {
 
-				let sectionText = project.info[e][activeLanguage];
-				let image = project.info[e].image;
-				let sectionName = sections.filter(s => s._id === e)[0].name[activeLanguage];
+                let sectionName = sections[s.sectionId][activeLanguage];
+				let sectionText = s.text[activeLanguage];
+                let imageUrl = '';
+
+				if (s.image) {
+					imageUrl = UTILS.generateUrl(project.projectFolder, s.image);
+				}
 
 				return (
-					<InfoSection key={e}
-					             image={image}
+					<InfoSection key={s.sectionId}
+					             image={imageUrl}
 					             sectionName={sectionName}
 					             sectionText={sectionText}/>
 				);
@@ -31,11 +39,9 @@ class ProjectInfo extends React.Component {
 		}
 
 		return (
-
 			<section id="project-info">
 				{info}
 			</section>
-
 		);
 	}
 }
@@ -45,5 +51,5 @@ export default ProjectInfo;
 ProjectInfo.propTypes = {
 	activeLanguage: PropTypes.string,
 	project: PropTypes.object,
-	sections: PropTypes.array
+	sections: PropTypes.object
 };

@@ -7,90 +7,134 @@ import ProjectCard from './ProjectCard';
 // Services
 import projectsService from '../../../../services/projects/projectsService';
 
+// Constants
+import {PROJECTS} from "../../../../constants/projects";
+
 
 class RandomProjects extends React.Component {
-	constructor (props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			randomProjects: [],
-			loading: true
-		};
-	}
+        this.state = {
+            randomProjects: [],
+            loading: true
+        };
+    }
 
-	componentDidMount () {
-		this.loadRandomProjects();
-	}
+    componentDidMount() {
+        this.loadRandomProjects_2();
 
-	loadRandomProjects = () => {
+    }
 
-		let query = '?query={"isBlocked":false}&fields=_id';
+    loadRandomProjects_2 = () => {
 
-		projectsService
-			.loadAllProjects(query)
-			.then(res => {
+        const projects = PROJECTS.filter(e => e._id !== this.props.currentProjectId);
+        
+        let numberOfProjectsToLoad = projects.length;
 
-				const projects = res.filter(e => e._id !== this.props.currentProjectId);
+        if (numberOfProjectsToLoad > 3) {
+            numberOfProjectsToLoad = 3;
+        }
 
-				let numberOfProjectsToLoad = projects.length;
+        // Get random ids
+        let projectIds = [];
+        let randomProjects = [];
 
-				if (numberOfProjectsToLoad > 3) {
-					numberOfProjectsToLoad = 3;
-				}
+        while (projectIds.length < numberOfProjectsToLoad) {
 
-				// Get random ids
-				let projectIds = [];
+            let randomNumber = Math.floor((Math.random() * projects.length));
 
-				while (projectIds.length < numberOfProjectsToLoad) {
+            if (!projectIds.includes(projects[randomNumber]._id)) {
+                projectIds.push(projects[randomNumber]._id);
+            }
+        }
 
-					let randomNumber = Math.floor((Math.random() * projects.length));
+        // Load random projects by id
+        for (let i = 0; i < projectIds.length; i++) {
 
-					if (!projectIds.includes(projects[randomNumber]._id)) {
-						projectIds.push(projects[randomNumber]._id);
-					}
-				}
+            let id = projectIds[i];
 
-				// Load random projects by id
-				for (let i = 0; i < projectIds.length; i++) {
-					projectsService
-						.loadProjectData(projectIds[i])
-						.then(res => {
-							this.setState({
-								randomProjects: [...this.state.randomProjects, res],
-								loading: false
-							});
-						})
-						.catch(err => this.notifications.showMessage(err.responseJSON.description));
-				}
-			})
-			.catch(err => this.notifications.showMessage(err.responseJSON.description));
-	};
+            let project = projects.filter(p => p._id === id)[0];
 
-	render () {
+            randomProjects.push(project);
 
-		if (this.state.loading) return (<div className="lds-dual-ring"/>);
+        }
 
-		let {language} = this.props;
+        this.setState({
+            randomProjects: randomProjects,
+            loading: false
+        });
+    };
 
-		let randomProjects = this.state.randomProjects.map((e, i) => {
-			return (
-				<ProjectCard key={e._id + i} project={e} activeLanguage={language}/>
-			);
-		});
+    loadRandomProjects = () => {
 
-		return (
-			<div id="random-projects">
-				{randomProjects}
-			</div>
-		);
-	}
+        let query = '?query={"isBlocked":false}&fields=_id';
+
+        projectsService
+            .loadAllProjects(query)
+            .then(res => {
+
+                const projects = res.filter(e => e._id !== this.props.currentProjectId);
+
+                let numberOfProjectsToLoad = projects.length;
+
+                if (numberOfProjectsToLoad > 3) {
+                    numberOfProjectsToLoad = 3;
+                }
+
+                // Get random ids
+                let projectIds = [];
+
+                while (projectIds.length < numberOfProjectsToLoad) {
+
+                    let randomNumber = Math.floor((Math.random() * projects.length));
+
+                    if (!projectIds.includes(projects[randomNumber]._id)) {
+                        projectIds.push(projects[randomNumber]._id);
+                    }
+                }
+
+                // Load random projects by id
+                for (let i = 0; i < projectIds.length; i++) {
+                    projectsService
+                        .loadProjectData(projectIds[i])
+                        .then(res => {
+                            this.setState({
+                                randomProjects: [...this.state.randomProjects, res],
+                                loading: false
+                            });
+                        })
+                        .catch(err => this.notifications.showMessage(err.responseJSON.description));
+                }
+            })
+            .catch(err => this.notifications.showMessage(err.responseJSON.description));
+    };
+
+    render() {
+
+        if (this.state.loading) return (<div className="lds-dual-ring"/>);
+
+        let {language} = this.props;
+
+        let randomProjects = this.state.randomProjects.map((e, i) => {
+            return (
+                <ProjectCard key={e._id + i} project={e} activeLanguage={language}/>
+            );
+        });
+
+        return (
+            <div id="random-projects">
+                {randomProjects}
+            </div>
+        );
+    }
 
 }
 
 export default RandomProjects;
 
 RandomProjects.propTypes = {
-	language: PropTypes.string,
-	currentProjectId: PropTypes.string
+    language: PropTypes.string,
+    currentProjectId: PropTypes.string
 };
 

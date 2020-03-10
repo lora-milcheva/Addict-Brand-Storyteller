@@ -29,19 +29,21 @@ class HeaderC extends React.Component {
 
     componentDidMount() {
 
-        if (sessionStorage.length === 0) {
-            authService
-                .loginAnonymousUser()
-                .then(res => {
-                    authService.saveSession(res);
-                    this.getLanguage();
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        } else {
-            this.getLanguage();
-        }
+        // if (sessionStorage.length === 0) {
+        //     authService
+        //         .loginAnonymousUser()
+        //         .then(res => {
+        //             authService.saveSession(res);
+        //             this.getLanguage();
+        //         })
+        //         .catch(err => {
+        //             console.log(err);
+        //         });
+        // } else {
+        //     this.getLanguage();
+        // }
+
+        this.getLanguage();
     }
 
     getLanguage = () => {

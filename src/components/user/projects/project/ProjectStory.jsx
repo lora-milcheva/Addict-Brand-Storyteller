@@ -1,5 +1,5 @@
 import React from 'react';
-import { LanguageContext } from '../../../common/languagesContext/LanguageContext';
+import {LanguageContext} from '../../../common/languagesContext/LanguageContext';
 
 // Partials
 import ProjectHeader from './partials/ProjectHeader';
@@ -18,175 +18,193 @@ import clientsService from '../../../../services/clients/clientsService';
 import authService from '../../../../services/auth/authService';
 
 // Constants
+import {PROJECTS} from "../../../../constants/projects";
+import {INFO_SECTIONS, CLIENTS} from "../../../../constants/infoSectionsAndClients";
 
 
 class ProjectStory extends React.Component {
-	constructor (props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			project: '',
-			clientName: '',
+        this.state = {
+            project: {},
 
-			selectedImage: '',
+            clientName: '',
 
-			allSections: '',
+            selectedImage: '',
 
-			direction: '',
+            allSections: [],
 
-			loading: true
-		};
+            direction: '',
 
-		this.image = React.createRef();
-	}
+            loading: true
+        };
 
-	projectId = this.props.match.params.id;
+        this.image = React.createRef();
+    }
 
-	componentDidMount () {
+    projectId = this.props.match.params.id;
 
-		document.addEventListener('keydown', this.handleKeyPress);
+    componentDidMount() {
 
-		// Log anonymous user if storage is empty
-		if (sessionStorage.getItem('authtoken') === null) {
-			authService
-				.loginAnonymousUser()
-				.then(res => {
-					authService.saveSession(res);
-					this.loadProject();
-				})
-				.catch(err => this.notifications.showMessage(err.responseJSON.description));
-		} else {
-			this.loadProject();
-		}
-	}
+        document.addEventListener('keydown', this.handleKeyPress);
 
-	componentWillReceiveProps (nextProps, nextContext) {
+        // Log anonymous user if storage is empty
+        // if (sessionStorage.getItem('authtoken') === null) {
+        // 	authService
+        // 		.loginAnonymousUser()
+        // 		.then(res => {
+        // 			authService.saveSession(res);
+        // 			this.loadProject();
+        // 		})
+        // 		.catch(err => this.notifications.showMessage(err.responseJSON.description));
+        // } else {
+        // 	this.loadProject();
+        // }
 
-		// To reload page when select different project
+        this.loadProject();
+    }
 
-		if (this.props.match.params.id !== nextProps.match.params.id) {
-			this.setState({loading: true});
+    componentWillReceiveProps(nextProps, nextContext) {
 
-			this.projectId = nextProps.match.params.id;
+        // To reload page when select different project
 
-			this.loadProject();
-		}
-	}
+        if (this.props.match.params.id !== nextProps.match.params.id) {
+            this.setState({loading: true});
 
-	componentWillUnmount () {
-		document.removeEventListener('keydown', this.handleKeyPress);
-	}
+            this.projectId = nextProps.match.params.id;
 
-	handleKeyPress = (e) => {
+            this.loadProject();
+        }
+    }
 
-		if (e.key === 'ArrowLeft') this.changeState('left');
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.handleKeyPress);
+    }
 
-		if (e.key === 'ArrowRight') this.changeState('right');
+    handleKeyPress = (e) => {
 
-		if (e.key === 'Escape') this.changeState('');
-	};
+        if (e.key === 'ArrowLeft') this.changeState('left');
 
-	changeState = (direction) => {
-		this.setState({direction});
-	};
+        if (e.key === 'ArrowRight') this.changeState('right');
 
-	loadProject = () => {
+        if (e.key === 'Escape') this.changeState('');
+    };
 
-		projectsService
-			.loadProjectData(this.projectId)
-			.then(res => {
-				this.setState({project: res});
+    changeState = (direction) => {
+        this.setState({direction});
+    };
 
-				sectionsService
-					.loadAllSections()
-					.then(res => {
-						this.setState({allSections: res});
+    loadProject = () => {
 
-						if (this.state.project.clientId) {
-							clientsService
-								.loadAllClients()
-								.then(res => {
-									let client = res.filter(e => e._id === this.state.project.clientId);
-									this.setState({clientName: client[0], loading: false});
-								});
-						} else {
-							this.setState({loading: false});
-						}
-					});
-			})
-			.catch(err => {
-				this.notifications.showMessage(err.responseJSON.description);
-			});
-	};
+        let project = PROJECTS.filter(p => p._id === this.projectId)[0]
 
-	showPreview = (e) => {
-		let image = JSON.parse(e.target.getAttribute('data-target'));
-		this.setState({selectedImage: image});
-		document.removeEventListener('keydown', this.handleKeyPress);
-	};
+        this.setState({
+                project: project,
+                allSections: INFO_SECTIONS,
+                clientName: CLIENTS[project.clientId],
+                loading: false
+            }
+        )
 
-	hidePreview = () => {
-		this.setState({
-			selectedImage: '',
-			direction: ''
-		});
-		document.addEventListener('keydown', this.handleKeyPress);
-	};
+        // projectsService
+        //     .loadProjectData(this.projectId)
+        //     .then(res => {
+        //         this.setState({project: res});
+        //
+        //         sectionsService
+        //             .loadAllSections()
+        //             .then(res => {
+        //                 this.setState({allSections: res});
+        //
+        //                 if (this.state.project.clientId) {
+        //                     clientsService
+        //                         .loadAllClients()
+        //                         .then(res => {
+        //                             let client = res.filter(e => e._id === this.state.project.clientId);
+        //                             this.setState({clientName: client[0], loading: false});
+        //                         });
+        //                 } else {
+        //                     this.setState({loading: false});
+        //                 }
+        //             });
+        //     })
+        //     .catch(err => {
+        //         this.notifications.showMessage(err.responseJSON.description);
+        //     });
+    };
 
-	render () {
+    showPreview = (e) => {
+        let image = JSON.parse(e.target.getAttribute('data-target'));
+        this.setState({selectedImage: image});
+        document.removeEventListener('keydown', this.handleKeyPress);
+    };
 
-		if (this.state.loading) return (<div className="lds-dual-ring"/>);
+    hidePreview = () => {
+        this.setState({
+            selectedImage: '',
+            direction: ''
+        });
+        document.addEventListener('keydown', this.handleKeyPress);
+    };
 
-		let activeLanguage = this.context.language;
+    render() {
 
-		let project = this.state.project;
+        if (this.state.loading) return (<div className="lds-dual-ring"/>);
 
-		let client = this.state.clientName !== '' ? this.state.clientName.name[activeLanguage] : '';
+        let activeLanguage = this.context.language;
 
-		return (
-			<div id="project-story" className="container-fluid">
+        let project = this.state.project;
 
-				{this.state.selectedImage !== '' &&
-				<ImagePreview image={this.state.selectedImage}
-				              allImages={project.images}
-				              activeLanguage={activeLanguage}
-				              onClose={this.hidePreview}/>
-				}
-
-
-				<ProjectHeader activeLanguage={activeLanguage} project={project} client={client}/>
-
-
-				<ProjectInfo activeLanguage={activeLanguage} project={project} sections={this.state.allSections}/>
-
-				{this.state.project.videos.length > 0 &&
-				<VideoGallery videos={project.videos}
-				              sections={this.state.allSections}
-				              direction={this.state.direction}
-				              language={activeLanguage}
-				              changeState={this.changeState}/>
-				}
+        let sections = this.state.allSections;
 
 
-				{this.state.project.images.length > 0 &&
-				<ImageGallery images={project.images}
-				              sections={this.state.allSections}
-				              showPreview={this.showPreview}
-				              direction={this.state.direction}
-				              language={activeLanguage}
-				              changeState={this.changeState}/>
-				}
+        return (
+            <div id="project-story" className="container-fluid">
+
+                {this.state.selectedImage !== '' &&
+                <ImagePreview image={this.state.selectedImage}
+                              allImages={project.images}
+                              activeLanguage={activeLanguage}
+                              onClose={this.hidePreview}/>
+                }
 
 
-				<section id='other-projects' className='section-padding-top-bottom bg-light'>
-					<SectionHeader pageName='project' language={activeLanguage} sectionName='otherProjects'/>
+                <ProjectHeader activeLanguage={activeLanguage} project={project} client={this.state.clientName[activeLanguage]}/>
 
-					<RandomProjects language={activeLanguage} currentProjectId={this.projectId}/>
-				</section>
 
-			</div>
-		);
-	}
+                <ProjectInfo activeLanguage={activeLanguage} project={project} sections={sections}/>
+
+                {this.state.project.videos.length > 0 &&
+                <VideoGallery videos={project.videos}
+                              projectFolder={project.projectFolder}
+                              sections={sections}
+                              direction={this.state.direction}
+                              language={activeLanguage}
+                              changeState={this.changeState}/>
+                }
+
+
+                {this.state.project.images.length > 0 &&
+                <ImageGallery images={project.images}
+                              projectFolder={project.projectFolder}
+                              sections={sections}
+                              showPreview={this.showPreview}
+                              direction={this.state.direction}
+                              language={activeLanguage}
+                              changeState={this.changeState}/>
+                }
+
+
+                <section id='other-projects' className='section-padding-top-bottom bg-light'>
+                    <SectionHeader pageName='project' language={activeLanguage} sectionName='otherProjects'/>
+
+                    <RandomProjects language={activeLanguage} currentProjectId={this.projectId}/>
+                </section>
+
+            </div>
+        );
+    }
 
 }
 
