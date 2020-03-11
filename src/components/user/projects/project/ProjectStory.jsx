@@ -102,7 +102,7 @@ class ProjectStory extends React.Component {
         this.setState({
                 project: project,
                 allSections: INFO_SECTIONS,
-                clientName: CLIENTS[project.clientId],
+                clientName: CLIENTS[project.clientId] || '',
                 loading: false
             }
         )

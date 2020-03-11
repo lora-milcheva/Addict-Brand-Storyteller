@@ -11,6 +11,8 @@ class Cliche extends React.Component {
 
 		let {activeLanguage, project, client} = this.props;
 
+		console.log(client)
+
 		return (
 
 			<div className='container section-padding-top'>
@@ -21,7 +23,7 @@ class Cliche extends React.Component {
 				</p>
 
 
-				{client !== '' &&
+				{client !== '' && client !== undefined &&
 				<p className='client'>{USER_PAGES_TEXT.project[activeLanguage].client}{client} </p>
 				}
 

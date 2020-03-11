@@ -46,7 +46,10 @@ class ProjectList extends React.Component {
     loadProjects = () => {
 
         this.setState({
-			projects: PROJECTS,
+        })
+
+        this.setState({
+            projects: PROJECTS.filter(e => !e.isBlocked).sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber)),
 			loading: false
         })
 
