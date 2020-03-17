@@ -153,13 +153,13 @@ class ImageGallery extends React.Component {
                              alt={image.url}
                              data-target={JSON.stringify(image)}
                              onClick={this.props.showPreview}/>
-                    </figure>
-
-                    <span className='btn md'
-                          data-target={JSON.stringify(image)}
-                          onClick={this.props.showPreview}>
+                        <span className='btn md'
+                              data-target={JSON.stringify(image)}
+                              onClick={this.props.showPreview}>
 						View
 					</span>
+                    </figure>
+
 
                     <div className='video-info'>
                         {info}

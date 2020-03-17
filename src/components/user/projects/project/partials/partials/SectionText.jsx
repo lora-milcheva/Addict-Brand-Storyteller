@@ -13,19 +13,12 @@ class SectionText extends React.Component {
 
 		return (
 
-			// <article className="info-section container section-padding-top">
-			// 	<div className="section-header">
-			// 		<h2 className="section-title">{sectionName}</h2>
-			// 	</div>
-			// 	<div className='section-text' style={{color: 'inherit'}}
-			// 	     dangerouslySetInnerHTML={{__html: sectionText}}/>
-			// </article>
-
 			<article className="info-section container section-padding-top">
 				<div className="section-header">
 					<h2 className="section-title">{sectionName}</h2>
 				</div>
-				<div className='section-text' style={{color: 'inherit'}}> {sectionText} </div>
+				<div className='section-text' style={{color: 'inherit'}}
+					     dangerouslySetInnerHTML={{__html: sectionText}}/>
 			</article>
 		);
 	}

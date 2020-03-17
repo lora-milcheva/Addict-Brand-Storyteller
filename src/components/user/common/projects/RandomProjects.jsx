@@ -28,7 +28,7 @@ class RandomProjects extends React.Component {
 
     loadRandomProjects_2 = () => {
 
-        const projects = PROJECTS.filter(e => e._id !== this.props.currentProjectId);
+        const projects = PROJECTS.filter(e => e._id !== this.props.currentProjectId && !e.isBlocked);
         
         let numberOfProjectsToLoad = projects.length;
 

@@ -164,6 +164,7 @@ class ProjectStory extends React.Component {
 
                 {this.state.selectedImage !== '' &&
                 <ImagePreview image={this.state.selectedImage}
+                              projectFolder={project.projectFolder}
                               allImages={project.images}
                               activeLanguage={activeLanguage}
                               onClose={this.hidePreview}/>

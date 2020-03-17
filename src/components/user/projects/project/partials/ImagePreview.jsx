@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Utils
+import UTILS from "../../../../../utils/utils";
+
 class ImagePreview extends React.Component {
 	constructor (props) {
 		super(props);
@@ -142,11 +145,13 @@ class ImagePreview extends React.Component {
 
 	render () {
 
+		let imageUrl = UTILS.generateUrl(this.props.projectFolder, this.state.image.url);
+
 		return (
 			<div id='image-preview' onTouchEnd={this.onTouchEnd} onTouchStart={this.onTouchStart}>
 
 				<figure className="image">
-					<img src={this.state.image.url}
+					<img src={imageUrl}
 					     className="img-fit"
 					     alt={this.state.image.url}
 					     ref={this.image}/>
@@ -177,6 +182,7 @@ export default ImagePreview;
 
 ImagePreview.propTypes = {
 	image: PropTypes.object,
+	projectFolder: PropTypes.string,
 	allImages: PropTypes.array,
 	activeLanguage: PropTypes.string,
 	onClose: PropTypes.func,

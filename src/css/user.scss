@@ -655,18 +655,29 @@
   // project images
   #gallery {
 
+
     .image-container {
+      @include main-transition;
+
+
       &:hover {
+        background-color: $black;
+
         .btn {
           opacity: 1;
+        }
+
+        .img-fit {
+          opacity: .7;
         }
       }
 
       .image {
-        @include main-transition;
         height: 50vh;
 
+
         .img-fit {
+          @include main-transition;
           width: auto;
           transform: scale(1);
         }
@@ -674,7 +685,6 @@
         &:hover,
         &:active {
           cursor: pointer;
-          opacity: .7;
         }
       }
 

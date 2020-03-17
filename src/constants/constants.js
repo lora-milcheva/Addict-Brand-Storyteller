@@ -26,8 +26,8 @@ const FORM_VALIDATION = {
 };
 
 const FOOTER = {
-	bg: '2019 Addict Brand Storyteller. Всички права запазени.',
-	en: '2019 Addict Brand Storyteller. All rights reserved.'
+	bg: 'Addict Brand Storyteller. Всички права запазени.',
+	en: 'Addict Brand Storyteller. All rights reserved.'
 };
 
 const MENU = {

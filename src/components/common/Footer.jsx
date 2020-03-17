@@ -14,10 +14,12 @@ class Footer extends React.Component {
 
 		let language = activeLanguage === languages.bg ? '' : '/' + activeLanguage;
 
+		let year = new Date().getFullYear();
+
 		return (
 			<footer>
 
-				<p id='copy'> &copy; {FOOTER[activeLanguage]}</p>
+				<p id='copy'>&copy;&nbsp;{year}&nbsp;{FOOTER[activeLanguage]}</p>
 
 				<section id='social-media'>
 					<a href='https://www.facebook.com/ADDICT-Brand-Storyteller-110330240309410/'
