@@ -590,6 +590,18 @@
         margin-top: 5px;
         padding-bottom: 0;
 
+        p {
+          margin-top: .8em;
+
+          &:first-of-type {
+            margin-top: 0;
+          }
+
+          & i{
+            font-weight: 400;
+          }
+        }
+
         a {
           color: $hyperlink;
           text-decoration: underline;
