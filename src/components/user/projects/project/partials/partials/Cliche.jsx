@@ -11,8 +11,6 @@ class Cliche extends React.Component {
 
 		let {activeLanguage, project, client} = this.props;
 
-		console.log(client)
-
 		return (
 
 			<div className='container section-padding-top'>

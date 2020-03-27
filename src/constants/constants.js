@@ -889,7 +889,7 @@ const USER_PAGES_TEXT = {
 		bg: {
 			title: 'Да направим нещо заедно.',
 			subtitle: '<p>Свържи се с нас.</p>' +
-				'<p>0887 063 163&nbsp;&nbsp;<span class="text-accent">&#x2022;</span>&nbsp;&nbsp;office@addict-bg.com</p>'
+				'<p>0887 063 163&nbsp;&nbsp;<span class="text-accent">&#x2022;</span>&nbsp;&nbsp;<a href="mailto:office@addict-bg.com" class="">office@addict-bg.com</a></p>'
 
 		},
 		en: {
