@@ -43,4 +43,3 @@ if($oldName && $newName)  {
 
 echo json_encode($response);
 
-?>

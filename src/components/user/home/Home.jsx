@@ -61,7 +61,8 @@ class Home extends React.Component {
 	loadStarProjects = () => {
 
 		this.setState({
-			projects: PROJECTS.filter(e => e.isStar && !e.isBlocked).sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber))
+			// projects: PROJECTS.filter(e => e.isStar && !e.isBlocked).sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber))
+			projects: PROJECTS.filter(e => e.isStar && !e.isBlocked)
 		})
 
 		// let query = '?query={"isStar":true,"isBlocked":false}';

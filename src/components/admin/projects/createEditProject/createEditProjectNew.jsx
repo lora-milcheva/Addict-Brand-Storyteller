@@ -58,7 +58,7 @@ class createEditProjectNew extends React.Component {
             cover: '',
             images: [],
             videos: [],
-            orderNumber: '',
+            orderNumber: 0,
 
             projectLoaded: false,
             dataLoaded: false,
@@ -159,7 +159,7 @@ class createEditProjectNew extends React.Component {
     handleMultiLangChange = (e) => {
 
         let lang = e.target.id.split('-')[1];   // get the language
-        let inputName = e.target.name;                // get the state key
+        let inputName = e.target.name;          // get the state key
         let value = e.target.value;             // get new value
 
         let stateProp = Object.assign({}, this.state[inputName]);  // make state key copy

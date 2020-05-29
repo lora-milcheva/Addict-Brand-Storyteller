@@ -40,4 +40,3 @@ if($file)  {
 
 echo json_encode($response);
 
-?>

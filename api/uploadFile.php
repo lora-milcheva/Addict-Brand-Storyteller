@@ -74,4 +74,3 @@ if($_FILES) {
 
 
 echo json_encode($response);
-?>

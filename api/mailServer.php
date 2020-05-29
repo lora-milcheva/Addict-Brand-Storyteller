@@ -17,23 +17,23 @@ $subject = test_input($_GET["subject"]);
 $messageText = test_input($_GET["message"]);
 
 
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
+function test_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
 
 if (empty($firstName) && empty($email)) die();
 
 if ($subject != '') {
-    $subject = '=?UTF-8?B?'.base64_encode($subject).'?=';
+    $subject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
 } else {
     $subject = 'no subject';
 }
 
-$message = "
-<html>
+$message = " <html>
 
 <head>
     <title>Mail</title>
@@ -47,9 +47,7 @@ $message = "
         <br/>$phone
     </p>
 </body>
-</html>
-";
-
+</html>";
 
 
 // Always set content-type when sending HTML email
@@ -64,4 +62,3 @@ $headers .= 'Cc: ' . $cc . "\r\n";
 
 mail($to, $subject, $message, $headers);
 
-?>

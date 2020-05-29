@@ -44,4 +44,3 @@ if($dirName)  {
 
 echo json_encode($response);
 
-?>
