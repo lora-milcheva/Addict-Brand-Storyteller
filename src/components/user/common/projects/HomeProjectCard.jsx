@@ -38,7 +38,7 @@ function HomeProjectCard (props) {
 					<p className='project-name'>{project.name[activeLanguage]}</p>
 					<p className='cliche'>{project.description[activeLanguage]}</p>
 				</div>
-				<Link to={pathLang + '/projects/' + project._id}
+				<Link to={pathLang + '/projects/' + project.url}
 				      aria-label={BUTTONS[activeLanguage].seeProject}
 				      className="btn btn-default-light">{BUTTONS[activeLanguage].seeProject}</Link>
 			</div>

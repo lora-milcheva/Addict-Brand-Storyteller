@@ -1,6 +1,9 @@
 import React from 'react';
 import {LanguageContext} from '../../../common/languagesContext/LanguageContext';
 
+// SEO
+import SEO_MetaTags from "../../common/SEO_MetaTags";
+
 // Partials
 import PageHeader from '../../common/headers/PageHeader';
 import ProjectCard from '../../common/projects/ProjectCard';
@@ -69,6 +72,8 @@ class ProjectList extends React.Component {
 
         let activeLanguage = this.context.language;
 
+        let urlPath = this.props.location.pathname;
+
         let projects = this.state.projects.map((e, i) => {
             return (
                 <ProjectCard key={e._id + i}
@@ -80,6 +85,9 @@ class ProjectList extends React.Component {
         return (
 
             <div id="projects-list">
+
+                {/* eslint-disable-next-line react/jsx-pascal-case */}
+                <SEO_MetaTags activeLanguage={activeLanguage} pageName={'projects'} url={urlPath}/>
 
                 <Notifications onRef={ref => (this.notifications = ref)} language={activeLanguage}/>
 

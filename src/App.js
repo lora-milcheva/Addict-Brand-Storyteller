@@ -15,6 +15,7 @@ import Footer from './components/common/Footer';
 import Routes from './components/routes/Routes';
 
 import { LanguageContext, languages } from './components/common/languagesContext/LanguageContext';
+import SEO_MetaTags from "./components/user/common/SEO_MetaTags";
 
 class App extends React.Component {
 
@@ -72,9 +73,14 @@ class App extends React.Component {
 
 		let admin = sessionStorage.getItem('role') !== null;
 
+		let activeLanguage = this.state.language;
+
 		return (
 
-			<LanguageContext.Provider value={{language: this.state.language, updateLanguage: this.updateLanguage}}>
+			<LanguageContext.Provider value={{language: activeLanguage, updateLanguage: this.updateLanguage}}>
+
+				{/* eslint-disable-next-line react/jsx-pascal-case */}
+				{/*<SEO_MetaTags activeLanguage={activeLanguage} pageName={'main'} url={'/'}/>*/}
 
 				<Header/>
 

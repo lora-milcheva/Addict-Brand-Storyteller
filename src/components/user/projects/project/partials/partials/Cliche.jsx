@@ -26,10 +26,10 @@ class Cliche extends React.Component {
 				}
 
 
-				<h2 className="cliche">
+				<h1 className="cliche">
 					<span className="field">{USER_PAGES_TEXT.project[activeLanguage].cliche}</span>
 					{project.description[activeLanguage]}
-				</h2>
+				</h1>
 
 
 			</div>

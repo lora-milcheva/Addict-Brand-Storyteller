@@ -1,6 +1,9 @@
 import React from 'react';
 import { LanguageContext } from '../../common/languagesContext/LanguageContext';
 
+// SEO
+import SEO_MetaTags from "../common/SEO_MetaTags";
+
 // Partials
 import PageHeader from '../common/headers/PageHeader';
 import ServicesMain from './partials/ServicesScheme';
@@ -17,6 +20,9 @@ class Services extends React.Component {
 
 		return (
 			<div id="services" className='container-fluid'>
+
+				{/* eslint-disable-next-line react/jsx-pascal-case */}
+				<SEO_MetaTags activeLanguage={activeLanguage} pageName={'services'}/>
 
 				<PageHeader language={activeLanguage} pageName='services'/>
 

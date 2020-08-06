@@ -1,6 +1,9 @@
 import React from 'react';
 import {LanguageContext} from '../../../common/languagesContext/LanguageContext';
 
+// SEO
+import SEO_MetaTags_Dynamic from "../../common/SEO_MetaTags_Dynamic";
+
 // Partials
 import ProjectHeader from './partials/ProjectHeader';
 import ProjectInfo from './partials/ProjectInfo';
@@ -97,7 +100,7 @@ class ProjectStory extends React.Component {
 
     loadProject = () => {
 
-        let project = PROJECTS.filter(p => p._id === this.projectId)[0]
+        let project = PROJECTS.filter(p => p.url === this.projectId)[0]
 
         this.setState({
                 project: project,
@@ -154,6 +157,8 @@ class ProjectStory extends React.Component {
 
         let activeLanguage = this.context.language;
 
+        let urlPath = this.props.location.pathname;
+
         let project = this.state.project;
 
         let sections = this.state.allSections;
@@ -161,6 +166,9 @@ class ProjectStory extends React.Component {
 
         return (
             <div id="project-story" className="container-fluid">
+
+                {/* eslint-disable-next-line react/jsx-pascal-case */}
+                <SEO_MetaTags_Dynamic activeLanguage={activeLanguage} pageName={'single-project'} projectName={project.name} url={urlPath} />
 
                 {this.state.selectedImage !== '' &&
                 <ImagePreview image={this.state.selectedImage}

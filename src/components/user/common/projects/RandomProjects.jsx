@@ -28,7 +28,7 @@ class RandomProjects extends React.Component {
 
     loadRandomProjects_2 = () => {
 
-        const projects = PROJECTS.filter(e => e._id !== this.props.currentProjectId && !e.isBlocked);
+        const projects = PROJECTS.filter(e => e.url !== this.props.currentProjectId && !e.isBlocked);
         
         let numberOfProjectsToLoad = projects.length;
 
@@ -44,8 +44,8 @@ class RandomProjects extends React.Component {
 
             let randomNumber = Math.floor((Math.random() * projects.length));
 
-            if (!projectIds.includes(projects[randomNumber]._id)) {
-                projectIds.push(projects[randomNumber]._id);
+            if (!projectIds.includes(projects[randomNumber].url)) {
+                projectIds.push(projects[randomNumber].url);
             }
         }
 
@@ -54,7 +54,7 @@ class RandomProjects extends React.Component {
 
             let id = projectIds[i];
 
-            let project = projects.filter(p => p._id === id)[0];
+            let project = projects.filter(p => p.url === id)[0];
 
             randomProjects.push(project);
 
@@ -74,7 +74,7 @@ class RandomProjects extends React.Component {
             .loadAllProjects(query)
             .then(res => {
 
-                const projects = res.filter(e => e._id !== this.props.currentProjectId);
+                const projects = res.filter(e => e.url !== this.props.currentProjectId);
 
                 let numberOfProjectsToLoad = projects.length;
 
@@ -89,8 +89,8 @@ class RandomProjects extends React.Component {
 
                     let randomNumber = Math.floor((Math.random() * projects.length));
 
-                    if (!projectIds.includes(projects[randomNumber]._id)) {
-                        projectIds.push(projects[randomNumber]._id);
+                    if (!projectIds.includes(projects[randomNumber].url)) {
+                        projectIds.push(projects[randomNumber].url);
                     }
                 }
 
@@ -118,7 +118,7 @@ class RandomProjects extends React.Component {
 
         let randomProjects = this.state.randomProjects.map((e, i) => {
             return (
-                <ProjectCard key={e._id + i} project={e} activeLanguage={language}/>
+                <ProjectCard key={e.url + i} project={e} activeLanguage={language}/>
             );
         });
 

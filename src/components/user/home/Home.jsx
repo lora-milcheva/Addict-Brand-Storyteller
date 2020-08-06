@@ -1,6 +1,8 @@
 import React from 'react';
-import { LanguageContext } from '../../common/languagesContext/LanguageContext';
+import {LanguageContext} from '../../common/languagesContext/LanguageContext';
 
+// SEO
+import SEO_MetaTags from "../common/SEO_MetaTags";
 
 // Partials
 import OurAim from './partials/OurAim';
@@ -12,139 +14,145 @@ import BlockQuote from '../common/articlePartials/BlockQuote';
 import HomeProjectCard from '../common/projects/HomeProjectCard';
 import PageHeader from '../common/headers/PageHeader';
 
-
 // Services
 import authService from '../../../services/auth/authService';
 import projectsService from '../../../services/projects/projectsService';
 
 //Constants
-import { BUTTONS } from '../../../constants/constants';
+import {BUTTONS} from '../../../constants/constants';
 import {PROJECTS} from "../../../constants/projects";
 
+
+
 class Home extends React.Component {
-	constructor (props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			projects: [],
+        this.state = {
+            projects: [],
 
-			clients: [],
-			categories: [],
+            clients: [],
+            categories: [],
 
-			loading: true,
+            loading: true,
 
-			videoMuted: true
-		};
+            videoMuted: true
+        };
 
-		this.video = React.createRef();
-		this.unmuteBtn = React.createRef();
-	}
+        this.video = React.createRef();
+        this.unmuteBtn = React.createRef();
+    }
 
-	componentDidMount () {
+    componentDidMount() {
 
-		// Log anonymous user if storage is empty
-		// if (sessionStorage.getItem('authtoken') === null) {
-		// 	authService
-		// 		.loginAnonymousUser()
-		// 		.then(res => {
-		// 			authService.saveSession(res);
-		// 			this.loadStarProjects();
-		// 		})
-		// 		.catch(err => this.notifications.showMessage(err.responseJSON.description));
-		//
-		// 	return;
-		// }
+        // Log anonymous user if storage is empty
+        // if (sessionStorage.getItem('authtoken') === null) {
+        // 	authService
+        // 		.loginAnonymousUser()
+        // 		.then(res => {
+        // 			authService.saveSession(res);
+        // 			this.loadStarProjects();
+        // 		})
+        // 		.catch(err => this.notifications.showMessage(err.responseJSON.description));
+        //
+        // 	return;
+        // }
 
-		this.loadStarProjects();
-	}
+        this.loadStarProjects();
+    }
 
-	loadStarProjects = () => {
+    loadStarProjects = () => {
 
-		this.setState({
-			// projects: PROJECTS.filter(e => e.isStar && !e.isBlocked).sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber))
-			projects: PROJECTS.filter(e => e.isStar && !e.isBlocked)
-		})
+        this.setState({
+            // projects: PROJECTS.filter(e => e.isStar && !e.isBlocked).sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber))
+            projects: PROJECTS.filter(e => e.isStar && !e.isBlocked)
+        })
 
-		// let query = '?query={"isStar":true,"isBlocked":false}';
-		//
-		// projectsService
-		// 	.loadAllProjects(query)
-		// 	.then(res => {
-		// 		res.sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber));
-		// 		this.setState({projects: res});
-		// 	})
-		// 	.catch(err => {
-		// 		this.notifications.showMessage(err.responseJSON.description);
-		// 	});
-	};
+        // let query = '?query={"isStar":true,"isBlocked":false}';
+        //
+        // projectsService
+        // 	.loadAllProjects(query)
+        // 	.then(res => {
+        // 		res.sort((a, b) => Number(a.orderNumber) - Number(b.orderNumber));
+        // 		this.setState({projects: res});
+        // 	})
+        // 	.catch(err => {
+        // 		this.notifications.showMessage(err.responseJSON.description);
+        // 	});
+    };
 
-	toggleVideoControls = () => {
-		let video = this.video.current;
+    toggleVideoControls = () => {
+        let video = this.video.current;
 
-		video.controls = true;
-		this.unmuteBtn.current.classList.add('invisible');
+        video.controls = true;
+        this.unmuteBtn.current.classList.add('invisible');
 
-		this.setState({videoMuted: !this.state.videoMuted});
-	};
+        this.setState({videoMuted: !this.state.videoMuted});
+    };
 
-	render () {
+    render() {
 
-		let activeLanguage = this.context.language;
+        let activeLanguage = this.context.language;
 
-		let projects = Object.assign([], this.state.projects); // Split projects
+        let urlPath = this.props.location.pathname;
 
-		let accentProject = projects.shift(); // Split projects
+        let projects = Object.assign([], this.state.projects); // Split projects
 
-		return (
-			<div id="home" className='container-fluid'>
+        let accentProject = projects.shift(); // Split projects
 
-				<PageHeader language={activeLanguage} pageName='home'/>
+        return (
+            <div id="home" className='container-fluid'>
 
-				<section id='video' className='container'>
+                {/* eslint-disable-next-line react/jsx-pascal-case */}
+                <SEO_MetaTags activeLanguage={activeLanguage} pageName={'home'} url={urlPath}/>
 
-					<video loop
-					       autoPlay
-					       muted={this.state.videoMuted}
-					       controls={false}
-					       controlsList="nodownload"
-					       className='carousel-video'
-					       ref={this.video}>
-						<source src='videos/home/video.mp4' type="video/mp4"/>
-					</video>
+                <PageHeader language={activeLanguage} pageName='home'/>
 
-					<button id='unmute-btn'
-					        ref={this.unmuteBtn}
-					        aria-label={BUTTONS[activeLanguage].playWithAudio}
-					        onClick={this.toggleVideoControls}>
-						{/*{this.state.videoMuted && <i className="fa fa-volume-up" aria-hidden="true"/>}*/}
-						{/*{!this.state.videoMuted && <i className="fa fa-volume-off" aria-hidden="true"/>}*/}
-						{BUTTONS[activeLanguage].playWithAudio}
+                <section id='video' className='container'>
 
-						<span className="slider"/>
+                    <video loop
+                           autoPlay
+                           muted={this.state.videoMuted}
+                           controls={false}
+                           controlsList="nodownload"
+                           className='carousel-video'
+                           ref={this.video}>
+                        <source src='videos/home/video.mp4' type="video/mp4"/>
+                    </video>
 
-					</button>
-				</section>
+                    <button id='unmute-btn'
+                            ref={this.unmuteBtn}
+                            aria-label={BUTTONS[activeLanguage].playWithAudio}
+                            onClick={this.toggleVideoControls}>
+                        {/*{this.state.videoMuted && <i className="fa fa-volume-up" aria-hidden="true"/>}*/}
+                        {/*{!this.state.videoMuted && <i className="fa fa-volume-off" aria-hidden="true"/>}*/}
+                        {BUTTONS[activeLanguage].playWithAudio}
 
-				<OurAim language={activeLanguage}/>
+                        <span className="slider"/>
 
-				<HomeProjectCard activeLanguage={activeLanguage} project={accentProject}/>
+                    </button>
+                </section>
 
-				<OurPhilosophy language={activeLanguage}/>
+                <OurAim language={activeLanguage}/>
 
-				<Projects projects={projects} language={activeLanguage}/>
+                <HomeProjectCard activeLanguage={activeLanguage} project={accentProject}/>
 
-				<Services language={activeLanguage}/>
+                <OurPhilosophy language={activeLanguage}/>
 
-				<BlockQuote language={activeLanguage}
-				            pageName='home'
-				            sectionName='quote'/>
+                <Projects projects={projects} language={activeLanguage}/>
 
-				<AboutUs language={activeLanguage}/>
+                <Services language={activeLanguage}/>
 
-			</div>
+                <BlockQuote language={activeLanguage}
+                            pageName='home'
+                            sectionName='quote'/>
 
-		);
-	}
+                <AboutUs language={activeLanguage}/>
+
+            </div>
+
+        );
+    }
 }
 
 Home.contextType = LanguageContext;

@@ -11,6 +11,7 @@
     "react-animate-on-scroll": "^2.1.5",
     "react-dom": "^16.6.3",
     "react-drop-to-upload": "^1.0.2",
+    "react-helmet": "^6.1.0",
     "react-pose": "^4.0.8",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",

@@ -13,9 +13,9 @@ class DBConnection
     function __construct()
     {
         $this->server = 'localhost';
-        $this->user = "username";
-        $this->pass = "password";
-        $this->db = 'addilaby-addictDb';
+        $this->user = "addilaby_admin";
+        $this->pass = "admin@addict-db";
+        $this->db = 'addilaby_addict-db';
     }
 
 

@@ -17,7 +17,7 @@ function ProjectCard(props) {
     let imageUrl = UTILS.generateUrl(project.projectFolder, project.thumbnail);
 
     return (
-        <Link to={pathLang + '/projects/' + project._id} className="project-card"
+        <Link to={pathLang + '/projects/' + project.url} className="project-card"
               aria-label={project.name[activeLanguage]}>
 
             <figure className="img-container">

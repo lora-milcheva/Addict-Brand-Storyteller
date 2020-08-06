@@ -17,21 +17,21 @@ class ProjectRepository
     function createNewProject($data)
     {
         $project = new Project(
-            $data->name,
-            $data->description,
-            $data->info,
+            serialize($data->name),
+            serialize($data->description),
+            serialize($data->info),
             $data->year,
             $data->webPage,
             $data->isStar,
             $data->isBlocked,
             $data->clientId,
-            $data->categoryIds,
+            serialize($data->categoryIds),
             $data->projectFolder,
             $data->thumbnail,
             $data->largeThumbnail,
             $data->cover,
-            $data->images,
-            $data->videos,
+            serialize($data->images),
+            serialize($data->videos),
             $data->orderNumber
         );
 
